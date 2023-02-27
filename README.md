@@ -1,2 +1,2 @@
 # pydaqmx
-Utilização de Python para coleta de dados de placas NIDAQmx
+Usingy Python for applications with NIDAQmx boards
