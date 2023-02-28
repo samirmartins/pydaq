@@ -2,4 +2,4 @@ nidaqmx
 matplotlib
 numpy
 PySimpleGUI
-
+PyQt5
