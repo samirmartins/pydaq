@@ -1,7 +1,7 @@
 import nidaqmx
 import PySimpleGUI as sg
 import os.path
-from step_response import step_response
+from pydaqmx.step_response import step_response
 
 
 def step_response_gui():
