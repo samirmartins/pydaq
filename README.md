@@ -21,6 +21,13 @@ User Interface).
 Quick view
 ---
 
+![Data Acquired - Visual](https://raw.githubusercontent.com/samirmartins/pydaqmx/main/figures/data_acquired.png?token=GHSAT0AAAAAAB7LEONB3UZSEANPU7FLT36AY76LTZA)
+
+![Graphical User Interface PYDAQmx](https://raw.githubusercontent.com/samirmartins/pydaqmx/main/figures/gui.png?token=GHSAT0AAAAAAB7LEONBM2EW5CN4N2PKG6FWY76LSRA)
+
+![Data Acquired - .dat](https://raw.githubusercontent.com/samirmartins/pydaqmx/main/figures/data.png?token=GHSAT0AAAAAAB7LEONB7NYLHPLWVU6QRGHSY76LTKA)
+
+
 ---
 To install:
 ---
