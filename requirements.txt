@@ -1,2 +1,4 @@
 nidaqmx
 matplotlib
+timesched
+numpy
