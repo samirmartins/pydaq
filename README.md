@@ -32,7 +32,7 @@ Quick view
 To install:
 ---
 
-Just run:
+Just as another Python package, run:
 
 ```python
 pip install pydaqmx
