@@ -6,7 +6,8 @@ import os
 import numpy as np
 import warnings
 
-def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_duration = 10.0, save = True, path = None):
+
+def step_response(device="AnalogInput", channel="ai0", ts=0.5, session_duration=10.0, save=True, path=None):
     """
         This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
 
@@ -45,16 +46,15 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
     mpl.use('Qt5Agg')
 
     # Number of cycles necessary
-    cycles = int(np.floor(session_duration/ts))
+    cycles = int(np.floor(session_duration / ts))
 
     # Initializing device, with channel defined
     task = nidaqmx.Task()
-    task.ai_channels.add_ai_voltage_chan(device+'/'+channel)
+    task.ai_channels.add_ai_voltage_chan(device + '/' + channel)
 
     # create the figure and axes objects
     fig, ax = plt.subplots()
-    fig._label = 'iter_plot' # Defining label
-
+    fig._label = 'iter_plot'  # Defining label
 
     # Run GUI event loop
     plt.ion()
@@ -68,7 +68,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
     plt.show()
 
     # Main loop, where data will be acquired
-    for k in range(cycles+1):
+    for k in range(cycles + 1):
 
         # Acquire data
         temp = task.read()
@@ -78,7 +78,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
 
         # Queue data in a list
         data.append(temp)
-        time_var.append(k*ts)
+        time_var.append(k * ts)
 
         # Update interface
 
@@ -93,19 +93,18 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
         line.set_ydata(data)
         fig.canvas.draw()
         fig.canvas.flush_events()
-        ax.set_xlim([0, 1.1*session_duration])
-        ax.set_ylim([-1.1*max(np.abs(data)), 1.1*max(np.abs(data))])
+        ax.set_xlim([0, 1.1 * session_duration])
+        ax.set_ylim([-1.1 * max(np.abs(data)), 1.1 * max(np.abs(data))])
 
         # Getting end time
         et = time.time()
 
         # Wait for (ts - delta_time) seconds
         try:
-            time.sleep(ts + (st-et))
+            time.sleep(ts + (st - et))
         except:
             warnings.warn("Time spent to append data and update interface was greater than ts. "
                           "You CANNOT trust time.dat")
-
 
     # Closing task
     task.close()
