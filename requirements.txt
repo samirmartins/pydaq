@@ -2,3 +2,4 @@ nidaqmx
 matplotlib
 timesched
 numpy
+PySimpleGUI
