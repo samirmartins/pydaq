@@ -1,10 +1,11 @@
 import nidaqmx
 import time
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import matplotlib as mpl
 import os
 from timesched import Scheduler
 import numpy as np
+import warnings
 
 def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_duration = 60.0, save = False, path = None):
     """
@@ -28,9 +29,21 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
         step_response("AnalogInput", "ai0", 1.0, 60.0, True, "C:\\Users\\Samir\\Desktop")
     """
 
+    # Checking if path were or not defined by the user
+    if path is None:  # Saving in Desktop if it is not defined
+        path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+
+    # Check if able to save data in defined path
+    if not os.path.exists(path):
+        warnings.warn('Defined path does not exists! Please redefine path and run the code again')
+        return
+
     # Initializing variables
     data = []
     time_var = []
+
+    # Changing Matplotlib backend
+    mpl.use('Qt5Agg')
 
     # Number of cycles necessary
     cycles = int(np.floor(session_duration/ts))
@@ -49,6 +62,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
     plt.title("Step Response", fontsize=20)
     plt.xlabel("Time")
     plt.ylabel("Voltage")
+    plt.grid()
     line, = ax.plot(time_var, data)
 
     # Main loop, where data will be acquired
@@ -78,18 +92,17 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
 
     # Check if data will or not be saved, and save accordingly
     if save:
-        # Checking if path were or not defined by the user
-        if path is None: # Saving in Desktop if it is not defined
-            path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
 
         # Saving time_var
+        file_time = open(path + '\\time.dat', 'w')
         for t in time_var:
-            file_time = open(path + '\\time.dat', 'w')
             file_time.write(str(t) + "\n")
-            file_time.close()
+        file_time.close()
 
         # Saving data
+        file_data = open(path + '\\data.dat', 'w')
         for d in data:
-            file_data = open(path + '\\data.dat', 'w')
             file_data.write(str(d) + "\n")
-            file_data.close()
+        file_data.close()
+
+    return
