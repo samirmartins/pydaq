@@ -3,10 +3,12 @@ import PySimpleGUI as sg
 import os.path
 from step_response import step_response
 
+
 def step_response_gui():
     """
+    This functions provides a Graphical User Interface (GUI) that allows one to get data
+    from National Instruments acquisition boards.
 
-    :return:
     """
 
     # Theme
@@ -38,13 +40,14 @@ def step_response_gui():
     second_column = [
         [sg.DD(device_type, size=(40, 8), enable_events=True, default_value=device_type[0], key="-DDDev-")],
         [sg.DD(nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names, enable_events=True,
-              size=(40, 8),
-              default_value=nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names[0],
-              key="-DDChan-")],
+               size=(40, 8),
+               default_value=nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names[0],
+               key="-DDChan-")],
         [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
         [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 8))],
         [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
-        [sg.In(size=(32, 8), enable_events=True, key="-Path-", default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
+        [sg.In(size=(32, 8), enable_events=True, key="-Path-",
+               default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
          sg.FolderBrowse()],
     ]
 
@@ -61,24 +64,23 @@ def step_response_gui():
         [sg.Column(bottom_line)]
     ]
 
-    window = sg.Window("Step Response", layout, resizable=False, finalize=True, element_justification="center", font="Helvetica")
+    window = sg.Window("Step Response", layout, resizable=False, finalize=True, element_justification="center",
+                       font="Helvetica")
 
     # Initializing variables
-    ts = 1.0 # Sample period
-    session_duration = 10.0 # Session duration
+    ts = 1.0  # Sample period
+    session_duration = 10.0  # Session duration
 
     # Event Loop
     while True:
 
         event, values = window.read()
 
-
         if event == sg.WIN_CLOSED:
             break
 
         # Start
         if event == '-Start-':
-
             # Separating variables
             ts = float(values['-TS-'])
             session_duration = float(values['-SD-'])
@@ -93,7 +95,8 @@ def step_response_gui():
         # Changing availables channels if device changes
         if event == "-DDDev-":
             # Discovering new ai channels
-            new_ai_channels = nidaqmx.system.device.Device(device_names[device_type.index(values['-DDDev-'])]).ai_physical_chans.channel_names
+            new_ai_channels = nidaqmx.system.device.Device(
+                device_names[device_type.index(values['-DDDev-'])]).ai_physical_chans.channel_names
             # Default channel
             try:
                 default_channel = new_ai_channels[0]
@@ -101,8 +104,7 @@ def step_response_gui():
                 default_channel = 'There is no analog input in this board'
 
             # Rewriting new ai channels into the right place
-            window['-DDChan-'].update(default_channel,new_ai_channels)
-
+            window['-DDChan-'].update(default_channel, new_ai_channels)
 
     window.close()
 

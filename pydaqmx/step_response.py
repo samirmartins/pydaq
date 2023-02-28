@@ -3,11 +3,10 @@ import time
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import os
-from timesched import Scheduler
 import numpy as np
 import warnings
 
-def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_duration = 10.0, save = False, path = None):
+def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_duration = 10.0, save = True, path = None):
     """
         This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
 
@@ -53,8 +52,9 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
     task.ai_channels.add_ai_voltage_chan(device+'/'+channel)
 
     # create the figure and axes objects
-    plt.figure(num='iterPlot')
     fig, ax = plt.subplots()
+    fig._label = 'iter_plot' # Defining label
+
 
     # Run GUI event loop
     plt.ion()
@@ -65,6 +65,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
     plt.ylabel("Voltage")
     plt.grid()
     line, = ax.plot(time_var, data)
+    plt.show()
 
     # Main loop, where data will be acquired
     for k in range(cycles+1):
@@ -80,6 +81,13 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
         time_var.append(k*ts)
 
         # Update interface
+
+        # Checking if there is still an open figure. If not, stop the for loop.
+        try:
+            plt.get_figlabels().index('iter_plot')
+        except:
+            break
+
         # updating data values
         line.set_xdata(time_var)
         line.set_ydata(data)
