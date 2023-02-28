@@ -21,9 +21,9 @@ User Interface).
 Quick view
 ---
 
-![Data Acquired - Visual](figures/data_acquired.png)
-
 ![Graphical User Interface PYDAQmx](figures/gui.png)
+
+![Data Acquired - Visual](figures/data_acquired.png)
 
 ![Data Acquired - .dat](figures/data.png)
 
