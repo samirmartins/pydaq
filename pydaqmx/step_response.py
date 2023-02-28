@@ -7,7 +7,7 @@ from timesched import Scheduler
 import numpy as np
 import warnings
 
-def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_duration = 60.0, save = False, path = None):
+def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_duration = 10.0, save = False, path = None):
     """
         This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
 
@@ -26,7 +26,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
     :return:
 
     :example:
-        step_response("AnalogInput", "ai0", 1.0, 60.0, True, "C:\\Users\\Samir\\Desktop")
+        step_response("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
     """
 
     # Checking if path were or not defined by the user
@@ -53,6 +53,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
     task.ai_channels.add_ai_voltage_chan(device+'/'+channel)
 
     # create the figure and axes objects
+    plt.figure(num='iterPlot')
     fig, ax = plt.subplots()
 
     # Run GUI event loop
@@ -60,23 +61,23 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
 
     # Title and labels and plot creation
     plt.title("Step Response", fontsize=20)
-    plt.xlabel("Time")
+    plt.xlabel("Time (seconds)")
     plt.ylabel("Voltage")
     plt.grid()
     line, = ax.plot(time_var, data)
 
     # Main loop, where data will be acquired
-    for k in range(cycles):
+    for k in range(cycles+1):
 
         # Acquire data
         temp = task.read()
 
-        # Wait for ts seconds
-        time.sleep(ts)
+        # Counting time to append data and update interface
+        st = time.time()
 
         # Queue data in a list
         data.append(temp)
-        time_var.append(k)
+        time_var.append(k*ts)
 
         # Update interface
         # updating data values
@@ -86,6 +87,17 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 1.0, session_durat
         fig.canvas.flush_events()
         ax.set_xlim([0, 1.1*session_duration])
         ax.set_ylim([-1.1*max(np.abs(data)), 1.1*max(np.abs(data))])
+
+        # Getting end time
+        et = time.time()
+
+        # Wait for (ts - delta_time) seconds
+        try:
+            time.sleep(ts + (st-et))
+        except:
+            warnings.warn("Time spent to append data and update interface was greater than ts. "
+                          "You CANNOT trust time.dat")
+
 
     # Closing task
     task.close()
