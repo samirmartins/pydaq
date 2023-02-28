@@ -9,6 +9,9 @@ def step_response_gui():
     :return:
     """
 
+    # Theme
+    sg.theme('Dark')
+
     device_names = []
     device_categories = []
     device_type = []
@@ -23,34 +26,42 @@ def step_response_gui():
 
     # First the window layout in 2 columns
     first_column = [
-        [sg.Text('Choose device: '), sg.DD(device_type, size=(20, 8), enable_events=True, default_value=device_type[0], key="-DDDev-")],
-        [sg.Text('Choose channel: '),
-         sg.DD(nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names, enable_events=True, size=(20, 8),
-               default_value=nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names[0],
-               key="-DDChan-")],
-        [sg.Text("Sample period (s)"), sg.I("1.0", enable_events=True, key='-TS-')],
-        [sg.Text("Session Duration (s)"), sg.I("10.0", enable_events=True, key='-SD-')],
-        [sg.Text('Save data?'), sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
-        [sg.Text("Path"),
-         sg.In(size=(25, 1), enable_events=True, key="-Path-", default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
-         sg.FolderBrowse(), ],
-        [sg.Button('Start', key='-Start-'), sg.Button('Stop', key='-Stop-')]
+        [sg.Text('Choose device: ')],
+        [sg.Text('Choose channel: ')],
+        [sg.Text("Sample period (s)")],
+        [sg.Text("Session duration (s)")],
+        [sg.Text('Save data?')],
+        [sg.Text("Path")],
     ]
 
     # For now will only show the name of the file that was chosen
     second_column = [
-        [sg.Canvas(key="-Plot-")],
-        [sg.Button('Clear Screen', '-Clr-')]
+        [sg.DD(device_type, size=(40, 8), enable_events=True, default_value=device_type[0], key="-DDDev-")],
+        [sg.DD(nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names, enable_events=True,
+              size=(40, 8),
+              default_value=nidaqmx.system.device.Device(device_names[0]).ai_physical_chans.channel_names[0],
+              key="-DDChan-")],
+        [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
+        [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 8))],
+        [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
+        [sg.In(size=(32, 8), enable_events=True, key="-Path-", default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
+         sg.FolderBrowse()],
+    ]
+
+    bottom_line = [
+        [sg.Button('START EXPERIMENT', key='-Start-', auto_size_button=True)]
     ]
 
     # ----- Full layout -----
     layout = [
         [sg.Column(first_column),
-         sg.VSeperator(),
-         sg.Column(second_column), ]
+         sg.VSeparator(),
+         sg.Column(second_column)],
+        [sg.HSeparator()],
+        [sg.Column(bottom_line)]
     ]
 
-    window = sg.Window("Step Response", layout, resizable=True, finalize=True, element_justification="center", font="Helvetica")
+    window = sg.Window("Step Response", layout, resizable=False, finalize=True, element_justification="center", font="Helvetica")
 
     # Initializing variables
     ts = 1.0 # Sample period
@@ -96,6 +107,3 @@ def step_response_gui():
     window.close()
 
     return
-
-if __name__ == '__main__':
-    step_response_gui()

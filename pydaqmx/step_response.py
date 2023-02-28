@@ -60,7 +60,7 @@ def step_response(device="AnalogInput", channel = "ai0", ts = 0.5, session_durat
     plt.ion()
 
     # Title and labels and plot creation
-    plt.title("Step Response", fontsize=20)
+    plt.title("Step Response")
     plt.xlabel("Time (seconds)")
     plt.ylabel("Voltage")
     plt.grid()
