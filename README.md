@@ -46,7 +46,7 @@ To use (more details in [examples](examples)):
 Graphical User Interface (NIDAQmx):
 
 ```python
-from pydaq.Get_data import Get_data
+from pydaq.get_data import Get_data
 
 g = Get_data()
 g.get_data_nidaqmx_gui()
@@ -55,7 +55,7 @@ g.get_data_nidaqmx_gui()
 Command line (NIDAQmx):
 
 ```python
-from pydaq.Get_data import Get_data
+from pydaq.get_data import Get_data
 
 g = Get_data("Dev1", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop", True)
 g.get_data_nidaqmx()

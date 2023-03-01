@@ -60,8 +60,6 @@ class Get_data:
             self.device_categories.append(device.product_category)
             self.device_type.append(device.product_type)
 
-        self.stop = False # If True, stop the experiment
-
     def get_data_nidaqmx(self):
         """
             This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
@@ -80,7 +78,7 @@ class Get_data:
             return
 
         # Number of cycles necessary
-        cycles = int(np.floor(self.session_duration / self.ts))
+        cycles = int(np.floor(self.session_duration / self.ts))+1
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
@@ -107,7 +105,7 @@ class Get_data:
             plt.show()
 
         # Main loop, where data will be acquired
-        for k in range(cycles + 1):
+        for k in range(cycles):
 
             # Acquire data
             temp = task.read()
@@ -135,7 +133,7 @@ class Get_data:
                 ax.set_xlim([0, 1.1 * self.session_duration])
                 ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
 
-            print(f'Iteration: {k} of {cycles}')
+            print(f'Iteration: {k} of {cycles-1}')
 
             # Getting end time
             et = time.time()
@@ -212,7 +210,7 @@ class Get_data:
         ]
 
         bottom_line = [
-            [sg.Button('START EXPERIMENT', key='-Start-', auto_size_button=True)]
+            [sg.Button('GET DATA', key='-Start-', auto_size_button=True)]
         ]
 
         # ----- Full layout -----
@@ -249,7 +247,6 @@ class Get_data:
                 # Restarting variables
                 self.data = []
                 self.time_var = []
-                self.stop = False
 
                 # Calling data aquisition function
                 self.get_data_nidaqmx()
