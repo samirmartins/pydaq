@@ -194,11 +194,17 @@ class Get_data:
         ]
 
         # For now will only show the name of the file that was chosen
+        try:
+            chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
+            defchan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0]
+        except:
+            chan = ''
+            defchan = ''
+
+        # For now will only show the name of the file that was chosen
         second_column = [
             [sg.DD(self.device_type, size=(40, 8), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names, enable_events=True,
-                   size=(40, 8),
-                   default_value=nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0],
+            [sg.DD(chan, enable_events=True, size=(40, 8), default_value=defchan,
                    key="-DDChan-")],
             [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
             [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 8))],
@@ -248,7 +254,7 @@ class Get_data:
                 self.data = []
                 self.time_var = []
 
-                # Calling data aquisition function
+                # Calling data aquisition method
                 self.get_data_nidaqmx()
 
             # Changing availables channels if device changes

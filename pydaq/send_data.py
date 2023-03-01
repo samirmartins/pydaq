@@ -6,7 +6,7 @@ import os
 import numpy as np
 import warnings
 import PySimpleGUI as sg
-
+from pydaq.utils import error_window
 
 class Send_data:
     """
@@ -55,6 +55,8 @@ class Send_data:
 
         # Time variable
         self.time_var = []
+
+        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
 
     def send_data_nidaqmx(self):
         """
@@ -122,7 +124,7 @@ class Send_data:
                 fig.canvas.draw()
                 fig.canvas.flush_events()
                 ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
-                ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
+                ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
 
             print(f'Iteration: {k} of {cycles-1}')
 
@@ -162,17 +164,21 @@ class Send_data:
         ]
 
         # For now will only show the name of the file that was chosen
+        try:
+            chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
+            defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]
+        except:
+            chan = ''
+            defchan = 'There is no analog output in this board'
+
         second_column = [
             [sg.DD(self.device_type, size=(40, 8), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names, enable_events=True,
-                   size=(40, 8),
-                   default_value=nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0],
-                   key="-DDChan-")],
+            [sg.DD(chan, enable_events=True, size=(40, 8),default_value=defchan, key="-DDChan-")],
             [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.In(size=(32, 8), enable_events=True, key="-Path-",
-                   default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
-             sg.FolderBrowse()],
+                   default_text=self.path),
+             sg.FileBrowse()],
         ]
 
         bottom_line = [
@@ -201,31 +207,37 @@ class Send_data:
 
             # Start
             if event == '-Start-':
-                # Separating variables
-                self.ts = float(values['-TS-'])
-                self.device = values['-DDChan-'].split('/')[0]
-                self.channel = values['-DDChan-'].split('/')[1]
-                self.path = values['-Path-']
-                self.plot = values['-Plot-']
 
-                # Restarting variables
+                try:
+                    # Separating variables
+                    self.ts = float(values['-TS-'])
+                    self.device = values['-DDChan-'].split('/')[0]
+                    self.channel = values['-DDChan-'].split('/')[1]
+                    self.path = values['-Path-']
+                    self.plot = values['-Plot-']
 
-                # Calling data aquisition function
-                self.get_data_nidaqmx()
+                    # Reading data from defined path
+                    self.data = np.array(open(s.path, 'r').read().split('\n'), dtype='float')
+                    # Calling send data method
+                    self.send_data_nidaqmx()
+                except:
+                    error_window()
+
+
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
-                # Discovering new ai channels
-                new_ai_channels = nidaqmx.system.device.Device(
-                    self.device_names[self.device_type.index(values['-DDDev-'])]).ai_physical_chans.channel_names
+                # Discovering new ao channels
+                new_ao_channels = nidaqmx.system.device.Device(
+                    self.device_names[self.device_type.index(values['-DDDev-'])]).ao_physical_chans.channel_names
                 # Default channel
                 try:
-                    default_channel = new_ai_channels[0]
+                    default_channel = new_ao_channels[0]
                 except:
-                    default_channel = 'There is no analog input in this board'
+                    default_channel = 'There is no analog output in this board'
 
                 # Rewriting new ai channels into the right place
-                window['-DDChan-'].update(default_channel, new_ai_channels)
+                window['-DDChan-'].update(default_channel, new_ao_channels)
 
         window.close()
 
