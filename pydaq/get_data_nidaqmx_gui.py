@@ -1,13 +1,16 @@
 import nidaqmx
 import PySimpleGUI as sg
 import os.path
-from pydaqmx.step_response import step_response
+from pydaq.get_data_nidaqmx import get_data_nidaqmx
 
 
-def step_response_gui():
+def get_data_nidaqmx_gui():
     """
     This functions provides a Graphical User Interface (GUI) that allows one to get data
     from National Instruments acquisition boards.
+
+    :example:
+        get_data_nidaqmx_gui()
 
     """
 
@@ -90,7 +93,7 @@ def step_response_gui():
             path = values['-Path-']
 
             # Calling main function
-            step_response(device, channel, ts, session_duration, save, path)
+            get_data_nidaqmx(device, channel, ts, session_duration, save, path)
 
         # Changing availables channels if device changes
         if event == "-DDDev-":

@@ -7,7 +7,7 @@ import numpy as np
 import warnings
 
 
-def step_response(device="AnalogInput", channel="ai0", ts=0.5, session_duration=10.0, save=True, path=None):
+def get_data_nidaqmx(device="AnalogInput", channel="ai0", ts=0.5, session_duration=10.0, save=True, path=None):
     """
         This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
 
@@ -26,7 +26,7 @@ def step_response(device="AnalogInput", channel="ai0", ts=0.5, session_duration=
     :return:
 
     :example:
-        step_response("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
+        get_data_nidaqmx_gui("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
     """
 
     # Checking if path were or not defined by the user

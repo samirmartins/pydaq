@@ -1,18 +1,19 @@
-# PYDAQmx
+# PYDAQ
 
 ----
-Using Python for applications with NIDAQmx boards
+Using Python for applications with experimental data (NIDAQmx)
 ----
 
-This project uses python for data acquisition. It 
-was designed to be used as a data acquisition system 
+This project uses python for data acquisition and empirical experiments. 
+It was firstly designed to be used as a data acquisition system 
 when acquiring data for a step-response experiment. 
 
-Despite this, one can use PYDAQmx to acquire signal from 
-any system, using any NIDAQmx board, without any line 
-of code. It will save acquired data in .dat files in 
-a path specified by the user (or at Desktop, if no 
-path is provided)
+Despite this, one can use PYDAQ to acquire signal from 
+any system, using different boards [(check examples folder)](examples), 
+without any line of code. 
+
+The code provided here allows user to save acquired data in .dat files in 
+a path specified by the user (or at Desktop, if no path is provided)
 
 You can find below some examples from the GUI (Graphical 
 User Interface).
@@ -35,23 +36,25 @@ To install:
 Just as another Python package, run:
 
 ```python
-pip install pydaqmx
+pip install pydaq
 ```
 
 ---
 To use:
 ---
 
-Graphical User Interface:
+Graphical User Interface (NIDAQmx):
 
 ```python
-from pydaqmx.step_response_gui import step_response_gui
-step_response_gui()
+from pydaq.get_data_nidaqmx_gui import get_data_nidaqmx_gui
+
+get_data_nidaqmx_gui()
 ```
 
-Command line:
+Command line (NIDAQmx):
 
 ```python
-from pydaqmx.step_response import step_response
-step_response("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
+from pydaq.get_data_nidaqmx import get_data_nidaqmx
+
+get_data_nidaqmx("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
 ```
