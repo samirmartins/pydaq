@@ -46,15 +46,17 @@ To use (more details in [examples](examples)):
 Graphical User Interface (NIDAQmx):
 
 ```python
-from pydaq.get_data_nidaqmx_gui import get_data_nidaqmx_gui
+from pydaq.Get_data import Get_data
 
-get_data_nidaqmx_gui()
+g = Get_data()
+g.get_data_nidaqmx_gui()
 ```
 
 Command line (NIDAQmx):
 
 ```python
-from pydaq.get_data_nidaqmx import get_data_nidaqmx
+from pydaq.Get_data import Get_data
 
-get_data_nidaqmx("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
+g = Get_data("Dev1", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop", True)
+g.get_data_nidaqmx()
 ```

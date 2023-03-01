@@ -18,7 +18,7 @@ class Get_data:
              - https://www.github.com/samirmartins/
 
         :param:
-            device: nidaqmx device from where data will be colected. Example: "AnalogInput"
+            device: nidaqmx device from where data will be colected. Example: "Dev1"
             channel: channel from where data will be acquired. Example: ai0
             ts: sample period, in seconds.
             session_duration: session duration, in seconds.
@@ -28,7 +28,7 @@ class Get_data:
     """
 
     def __init__(self,
-                 device="AnalogInput",
+                 device="Dev1",
                  channel="ai0",
                  ts=0.5,
                  session_duration=10.0,
@@ -67,7 +67,7 @@ class Get_data:
             This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
 
         :example:
-            get_data_nidaqmx_gui("AnalogInput", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop")
+            get_data_nidaqmx_gui()
         """
 
         # Checking if path were or not defined by the user
@@ -212,7 +212,7 @@ class Get_data:
         ]
 
         bottom_line = [
-            [sg.Button('START EXPERIMENT', key='-Start-', auto_size_button=True), sg.Button('STOP EXPERIMENT', key='-Stop-', auto_size_button=True,  button_color=('black', 'dark red'))]
+            [sg.Button('START EXPERIMENT', key='-Start-', auto_size_button=True)]
         ]
 
         # ----- Full layout -----
