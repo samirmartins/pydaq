@@ -40,7 +40,7 @@ pip install pydaq
 ```
 
 ---
-To use:
+To use (more details in [examples](examples)):
 ---
 
 Graphical User Interface (NIDAQmx):
