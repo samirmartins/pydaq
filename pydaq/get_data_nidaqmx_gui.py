@@ -35,6 +35,7 @@ def get_data_nidaqmx_gui():
         [sg.Text('Choose channel: ')],
         [sg.Text("Sample period (s)")],
         [sg.Text("Session duration (s)")],
+        [sg.Text('Plot data?')],
         [sg.Text('Save data?')],
         [sg.Text("Path")],
     ]
@@ -48,6 +49,7 @@ def get_data_nidaqmx_gui():
                key="-DDChan-")],
         [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
         [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 8))],
+        [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
         [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
         [sg.In(size=(32, 8), enable_events=True, key="-Path-",
                default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
@@ -67,7 +69,7 @@ def get_data_nidaqmx_gui():
         [sg.Column(bottom_line)]
     ]
 
-    window = sg.Window("Step Response", layout, resizable=False, finalize=True, element_justification="center",
+    window = sg.Window("PYDAQ - Data Acquisition", layout, resizable=False, finalize=True, element_justification="center",
                        font="Helvetica")
 
     # Initializing variables
@@ -91,9 +93,10 @@ def get_data_nidaqmx_gui():
             channel = values['-DDChan-'].split('/')[1]
             save = values['-Save-']
             path = values['-Path-']
+            plot = values['-Plot-']
 
             # Calling main function
-            get_data_nidaqmx(device, channel, ts, session_duration, save, path)
+            get_data_nidaqmx(device, channel, ts, session_duration, save, path, plot)
 
         # Changing availables channels if device changes
         if event == "-DDDev-":
