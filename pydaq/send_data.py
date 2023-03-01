@@ -6,7 +6,7 @@ import os
 import numpy as np
 import warnings
 import PySimpleGUI as sg
-from pydaq.utils import error_window
+from pydaq.utils.error_window import error_window
 
 class Send_data:
     """
@@ -56,7 +56,7 @@ class Send_data:
         # Time variable
         self.time_var = []
 
-        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop', 'data.dat')
 
     def send_data_nidaqmx(self):
         """
@@ -91,7 +91,7 @@ class Send_data:
             plt.ion()
 
             # Title and labels and plot creation
-            plt.title("PYDAQ - Sending Data")
+            plt.title(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
             plt.xlabel("Time (seconds)")
             plt.ylabel("Voltage")
             plt.grid()

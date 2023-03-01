@@ -1,3 +1,4 @@
+import PySimpleGUI as sg
 def error_window():
     layout2 = [[sg.VPush()], [sg.Cancel("Device, channel or data were not choosen properly!", key="-new-")],
                [sg.VPush()]]

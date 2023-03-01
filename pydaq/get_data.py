@@ -6,8 +6,7 @@ import os
 import numpy as np
 import warnings
 import PySimpleGUI as sg
-import os.path
-
+from pydaq.utils.error_window import error_window
 
 class Get_data:
     """
@@ -241,21 +240,25 @@ class Get_data:
 
             # Start
             if event == '-Start-':
-                # Separating variables
-                self.ts = float(values['-TS-'])
-                self.session_duration = float(values['-SD-'])
-                self.device = values['-DDChan-'].split('/')[0]
-                self.channel = values['-DDChan-'].split('/')[1]
-                self.save = values['-Save-']
-                self.path = values['-Path-']
-                self.plot = values['-Plot-']
 
-                # Restarting variables
-                self.data = []
-                self.time_var = []
+                try:
+                    # Separating variables
+                    self.ts = float(values['-TS-'])
+                    self.session_duration = float(values['-SD-'])
+                    self.device = values['-DDChan-'].split('/')[0]
+                    self.channel = values['-DDChan-'].split('/')[1]
+                    self.save = values['-Save-']
+                    self.path = values['-Path-']
+                    self.plot = values['-Plot-']
 
-                # Calling data aquisition method
-                self.get_data_nidaqmx()
+                    # Restarting variables
+                    self.data = []
+                    self.time_var = []
+
+                    # Calling data aquisition method
+                    self.get_data_nidaqmx()
+                except:
+                    error_window()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
