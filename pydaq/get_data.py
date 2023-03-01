@@ -96,7 +96,7 @@ class Get_data:
             plt.ion()
 
             # Title and labels and plot creation
-            plt.title("PYDAQ - Data Acquisition")
+            plt.title(f'PYDAQ - Data Acquisition. {self.device}, {self.channel}')
             plt.xlabel("Time (seconds)")
             plt.ylabel("Voltage")
             plt.grid()

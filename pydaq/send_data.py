@@ -91,7 +91,6 @@ class Send_data:
             plt.ion()
 
             # Title and labels and plot creation
-            plt.title(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
             plt.xlabel("Time (seconds)")
             plt.ylabel("Voltage")
             plt.grid()
@@ -108,6 +107,7 @@ class Send_data:
             st = time.time()
 
             # Queue data in a list
+            plt.title(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
             self.time_var.append(k * self.ts)
 
             if self.plot:
@@ -217,7 +217,7 @@ class Send_data:
                     self.plot = values['-Plot-']
 
                     # Reading data from defined path
-                    self.data = np.array(open(s.path, 'r').read().split('\n'), dtype='float')
+                    self.data = np.array(open(self.path, 'r').read().split('\n'), dtype='float')
                     # Calling send data method
                     self.send_data_nidaqmx()
                 except:
@@ -245,6 +245,7 @@ class Send_data:
 
 
 if __name__ == "__main__":
-    data = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
-    s = Send_data(data, device='Dev2')
+    # data = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
+    # s = Send_data(data, device='Dev2')
+    s = Send_data()
     s.send_data_nidaqmx_gui()
