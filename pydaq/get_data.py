@@ -1,4 +1,5 @@
 import nidaqmx
+from nidaqmx.constants import TerminalConfiguration
 import time
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -24,6 +25,7 @@ class Get_data:
             save: if True, saves data in path defined by path.
             path: where data will be saved.
             plot: if True, plot data iteractively as they are acquired
+            terminal: Diff, RSE or NRSE: terminal configuration (differential, referenced single ended or non-referenced single ended)
     """
 
     def __init__(self,
@@ -33,7 +35,8 @@ class Get_data:
                  session_duration=10.0,
                  save=True,
                  path=None,
-                 plot=True
+                 plot=True,
+                 terminal = 'Diff',
                  ):
 
         self.device = device
@@ -43,6 +46,12 @@ class Get_data:
         self.save = save
         self.path = path
         self.plot = plot
+
+        # Terminal configuration
+        self.term_map = {'Diff': TerminalConfiguration.DIFF,
+                'RSE': TerminalConfiguration.RSE,
+                'NRSE': TerminalConfiguration.NRSE}
+        self.terminal = self.term_map[terminal]
 
         # Initializing variables
         self.data = []
@@ -58,6 +67,10 @@ class Get_data:
             self.device_names.append(device.name)
             self.device_categories.append(device.product_category)
             self.device_type.append(device.product_type)
+
+        # Error flags
+        self.error_path = False
+
 
     def get_data_nidaqmx(self):
         """
@@ -81,7 +94,7 @@ class Get_data:
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
-        task.ai_channels.add_ai_voltage_chan(self.device + '/' + self.channel)
+        task.ai_channels.add_ai_voltage_chan(self.device + '/' + self.channel, terminal_config=self.terminal)
 
         if self.plot:  # If plot,
 
@@ -185,6 +198,7 @@ class Get_data:
         first_column = [
             [sg.Text('Choose device: ')],
             [sg.Text('Choose channel: ')],
+            [sg.Text('Terminal Config.')],
             [sg.Text("Sample period (s)")],
             [sg.Text("Session duration (s)")],
             [sg.Text('Plot data?')],
@@ -202,14 +216,16 @@ class Get_data:
 
         # For now will only show the name of the file that was chosen
         second_column = [
-            [sg.DD(self.device_type, size=(40, 8), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(chan, enable_events=True, size=(40, 8), default_value=defchan,
+            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
+            [sg.DD(chan, enable_events=True, size=(40, 1), default_value=defchan,
                    key="-DDChan-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
-            [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 8))],
+            [sg.DD(['Diff', 'RSE', 'NRSE'], enable_events=True, size=(40, 1), default_value=['Diff'],
+                   key="-Terminal-")],
+            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
-            [sg.In(size=(32, 8), enable_events=True, key="-Path-",
+            [sg.In(size=(32, 1), enable_events=True, key="-Path-",
                    default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
              sg.FolderBrowse()],
         ]
@@ -220,11 +236,11 @@ class Get_data:
 
         # ----- Full layout -----
         layout = [
-            [sg.Column(first_column),
+            [sg.Column(first_column, vertical_alignment='top'),
              sg.VSeparator(),
-             sg.Column(second_column)],
+             sg.Column(second_column, vertical_alignment='center')],
             [sg.HSeparator()],
-            [sg.Column(bottom_line)]
+            [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
         window = sg.Window("PYDAQ - Data Acquisition", layout, resizable=False, finalize=True, element_justification="center",
@@ -243,6 +259,8 @@ class Get_data:
 
                 try:
                     # Separating variables
+                    self.terminal = self.term_map[values['-Terminal-']]
+                    print(self.terminal)
                     self.ts = float(values['-TS-'])
                     self.session_duration = float(values['-SD-'])
                     self.device = values['-DDChan-'].split('/')[0]
@@ -254,11 +272,15 @@ class Get_data:
                     # Restarting variables
                     self.data = []
                     self.time_var = []
+                    self.error_path = False
+
                 except:
                     error_window()
+                    self.error_path = True
 
                 # Calling data aquisition method
-                self.get_data_nidaqmx()
+                if not self.error_path:
+                    self.get_data_nidaqmx()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
@@ -277,3 +299,4 @@ class Get_data:
         window.close()
 
         return
+

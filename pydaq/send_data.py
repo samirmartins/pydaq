@@ -184,14 +184,14 @@ class Send_data:
             defchan = 'There is no analog output in this board'
 
         second_column = [
-            [sg.DD(self.device_type, size=(40, 8), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(chan, enable_events=True, size=(40, 8),default_value=defchan, key="-DDChan-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 8))],
+            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
+            [sg.DD(chan, enable_events=True, size=(40, 1),default_value=defchan, key="-DDChan-")],
+            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
-            [sg.In(size=(32, 8), enable_events=True, key="-Path-",
+            [sg.In(size=(32, 1), enable_events=True, key="-Path-",
                    default_text=self.path),
              sg.FileBrowse()],
-            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size = (10,8), enable_events=True, key = '-ao_min-'), sg.VSeparator(), sg.Text("Maximum"), sg.In(default_text=self.ao_max, size = (10,8), enable_events=True, key = '-ao_max-')]
+            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size = (10,1), enable_events=True, key = '-ao_min-'), sg.VSeparator(), sg.Text("Maximum"), sg.In(default_text=self.ao_max, size = (10,1), enable_events=True, key = '-ao_max-')]
         ]
 
         bottom_line = [
@@ -200,11 +200,11 @@ class Send_data:
 
         # ----- Full layout -----
         layout = [
-            [sg.Column(first_column),
+            [sg.Column(first_column, vertical_alignment='top'),
              sg.VSeparator(),
-             sg.Column(second_column)],
+             sg.Column(second_column, vertical_alignment='center')],
             [sg.HSeparator()],
-            [sg.Column(bottom_line)]
+            [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
         window = sg.Window("PYDAQ - Sending data", layout, resizable=False, finalize=True, element_justification="center",
