@@ -9,6 +9,7 @@ import warnings
 import PySimpleGUI as sg
 from pydaq.utils.error_window import error_window
 import serial
+import serial.tools.list_ports
 
 class Get_data:
     """
@@ -72,6 +73,8 @@ class Get_data:
         # Error flags
         self.error_path = False
 
+        # COM ports
+        self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
 
     def get_data_nidaqmx(self):
         """
@@ -259,7 +262,6 @@ class Get_data:
                 try:
                     # Separating variables
                     self.terminal = self.term_map[values['-Terminal-']]
-                    print(self.terminal)
                     self.ts = float(values['-TS-'])
                     self.session_duration = float(values['-SD-'])
                     self.device = values['-DDChan-'].split('/')[0]
@@ -432,9 +434,7 @@ class Get_data:
 
         # First the window layout in 2 columns
         first_column = [
-            [sg.Text('Choose device: ')],
-            [sg.Text('Choose channel: ')],
-            [sg.Text('Terminal Config.')],
+            [sg.Text('Choose your arduino: ')],
             [sg.Text("Sample period (s)")],
             [sg.Text("Session duration (s)")],
             [sg.Text('Plot data?')],
@@ -452,11 +452,7 @@ class Get_data:
 
         # For now will only show the name of the file that was chosen
         second_column = [
-            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(chan, enable_events=True, size=(40, 1), default_value=defchan,
-                   key="-DDChan-")],
-            [sg.DD(['Diff', 'RSE', 'NRSE'], enable_events=True, size=(40, 1), default_value=['Diff'],
-                   key="-Terminal-")],
+            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
             [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
             [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
@@ -495,12 +491,9 @@ class Get_data:
 
                 try:
                     # Separating variables
-                    self.terminal = self.term_map[values['-Terminal-']]
-                    print(self.terminal)
                     self.ts = float(values['-TS-'])
                     self.session_duration = float(values['-SD-'])
-                    self.device = values['-DDChan-'].split('/')[0]
-                    self.channel = values['-DDChan-'].split('/')[1]
+                    self.com_port = serial.tools.list_ports.comports()[self.com_ports.index(values['-COM-'])].name
                     self.save = values['-Save-']
                     self.path = values['-Path-']
                     self.plot = values['-Plot-']
@@ -516,7 +509,7 @@ class Get_data:
 
                 # Calling data aquisition method
                 if not self.error_path:
-                    self.get_data_nidaqmx()
+                    self.get_data_arduino(self.com_port)
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
@@ -549,3 +542,7 @@ class Get_data:
             warnings.warn('Defined path does not exists! Please redefine path and run the code again')
             return
 
+if __name__ == '__main__':
+    from pydaq.get_data import Get_data
+    g = Get_data()
+    g.get_data_arduino_gui()
