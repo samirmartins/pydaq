@@ -225,6 +225,7 @@ class Send_data:
                 self.ao_min = values['-ao_min-']
 
                 # Reading data from defined path
+                self.path = values['-Path-']
                 self.data = np.loadtxt(self.path)
 
                 # Check if max(data) < self.ao_max
@@ -239,7 +240,6 @@ class Send_data:
                     self.ts = float(values['-TS-'])
                     self.device = values['-DDChan-'].split('/')[0]
                     self.channel = values['-DDChan-'].split('/')[1]
-                    self.path = values['-Path-']
                     self.plot = values['-Plot-']
                     self.error_path = False
 
@@ -269,9 +269,3 @@ class Send_data:
 
         return
 
-
-if __name__ == "__main__":
-    # data = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
-    # s = Send_data(data, device='Dev2')
-    s = Send_data()
-    s.send_data_nidaqmx_gui()
