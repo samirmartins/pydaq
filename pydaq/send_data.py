@@ -8,6 +8,8 @@ import warnings
 import PySimpleGUI as sg
 from pydaq.utils.error_window import error_window
 from pydaq.utils.max_error import max_error
+import serial
+import serial.tools.list_ports
 
 class Send_data:
     """
@@ -69,12 +71,16 @@ class Send_data:
         # Error flags
         self.error_max, self.error_path = False, False
 
+        # COM ports
+        self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+
+
     def send_data_nidaqmx(self):
         """
             This function can be used to send experimental data  using Python + NIDAQmx boards.
 
         :example:
-            send_data_nidaqmx_gui()
+            send_data_nidaqmx()
         """
 
         # Checking if there is data to be sent
@@ -269,3 +275,194 @@ class Send_data:
 
         return
 
+    def send_data_arduino(self, COM):
+        """
+            This function can be used to send experimental data  using Python +
+            Arduino boards (digital output only). If "High", the value should be greather
+            than 2.5. Else, "Low"
+
+        :example:
+            send_data_arduino()
+        """
+
+        # Checking if there is data to be sent
+        if self.data is None:
+            warnings.warn("You must define data that will be sent to the board. Please, re-run the code providing them")
+            return
+
+        # Number of cycles necessary
+        cycles = len(self.data)
+
+        # Opening ports and serial communication
+        ser = serial.Serial()
+        ser.dtr = True
+        ser.baudrate = (9600)
+        ser.port = COM # Definind port
+
+        if not ser.isOpen():# Open port if not openned
+            ser.open() # Opening port
+
+        # Rearranjing data to be send and also loaded data
+        self.data_send = list(self.data).copy()
+        self.data_send = [b'1' if i>2.5 else b'0' for i in self.data]
+        self.data = np.array(self.data)
+
+        if self.plot:  # If plot,
+
+            # Changing Matplotlib backend
+            mpl.use('Qt5Agg')
+
+            # create the figure and axes objects
+            fig, ax = plt.subplots()
+            fig._label = 'iter_plot'  # Defining label
+
+            # Run GUI event loop
+            plt.ion()
+
+            # Title and labels and plot creation
+            plt.xlabel("Time (seconds)")
+            plt.ylabel("Voltage")
+            plt.grid()
+            line, = ax.plot(self.time_var, [])
+            plt.show()
+
+        # Main loop, where data will be sent
+        for k in range(cycles):
+
+            # Sending data
+            ser.write(self.data_send[k])
+
+            # Counting time to append data and update interface
+            st = time.time()
+
+            # Queue data in a list
+            plt.title(f'PYDAQ - Sending Data. Arduino, Port: {COM}')
+            self.time_var.append(k * self.ts)
+
+            if self.plot:
+
+                # Checking if there is still an open figure. If not, stop the for loop.
+                try:
+                    plt.get_figlabels().index('iter_plot')
+                except:
+                    break
+
+                # Updating data values
+                line.set_xdata(self.time_var)
+                line.set_ydata(self.data[0:k + 1])
+                fig.canvas.draw()
+                fig.canvas.flush_events()
+                ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
+                ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
+
+            print(f'Iteration: {k} of {cycles-1}')
+
+            # Getting end time
+            et = time.time()
+
+            # Wait for (ts - delta_time) seconds
+            try:
+                time.sleep(self.ts + (st - et))
+            except:
+                warnings.warn("Time spent to append data and update interface was greater than ts. "
+                              "You CANNOT trust time.dat")
+
+        ser.write(b'0') # Turning off the output
+        # Closing port
+        ser.close()
+
+    def send_data_arduino_gui(self):
+        """
+        This functions provides a Graphical User Interface (GUI) that allows one to send data
+        from a .dat file to a Arduino Board. Further
+        details in send_data_arduino_gui
+
+        :example:
+            send_data_arduino_gui()
+
+        """
+
+        # Theme
+        sg.theme('Dark')
+
+        # First the window layout in 2 columns
+        first_column = [
+            [sg.Text('Choose your arduino: ')],
+            [sg.Text("Sample period (s)")],
+            [sg.Text('Plot data?')],
+            [sg.Text("Data")],
+        ]
+
+        # For now will only show the name of the file that was chosen
+        try:
+            chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
+            defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]
+        except:
+            chan = ''
+            defchan = 'There is no analog output in this board'
+
+        second_column = [
+            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
+            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
+            [sg.In(size=(32, 1), enable_events=True, key="-Path-",
+                   default_text=self.path),
+             sg.FileBrowse()]
+        ]
+
+        bottom_line = [
+            [sg.Button('SEND DATA', key='-Start-', auto_size_button=True)]
+        ]
+
+        # ----- Full layout -----
+        layout = [
+            [sg.Column(first_column, vertical_alignment='top'),
+             sg.VSeparator(),
+             sg.Column(second_column, vertical_alignment='center')],
+            [sg.HSeparator()],
+            [sg.Column(bottom_line, vertical_alignment='center')]
+        ]
+
+        window = sg.Window("PYDAQ - Sending data", layout, resizable=False, finalize=True, element_justification="center",
+                           font="Helvetica")
+
+
+        # Event Loop
+        while True:
+
+            event, values = window.read()
+
+            if event == sg.WIN_CLOSED:
+                break
+
+            # Start
+            if event == '-Start-':
+
+                # Restarting time and data
+                self.time_var, self.data = [], []
+
+                # Reading data from defined path and rearranjing it
+                self.path = values['-Path-']
+                self.data = np.loadtxt(self.path)
+                self.data = list(self.data)
+                self.data = [5 if i > 2.5 else 0 for i in self.data]
+
+                try:
+                    # Separating variables
+                    self.ts = float(values['-TS-'])
+                    self.com_port = serial.tools.list_ports.comports()[self.com_ports.index(values['-COM-'])].name
+                    self.plot = values['-Plot-']
+                    self.error_path = False
+
+                except:
+                    error_window()
+                    self.error_path = True
+
+                # Calling send data method
+                if not self.error_path:
+                    self.send_data_arduino(self.com_port)
+
+
+        window.close()
+
+        return

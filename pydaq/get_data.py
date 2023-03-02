@@ -511,20 +511,6 @@ class Get_data:
                 if not self.error_path:
                     self.get_data_arduino(self.com_port)
 
-            # Changing availables channels if device changes
-            if event == "-DDDev-":
-                # Discovering new ai channels
-                new_ai_channels = nidaqmx.system.device.Device(
-                    self.device_names[self.device_type.index(values['-DDDev-'])]).ai_physical_chans.channel_names
-                # Default channel
-                try:
-                    default_channel = new_ai_channels[0]
-                except:
-                    default_channel = 'There is no analog input in this board'
-
-                # Rewriting new ai channels into the right place
-                window['-DDChan-'].update(default_channel, new_ai_channels)
-
         window.close()
 
         return
@@ -542,7 +528,3 @@ class Get_data:
             warnings.warn('Defined path does not exists! Please redefine path and run the code again')
             return
 
-if __name__ == '__main__':
-    from pydaq.get_data import Get_data
-    g = Get_data()
-    g.get_data_arduino_gui()
