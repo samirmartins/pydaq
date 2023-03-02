@@ -7,6 +7,7 @@ import numpy as np
 import warnings
 import PySimpleGUI as sg
 from pydaq.utils.error_window import error_window
+from pydaq.utils.max_error import max_error
 
 class Send_data:
     """
@@ -22,6 +23,8 @@ class Send_data:
             channel: channel from where data will be acquired. Example: ao0
             ts: sample period, in seconds.
             plot: if True, plot data iteractively as they are acquired
+            ao_min: minimum allowed analog output value
+            ao_max: maximum allowed analog output value
     """
 
     def __init__(self,
@@ -29,13 +32,17 @@ class Send_data:
                  device="Dev1",
                  channel="ao0",
                  ts=0.5,
-                 plot=True
+                 plot=True,
+                 ao_min = 0,
+                 ao_max = 5
                  ):
 
         self.device = device
         self.channel = channel
         self.ts = ts
         self.plot = plot
+        self.ao_min = ao_min
+        self.ao_max = ao_max
 
         if type(data) == list:
             self.data = np.array(data)
@@ -56,7 +63,11 @@ class Send_data:
         # Time variable
         self.time_var = []
 
+        # Defining default path
         self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop', 'data.dat')
+
+        # Error flags
+        self.error_max, self.error_path = False, False
 
     def send_data_nidaqmx(self):
         """
@@ -76,7 +87,7 @@ class Send_data:
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
-        task.ao_channels.add_ao_voltage_chan(self.device + '/' + self.channel)
+        task.ao_channels.add_ao_voltage_chan(self.device + '/' + self.channel, min_val = float(self.ao_min), max_val = float(self.ao_max))
 
         if self.plot:  # If plot,
 
@@ -161,6 +172,7 @@ class Send_data:
             [sg.Text("Sample period (s)")],
             [sg.Text('Plot data?')],
             [sg.Text("Data")],
+            [sg.Text("Output range (V)")],
         ]
 
         # For now will only show the name of the file that was chosen
@@ -179,6 +191,7 @@ class Send_data:
             [sg.In(size=(32, 8), enable_events=True, key="-Path-",
                    default_text=self.path),
              sg.FileBrowse()],
+            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size = (10,8), enable_events=True, key = '-ao_min-'), sg.VSeparator(), sg.Text("Maximum"), sg.In(default_text=self.ao_max, size = (10,8), enable_events=True, key = '-ao_max-')]
         ]
 
         bottom_line = [
@@ -208,6 +221,19 @@ class Send_data:
             # Start
             if event == '-Start-':
 
+                self.ao_max = values['-ao_max-']
+                self.ao_min = values['-ao_min-']
+
+                # Reading data from defined path
+                self.data = np.loadtxt(self.path)
+
+                # Check if max(data) < self.ao_max
+                if max(self.data) > float(self.ao_max):
+                    max_error()
+                    self.error_max = True
+                else:
+                    self.error_max = False
+
                 try:
                     # Separating variables
                     self.ts = float(values['-TS-'])
@@ -215,15 +241,15 @@ class Send_data:
                     self.channel = values['-DDChan-'].split('/')[1]
                     self.path = values['-Path-']
                     self.plot = values['-Plot-']
+                    self.error_path = False
 
-                    # Reading data from defined path
-                    self.data = np.array(open(self.path, 'r').read().split('\n'), dtype='float')
-                    # Calling send data method
-                    self.send_data_nidaqmx()
                 except:
                     error_window()
+                    self.error_path = True
 
-
+                # Calling send data method
+                if not self.error_max and not self.error_path:
+                    self.send_data_nidaqmx()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":

@@ -254,11 +254,11 @@ class Get_data:
                     # Restarting variables
                     self.data = []
                     self.time_var = []
-
-                    # Calling data aquisition method
-                    self.get_data_nidaqmx()
                 except:
                     error_window()
+
+                # Calling data aquisition method
+                self.get_data_nidaqmx()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
