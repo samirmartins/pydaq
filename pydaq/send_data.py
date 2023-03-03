@@ -173,7 +173,6 @@ class Send_data(Base):
             [sg.Text("Output range (V)")],
         ]
 
-        # For now will only show the name of the file that was chosen
         try:
             chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
             defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]
@@ -385,7 +384,6 @@ class Send_data(Base):
             [sg.Text("Data")],
         ]
 
-        # For now will only show the name of the file that was chosen
         try:
             chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
             defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]

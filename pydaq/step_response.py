@@ -39,7 +39,7 @@ class Step_response(Base):
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
 
 
-    def step_response_arduino(self):
+    def step_response_arduino_gui(self):
         """
         This functions provides a Graphical User Interface (GUI) that allows one to
         perform a step_response with Arduino boards.
@@ -63,21 +63,13 @@ class Step_response(Base):
             [sg.Text("Path")],
         ]
 
-        # For now will only show the name of the file that was chosen
-        try:
-            chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
-            defchan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0]
-        except:
-            chan = ''
-            defchan = ''
-
-        # For now will only show the name of the file that was chosen
+        # Second column
         second_column = [
             [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
             [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
             [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 1))],
-            [sg.Radio("Yes", "plot_input_radio", default=True, key='-Plot-'),sg.Radio("No", "plot_input_radio", default=False)],
-            [sg.Radio("Yes", "plot_output_radio", default=True, key='-Plot-'),sg.Radio("No", "plot_output_radio", default=False)],
+            [sg.Radio("Yes", "plot_input_radio", default=True, key='-Plotinput-'),sg.Radio("No", "plot_input_radio", default=False)],
+            [sg.Radio("Yes", "plot_output_radio", default=True, key='-Plotoutput-'),sg.Radio("No", "plot_output_radio", default=False)],
             [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",
                    default_text=os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')),
@@ -85,7 +77,7 @@ class Step_response(Base):
         ]
 
         bottom_line = [
-            [sg.Button('START ACQUISITION', key='-Start-', auto_size_button=True), sg.Button('APPLY STEP', key='-Start-', auto_size_button=True)]
+            [sg.Button('START ACQUISITION', key='-Start-', auto_size_button=True), sg.Button('APPLY STEP', key='-Step-', auto_size_button=True)]
         ]
 
         # ----- Full layout -----
@@ -109,7 +101,7 @@ class Step_response(Base):
                 break
 
             # Start
-            if event == '-Start-':
+            if event == '-Start-': #Start data acquisition
 
                 try:
                     # Separating variables
@@ -118,7 +110,9 @@ class Step_response(Base):
                     self.com_port = serial.tools.list_ports.comports()[self.com_ports.index(values['-COM-'])].name
                     self.save = values['-Save-']
                     self.path = values['-Path-']
-                    self.plot = values['-Plot-']
+                    self.plot_input = values['-Plotinput-']
+                    self.plot_output = values['-Plotoutput-']
+                    print(self.plot_input, self.plot_output)
 
                     # Restarting variables
                     self.data = []
@@ -126,12 +120,17 @@ class Step_response(Base):
                     self.error_path = False
 
                 except:
-                    error_window()
+                    self.error_window()
                     self.error_path = True
 
                 # Calling data aquisition method
                 if not self.error_path:
+
+
                     self.get_data_arduino(self.com_port)
+
+            if event == '-Step-': # Applying step
+                pass #
 
         window.close()
 

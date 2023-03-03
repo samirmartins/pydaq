@@ -201,7 +201,6 @@ class Get_data(Base):
             [sg.Text("Path")],
         ]
 
-        # For now will only show the name of the file that was chosen
         try:
             chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
             defchan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0]
@@ -209,7 +208,7 @@ class Get_data(Base):
             chan = ''
             defchan = ''
 
-        # For now will only show the name of the file that was chosen
+        # Second column
         second_column = [
             [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
             [sg.DD(chan, enable_events=True, size=(40, 1), default_value=defchan,
@@ -435,15 +434,7 @@ class Get_data(Base):
             [sg.Text("Path")],
         ]
 
-        # For now will only show the name of the file that was chosen
-        try:
-            chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
-            defchan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0]
-        except:
-            chan = ''
-            defchan = ''
-
-        # For now will only show the name of the file that was chosen
+        # Second column
         second_column = [
             [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
             [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
