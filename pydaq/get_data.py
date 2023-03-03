@@ -7,11 +7,11 @@ import os
 import numpy as np
 import warnings
 import PySimpleGUI as sg
-from pydaq.utils.error_window import error_window
+from pydaq.utils.base import Base
 import serial
 import serial.tools.list_ports
 
-class Get_data:
+class Get_data(Base):
     """
         Class able to get data from data acquisition boards using (or not) a graphical user interface (GUI)
 
@@ -276,7 +276,7 @@ class Get_data:
                     self.error_path = False
 
                 except:
-                    error_window()
+                    self.error_window()
                     self.error_path = True
 
                 # Calling data aquisition method
@@ -504,7 +504,7 @@ class Get_data:
                     self.error_path = False
 
                 except:
-                    error_window()
+                    self.error_window()
                     self.error_path = True
 
                 # Calling data aquisition method
@@ -514,17 +514,4 @@ class Get_data:
         window.close()
 
         return
-
-
-    def _check_path(self):
-        """ Method to check if path was or not defined by the user"""
-
-        # Checking if path was or not defined by the user
-        if self.path is None:  # Saving in Desktop if it is not defined
-            self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
-
-        # Check if able to save data in defined path
-        if not os.path.exists(self.path):
-            warnings.warn('Defined path does not exists! Please redefine path and run the code again')
-            return
 

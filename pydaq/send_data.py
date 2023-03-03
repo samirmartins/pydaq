@@ -6,12 +6,11 @@ import os
 import numpy as np
 import warnings
 import PySimpleGUI as sg
-from pydaq.utils.error_window import error_window
-from pydaq.utils.max_error import max_error
+from pydaq.utils.base import Base
 import serial
 import serial.tools.list_ports
 
-class Send_data:
+class Send_data(Base):
     """
         Class able to send data from data acquisition boards using (or not) a graphical user interface (GUI)
 
@@ -235,8 +234,8 @@ class Send_data:
                 self.data = np.loadtxt(self.path)
 
                 # Check if max(data) < self.ao_max
-                if max(self.data) > float(self.ao_max):
-                    max_error()
+                if (max(self.data) > float(self.ao_max)) or (min(self.data) < float(self.ao_min)):
+                    self.range_error()
                     self.error_max = True
                 else:
                     self.error_max = False
@@ -250,7 +249,7 @@ class Send_data:
                     self.error_path = False
 
                 except:
-                    error_window()
+                    self.error_window()
                     self.error_path = True
 
                 # Calling send data method
@@ -455,7 +454,7 @@ class Send_data:
                     self.error_path = False
 
                 except:
-                    error_window()
+                    self.error_window()
                     self.error_path = True
 
                 # Calling send data method
