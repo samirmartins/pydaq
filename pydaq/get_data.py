@@ -30,17 +30,10 @@ class Get_data(Base):
             terminal: Diff, RSE or NRSE: terminal configuration (differential, referenced single ended or non-referenced single ended)
     """
 
-    def __init__(self,
-                 device="Dev1",
-                 channel="ai0",
-                 ts=0.5,
-                 session_duration=10.0,
-                 save=True,
-                 path=None,
-                 plot=True,
-                 terminal = 'Diff',
-                 ):
+    def __init__(self, device="Dev1", channel="ai0", ts=0.5, session_duration=10.0, save=True, path=None, plot=True,
+                 terminal='Diff'):
 
+        super().__init__()
         self.device = device
         self.channel = channel
         self.ts = ts

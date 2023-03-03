@@ -28,16 +28,9 @@ class Send_data(Base):
             ao_max: maximum allowed analog output value
     """
 
-    def __init__(self,
-                 data = None,
-                 device="Dev1",
-                 channel="ao0",
-                 ts=0.5,
-                 plot=True,
-                 ao_min = 0,
-                 ao_max = 5
-                 ):
+    def __init__(self, data=None, device="Dev1", channel="ao0", ts=0.5, plot=True, ao_min=0, ao_max=5):
 
+        super().__init__()
         self.device = device
         self.channel = channel
         self.ts = ts

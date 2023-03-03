@@ -27,13 +27,9 @@ class Step_response(Base):
 
     """
 
-    def __init__(self,
-                 ts=0.5,
-                 session_duration = 10,
-                 plot_input=True,
-                 plot_output=True,
-                 ):
+    def __init__(self, ts=0.5, session_duration=10, plot_input=True, plot_output=True):
 
+        super().__init__()
         self.ts = ts
         self.session_duration = session_duration
         self.plot_input = plot_input
