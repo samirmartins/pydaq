@@ -332,7 +332,7 @@ class Step_response(Base):
         ]
 
         bottom_line = [
-            [sg.Button('SEND DATA', key='-Start-', auto_size_button=True)]
+            [sg.Button('STEP RESPONSE', key='-Start-', auto_size_button=True)]
         ]
 
         # ----- Full layout -----
