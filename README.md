@@ -49,7 +49,7 @@ Graphical User Interface (NIDAQmx):
 from pydaq.get_data import Get_data
 
 g = Get_data()
-g.get_data_nidaqmx_gui()
+g.get_data_nidaq_gui()
 ```
 
 Command line (NIDAQmx):
@@ -58,5 +58,5 @@ Command line (NIDAQmx):
 from pydaq.get_data import Get_data
 
 g = Get_data("Dev1", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop", True)
-g.get_data_nidaqmx()
+g.get_data_nidaq()
 ```

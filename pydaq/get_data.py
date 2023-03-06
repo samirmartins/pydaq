@@ -20,7 +20,7 @@ class Get_data(Base):
              - https://www.github.com/samirmartins/
 
         :param:
-            device: nidaqmx device from where data will be colected. Example: "Dev1"
+            device: nidaq device from where data will be colected. Example: "Dev1"
             channel: channel from where data will be acquired. Example: ai0
             ts: sample period, in seconds.
             session_duration: session duration, in seconds.
@@ -73,12 +73,12 @@ class Get_data(Base):
         # Plot title
         self.title = None
 
-    def get_data_nidaqmx(self):
+    def get_data_nidaq(self):
         """
-            This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
+            This function can be used for data acquisition and step response experiments using Python + NIDAQ boards.
 
         :example:
-            get_data_nidaqmx()
+            get_data_nidaq()
         """
 
         # Cleaning data array
@@ -148,13 +148,13 @@ class Get_data(Base):
 
         return
 
-    def get_data_nidaqmx_gui(self):
+    def get_data_nidaq_gui(self):
         """
         This functions provides a Graphical User Interface (GUI) that allows one to get data
         from National Instruments acquisition boards.
 
         :example:
-            get_data_nidaqmx_gui()
+            get_data_nidaq_gui()
 
         """
 
@@ -246,7 +246,7 @@ class Get_data(Base):
 
                 # Calling data aquisition method
                 if not self.error_path:
-                    self.get_data_nidaqmx()
+                    self.get_data_nidaq()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":

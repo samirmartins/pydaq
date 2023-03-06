@@ -17,7 +17,7 @@ import warnings
 class Step_response(Base):
     """
         Class developed to construct Graphical User Interface for step
-        response using arduino and nidaqmx
+        response using arduino and NIDAQ boards
 
        :author: Samir Angelo Milani Martins
              - https://www.samirmartins.com.br
@@ -232,4 +232,4 @@ if __name__ == '__main__':
 
     from pydaq.step_response import Step_response
     s = Step_response()
-    s.step_response_arduino_gui()
+    s.step_response_nidaq_gui()

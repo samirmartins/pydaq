@@ -20,7 +20,7 @@ class Send_data(Base):
 
         :params:
             data: data array (list or np.array) that will be sent to the board
-            device: nidaqmx device from where data will be colected. Example: "Dev1"
+            device: nidaq device from where data will be colected. Example: "Dev1"
             channel: channel from where data will be acquired. Example: ao0
             ts: sample period, in seconds.
             plot: if True, plot data iteractively as they are acquired
@@ -73,12 +73,12 @@ class Send_data(Base):
         # Plot title
         self.title = None
 
-    def send_data_nidaqmx(self):
+    def send_data_nidaq(self):
         """
-            This function can be used to send experimental data  using Python + NIDAQmx boards.
+            This function can be used to send experimental data  using Python + NIDAQ boards.
 
         :example:
-            send_data_nidaqmx()
+            send_data_nidaq()
         """
 
         # Checking if there is data to be sent
@@ -136,13 +136,13 @@ class Send_data(Base):
         # Closing task
         task.close()
 
-    def send_data_nidaqmx_gui(self):
+    def send_data_nidaq_gui(self):
         """
         This functions provides a Graphical User Interface (GUI) that allows one to send data
         from a .dat file to a National Instruments acquisition boards.
 
         :example:
-            send_data_nidaqmx_gui()
+            send_data_nidaq_gui()
 
         """
 
@@ -235,7 +235,7 @@ class Send_data(Base):
 
                 # Calling send data method
                 if not self.error_max and not self.error_path:
-                    self.send_data_nidaqmx()
+                    self.send_data_nidaq()
 
             # Changing availables channels if device changes
             if event == "-DDDev-":
@@ -347,13 +347,6 @@ class Send_data(Base):
             [sg.Text('Plot data?')],
             [sg.Text("Data")],
         ]
-
-        try:
-            chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
-            defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]
-        except:
-            chan = ''
-            defchan = 'There is no analog output in this board'
 
         second_column = [
             [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[-1], key="-COM-")],
