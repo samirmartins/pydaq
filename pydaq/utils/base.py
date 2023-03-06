@@ -62,8 +62,9 @@ class Base:
         if not self.ser.isOpen():  # Open port if not openned
             self.ser.open()  # Opening port
 
-    def _start_updatable_plot(self, title):
+    def _start_updatable_plot(self):
         """ Method to start updatable plot """
+
         # Changing Matplotlib backend
         mpl.use('Qt5Agg')
 
@@ -75,7 +76,7 @@ class Base:
         plt.ion()
 
         # Title and labels and plot creation
-        plt.title(title)
+        plt.title(self.title)
         plt.xlabel("Time (seconds)")
         plt.ylabel("Voltage")
         plt.grid()
@@ -90,7 +91,7 @@ class Base:
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
         self.ax.set_xlim([0, 1.1 * self.cycles*self.ts])
-        self.ax.set_ylim([-1.1 * max(np.abs(y_value)), 1.1 * max(np.abs(y_value))])
+        self.ax.set_ylim([-1.1 * max(np.abs(y_value))-0.1, 1.1 * max(np.abs(y_value))+0.1])
 
     def _save_data(self, data, name):
         """ Method to save data in self.path with name"""

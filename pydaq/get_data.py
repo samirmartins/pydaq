@@ -70,6 +70,9 @@ class Get_data(Base):
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
         self.com_port = self.com_ports[0]  # Default COM port
 
+        # Plot title
+        self.title = None
+
     def get_data_nidaqmx(self):
         """
             This function can be used for data acquisition and step response experiments using Python + NIDAQmx boards.
@@ -93,7 +96,8 @@ class Get_data(Base):
         task.ai_channels.add_ai_voltage_chan(self.device + '/' + self.channel, terminal_config=self.terminal)
 
         if self.plot:  # If plot, start updatable plot
-            self._start_updatable_plot(f'PYDAQ - Data Acquisition. {self.device}, {self.channel}')
+            self.title = f'PYDAQ - Data Acquisition. {self.device}, {self.channel}'
+            self._start_updatable_plot()
 
         # Main loop, where data will be acquired
         for k in range(self.cycles):
@@ -285,7 +289,8 @@ class Get_data(Base):
         self._open_serial()
 
         if self.plot:  # If plot, start updatable plot
-            self._start_updatable_plot(f'PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}')
+            self.title = f'PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}'
+            self._start_updatable_plot()
 
         # Main loop, where data will be acquired
         for k in range(self.cycles):
@@ -361,7 +366,7 @@ class Get_data(Base):
 
         # Second column
         second_column = [
-            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
+            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[-1], key="-COM-")],
             [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.I(self.session_duration, enable_events=True, key='-SD-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],

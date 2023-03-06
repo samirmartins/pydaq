@@ -70,6 +70,9 @@ class Send_data(Base):
         # Number of necessary cycles
         self.cycles = None
 
+        # Plot title
+        self.title = None
+
     def send_data_nidaqmx(self):
         """
             This function can be used to send experimental data  using Python + NIDAQmx boards.
@@ -92,7 +95,8 @@ class Send_data(Base):
                                              max_val=float(self.ao_max))
 
         if self.plot:  # If plot, start updatable plot
-            self._start_updatable_plot(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
+            self.title = f'PYDAQ - Sending Data. {self.device}, {self.channel}'
+            self._start_updatable_plot()
 
         # Main loop, where data will be sent
         for k in range(self.cycles):
@@ -279,7 +283,8 @@ class Send_data(Base):
 
 
         if self.plot:  # If plot, start updatable plot
-            self._start_updatable_plot(f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}')
+            self.title = f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}'
+            self._start_updatable_plot()
 
         # Main loop, where data will be sent
         for k in range(self.cycles):
@@ -351,7 +356,7 @@ class Send_data(Base):
             defchan = 'There is no analog output in this board'
 
         second_column = [
-            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
+            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[-1], key="-COM-")],
             [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",

@@ -11,6 +11,7 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
+import matplotlib.pyplot as plt
 
 class Step_response(Base):
     """
@@ -70,7 +71,7 @@ class Step_response(Base):
 
         # Second column
         second_column = [
-            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
+            [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[-1], key="-COM-")],
             [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.I(self.session_duration, enable_events=True, key='-SD-', size=(40, 1))],
             [sg.I(self.step_time, enable_events=True, key='-Step-', size=(40, 1))],
@@ -181,13 +182,13 @@ class Step_response(Base):
             if self.plot:
 
                 # Checking if there is still an open figure. If not, stop the for loop.
-                # try:
-                #    plt.get_figlabels().index('iter_plot')
-                # except:
-                #    break
+                try:
+                    plt.get_figlabels().index('iter_plot')
+                except:
+                   break
 
                 # Updating data values
-                self._update_plot(self.time_var, self.output)
+                self._update_plot([self.time_var, self.time_var], [self.output, self.input])
 
             print(f'Iteration: {k} of {self.cycles - 1}')
 
@@ -221,3 +222,9 @@ class Step_response(Base):
             self._save_data(self.output, 'output.dat')
             print('\nData saved ...')
         return
+
+if __name__ == '__main__':
+
+    from pydaq.step_response import Step_response
+    s = Step_response()
+    s.step_response_arduino_gui()
