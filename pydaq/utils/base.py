@@ -4,7 +4,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import serial
 import serial.tools.list_ports
-
+import numpy as np
 
 class Base:
     """
@@ -81,6 +81,16 @@ class Base:
         plt.grid()
         self.line, = self.ax.plot([], [])
         plt.show()
+
+    def _update_plot(self, x_value, y_value):
+        """ Method to update plot already started using _start_updatable_plot
+            using x_value and y_value as new data"""
+        self.line.set_xdata(x_value)
+        self.line.set_ydata(y_value)
+        self.fig.canvas.draw()
+        self.fig.canvas.flush_events()
+        self.ax.set_xlim([0, 1.1 * self.cycles*self.ts])
+        self.ax.set_ylim([-1.1 * max(np.abs(y_value)), 1.1 * max(np.abs(y_value))])
 
     def _save_data(self, data, name):
         """ Method to save data in self.path with name"""

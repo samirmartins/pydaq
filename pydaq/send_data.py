@@ -67,6 +67,9 @@ class Send_data(Base):
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
         self.com_port = self.com_ports[0]  # Default COM port
 
+        # Number of necessary cycles
+        self.cycles = None
+
     def send_data_nidaqmx(self):
         """
             This function can be used to send experimental data  using Python + NIDAQmx boards.
@@ -81,7 +84,7 @@ class Send_data(Base):
             return
 
         # Number of cycles necessary
-        cycles = len(self.data)
+        self.cycles = len(self.data)
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
@@ -92,7 +95,7 @@ class Send_data(Base):
             self._start_updatable_plot(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
 
         # Main loop, where data will be sent
-        for k in range(cycles):
+        for k in range(self.cycles):
 
             # Sending data
             task.write(self.data[k])
@@ -112,14 +115,9 @@ class Send_data(Base):
                     break
 
                 # Updating data values
-                self.line.set_xdata(self.time_var)
-                self.line.set_ydata(self.data[0:k + 1])
-                self.fig.canvas.draw()
-                self.fig.canvas.flush_events()
-                self.ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
-                self.ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
+                self._update_plot(self.time_var, self.data[0:k + 1])
 
-            print(f'Iteration: {k} of {cycles-1}')
+            print(f'Iteration: {k} of {self.cycles-1}')
 
             # Getting end time
             et = time.time()
@@ -269,7 +267,7 @@ class Send_data(Base):
             return
 
         # Number of cycles necessary
-        cycles = len(self.data)
+        self.cycles = len(self.data)
 
         # Opening ports and serial communication
         self._open_serial()
@@ -279,11 +277,12 @@ class Send_data(Base):
         self.data_send = [b'1' if i > 2.5 else b'0' for i in self.data]
         self.data = np.array(self.data)
 
+
         if self.plot:  # If plot, start updatable plot
             self._start_updatable_plot(f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}')
 
         # Main loop, where data will be sent
-        for k in range(cycles):
+        for k in range(self.cycles):
 
             # Sending data
             self.ser.write(self.data_send[k])
@@ -303,14 +302,9 @@ class Send_data(Base):
                     break
 
                 # Updating data values
-                self.line.set_xdata(self.time_var)
-                self.line.set_ydata(self.data[0:k + 1])
-                self.fig.canvas.draw()
-                self.fig.canvas.flush_events()
-                self.ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
-                self.ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
+                self._update_plot(self.time_var, self.data[0:k + 1])
 
-            print(f'Iteration: {k} of {cycles-1}')
+            print(f'Iteration: {k} of {self.cycles-1}')
 
             # Getting end time
             et = time.time()
@@ -322,7 +316,8 @@ class Send_data(Base):
                 warnings.warn("Time spent to append data and update interface was greater than ts. "
                               "You CANNOT trust time.dat")
 
-        self.ser.write(b'0') # Turning off the output
+        # Turning off the output
+        self.ser.write(b'0')
         # Closing port
         self.ser.close()
 

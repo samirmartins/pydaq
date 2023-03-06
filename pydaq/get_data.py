@@ -85,8 +85,8 @@ class Get_data(Base):
         # Checking if path was defined
         self._check_path()
 
-        # Number of cycles necessary
-        cycles = int(np.floor(self.session_duration / self.ts)) + 1
+        # Number of self.cycles necessary
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
@@ -96,7 +96,7 @@ class Get_data(Base):
             self._start_updatable_plot(f'PYDAQ - Data Acquisition. {self.device}, {self.channel}')
 
         # Main loop, where data will be acquired
-        for k in range(cycles):
+        for k in range(self.cycles):
 
             # Acquire data
             temp = task.read()
@@ -117,14 +117,9 @@ class Get_data(Base):
                     break
 
                 # Updating data values
-                self.line.set_xdata(self.time_var)
-                self.line.set_ydata(self.data)
-                self.fig.canvas.draw()
-                self.fig.canvas.flush_events()
-                self.ax.set_xlim([0, 1.1 * self.session_duration])
-                self.ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
+                self._update_plot(self.time_var, self.data)
 
-            print(f'Iteration: {k} of {cycles-1}')
+            print(f'Iteration: {k} of {self.cycles-1}')
 
             # Getting end time
             et = time.time()
@@ -283,8 +278,8 @@ class Get_data(Base):
         # Check if path was defined
         self._check_path()
 
-        # Number of cycles necessary
-        cycles = int(np.floor(self.session_duration / self.ts)) + 1
+        # Number of self.cycles necessary
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         # Oppening ports
         self._open_serial()
@@ -293,7 +288,7 @@ class Get_data(Base):
             self._start_updatable_plot(f'PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}')
 
         # Main loop, where data will be acquired
-        for k in range(cycles):
+        for k in range(self.cycles):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
@@ -315,14 +310,9 @@ class Get_data(Base):
                     break
 
                 # Updating data values
-                self.line.set_xdata(self.time_var)
-                self.line.set_ydata(self.data)
-                self.fig.canvas.draw()
-                self.fig.canvas.flush_events()
-                self.ax.set_xlim([0, 1.1 * self.session_duration])
-                self.ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
+                self._update_plot(self.time_var, self.data)
 
-            print(f'Iteration: {k} of {cycles-1}')
+            print(f'Iteration: {k} of {self.cycles-1}')
 
             # Getting end time
             et = time.time()
@@ -344,7 +334,6 @@ class Get_data(Base):
             self._save_data(self.time_var, 'time.dat')
             self._save_data(self.data, 'data.dat')
             print('\nData saved ...')
-
         return
 
     def get_data_arduino_gui(self):
