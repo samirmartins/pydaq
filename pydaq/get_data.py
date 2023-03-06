@@ -52,16 +52,8 @@ class Get_data(Base):
         self.data = []
         self.time_var = []
 
-        # Getting all available devices
-        self.device_names = []
-        self.device_categories = []
-        self.device_type = []
-        self.local_system = nidaqmx.system.System.local()
-
-        for device in self.local_system.devices:
-            self.device_names.append(device.name)
-            self.device_categories.append(device.product_category)
-            self.device_type.append(device.product_type)
+        # Gathering nidaq info
+        self._nidaq_info()
 
         # Error flags
         self.error_path = False
@@ -175,7 +167,7 @@ class Get_data(Base):
 
         try:
             chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
-            defchan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names[0]
+            defchan = chan[0]
         except:
             chan = ''
             defchan = ''

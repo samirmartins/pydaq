@@ -43,16 +43,8 @@ class Send_data(Base):
         else:
             self.data = data
 
-        # Getting all available devices
-        self.device_names = []
-        self.device_categories = []
-        self.device_type = []
-        self.local_system = nidaqmx.system.System.local()
-
-        for device in self.local_system.devices:
-            self.device_names.append(device.name)
-            self.device_categories.append(device.product_category)
-            self.device_type.append(device.product_type)
+        # Gathering nidaq info
+        self._nidaq_info()
 
         # Time variable
         self.time_var = []
@@ -136,6 +128,8 @@ class Send_data(Base):
         # Closing task
         task.close()
 
+        return
+
     def send_data_nidaq_gui(self):
         """
         This functions provides a Graphical User Interface (GUI) that allows one to send data
@@ -155,13 +149,13 @@ class Send_data(Base):
             [sg.Text('Choose channel: ')],
             [sg.Text("Sample period (s)")],
             [sg.Text('Plot data?')],
-            [sg.Text("Data")],
+            [sg.Text("Data path")],
             [sg.Text("Output range (V)")],
         ]
 
         try:
             chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
-            defchan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names[0]
+            defchan = chan[0]
         except:
             chan = ''
             defchan = 'There is no analog output in this board'
@@ -325,6 +319,7 @@ class Send_data(Base):
         self.ser.write(b'0')
         # Closing port
         self.ser.close()
+        return
 
     def send_data_arduino_gui(self):
         """
@@ -424,4 +419,4 @@ if __name__ == '__main__':
 
     from pydaq.send_data import Send_data
     s = Send_data()
-    s.send_data_arduino_gui()
+    s.send_data_nidaq_gui()

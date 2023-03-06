@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import serial
 import serial.tools.list_ports
 import numpy as np
+import nidaqmx
 
 class Base:
     """
@@ -108,3 +109,15 @@ class Base:
             file.write(str(d) + "\n")
         file.close()
 
+    def _nidaq_info(self):
+        """Gathering NIDAQ info"""
+        # Getting all available devices
+        self.device_names = []
+        self.device_categories = []
+        self.device_type = []
+        self.local_system = nidaqmx.system.System.local()
+
+        for device in self.local_system.devices:
+            self.device_names.append(device.name)
+            self.device_categories.append(device.product_category)
+            self.device_type.append(device.product_type)
