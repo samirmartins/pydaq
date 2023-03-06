@@ -1,15 +1,15 @@
-import nidaqmx
-from nidaqmx.constants import TerminalConfiguration
-import time
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import os
-import numpy as np
+import time
 import warnings
 import PySimpleGUI as sg
-from pydaq.utils.base import Base
+import matplotlib.pyplot as plt
+import nidaqmx
+import numpy as np
 import serial
 import serial.tools.list_ports
+from nidaqmx.constants import TerminalConfiguration
+from pydaq.utils.base import Base
+
 
 class Get_data(Base):
     """
@@ -68,6 +68,7 @@ class Get_data(Base):
 
         # COM ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+        self.com_port = self.com_ports[0]  # Default COM port
 
     def get_data_nidaqmx(self):
         """
@@ -85,31 +86,14 @@ class Get_data(Base):
         self._check_path()
 
         # Number of cycles necessary
-        cycles = int(np.floor(self.session_duration / self.ts))+1
+        cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
         task.ai_channels.add_ai_voltage_chan(self.device + '/' + self.channel, terminal_config=self.terminal)
 
-        if self.plot:  # If plot,
-
-            # Changing Matplotlib backend
-            mpl.use('Qt5Agg')
-
-            # create the figure and axes objects
-            fig, ax = plt.subplots()
-            fig._label = 'iter_plot'  # Defining label
-
-            # Run GUI event loop
-            plt.ion()
-
-            # Title and labels and plot creation
-            plt.title(f'PYDAQ - Data Acquisition. {self.device}, {self.channel}')
-            plt.xlabel("Time (seconds)")
-            plt.ylabel("Voltage")
-            plt.grid()
-            line, = ax.plot(self.time_var, self.data)
-            plt.show()
+        if self.plot:  # If plot, start updatable plot
+            self._start_updatable_plot(f'PYDAQ - Data Acquisition. {self.device}, {self.channel}')
 
         # Main loop, where data will be acquired
         for k in range(cycles):
@@ -133,12 +117,12 @@ class Get_data(Base):
                     break
 
                 # Updating data values
-                line.set_xdata(self.time_var)
-                line.set_ydata(self.data)
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-                ax.set_xlim([0, 1.1 * self.session_duration])
-                ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
+                self.line.set_xdata(self.time_var)
+                self.line.set_ydata(self.data)
+                self.fig.canvas.draw()
+                self.fig.canvas.flush_events()
+                self.ax.set_xlim([0, 1.1 * self.session_duration])
+                self.ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
 
             print(f'Iteration: {k} of {cycles-1}')
 
@@ -157,21 +141,10 @@ class Get_data(Base):
 
         # Check if data will or not be saved, and save accordingly
         if self.save:
-
             print('\nSaving data ...')
-
-            # Saving time_var
-            file_time = open(self.path + '\\time.dat', 'w')
-            for t in self.time_var:
-                file_time.write(str(t) + "\n")
-            file_time.close()
-
-            # Saving data
-            file_data = open(self.path + '\\data.dat', 'w')
-            for d in self.data:
-                file_data.write(str(d) + "\n")
-            file_data.close()
-
+            # Saving time_var and data
+            self._save_data(self.time_var, 'time.dat')
+            self._save_data(self.data, 'data.dat')
             print('\nData saved ...')
 
         return
@@ -210,13 +183,14 @@ class Get_data(Base):
 
         # Second column
         second_column = [
-            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
+            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0],
+                   key="-DDDev-")],
             [sg.DD(chan, enable_events=True, size=(40, 1), default_value=defchan,
                    key="-DDChan-")],
             [sg.DD(['Diff', 'RSE', 'NRSE'], enable_events=True, size=(40, 1), default_value=['Diff'],
                    key="-Terminal-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
-            [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 1))],
+            [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.I(self.session_duration, enable_events=True, key='-SD-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",
@@ -293,16 +267,13 @@ class Get_data(Base):
 
         return
 
-    def get_data_arduino(self, COM):
+    def get_data_arduino(self):
         """
             This function can be used for data acquisition and step response experiments using Python + Arduino
             through serial communication
 
-        :param:
-            COM: the port where arduino is located
-
         :example:
-            get_data_arduino("COM3")
+            get_data_arduino()
         """
 
         # Cleaning data array
@@ -313,44 +284,20 @@ class Get_data(Base):
         self._check_path()
 
         # Number of cycles necessary
-        cycles = int(np.floor(self.session_duration / self.ts))+1
+        cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
-        # Opening ports and serial communication
-        ser = serial.Serial()
-        ser.dtr = True
-        ser.baudrate = (9600)
-        ser.port = COM # Definind port
+        # Oppening ports
+        self._open_serial()
 
-        if not ser.isOpen():# Open port if not openned
-            ser.open() # Opening port
-
-
-        if self.plot:  # If plot,
-
-            # Changing Matplotlib backend
-            mpl.use('Qt5Agg')
-
-            # create the figure and axes objects
-            fig, ax = plt.subplots()
-            fig._label = 'iter_plot'  # Defining label
-
-            # Run GUI event loop
-            plt.ion()
-
-            # Title and labels and plot creation
-            plt.title(f'PYDAQ - Data Acquisition. Arduino, Port: {COM}')
-            plt.xlabel("Time (seconds)")
-            plt.ylabel("Voltage")
-            plt.grid()
-            line, = ax.plot(self.time_var, self.data)
-            plt.show()
+        if self.plot:  # If plot, start updatable plot
+            self._start_updatable_plot(f'PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}')
 
         # Main loop, where data will be acquired
         for k in range(cycles):
 
             # Acquire data
-            ser.reset_input_buffer() # Reseting serial input buffer
-            temp = int(ser.read(14).split()[-2].decode('UTF-8'))/204.6 # Get the last complete value
+            self.ser.reset_input_buffer()  # Reseting serial input buffer
+            temp = int(self.ser.read(14).split()[-2].decode('UTF-8')) / 204.6  # Get the last complete value
 
             # Counting time to append data and update interface
             st = time.time()
@@ -368,12 +315,12 @@ class Get_data(Base):
                     break
 
                 # Updating data values
-                line.set_xdata(self.time_var)
-                line.set_ydata(self.data)
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-                ax.set_xlim([0, 1.1 * self.session_duration])
-                ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
+                self.line.set_xdata(self.time_var)
+                self.line.set_ydata(self.data)
+                self.fig.canvas.draw()
+                self.fig.canvas.flush_events()
+                self.ax.set_xlim([0, 1.1 * self.session_duration])
+                self.ax.set_ylim([-1.1 * max(np.abs(self.data)), 1.1 * max(np.abs(self.data))])
 
             print(f'Iteration: {k} of {cycles-1}')
 
@@ -388,25 +335,14 @@ class Get_data(Base):
                               "You CANNOT trust time.dat")
 
         # Closing port
-        ser.close()
+        self.ser.close()
 
         # Check if data will or not be saved, and save accordingly
         if self.save:
-
             print('\nSaving data ...')
-
-            # Saving time_var
-            file_time = open(self.path + '\\time.dat', 'w')
-            for t in self.time_var:
-                file_time.write(str(t) + "\n")
-            file_time.close()
-
-            # Saving data
-            file_data = open(self.path + '\\data.dat', 'w')
-            for d in self.data:
-                file_data.write(str(d) + "\n")
-            file_data.close()
-
+            # Saving time_var and data
+            self._save_data(self.time_var, 'time.dat')
+            self._save_data(self.data, 'data.dat')
             print('\nData saved ...')
 
         return
@@ -437,8 +373,8 @@ class Get_data(Base):
         # Second column
         second_column = [
             [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
-            [sg.I("10.0", enable_events=True, key='-SD-', size=(40, 1))],
+            [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.I(self.session_duration, enable_events=True, key='-SD-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.Radio("Yes", "save_radio", default=True, key='-Save-'), sg.Radio("No", "save_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",
@@ -493,7 +429,13 @@ class Get_data(Base):
 
                 # Calling data aquisition method
                 if not self.error_path:
-                    self.get_data_arduino(self.com_port)
+                    self.get_data_arduino()
+
+            if event == '-COM-':  # Updating com ports
+
+                self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+                port = values['-COM-']
+                window['-COM-'].update(port, self.com_ports)
 
         window.close()
 

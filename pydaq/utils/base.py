@@ -1,5 +1,11 @@
 import os
 import PySimpleGUI as sg
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import serial
+import serial.tools.list_ports
+
+
 class Base:
     """
         Base class for data acquisition and to send data.
@@ -7,6 +13,7 @@ class Base:
 
     def __init__(self):
         pass
+
     def range_error(self):
         layout2 = [[sg.VPush()], [
             sg.Cancel("Out of range value (check ao_max and ao_min)!", key="-new-")],
@@ -43,3 +50,43 @@ class Base:
         if not os.path.exists(self.path):
             warnings.warn('Defined path does not exists! Please redefine path and run the code again')
             return
+
+    def _open_serial(self):
+        """ Opening ports for serial communication """
+
+        self.ser = serial.Serial()
+        self.ser.dtr = True
+        self.ser.baudrate = (9600)
+        self.ser.port = self.com_port  # Defining port
+
+        if not self.ser.isOpen():  # Open port if not openned
+            self.ser.open()  # Opening port
+
+    def _start_updatable_plot(self, title):
+        """ Method to start updatable plot """
+        # Changing Matplotlib backend
+        mpl.use('Qt5Agg')
+
+        # create the figure and axes objects
+        self.fig, self.ax = plt.subplots()
+        self.fig._label = 'iter_plot'  # Defining label
+
+        # Run GUI event loop
+        plt.ion()
+
+        # Title and labels and plot creation
+        plt.title(title)
+        plt.xlabel("Time (seconds)")
+        plt.ylabel("Voltage")
+        plt.grid()
+        self.line, = self.ax.plot([], [])
+        plt.show()
+
+    def _save_data(self, data, name):
+        """ Method to save data in self.path with name"""
+
+        file = open(self.path + '\\' + name, 'w')
+        for d in data:
+            file.write(str(d) + "\n")
+        file.close()
+

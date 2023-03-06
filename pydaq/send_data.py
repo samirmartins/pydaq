@@ -1,14 +1,14 @@
-import nidaqmx
-import time
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import os
-import numpy as np
+import time
 import warnings
 import PySimpleGUI as sg
-from pydaq.utils.base import Base
+import matplotlib.pyplot as plt
+import nidaqmx
+import numpy as np
 import serial
 import serial.tools.list_ports
+from pydaq.utils.base import Base
+
 
 class Send_data(Base):
     """
@@ -65,7 +65,7 @@ class Send_data(Base):
 
         # COM ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
-
+        self.com_port = self.com_ports[0]  # Default COM port
 
     def send_data_nidaqmx(self):
         """
@@ -85,26 +85,11 @@ class Send_data(Base):
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
-        task.ao_channels.add_ao_voltage_chan(self.device + '/' + self.channel, min_val = float(self.ao_min), max_val = float(self.ao_max))
+        task.ao_channels.add_ao_voltage_chan(self.device + '/' + self.channel, min_val=float(self.ao_min),
+                                             max_val=float(self.ao_max))
 
-        if self.plot:  # If plot,
-
-            # Changing Matplotlib backend
-            mpl.use('Qt5Agg')
-
-            # create the figure and axes objects
-            fig, ax = plt.subplots()
-            fig._label = 'iter_plot'  # Defining label
-
-            # Run GUI event loop
-            plt.ion()
-
-            # Title and labels and plot creation
-            plt.xlabel("Time (seconds)")
-            plt.ylabel("Voltage")
-            plt.grid()
-            line, = ax.plot(self.time_var, [])
-            plt.show()
+        if self.plot:  # If plot, start updatable plot
+            self._start_updatable_plot(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
 
         # Main loop, where data will be sent
         for k in range(cycles):
@@ -116,7 +101,6 @@ class Send_data(Base):
             st = time.time()
 
             # Queue data in a list
-            plt.title(f'PYDAQ - Sending Data. {self.device}, {self.channel}')
             self.time_var.append(k * self.ts)
 
             if self.plot:
@@ -128,12 +112,12 @@ class Send_data(Base):
                     break
 
                 # Updating data values
-                line.set_xdata(self.time_var)
-                line.set_ydata(self.data[0:k + 1])
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-                ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
-                ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
+                self.line.set_xdata(self.time_var)
+                self.line.set_ydata(self.data[0:k + 1])
+                self.fig.canvas.draw()
+                self.fig.canvas.flush_events()
+                self.ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
+                self.ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
 
             print(f'Iteration: {k} of {cycles-1}')
 
@@ -181,14 +165,17 @@ class Send_data(Base):
             defchan = 'There is no analog output in this board'
 
         second_column = [
-            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0], key="-DDDev-")],
-            [sg.DD(chan, enable_events=True, size=(40, 1),default_value=defchan, key="-DDChan-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0],
+                   key="-DDDev-")],
+            [sg.DD(chan, enable_events=True, size=(40, 1), default_value=defchan, key="-DDChan-")],
+            [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",
                    default_text=self.path),
              sg.FileBrowse()],
-            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size = (10,1), enable_events=True, key = '-ao_min-'), sg.VSeparator(), sg.Text("Maximum"), sg.In(default_text=self.ao_max, size = (10,1), enable_events=True, key = '-ao_max-')]
+            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size=(10, 1), enable_events=True, key='-ao_min-'),
+             sg.VSeparator(), sg.Text("Maximum"),
+             sg.In(default_text=self.ao_max, size=(10, 1), enable_events=True, key='-ao_max-')]
         ]
 
         bottom_line = [
@@ -266,7 +253,7 @@ class Send_data(Base):
 
         return
 
-    def send_data_arduino(self, COM):
+    def send_data_arduino(self):
         """
             This function can be used to send experimental data  using Python +
             Arduino boards (digital output only). If "High", the value should be greather
@@ -285,49 +272,26 @@ class Send_data(Base):
         cycles = len(self.data)
 
         # Opening ports and serial communication
-        ser = serial.Serial()
-        ser.dtr = True
-        ser.baudrate = (9600)
-        ser.port = COM # Definind port
-
-        if not ser.isOpen():# Open port if not openned
-            ser.open() # Opening port
+        self._open_serial()
 
         # Rearranjing data to be send and also loaded data
         self.data_send = list(self.data).copy()
-        self.data_send = [b'1' if i>2.5 else b'0' for i in self.data]
+        self.data_send = [b'1' if i > 2.5 else b'0' for i in self.data]
         self.data = np.array(self.data)
 
-        if self.plot:  # If plot,
-
-            # Changing Matplotlib backend
-            mpl.use('Qt5Agg')
-
-            # create the figure and axes objects
-            fig, ax = plt.subplots()
-            fig._label = 'iter_plot'  # Defining label
-
-            # Run GUI event loop
-            plt.ion()
-
-            # Title and labels and plot creation
-            plt.xlabel("Time (seconds)")
-            plt.ylabel("Voltage")
-            plt.grid()
-            line, = ax.plot(self.time_var, [])
-            plt.show()
+        if self.plot:  # If plot, start updatable plot
+            self._start_updatable_plot(f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}')
 
         # Main loop, where data will be sent
         for k in range(cycles):
 
             # Sending data
-            ser.write(self.data_send[k])
+            self.ser.write(self.data_send[k])
 
             # Counting time to append data and update interface
             st = time.time()
 
             # Queue data in a list
-            plt.title(f'PYDAQ - Sending Data. Arduino, Port: {COM}')
             self.time_var.append(k * self.ts)
 
             if self.plot:
@@ -339,12 +303,12 @@ class Send_data(Base):
                     break
 
                 # Updating data values
-                line.set_xdata(self.time_var)
-                line.set_ydata(self.data[0:k + 1])
-                fig.canvas.draw()
-                fig.canvas.flush_events()
-                ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
-                ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
+                self.line.set_xdata(self.time_var)
+                self.line.set_ydata(self.data[0:k + 1])
+                self.fig.canvas.draw()
+                self.fig.canvas.flush_events()
+                self.ax.set_xlim([0, 1.1 * len(self.data) * self.ts])
+                self.ax.set_ylim([-1.1 * min(abs(self.data)), 1.1 * max(abs(self.data))])
 
             print(f'Iteration: {k} of {cycles-1}')
 
@@ -358,9 +322,9 @@ class Send_data(Base):
                 warnings.warn("Time spent to append data and update interface was greater than ts. "
                               "You CANNOT trust time.dat")
 
-        ser.write(b'0') # Turning off the output
+        self.ser.write(b'0') # Turning off the output
         # Closing port
-        ser.close()
+        self.ser.close()
 
     def send_data_arduino_gui(self):
         """
@@ -393,7 +357,7 @@ class Send_data(Base):
 
         second_column = [
             [sg.DD(self.com_ports, size=(40, 1), enable_events=True, default_value=self.com_ports[0], key="-COM-")],
-            [sg.I("1.0", enable_events=True, key='-TS-', size=(40, 1))],
+            [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.Radio("Yes", "plot_radio", default=True, key='-Plot-'), sg.Radio("No", "plot_radio", default=False)],
             [sg.In(size=(32, 1), enable_events=True, key="-Path-",
                    default_text=self.path),
@@ -450,7 +414,13 @@ class Send_data(Base):
 
                 # Calling send data method
                 if not self.error_path:
-                    self.send_data_arduino(self.com_port)
+                    self.send_data_arduino()
+
+            if event == '-COM-':  # Updating com ports
+
+                self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+                port = values['-COM-']
+                window['-COM-'].update(port, self.com_ports)
 
 
         window.close()
