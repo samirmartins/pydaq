@@ -72,7 +72,7 @@ class Base:
         self.fig, self.ax = plt.subplots()
         self.fig._label = 'iter_plot'  # Defining label
 
-        # Run GUI event loop
+        # Iteractive plot on
         plt.ion()
 
         # Title and labels and plot creation
@@ -80,18 +80,25 @@ class Base:
         plt.xlabel("Time (seconds)")
         plt.ylabel("Voltage")
         plt.grid()
-        self.line, = self.ax.plot([], [])
+        self.line = self.ax.plot([], [])
         plt.show()
 
-    def _update_plot(self, x_value, y_value):
+    def _update_plot(self, x_value, y_value, number_of_inputs = 1):
         """ Method to update plot already started using _start_updatable_plot
             using x_value and y_value as new data"""
-        self.line.set_xdata(x_value)
-        self.line.set_ydata(y_value)
+
+        self.ax.clear()
+        plt.title(self.title)
+        plt.xlabel("Time (seconds)")
+        plt.ylabel("Voltage")
+        plt.grid()
+        if number_of_inputs > 1:
+            for k in range(number_of_inputs):
+                self.ax.plot(x_value[k],y_value[k])
+        else:
+            self.ax.plot(x_value, y_value)
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
-        self.ax.set_xlim([0, 1.1 * self.cycles*self.ts])
-        self.ax.set_ylim([-1.1 * max(np.abs(y_value))-0.1, 1.1 * max(np.abs(y_value))+0.1])
 
     def _save_data(self, data, name):
         """ Method to save data in self.path with name"""

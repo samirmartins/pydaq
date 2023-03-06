@@ -435,3 +435,9 @@ class Get_data(Base):
 
         return
 
+
+if __name__ == '__main__':
+
+    from pydaq.get_data import Get_data
+    s = Get_data()
+    s.get_data_arduino_gui()

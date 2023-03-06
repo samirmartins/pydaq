@@ -12,6 +12,7 @@ import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
 import matplotlib.pyplot as plt
+import warnings
 
 class Step_response(Base):
     """
@@ -44,6 +45,9 @@ class Step_response(Base):
 
         # Initializing variables
         self.time_var, self.input, self.output = [], [], []
+
+        # Plot title
+        self.title = None
 
     def step_response_arduino_gui(self):
         """
@@ -155,7 +159,8 @@ class Step_response(Base):
         self._open_serial()
 
         if self.plot:  # If plot, start updatable plot
-            self._start_updatable_plot(f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}')
+            self.title = f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}'
+            self._start_updatable_plot()
 
         # Data to be sent
         sent_data = b'0'
@@ -188,7 +193,7 @@ class Step_response(Base):
                    break
 
                 # Updating data values
-                self._update_plot([self.time_var, self.time_var], [self.output, self.input])
+                self._update_plot([self.time_var, self.time_var], [self.output, self.input], 2)
 
             print(f'Iteration: {k} of {self.cycles - 1}')
 
