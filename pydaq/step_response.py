@@ -156,6 +156,9 @@ class Step_response(Base):
             # Start
             if event == '-Start-':  # Start data acquisition
 
+                # Cleaning data
+                self.output, self.input, self.time_var = [], [], []
+
                 # Separating variables
                 self.ts = float(values['-TS-'])
                 self.session_duration = float(values['-SD-'])
@@ -300,21 +303,21 @@ class Step_response(Base):
         ]
 
         try:
-            ao_chan = nidaqmx.system.device.Device(self.device_names[0]).ao_physical_chans.channel_names
+            ao_chan = nidaqmx.system.device.Device(self.device_names[-1]).ao_physical_chans.channel_names
             ao_def_chan = ao_chan[0]
         except:
             ao_chan = ''
             ao_def_chan = 'There is no analog output in this board'
 
         try:
-            ai_chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
+            ai_chan = nidaqmx.system.device.Device(self.device_names[-1]).ai_physical_chans.channel_names
             ai_def_chan = ai_chan[0]
         except:
             ai_chan = ''
             ai_def_chan = 'There is no analog input in this board'
 
         second_column = [
-            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[0],
+            [sg.DD(self.device_type, size=(40, 1), enable_events=True, default_value=self.device_type[-1],
                    key="-DDDev-")],
             [sg.DD(ao_chan, enable_events=True, size=(40, 1), default_value=ao_def_chan, key="-DDAOChan-")],
             [sg.DD(ai_chan, enable_events=True, size=(40, 1), default_value=ai_def_chan, key="-DDAIChan-")],
@@ -360,6 +363,8 @@ class Step_response(Base):
             # Start
             if event == '-Start-':
 
+                # Cleaning data
+                self.output, self.input, self.time_var = [], [], []
 
                 try:
                     # Separating variables
@@ -433,7 +438,7 @@ class Step_response(Base):
         task_ai = nidaqmx.Task()
         task_ao.ao_channels.add_ao_voltage_chan(self.device + '/' + self.ao_channel, min_val=float(self.ao_min),
                                              max_val=float(self.ao_max))
-        task_ai.ai_channels.add_ai_voltage_chan(self.device + '/' + self.ai_channel)
+        task_ai.ai_channels.add_ai_voltage_chan(self.device + '/' + self.ai_channel, terminal_config=self.terminal)
 
         if self.plot:  # If plot, start updatable plot
             self.title = f'PYDAQ - Step Response (NIDAQ). {self.device}, {self.ai_channel}, {self.ao_channel}'
