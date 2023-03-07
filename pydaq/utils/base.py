@@ -6,6 +6,7 @@ import serial
 import serial.tools.list_ports
 import numpy as np
 import nidaqmx
+from nidaqmx.constants import TerminalConfiguration
 
 class Base:
     """
@@ -13,9 +14,14 @@ class Base:
     """
 
     def __init__(self):
-        pass
 
-    def range_error(self):
+        # Terminal configuration Map
+        self.term_map = {'Diff': TerminalConfiguration.DIFF,
+                'RSE': TerminalConfiguration.RSE,
+                'NRSE': TerminalConfiguration.NRSE}
+
+
+    def _range_error(self):
         layout2 = [[sg.VPush()], [
             sg.Cancel("Out of range value (check ao_max and ao_min)!", key="-new-")],
                    [sg.VPush()]]
@@ -28,7 +34,7 @@ class Base:
 
         window.close()
 
-    def error_window(self):
+    def _error_window(self):
         layout2 = [[sg.VPush()], [sg.Cancel("Device, channel or data were not choosen properly!", key="-new-")],
                    [sg.VPush()]]
         window = sg.Window("ERROR!", layout2, resizable=False, finalize=True, element_justification="center",

@@ -210,7 +210,7 @@ class Send_data(Base):
 
                 # Check if max(data) < self.ao_max
                 if (max(self.data) > float(self.ao_max)) or (min(self.data) < float(self.ao_min)):
-                    self.range_error()
+                    self._range_error()
                     self.error_max = True
                 else:
                     self.error_max = False
@@ -224,7 +224,7 @@ class Send_data(Base):
                     self.error_path = False
 
                 except:
-                    self.error_window()
+                    self._error_window()
                     self.error_path = True
 
                 # Calling send data method
@@ -397,7 +397,7 @@ class Send_data(Base):
                     self.error_path = False
 
                 except:
-                    self.error_window()
+                    self._error_window()
                     self.error_path = True
 
                 # Calling send data method

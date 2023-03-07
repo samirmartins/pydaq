@@ -4,10 +4,10 @@ import warnings
 import PySimpleGUI as sg
 import matplotlib.pyplot as plt
 import nidaqmx
+from nidaqmx.constants import TerminalConfiguration
 import numpy as np
 import serial
 import serial.tools.list_ports
-from nidaqmx.constants import TerminalConfiguration
 from pydaq.utils.base import Base
 
 
@@ -30,7 +30,13 @@ class Get_data(Base):
             terminal: Diff, RSE or NRSE: terminal configuration (differential, referenced single ended or non-referenced single ended)
     """
 
-    def __init__(self, device="Dev1", channel="ai0", ts=0.5, session_duration=10.0, save=True, path=None, plot=True,
+    def __init__(self,
+                 device="Dev1",
+                 channel="ai0",
+                 ts=0.5,
+                 session_duration=10.0,
+                 save=True,
+                 plot=True,
                  terminal='Diff'):
 
         super().__init__()
@@ -39,13 +45,9 @@ class Get_data(Base):
         self.ts = ts
         self.session_duration = session_duration
         self.save = save
-        self.path = path
         self.plot = plot
 
         # Terminal configuration
-        self.term_map = {'Diff': TerminalConfiguration.DIFF,
-                'RSE': TerminalConfiguration.RSE,
-                'NRSE': TerminalConfiguration.NRSE}
         self.terminal = self.term_map[terminal]
 
         # Initializing variables
@@ -64,6 +66,18 @@ class Get_data(Base):
 
         # Plot title
         self.title = None
+
+        # Defining default path
+        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+
+        # Arduino ADC resolution (in bits)
+        self.arduino_ai_bits = 10
+
+        # Arduino analog input max and min
+        self.ard_ao_max, self.ard_ao_min = 5, 0
+
+        # Value per bit - Arduino
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min)/(2**self.arduino_ai_bits)
 
     def get_data_nidaq(self):
         """
@@ -233,7 +247,7 @@ class Get_data(Base):
                     self.error_path = False
 
                 except:
-                    self.error_window()
+                    self._error_window()
                     self.error_path = True
 
                 # Calling data aquisition method
@@ -289,7 +303,7 @@ class Get_data(Base):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            temp = int(self.ser.read(14).split()[-2].decode('UTF-8')) / 204.6  # Get the last complete value
+            temp = int(self.ser.read(14).split()[-2].decode('UTF-8')) * self.ard_vpb # Get the last complete value
 
             # Counting time to append data and update interface
             st = time.time()
@@ -410,7 +424,7 @@ class Get_data(Base):
                     self.error_path = False
 
                 except:
-                    self.error_window()
+                    self._error_window()
                     self.error_path = True
 
                 # Calling data aquisition method
@@ -432,4 +446,4 @@ if __name__ == '__main__':
 
     from pydaq.get_data import Get_data
     s = Get_data()
-    s.get_data_arduino_gui()
+    s.get_data_nidaq_gui()
