@@ -28,7 +28,14 @@ class Send_data(Base):
             ao_max: maximum allowed analog output value
     """
 
-    def __init__(self, data=None, device="Dev1", channel="ao0", ts=0.5, plot=True, ao_min=0, ao_max=5):
+    def __init__(self,
+                 data=None,
+                 device="Dev1",
+                 channel="ao0",
+                 ts=0.5,
+                 ao_min=0,
+                 ao_max=5,
+                 plot=True):
 
         super().__init__()
         self.device = device
@@ -64,6 +71,8 @@ class Send_data(Base):
 
         # Plot title
         self.title = None
+
+        self.legend = ['Output']
 
     def send_data_nidaq(self):
         """
@@ -187,7 +196,7 @@ class Send_data(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Sending data", layout, resizable=False, finalize=True, element_justification="center",
+        window = sg.Window("PYDAQ - Sending data (NIDAQ)", layout, resizable=False, finalize=True, element_justification="center",
                            font="Helvetica")
 
         # Event Loop
@@ -365,7 +374,7 @@ class Send_data(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Sending data", layout, resizable=False, finalize=True, element_justification="center",
+        window = sg.Window("PYDAQ - Sending data (ARDUINO)", layout, resizable=False, finalize=True, element_justification="center",
                            font="Helvetica")
 
 
@@ -414,9 +423,3 @@ class Send_data(Base):
         window.close()
 
         return
-
-if __name__ == '__main__':
-
-    from pydaq.send_data import Send_data
-    s = Send_data()
-    s.send_data_nidaq_gui()

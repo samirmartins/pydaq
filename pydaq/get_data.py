@@ -27,17 +27,18 @@ class Get_data(Base):
             save: if True, saves data in path defined by path.
             path: where data will be saved.
             plot: if True, plot data iteractively as they are acquired
-            terminal: Diff, RSE or NRSE: terminal configuration (differential, referenced single ended or non-referenced single ended)
+            terminal: 'Diff', 'RSE' or 'NRSE': terminal configuration (differential, referenced single ended or non-referenced single ended)
     """
 
     def __init__(self,
                  device="Dev1",
                  channel="ai0",
+                 terminal='Diff',
                  ts=0.5,
                  session_duration=10.0,
                  save=True,
-                 plot=True,
-                 terminal='Diff'):
+                 plot=True
+                 ):
 
         super().__init__()
         self.device = device
@@ -61,14 +62,21 @@ class Get_data(Base):
         self.error_path = False
 
         # COM ports
-        self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+        self.com_ports = [
+            i.description for i in serial.tools.list_ports.comports()]
         self.com_port = self.com_ports[0]  # Default COM port
 
         # Plot title
         self.title = None
 
+        # Plot legend
+        self.legend = ['Input']
+
         # Defining default path
-        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        self.path = os.path.join(
+            os.path.join(
+                os.path.expanduser('~')),
+            'Desktop')
 
         # Arduino ADC resolution (in bits)
         self.arduino_ai_bits = 10
@@ -77,7 +85,8 @@ class Get_data(Base):
         self.ard_ao_max, self.ard_ao_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min)/(2**self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / \
+            (2**self.arduino_ai_bits)
 
     def get_data_nidaq(self):
         """
@@ -99,7 +108,9 @@ class Get_data(Base):
 
         # Initializing device, with channel defined
         task = nidaqmx.Task()
-        task.ai_channels.add_ai_voltage_chan(self.device + '/' + self.channel, terminal_config=self.terminal)
+        task.ai_channels.add_ai_voltage_chan(
+            self.device + '/' + self.channel,
+            terminal_config=self.terminal)
 
         if self.plot:  # If plot, start updatable plot
             self.title = f'PYDAQ - Data Acquisition. {self.device}, {self.channel}'
@@ -120,10 +131,11 @@ class Get_data(Base):
 
             if self.plot:
 
-                # Checking if there is still an open figure. If not, stop the for loop.
+                # Checking if there is still an open figure. If not, stop the
+                # for loop.
                 try:
                     plt.get_figlabels().index('iter_plot')
-                except:
+                except BaseException:
                     break
 
                 # Updating data values
@@ -137,9 +149,10 @@ class Get_data(Base):
             # Wait for (ts - delta_time) seconds
             try:
                 time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn("Time spent to append data and update interface was greater than ts. "
-                              "You CANNOT trust time.dat")
+            except BaseException:
+                warnings.warn(
+                    "Time spent to append data and update interface was greater than ts. "
+                    "You CANNOT trust time.dat")
 
         # Closing task
         task.close()
@@ -180,9 +193,10 @@ class Get_data(Base):
         ]
 
         try:
-            chan = nidaqmx.system.device.Device(self.device_names[0]).ai_physical_chans.channel_names
+            chan = nidaqmx.system.device.Device(
+                self.device_names[0]).ai_physical_chans.channel_names
             defchan = chan[0]
-        except:
+        except BaseException:
             chan = ''
             defchan = ''
 
@@ -216,8 +230,13 @@ class Get_data(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Data Acquisition", layout, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica")
+        window = sg.Window(
+            "PYDAQ - Data Acquisition (NIDAQ)",
+            layout,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica")
 
         # Event Loop
         while True:
@@ -246,7 +265,7 @@ class Get_data(Base):
                     self.time_var = []
                     self.error_path = False
 
-                except:
+                except BaseException:
                     self._error_window()
                     self.error_path = True
 
@@ -262,7 +281,7 @@ class Get_data(Base):
                 # Default channel
                 try:
                     default_channel = new_ai_channels[0]
-                except:
+                except BaseException:
                     default_channel = 'There is no analog input in this board'
 
                 # Rewriting new ai channels into the right place
@@ -303,7 +322,9 @@ class Get_data(Base):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            temp = int(self.ser.read(14).split()[-2].decode('UTF-8')) * self.ard_vpb # Get the last complete value
+            # Get the last complete value
+            temp = int(self.ser.read(14).split()
+                       [-2].decode('UTF-8')) * self.ard_vpb
 
             # Counting time to append data and update interface
             st = time.time()
@@ -314,10 +335,11 @@ class Get_data(Base):
 
             if self.plot:
 
-                # Checking if there is still an open figure. If not, stop the for loop.
+                # Checking if there is still an open figure. If not, stop the
+                # for loop.
                 try:
                     plt.get_figlabels().index('iter_plot')
-                except:
+                except BaseException:
                     break
 
                 # Updating data values
@@ -331,9 +353,10 @@ class Get_data(Base):
             # Wait for (ts - delta_time) seconds
             try:
                 time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn("Time spent to append data and update interface was greater than ts. "
-                              "You CANNOT trust time.dat")
+            except BaseException:
+                warnings.warn(
+                    "Time spent to append data and update interface was greater than ts. "
+                    "You CANNOT trust time.dat")
 
         # Closing port
         self.ser.close()
@@ -395,8 +418,13 @@ class Get_data(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Data Acquisition", layout, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica")
+        window = sg.Window(
+            "PYDAQ - Data Acquisition (ARDUINO)",
+            layout,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica")
 
         # Event Loop
         while True:
@@ -413,7 +441,8 @@ class Get_data(Base):
                     # Separating variables
                     self.ts = float(values['-TS-'])
                     self.session_duration = float(values['-SD-'])
-                    self.com_port = serial.tools.list_ports.comports()[self.com_ports.index(values['-COM-'])].name
+                    self.com_port = serial.tools.list_ports.comports(
+                    )[self.com_ports.index(values['-COM-'])].name
                     self.save = values['-Save-']
                     self.path = values['-Path-']
                     self.plot = values['-Plot-']
@@ -423,7 +452,7 @@ class Get_data(Base):
                     self.time_var = []
                     self.error_path = False
 
-                except:
+                except BaseException:
                     self._error_window()
                     self.error_path = True
 
@@ -433,7 +462,8 @@ class Get_data(Base):
 
             if event == '-COM-':  # Updating com ports
 
-                self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+                self.com_ports = [
+                    i.description for i in serial.tools.list_ports.comports()]
                 port = values['-COM-']
                 window['-COM-'].update(port, self.com_ports)
 
@@ -441,9 +471,3 @@ class Get_data(Base):
 
         return
 
-
-if __name__ == '__main__':
-
-    from pydaq.get_data import Get_data
-    s = Get_data()
-    s.get_data_nidaq_gui()

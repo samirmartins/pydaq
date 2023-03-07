@@ -14,6 +14,7 @@ import warnings
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 
+
 class Step_response(Base):
     """
         Class developed to construct Graphical User Interface for step
@@ -24,33 +25,32 @@ class Step_response(Base):
              - https://www.github.com/samirmartins/
 
         :params:
+            device: nidaq default device.
+            ao_channel: nidaq default analog output channel
+            ai_channel: nidaq default analog input channel
             ts: sample period, in seconds.
             session_duration: session duration, in seconds.
             step_time: time when step will be applied, in seconds
-            plot: if True, plot data iteractively as they are sent/acquired
-            device: nidaq default device.
-            channel: nidaq default channel
             ao_min: minimum allowed analog output value
             ao_max: maximum allowed analog output value
-            ai_min: minimum step for analog input
-            ai_max: maximum step for analog input
+            terminal: 'Diff', 'RSE' or 'NRSE': terminal configuration (differential, referenced single ended or non-referenced single ended)
+            plot: if True, plot data iteractively as they are sent/acquired
 
 
     """
 
     def __init__(self,
+                 device="Dev1",
+                 ao_channel="ao0",
+                 ai_channel="ai0",
                  ts=0.5,
                  session_duration=10.0,
                  step_time=3.0,
-                 plot=True,
-                 device = "Dev1",
-                 ao_channel = "ao0",
-                 ai_channel = "ai0",
-                 ao_min = 0,
-                 ao_max = 5,
-                 terminal='Diff'):
-
-
+                 ao_min=0,
+                 ao_max=5,
+                 terminal='Diff',
+                 plot=True
+                 ):
 
         super().__init__()
         self.ts = ts
@@ -63,12 +63,12 @@ class Step_response(Base):
         self.ao_min = ao_min
         self.ao_max = ao_max
 
-
         # Terminal configuration
         self.terminal = self.term_map[terminal]
 
         # COM ports
-        self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+        self.com_ports = [
+            i.description for i in serial.tools.list_ports.comports()]
         self.com_port = self.com_ports[0]  # Default COM port
 
         # Initializing variables
@@ -81,16 +81,22 @@ class Step_response(Base):
         self._nidaq_info()
 
         # Defining default path
-        self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        self.path = os.path.join(
+            os.path.join(
+                os.path.expanduser('~')),
+            'Desktop')
 
         # Arduino ADC resolution (in bits)
         self.arduino_ai_bits = 10
 
         # Arduino analog input max and min
-        self.ard_ao_max, self.ard_ao_min = 5,0
+        self.ard_ao_max, self.ard_ao_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min)/(2**self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / \
+            (2 ** self.arduino_ai_bits)
+
+        self.legend = ['Input', 'Output']
 
     def step_response_arduino_gui(self):
         """
@@ -142,8 +148,13 @@ class Step_response(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Step Response (Arduino)", layout, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica")
+        window = sg.Window(
+            "PYDAQ - Step Response (Arduino)",
+            layout,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica")
 
         # Event Loop
         while True:
@@ -162,7 +173,8 @@ class Step_response(Base):
                 # Separating variables
                 self.ts = float(values['-TS-'])
                 self.session_duration = float(values['-SD-'])
-                self.com_port = serial.tools.list_ports.comports()[self.com_ports.index(values['-COM-'])].name
+                self.com_port = serial.tools.list_ports.comports(
+                )[self.com_ports.index(values['-COM-'])].name
                 self.save = values['-Save-']
                 self.path = values['-Path-']
                 self.step_time = values['-Step-']
@@ -178,7 +190,8 @@ class Step_response(Base):
 
             if event == '-COM-':  # Updating com ports
 
-                self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+                self.com_ports = [
+                    i.description for i in serial.tools.list_ports.comports()]
                 port = values['-COM-']
                 window['-COM-'].update(port, self.com_ports)
 
@@ -220,31 +233,35 @@ class Step_response(Base):
             # Sending and acquiring data
             self.ser.write(sent_data)
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            temp = int(self.ser.read(14).split()[-2].decode('UTF-8')) * self.ard_vpb # Get the last complete value
+            # Get the last complete value
+            temp = int(self.ser.read(14).split()
+                       [-2].decode('UTF-8')) * self.ard_vpb
 
             # Counting time to append data and update interface
             st = time.time()
 
             # Queue data in a list
             self.output.append(temp)
-            self.input.append(float(sent_data))
+            self.input.append(5 * float(sent_data))
             self.time_var.append(k * self.ts)
 
             if self.plot:
 
-                # Checking if there is still an open figure. If not, stop the for loop.
+                # Checking if there is still an open figure. If not, stop the
+                # for loop.
                 try:
                     plt.get_figlabels().index('iter_plot')
-                except:
-                   break
+                except BaseException:
+                    break
 
                 # Updating data values
-                self._update_plot([self.time_var, self.time_var], [self.output, self.input], 2)
+                self._update_plot([self.time_var, self.time_var], [
+                                  self.output, self.input], 2)
 
             print(f'Iteration: {k} of {self.cycles - 1}')
 
             # Updating sent_data
-            if k*self.ts > float(self.step_time):
+            if k * self.ts > float(self.step_time):
                 sent_data = b'1'
             else:
                 sent_data = b'0'
@@ -255,9 +272,10 @@ class Step_response(Base):
             # Wait for (ts - delta_time) seconds
             try:
                 time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn("Time spent to append data and update interface was greater than ts. "
-                              "You CANNOT trust time.dat")
+            except BaseException:
+                warnings.warn(
+                    "Time spent to append data and update interface was greater than ts. "
+                    "You CANNOT trust time.dat")
 
         # Turning off the output at the end
         self.ser.write(b'0')
@@ -303,16 +321,18 @@ class Step_response(Base):
         ]
 
         try:
-            ao_chan = nidaqmx.system.device.Device(self.device_names[-1]).ao_physical_chans.channel_names
+            ao_chan = nidaqmx.system.device.Device(
+                self.device_names[-1]).ao_physical_chans.channel_names
             ao_def_chan = ao_chan[0]
-        except:
+        except BaseException:
             ao_chan = ''
             ao_def_chan = 'There is no analog output in this board'
 
         try:
-            ai_chan = nidaqmx.system.device.Device(self.device_names[-1]).ai_physical_chans.channel_names
+            ai_chan = nidaqmx.system.device.Device(
+                self.device_names[-1]).ai_physical_chans.channel_names
             ai_def_chan = ai_chan[0]
-        except:
+        except BaseException:
             ai_chan = ''
             ai_def_chan = 'There is no analog input in this board'
 
@@ -349,8 +369,13 @@ class Step_response(Base):
             [sg.Column(bottom_line, vertical_alignment='center')]
         ]
 
-        window = sg.Window("PYDAQ - Step Response (NIDAQ)", layout, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica")
+        window = sg.Window(
+            "PYDAQ - Step Response (NIDAQ)",
+            layout,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica")
 
         # Event Loop
         while True:
@@ -383,7 +408,7 @@ class Step_response(Base):
                     self.path = values['-Path-']
                     self.error_path = False
 
-                except:
+                except BaseException:
                     self._error_window()
                     self.error_path = True
 
@@ -402,17 +427,18 @@ class Step_response(Base):
                 # Default channel
                 try:
                     default_ao_channel = new_ao_channels[0]
-                except:
+                except BaseException:
                     default_ao_channel = 'There is no analog output in this board'
                 try:
                     default_ai_channel = new_ai_channels[0]
-                except:
+                except BaseException:
                     default_ai_channel = 'There is no analog input in this board'
 
-
                 # Rewriting new ai channels into the right place
-                window['-DDAOChan-'].update(default_ao_channel, new_ao_channels)
-                window['-DDAIChan-'].update(default_ai_channel, new_ai_channels)
+                window['-DDAOChan-'].update(default_ao_channel,
+                                            new_ao_channels)
+                window['-DDAIChan-'].update(default_ai_channel,
+                                            new_ai_channels)
 
         window.close()
 
@@ -436,9 +462,15 @@ class Step_response(Base):
         # Initializing device, with channel defined
         task_ao = nidaqmx.Task()
         task_ai = nidaqmx.Task()
-        task_ao.ao_channels.add_ao_voltage_chan(self.device + '/' + self.ao_channel, min_val=float(self.ao_min),
-                                             max_val=float(self.ao_max))
-        task_ai.ai_channels.add_ai_voltage_chan(self.device + '/' + self.ai_channel, terminal_config=self.terminal)
+        task_ao.ao_channels.add_ao_voltage_chan(
+            self.device + '/' + self.ao_channel,
+            min_val=float(
+                self.ao_min),
+            max_val=float(
+                self.ao_max))
+        task_ai.ai_channels.add_ai_voltage_chan(
+            self.device + '/' + self.ai_channel,
+            terminal_config=self.terminal)
 
         if self.plot:  # If plot, start updatable plot
             self.title = f'PYDAQ - Step Response (NIDAQ). {self.device}, {self.ai_channel}, {self.ao_channel}'
@@ -467,19 +499,21 @@ class Step_response(Base):
 
             if self.plot:
 
-                # Checking if there is still an open figure. If not, stop the for loop.
+                # Checking if there is still an open figure. If not, stop the
+                # for loop.
                 try:
                     plt.get_figlabels().index('iter_plot')
-                except:
-                   break
+                except BaseException:
+                    break
 
                 # Updating data values
-                self._update_plot([self.time_var, self.time_var], [self.output, self.input], 2)
+                self._update_plot([self.time_var, self.time_var], [
+                                  self.output, self.input], 2)
 
             print(f'Iteration: {k} of {self.cycles - 1}')
 
             # Updating sent_data
-            if k*self.ts > float(self.step_time):
+            if k * self.ts > float(self.step_time):
                 sent_data = self.ao_max
             else:
                 sent_data = self.ao_min
@@ -490,9 +524,10 @@ class Step_response(Base):
             # Wait for (ts - delta_time) seconds
             try:
                 time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn("Time spent to append data and update interface was greater than ts. "
-                              "You CANNOT trust time.dat")
+            except BaseException:
+                warnings.warn(
+                    "Time spent to append data and update interface was greater than ts. "
+                    "You CANNOT trust time.dat")
 
         # Turning off the output at the end
         task_ao.write(0)
@@ -509,9 +544,3 @@ class Step_response(Base):
             self._save_data(self.output, 'output.dat')
             print('\nData saved ...')
         return
-
-if __name__ == '__main__':
-
-    from pydaq.step_response import Step_response
-    s = Step_response()
-    s.step_response_nidaq_gui()

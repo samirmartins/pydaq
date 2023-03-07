@@ -8,6 +8,7 @@ import numpy as np
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 
+
 class Base:
     """
         Base class for data acquisition and to send data.
@@ -17,16 +18,25 @@ class Base:
 
         # Terminal configuration Map
         self.term_map = {'Diff': TerminalConfiguration.DIFF,
-                'RSE': TerminalConfiguration.RSE,
-                'NRSE': TerminalConfiguration.NRSE}
-
+                         'RSE': TerminalConfiguration.RSE,
+                         'NRSE': TerminalConfiguration.NRSE}
 
     def _range_error(self):
+        """ Out of range window"""
+
         layout2 = [[sg.VPush()], [
             sg.Cancel("Out of range value (check ao_max and ao_min)!", key="-new-")],
-                   [sg.VPush()]]
-        window = sg.Window("ERROR!", layout2, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica", size=(600, 100))
+            [sg.VPush()]]
+        window = sg.Window(
+            "ERROR!",
+            layout2,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica",
+            size=(
+                600,
+                100))
         while True:
             event2, values2 = window.read()
             if event2 == "Exit" or event2 == sg.WIN_CLOSED or event2 == '-new-':
@@ -35,10 +45,22 @@ class Base:
         window.close()
 
     def _error_window(self):
-        layout2 = [[sg.VPush()], [sg.Cancel("Device, channel or data were not choosen properly!", key="-new-")],
-                   [sg.VPush()]]
-        window = sg.Window("ERROR!", layout2, resizable=False, finalize=True, element_justification="center",
-                           font="Helvetica", size=(600, 100))
+        """ Error window"""
+
+        layout2 = [[sg.VPush()], [sg.Cancel(
+            "Device, channel or data were not choosen properly!", key="-new-")], [sg.VPush()]]
+
+        window = sg.Window(
+            "ERROR!",
+            layout2,
+            resizable=False,
+            finalize=True,
+            element_justification="center",
+            font="Helvetica",
+            size=(
+                600,
+                100))
+
         while True:
             event2, values2 = window.read()
             if event2 == "Exit" or event2 == sg.WIN_CLOSED or event2 == '-new-':
@@ -51,11 +73,15 @@ class Base:
 
         # Checking if path was or not defined by the user
         if self.path is None:  # Saving in Desktop if it is not defined
-            self.path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+            self.path = os.path.join(
+                os.path.join(
+                    os.path.expanduser('~')),
+                'Desktop')
 
         # Check if able to save data in defined path
         if not os.path.exists(self.path):
-            warnings.warn('Defined path does not exists! Please redefine path and run the code again')
+            warnings.warn(
+                'Defined path does not exists! Please redefine path and run the code again')
             return
 
     def _open_serial(self):
@@ -90,7 +116,7 @@ class Base:
         self.line = self.ax.plot([], [])
         plt.show()
 
-    def _update_plot(self, x_value, y_value, number_of_inputs = 1):
+    def _update_plot(self, x_value, y_value, number_of_inputs=1):
         """ Method to update plot already started using _start_updatable_plot
             using x_value and y_value as new data"""
 
@@ -101,9 +127,11 @@ class Base:
         plt.grid()
         if number_of_inputs > 1:
             for k in range(number_of_inputs):
-                self.ax.plot(x_value[k],y_value[k])
+                self.ax.plot(x_value[k], y_value[k])
+                plt.legend(self.legend)
         else:
             self.ax.plot(x_value, y_value)
+            plt.legend(self.legend)
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
@@ -117,6 +145,7 @@ class Base:
 
     def _nidaq_info(self):
         """Gathering NIDAQ info"""
+
         # Getting all available devices
         self.device_names = []
         self.device_categories = []
