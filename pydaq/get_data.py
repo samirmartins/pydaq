@@ -22,18 +22,21 @@ class Get_data(Base):
         :param:
             device: nidaq device from where data will be colected. Example: "Dev1"
             channel: channel from where data will be acquired. Example: ai0
+            terminal: 'Diff', 'RSE' or 'NRSE': terminal configuration (differential, referenced single ended or non-referenced single ended)
+            com: arduino COM port. Example: 'COM1'
             ts: sample period, in seconds.
             session_duration: session duration, in seconds.
             save: if True, saves data in path defined by path.
             path: where data will be saved.
             plot: if True, plot data iteractively as they are acquired
-            terminal: 'Diff', 'RSE' or 'NRSE': terminal configuration (differential, referenced single ended or non-referenced single ended)
+
     """
 
     def __init__(self,
                  device="Dev1",
                  channel="ai0",
                  terminal='Diff',
+                 com='COM1',
                  ts=0.5,
                  session_duration=10.0,
                  save=True,
@@ -64,7 +67,7 @@ class Get_data(Base):
         # COM ports
         self.com_ports = [
             i.description for i in serial.tools.list_ports.comports()]
-        self.com_port = self.com_ports[0]  # Default COM port
+        self.com_port = com  # Default COM port
 
         # Plot title
         self.title = None

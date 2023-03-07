@@ -31,8 +31,8 @@ class Step_response(Base):
             ts: sample period, in seconds.
             session_duration: session duration, in seconds.
             step_time: time when step will be applied, in seconds
-            ao_min: minimum allowed analog output value
-            ao_max: maximum allowed analog output value
+            step_min: minimum step  value
+            step_max: maximum step value
             terminal: 'Diff', 'RSE' or 'NRSE': terminal configuration (differential, referenced single ended or non-referenced single ended)
             plot: if True, plot data iteractively as they are sent/acquired
 
@@ -46,9 +46,10 @@ class Step_response(Base):
                  ts=0.5,
                  session_duration=10.0,
                  step_time=3.0,
-                 ao_min=0,
-                 ao_max=5,
+                 step_min=0,
+                 step_max=5,
                  terminal='Diff',
+                 com = 'COM1',
                  plot=True
                  ):
 
@@ -60,8 +61,8 @@ class Step_response(Base):
         self.device = device
         self.ai_channel = ai_channel
         self.ao_channel = ao_channel
-        self.ao_min = ao_min
-        self.ao_max = ao_max
+        self.step_min = step_min
+        self.step_max = step_max
 
         # Terminal configuration
         self.terminal = self.term_map[terminal]
@@ -69,7 +70,7 @@ class Step_response(Base):
         # COM ports
         self.com_ports = [
             i.description for i in serial.tools.list_ports.comports()]
-        self.com_port = self.com_ports[0]  # Default COM port
+        self.com_port = com  # Default COM port
 
         # Initializing variables
         self.time_var, self.input, self.output = [], [], []
@@ -343,9 +344,9 @@ class Step_response(Base):
             [sg.DD(ai_chan, enable_events=True, size=(40, 1), default_value=ai_def_chan, key="-DDAIChan-")],
             [sg.DD(['Diff', 'RSE', 'NRSE'], enable_events=True, size=(40, 1), default_value=['Diff'],
                    key="-Terminal-")],
-            [sg.Text("Minimum"), sg.In(default_text=self.ao_min, size=(10, 1), enable_events=True, key='-ao_min-'),
+            [sg.Text("Minimum"), sg.In(default_text=self.step_min, size=(10, 1), enable_events=True, key='-step_min-'),
              sg.VSeparator(), sg.Text("Maximum"),
-             sg.In(default_text=self.ao_max, size=(10, 1), enable_events=True, key='-ao_max-')],
+             sg.In(default_text=self.step_max, size=(10, 1), enable_events=True, key='-step_max-')],
             [sg.I(self.ts, enable_events=True, key='-TS-', size=(40, 1))],
             [sg.I(self.session_duration, enable_events=True, key='-SD-', size=(40, 1))],
             [sg.I(self.step_time, enable_events=True, key='-Step-', size=(40, 1))],
@@ -398,8 +399,8 @@ class Step_response(Base):
                     self.ao_channel = values['-DDAOChan-'].split('/')[1]
                     self.ai_channel = values['-DDAIChan-'].split('/')[1]
                     self.terminal = self.term_map[values['-Terminal-']]
-                    self.ao_max = values['-ao_max-']
-                    self.ao_min = values['-ao_min-']
+                    self.step_max = values['-step_max-']
+                    self.step_min = values['-step_min-']
                     self.ts = float(values['-TS-'])
                     self.session_duration = float(values['-SD-'])
                     self.step_time = values['-Step-']
@@ -465,9 +466,9 @@ class Step_response(Base):
         task_ao.ao_channels.add_ao_voltage_chan(
             self.device + '/' + self.ao_channel,
             min_val=float(
-                self.ao_min),
+                self.step_min),
             max_val=float(
-                self.ao_max))
+                self.step_max))
         task_ai.ai_channels.add_ai_voltage_chan(
             self.device + '/' + self.ai_channel,
             terminal_config=self.terminal)
@@ -477,7 +478,7 @@ class Step_response(Base):
             self._start_updatable_plot()
 
         # Data to be sent
-        sent_data = self.ao_min
+        sent_data = self.step_min
 
         # Turning off the output before starting
         task_ao.write(sent_data)
@@ -514,9 +515,9 @@ class Step_response(Base):
 
             # Updating sent_data
             if k * self.ts > float(self.step_time):
-                sent_data = self.ao_max
+                sent_data = self.step_max
             else:
-                sent_data = self.ao_min
+                sent_data = self.step_min
 
             # Getting end time
             et = time.time()

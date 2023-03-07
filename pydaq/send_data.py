@@ -22,16 +22,18 @@ class Send_data(Base):
             data: data array (list or np.array) that will be sent to the board
             device: nidaq device from where data will be colected. Example: "Dev1"
             channel: channel from where data will be acquired. Example: ao0
+            com: arduino COM port. Example: 'COM1'
             ts: sample period, in seconds.
-            plot: if True, plot data iteractively as they are acquired
             ao_min: minimum allowed analog output value
             ao_max: maximum allowed analog output value
+            plot: if True, plot data iteractively as they are acquired
     """
 
     def __init__(self,
                  data=None,
                  device="Dev1",
                  channel="ao0",
+                 com='COM1',
                  ts=0.5,
                  ao_min=0,
                  ao_max=5,
@@ -64,7 +66,7 @@ class Send_data(Base):
 
         # COM ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
-        self.com_port = self.com_ports[0]  # Default COM port
+        self.com_port = com  # Default COM port
 
         # Number of necessary cycles
         self.cycles = None

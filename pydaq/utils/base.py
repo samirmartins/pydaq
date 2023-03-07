@@ -25,7 +25,7 @@ class Base:
         """ Out of range window"""
 
         layout2 = [[sg.VPush()], [
-            sg.Cancel("Out of range value (check ao_max and ao_min)!", key="-new-")],
+            sg.Cancel("Out of range value (check step_max and ao_min)!", key="-new-")],
             [sg.VPush()]]
         window = sg.Window(
             "ERROR!",
