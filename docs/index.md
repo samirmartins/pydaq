@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="img/logo.png" alt= “” class=“center” width="50%" height="50%">
+</p>
+
+
 # Welcome to PYDAQ documentation
 
 ## Introduction

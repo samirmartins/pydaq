@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="pydaq/docs/img/logo.png" alt= “” class=“center” width="50%" height="50%">
+</p>
+
 # PYDAQ
 
 ----
