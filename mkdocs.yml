@@ -1,4 +1,13 @@
 site_name: PYDAQ
+site_description: Data Acquisition and Experimental Analysis with Python
+site_author: Samir Angelo Milani Martins
+site_url: https://www.samirmartins.com.br
+
+repo_name: samirmartins/pydaq
+repo_url: https://github.com/samirmartins/pydaq
+
+copyright: Copyright &copy; 2023 - Samir Martins
+
 nav:
   - Home: index.md
   - Data Acquisition:
@@ -13,6 +22,5 @@ nav:
   - Examples:
     - NIDAQ Examples: examples_nidaq.md
     - Arduino Examples: examples_arduino.md
-
 theme:
   name: material
