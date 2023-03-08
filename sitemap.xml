@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/examples_arduino/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/examples_nidaq/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/get_data_arduino/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/get_data_nidaq/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/send_data_arduino/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/send_data_nidaq/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/step_response_arduino/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://samirmartins.github.io/pydaq/step_response_nidaq/</loc>
          <lastmod>2023-03-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
