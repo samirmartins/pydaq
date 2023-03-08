@@ -24,6 +24,27 @@ experiments, keeping the user confidence in the acquired/sent data.
 Besides, the command line interface allows one to keep developing new features 
 while data are acquired.
 
+
+## Installation and Requirements
+
+The fastest way to install PYDAQ is using pip:
+
+```console
+pip install pydaq
+```
+
+PYDAQ requires:
+
+- Installed driver of the board used (Arduino or National Instruments NIDAQ)
+- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
+- matplotlib (>=3.5.3) as a visualization tool
+- numpy (>=1.22.3) to process data
+- PySimpleGUI (>=4.60.3) as a Graphical User Interface
+- PyQt5 as a backend for PySimpleGui
+- pyserial (>=3.5) to manage data to/from Arduino
+
+
+
 ## Documentation Map
 
 ### Data Acquisition
@@ -44,4 +65,4 @@ a step response experiments with available boards ([NIDAQ](/step_response_nidaq)
 ### Examples
 
 In this section it will be provided Jupyter Notebook examples
-presenting code functionalities ([NIDAQ](/examples_nidaq)/[Arduino](/examples_arduino))
+presenting code functionalities ([NIDAQ](/jupyter_notebooks)/[Arduino](/jupyter_notebooks))
