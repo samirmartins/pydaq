@@ -1,8 +1,10 @@
+# PYDAQ
+
+
 <p align="center">
-  <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="50%" height="50%">
+  <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="40%" height="40%">
 </p> 
 
-# PYDAQ
 
 ----
 Using Python for applications with experimental data (NIDAQmx)
