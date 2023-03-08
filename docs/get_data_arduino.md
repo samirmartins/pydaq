@@ -83,8 +83,8 @@ print(f'\nFirst 10 values of data: \n {g.data[0:10]}')
 
 If you choose to plot you can see acquired data on screen, i.e:
 
-![](/img/acquired_data_arduino.png)
+![](img/acquired_data_arduino.png)
 
 Data will also be saved as depicted below:
 
-![](/img/data.png)
+![](img/data.png)

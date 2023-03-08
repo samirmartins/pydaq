@@ -20,7 +20,7 @@ g.get_data_nidaq_gui()
 After this command, the following screen will show up, where the 
 user is able to define parameters and start to acquire data.
 
-![](/img/get_data_nidaq.png)
+![](img/get_data_nidaq.png)
 
 The user is now able to select desired device, channel, terminal configuration 
 (Differential, RSE and NRSE), sample period and session duration. Also, 
@@ -75,8 +75,8 @@ print(f'\nFirst 10 values of data: \n {g.data[0:10]}')
 
 If you choose to plot you can see acquired data on screen, i.e:
 
-![](/img/acquired_data_nidaq.png)
+![](img/acquired_data_nidaq.png)
 
 Data will also be saved as depicted below:
 
-![](/img/data.png)
+![](img/data.png)

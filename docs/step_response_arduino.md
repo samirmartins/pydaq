@@ -28,7 +28,7 @@ s.step_response_arduino_gui()
 After this command, the following screen will show up, where the 
 user is able to define parameters and start to acquire data.
 
-![](/img/step_response_arduino_gui.png)
+![](img/step_response_arduino_gui.png)
 
 The user is now able to select desired Arduino and sample period, as well as 
 the session duration and the time when the step will be on. 
@@ -71,4 +71,4 @@ s.step_response_arduino()
 
 If you choose to plot you can see the data sent on screen, i.e:
 
-![](/img/step_response_arduino.png)
+![](img/step_response_arduino.png)

@@ -20,7 +20,7 @@ s.send_data_nidaq_gui()
 After this command, the following screen will show up, where the 
 user is able to define parameters and start to acquire data.
 
-![](/img/send_data_nidaq_gui.png)
+![](img/send_data_nidaq_gui.png)
 
 The user is now able to select desired device, analog output channel and sample period. Also, 
 the user will define if the data will or not be plotted. The data that will be sent should be in 
@@ -65,4 +65,4 @@ s.send_data_nidaq()
 
 If you choose to plot you can see the data sent on screen, i.e:
 
-![](/img/sending_data_nidaq.png)
+![](img/sending_data_nidaq.png)

@@ -20,7 +20,7 @@ s.step_response_nidaq_gui()
 After this command, the following screen will show up, where the 
 user is able to define parameters and start to acquire data.
 
-![](/img/step_response_nidaq_gui.png)
+![](img/step_response_nidaq_gui.png)
 
 The user is now able to select desired NIDAQ device, analog input and 
 analog output channel, as well as analog input terminal configuration.
@@ -73,4 +73,4 @@ s.step_response_nidaq()
 
 If you choose to plot you can see the data sent on screen, i.e:
 
-![](/img/step_response_nidaq.png)
+![](img/step_response_nidaq.png)
