@@ -28,7 +28,7 @@ acquisition and signal generator, when performing different experiment,
 such as a step-response test. 
 
 Despite this, one can use PYDAQ to acquire and send a signal from 
-any system, using different boards [(check examples folder)](examples), 
+any system, using different boards [(check jupyter notebook examples folder)](examples), 
 through a Graphical User Interface or via command line. In this sense
 the user is capable to generate a customized signal which can be easily
 applied to a system. 
@@ -49,6 +49,7 @@ In what follows you will find
 - Installation and Requirements
 - Quick view and Main features 
 - Using Graphical User Interfaces
+- Screenshots
 
 
 
@@ -88,30 +89,92 @@ Quick view and Main features
  
 
 ---
-Using Graphical User Interfaces (more details in [documentation](https://samirmartins.github.io/pydaq/) and [examples](examples)):
+Using GUIs (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
 ---
 
-Graphical User Interface (NIDAQmx):
+#### Data acquisition (NIDAQ):
 
 ```python
 from pydaq.get_data import Get_data
-
 g = Get_data()
 g.get_data_nidaq_gui()
 ```
 
-Command line (NIDAQmx):
+#### Data acquisition (Arduino):
 
 ```python
 from pydaq.get_data import Get_data
-
-g = Get_data("Dev1", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop", True)
-g.get_data_nidaq()
+g = Get_data()
+g.get_data_arduino_gui()
 ```
 
+#### Sending data (NIDAQ):
 
-![Graphical User Interface PYDAQmx](figures/gui.png)
+```python
+from pydaq.send_data import Send_data
+s = Send_data()
+s.send_data_nidaq_gui()
+```
 
-![Data Acquired - Visual](figures/data_acquired.png)
+#### Sending data (Arduino):
 
-![Data Acquired - .dat](figures/data.png)
+```python
+from pydaq.send_data import Send_data
+s = Send_data()
+s.send_data_arduino_gui()
+```
+
+#### Step response (NIDAQ):
+
+```python
+from pydaq.step_response import Step_response
+s = Step_response()
+s.step_response_nidaq_gui()
+```
+
+#### Step response (Arduino):
+
+```python
+from pydaq.step_response import Step_response
+s = Step_response()
+s.step_response_arduino_gui()
+```
+
+---
+Screnshots
+---
+
+### Graphical User Interfaces - NIDAQ
+
+![](docs/img/get_data_nidaq.png)
+
+![](docs/img/send_data_nidaq_gui.png)
+
+![](docs/img/step_response_nidaq_gui.png)
+
+### Graphical User Interfaces - Arduino
+
+![](docs/img/get_data_arduino.png)
+
+![](docs/img/send_data_arduino_gui.png)
+
+![](docs/img/step_response_arduino_gui.png)
+
+### Acquired/Sending data and step response - NIDAQ and Arduino
+
+![](docs/img/step_response_arduino.png)
+
+![](docs/img/step_response_nidaq.png)
+
+
+![](docs/img/sending_data_nidaq.png)
+
+![](docs/img/sending_data_arduino.png)
+
+![](docs/img/acquired_data_nidaq.png)
+
+![](docs/img/acquired_data_arduino.png)
+
+### Data in .dat format
+
+![](docs/img/data.png)
