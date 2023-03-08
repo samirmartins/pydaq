@@ -1,0 +1,9 @@
+site_name: PYDAQ
+nav:
+  - Home: index.md
+  - Page2: page2.md
+  - Section1:
+    - Subpage1: subpage1.md
+    - Subpage2: subpage2.md
+theme:
+  name: material
