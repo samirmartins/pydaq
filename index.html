@@ -278,6 +278,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation-and-requirements" class="md-nav__link">
+    Installation and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation-map" class="md-nav__link">
     Documentation Map
   </a>
@@ -561,6 +568,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation-and-requirements" class="md-nav__link">
+    Installation and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation-map" class="md-nav__link">
     Documentation Map
   </a>
@@ -640,6 +654,20 @@ of a GUI (Graphical User Interface), speeding up prototypes and quick
 experiments, keeping the user confidence in the acquired/sent data. 
 Besides, the command line interface allows one to keep developing new features 
 while data are acquired.</p>
+<h2 id="installation-and-requirements">Installation and Requirements</h2>
+<p>The fastest way to install PYDAQ is using pip:</p>
+<pre><code class="language-console">pip install pydaq
+</code></pre>
+<p>PYDAQ requires:</p>
+<ul>
+<li>Installed driver of the board used (Arduino or National Instruments NIDAQ)</li>
+<li>nidaqmx (&gt;=0.6.5) for data acquisition from National Instruments Boards</li>
+<li>matplotlib (&gt;=3.5.3) as a visualization tool</li>
+<li>numpy (&gt;=1.22.3) to process data</li>
+<li>PySimpleGUI (&gt;=4.60.3) as a Graphical User Interface</li>
+<li>PyQt5 as a backend for PySimpleGui</li>
+<li>pyserial (&gt;=3.5) to manage data to/from Arduino</li>
+</ul>
 <h2 id="documentation-map">Documentation Map</h2>
 <h3 id="data-acquisition">Data Acquisition</h3>
 <p>Here the user will find examples of how to use GUI (Graphical User Interface) and 
@@ -652,7 +680,7 @@ by mean of command line or a GUI (Graphical User Interface.)</p>
 a step response experiments with available boards (<a href="/step_response_nidaq">NIDAQ</a>/<a href="/step_response_arduino">Arduino</a>).</p>
 <h3 id="examples">Examples</h3>
 <p>In this section it will be provided Jupyter Notebook examples
-presenting code functionalities (<a href="/examples_nidaq">NIDAQ</a>/<a href="/examples_arduino">Arduino</a>)</p>
+presenting code functionalities (<a href="/jupyter_notebooks">NIDAQ</a>/<a href="/jupyter_notebooks">Arduino</a>)</p>
 
 
 
