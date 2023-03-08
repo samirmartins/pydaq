@@ -50,7 +50,7 @@ PYDAQ requires:
 ### Data Acquisition
 
 Here the user will find examples of how to use GUI (Graphical User Interface) and 
-also commando line to acquire data using [NIDAQ](pydaq/get_data_nidaq) or [Arduino](pydaq/get_data_arduino) boards.
+also commando line to acquire data using [NIDAQ](get_data_nidaq.md) or [Arduino](pydaq/get_data_arduino) boards.
 
 ### Sending data
 
