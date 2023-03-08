@@ -22,7 +22,7 @@ nav:
   - Jupyter Notebooks: jupyter_notebooks.md
 
 theme:
-  logo: 'img/favicon.ico'
+  favicon: 'img/favicon.ico'
   name: material
   logo: img/logo.png
   features:
