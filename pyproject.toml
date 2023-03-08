@@ -1,6 +1,6 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=45.0", "setuptools_scm[toml]>=6.3.1", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 dynamic = ["dependencies"]
@@ -10,13 +10,29 @@ authors = [
   { name="Samir Angelo Milani Martins", email="milani.martins@gmail.com" },
 ]
 
-description = "Data Acquisition with Python and National Instruments using Graphical Interface"
+description = "A Python Package for Data Acquisition and Experimental Analysis with Graphical User Interface"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Research",
+    "Intended Audience :: Engineering",
+    "Intended Audience :: Modelling",
+    "Intended Audience :: Modeling",
+    "License :: OSI Approved :: BSD License"
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Development Status :: 5 - Production/Stable",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
     "Operating System :: OS Independent",
+
 ]
 
 [project.urls]
@@ -24,3 +40,7 @@ classifiers = [
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+
+[project.urls]
+repository = "https://github.com/samirmartins/pydaq"
+documentation = "https://samirmartins.github.io/pydaq/"
