@@ -3,7 +3,7 @@
 **NOTE 1**: before working with PYDAQ, device driver should be installed and working correctly as a DAQ (Data Acquisition) device
 
 **NOTE 2** To acquire/send data with arduino, the code provided here (located at [arduino_code](https://github.com/samirmartins/pydaq/tree/main/pydaq/arduino_code)) 
-should be uploaded in Arduino first. Default input port is AO0 and this port can be changed in the above mentioned code. 
+should be uploaded in Arduino first. Default input port is A0 and this port can be changed in the above mentioned code. 
 
 **NOTE 3** PYDAQ is programmed to use 10 bits as a ADC resolution, and 0V and 5V as the input range.
 To change this, the user can alter the following variables:

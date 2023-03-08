@@ -6,7 +6,7 @@
 should be uploaded in Arduino first. Default output port is 13 and this port can be changed in the above mentioned code.
 This code only works with digital output, since this is a limitation of Arduino Boards.
 
-**NOTE 3**: Since it is used digital output ports, the output will be
+**NOTE 3**: Since are used digital output ports, the output will be
 0V if data < 2.5 and 5V otherwise. 
 
 ## Sending Data using Graphical User Interface (GUI)
