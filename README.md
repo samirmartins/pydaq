@@ -1,6 +1,6 @@
 <p align="center">
   <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="70%" height="70%">
-</p>
+</p> 
 
 # PYDAQ
 
