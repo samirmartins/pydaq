@@ -97,7 +97,11 @@ class Step_response(Base):
         self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / \
             (2 ** self.arduino_ai_bits)
 
-        self.legend = ['Input', 'Output']
+        # Legends
+        self.legend = ['Output', 'Input']
+
+        # Saving data
+        self.save = True
 
     def step_response_arduino_gui(self):
         """

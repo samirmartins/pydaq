@@ -31,7 +31,7 @@ save data.
 
 It will be presented how to use Get_data (and get_data_nidaq) to acquire signal using a National Instruments board. 
 
-First, import library and define parameters: 
+Firstly, import library and define parameters: 
 
 ```python
 # Importing PYDAQ
@@ -75,7 +75,7 @@ print(f'\nFirst 10 values of data: \n {g.data[0:10]}')
 
 If you choose to plot you can see acquired data on screen, i.e:
 
-![](/img/acquired_data.png)
+![](/img/acquired_data_nidaq.png)
 
 Data will also be saved as depicted below:
 

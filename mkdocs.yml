@@ -21,7 +21,6 @@ nav:
       - Arduino: step_response_arduino.md
   - Jupyter Notebooks: jupyter_notebooks.md
 
-
 theme:
   name: material
   features:
@@ -36,7 +35,3 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-
-plugins:
-  - mkdocs-jupyter:
-      include_source: True
