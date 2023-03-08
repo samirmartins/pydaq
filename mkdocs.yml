@@ -1,4 +1,5 @@
 site_name: PYDAQ
+site_url: https://samirmartins.github.io/pydaq/
 nav:
   - Home: index.md
   - Data Acquisition:
