@@ -33,10 +33,7 @@ g.get_data_arduino_gui()
 After this command, the following screen will show up, where the 
 user is able to define parameters and start to acquire data.
 
-<p align="center">
-  <img src="img/get_data_arduino.png" alt= “” class=“center” width="100%" height="100%">
-</p>
-
+![](img/get_data_arduino.png)
 
 The user is now able to select desired device, sample period and session duration. Also, 
 the user will define if the data will or not be plotted and saved, as well as the path to 
