@@ -20,28 +20,40 @@
 
 
 ----
-Using Python for applications with experimental data (NIDAQmx)
+Using Python for applications with experimental data (Arduino and NIDAQ boards)
 ----
 
-This project uses python for data acquisition and empirical experiments. 
-It was firstly designed to be used as a data acquisition system 
-when acquiring data for a step-response experiment. 
+This package was firstly designed to use experimental device for data 
+acquisition and signal generator, when performing different experiment, 
+such as a step-response test. 
 
-Despite this, one can use PYDAQ to acquire signal from 
+Despite this, one can use PYDAQ to acquire and send a signal from 
 any system, using different boards [(check examples folder)](examples), 
-without any line of code. 
+through a Graphical User Interface or via command line. In this sense
+the user is capable to generate a customized signal which can be easily
+applied to a system. 
 
+It is noteworthy that this application makes data acquisition and 
+empirical experiments simpler, faster and easier. This is relevant
+when the user needs empirical data to construct black box linear and
+nonlinear models, commomly used in research projects in forecasting and 
+model-based control schemes.
+ 
 The code provided here allows user to save acquired data in .dat files in 
-a path specified by the user (or at Desktop, if no path is provided)
+a path specified by the user (or at Desktop, if no path is provided), as well
+as send a user-defined data, which can be any nonlinear input signal 
+[(you are strongly advised to check the )](https://samirmartins.github.io/pydaq/)
 
-You can find below some examples from the GUI (Graphical 
-User Interface).
+In what follows you will find
 
-You are strongly advised to check the [PYDAQ documentation](https://samirmartins.github.io/pydaq/)
+- Installation and Requirements
+- Quick view and Main features 
+- Using Graphical User Interfaces
+
 
 
 ---
-Instalation and Requirements
+Installation and Requirements
 ---
 
 The fastest way to install PYDAQ is using pip:
@@ -62,19 +74,21 @@ PYDAQ requires:
 
 
 ---
-Quick view and main features
+Quick view and Main features
 ---
 
-![Graphical User Interface PYDAQmx](figures/gui.png)
-
-![Data Acquired - Visual](figures/data_acquired.png)
-
-![Data Acquired - .dat](figures/data.png)
-
-
+| Feature                      |                                                                                                                                                                                                                                          Description |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Send Data (NIDAQ)            |                                                                                                                                                   This feature allows the user to send data through any NIDAQ board using a graphical user interface |
+| Send Data (Arduino)          |                                                                                                                                               This feature allows the user to send data through any Arduino board through a graphical user interface |
+| Get Data (NIDAQ)             |                                        Here the user is able to get data from a NIDAQ board, using any terminal configuration (Diff, RSE, NRSE), sample time and other parameters. Acquired data can also be saved and plot for further applications |
+| Get Data (Arduino)           |                                                                                                    Here the user is able to get data from an Arduino board, using several options. Acquired data can also be saved and plot for further applications |
+| Step Response (NIDAQ) |   In this feature one can perform an automatic step response experiment using a NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
+| Step Response (Arduino)      | In this feature one can perform an automatic step response experiment using an Arduino. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
+ 
 
 ---
-To use (more details in [documentation](https://samirmartins.github.io/pydaq/) and [examples](examples)):
+Using Graphical User Interfaces (more details in [documentation](https://samirmartins.github.io/pydaq/) and [examples](examples)):
 ---
 
 Graphical User Interface (NIDAQmx):
@@ -94,3 +108,10 @@ from pydaq.get_data import Get_data
 g = Get_data("Dev1", "ai0", 0.5, 10.0, True, "C:\\Users\\Samir\\Desktop", True)
 g.get_data_nidaq()
 ```
+
+
+![Graphical User Interface PYDAQmx](figures/gui.png)
+
+![Data Acquired - Visual](figures/data_acquired.png)
+
+![Data Acquired - .dat](figures/data.png)
