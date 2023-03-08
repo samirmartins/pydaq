@@ -22,15 +22,16 @@ user is able to define parameters and start to acquire data.
 
 ![](/img/step_response_nidaq_gui.png)
 
-The user is now able to select desired Arduino and sample period, as well as 
-the session duration and the time when the step will be on. 
-Also, the user will define if the data will or not be plotted
-and saved. 
+The user is now able to select desired NIDAQ device, analog input and 
+analog output channel, as well as analog input terminal configuration.
+Step range and sample period can be adjusted along with session duration. 
+Step will be applied in the defined time. Also, the user will define if 
+the data will or not be plotted and saved. 
 
 ## Step Response using command line
 
-It will be presented how to use Step_response (and step_response_arduino) to 
-perform a step response experiment using an Arduino board. 
+It will be presented how to use Step_response (and step_response_nidaq) to 
+perform a step response experiment using an NIDAQ board. 
 
 Firstly, import library and define parameters: 
 
