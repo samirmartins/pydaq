@@ -50,19 +50,19 @@ PYDAQ requires:
 ### Data Acquisition
 
 Here the user will find examples of how to use GUI (Graphical User Interface) and 
-also commando line to acquire data using [NIDAQ](/get_data_nidaq) or [Arduino](/get_data_arduino) boards.
+also commando line to acquire data using [NIDAQ](https://samirmartins.github.io/pydaq/get_data_nidaq/) or [Arduino](https://samirmartins.github.io/pydaq/get_data_arduino/) boards.
 
 ### Sending data
 
-In this Section is presented how the user can send data from [NIDAQ](/send_data_nidaq) or [Arduino](/send_data_arduino), 
+In this Section is presented how the user can send data from [NIDAQ](https://samirmartins.github.io/pydaq/send_data_nidaq/) or [Arduino](https://samirmartins.github.io/pydaq/send_data_arduino/), 
 by mean of command line or a GUI (Graphical User Interface.)
 
 ### Step response
 
 Here the user will find examples of how to define parameters to perform 
-a step response experiments with available boards ([NIDAQ](/step_response_nidaq)/[Arduino](/step_response_arduino)).
+a step response experiments with available boards ([NIDAQ](https://samirmartins.github.io/pydaq/step_response_nidaq/)/[Arduino](https://samirmartins.github.io/pydaq/step_response_arduino/)).
 
 ### Examples
 
 In this section it will be provided Jupyter Notebook examples
-presenting code functionalities ([NIDAQ](/jupyter_notebooks)/[Arduino](/jupyter_notebooks))
+presenting code functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/)/[Arduino](https://samirmartins.github.io/pydaq/jupyter_notebooks/))
