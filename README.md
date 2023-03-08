@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="70%" height="70%">
+  <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="50%" height="50%">
 </p> 
 
 # PYDAQ
