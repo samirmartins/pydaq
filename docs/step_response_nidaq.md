@@ -33,7 +33,7 @@ the data will or not be plotted and saved.
 It will be presented how to use Step_response (and step_response_nidaq) to 
 perform a step response experiment using an NIDAQ board. 
 
-Firstly, import library and define parameters: 
+Firstly, import library and define parameters:  
 
 ```python
 # Importing PYDAQ
