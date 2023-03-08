@@ -10,7 +10,7 @@ Also, step-response experiments can be easily performed, as showed up
 in [Step response (NIDAQ)](/step_response_nidaq) and [Step response (Arduino)](/step_response_arduino).
 
 Furthermore, this tool can be used to apply any generic output in an experimental
-tool, such as PRBS (Pseudo Random Binary Signal) or other, in order to generate
+tool, such as PRBS (Pseudo Random Binary Signal) or other persistently exciting signal, in order to generate
 data for black box system identification.
 
 The user is able to get/send data either using a command line method 

@@ -1,17 +1,65 @@
-# Welcome to PYDAQ documentation
+# Data Acquisition with NIDAQ Boards
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+**NOTE**: before working with PYDAQ, device driver should be installed and working correctly as a DAQ (Data Acquisition) device  
 
-## Commands
+## Data Acquitition using Graphical User Interface (GUI)
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Using GUI to acquire data is really straighforward and require only 
+three LOC (lines of code):
 
-## Project layout
+```python
+from pydaq.get_data import Get_data
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+# Class Get_data
+g = Get_data()
+
+# Method get_data_nidaq
+g.get_data_nidaq_gui()
+```
+
+After this command, the following screen will show up, where the 
+user is able to define parameters and start to acquire data.
+
+![a](get_data_nidaq.png)
+
+
+## Data Acquitition using command line
+
+How to use Get_data (and get_data_nidaq) to acquire signal using a National Instruments board. 
+
+First, import library and define parameters: 
+
+```python
+# Importing PYDAQ
+from pydaq.get_data import Get_data
+
+# Defining parameters
+device_name = "Dev1"
+channel_used = "ai0"
+terminal_configuration = 'Diff'
+sample_period_in_seconds = 1
+session_duration_in_seconds = 10.0
+save_data = True
+will_plot = True
+```
+
+Then, instantiate a class with defined parametes and get the data
+
+```python
+# Class Get_data
+g = Get_data(device=device_name, channel=channel_used, terminal=terminal_configuration, ts = sample_period_in_seconds, session_duration=session_duration_in_seconds, save=save_data, plot=will_plot)
+
+# Method get_data_nidaq
+g.get_data_nidaq()
+```
+
+## Presenting acquired data
+
+To show acquired data, type: 
+
+```python
+print(f'First 10 values of time: \n {g.time_var[0:10]}')
+print(f'\nFirst 10 values of data: \n {g.data[0:10]}')
+```
+
+**NOTE**: data will be saved on desktop, by default. To change the path the user can define "g.path = Desired path"
