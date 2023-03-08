@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/logo.png" alt= “PYDAQ” class=“center” width="40%" height="40%">
+  <img src="logo/logo-no-background.png" alt= “PYDAQ” class=“center” width="40%" height="40%">
 </p> 
 
 [![PyPI version](https://img.shields.io/pypi/v/pydaq?color=a26969)](https://github.com/samirmartins/pydaq)
