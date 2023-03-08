@@ -12,14 +12,14 @@
         <meta name="author" content="Samir Angelo Milani Martins">
       
       
-        <link rel="canonical" href="https://www.samirmartins.com.br/send_data_nidaq/">
+        <link rel="canonical" href="https://www.samirmartins.com.br/jupyter_notebooks/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>NIDAQ - PYDAQ</title>
+        <title>Jupyter Notebooks - PYDAQ</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sending-data-with-nidaq-boards" class="md-skip">
+        <a href="#jupyter-notebooks" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NIDAQ
+              Jupyter Notebooks
             
           </span>
         </div>
@@ -314,14 +314,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -342,59 +340,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          NIDAQ
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../send_data_nidaq/" class="md-nav__link">
         NIDAQ
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#sending-data-using-graphical-user-interface-gui" class="md-nav__link">
-    Sending Data using Graphical User Interface (GUI)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sending-data-using-command-line" class="md-nav__link">
-    Sending data using command line
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -488,11 +438,21 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../jupyter_notebooks/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Jupyter Notebooks
       </a>
+      
     </li>
   
 
@@ -517,28 +477,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#sending-data-using-graphical-user-interface-gui" class="md-nav__link">
-    Sending Data using Graphical User Interface (GUI)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sending-data-using-command-line" class="md-nav__link">
-    Sending data using command line
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -551,62 +489,16 @@
                 
                   
 
-  <a href="https://github.com/samirmartins/pydaq/edit/master/docs/send_data_nidaq.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/samirmartins/pydaq/edit/master/docs/jupyter_notebooks.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="sending-data-with-nidaq-boards">Sending Data with NIDAQ Boards</h1>
-<p><strong>NOTE</strong>: before working with PYDAQ, device driver should be installed and working correctly as a DAQ (Data Acquisition) device  </p>
-<h2 id="sending-data-using-graphical-user-interface-gui">Sending Data using Graphical User Interface (GUI)</h2>
-<p>Using GUI to send data is really straighforward and require only 
-three LOC (lines of code):</p>
-<pre><code class="language-python">from pydaq.send_data import Send_data
-
-# Class Send_data
-s = Send_data()
-
-# Method send_data_nidaq_gui
-s.send_data_nidaq_gui()
-</code></pre>
-<p>After this command, the following screen will show up, where the 
-user is able to define parameters and start to acquire data.</p>
-<p><img alt="" src="/img/send_data_nidaq_gui.png" /></p>
-<p>The user is now able to select desired device, analog output channel and sample period. Also, 
-the user will define if the data will or not be plotted. The data that will be sent should be in 
-the output range defined, formated as one data per line and saved as a .dat file. After
-configuration is done, the user only need to click on <strong>SEND DATA</strong> button to start the process.</p>
-<h2 id="sending-data-using-command-line">Sending data using command line</h2>
-<p>It will be presented how to use Send_data (and send_data_nidaq) to send a signal using a National Instruments board. </p>
-<p>Firstly, import library and define parameters: </p>
-<pre><code class="language-python"># Importing PYDAQ
-from pydaq.send_data import Send_data
-
-# Defining parameters
-device_name = &quot;Dev1&quot;
-channel_used = &quot;ao0&quot;
-sample_period_in_seconds = 1
-data = [1,2,3,4,1,2,3,4,1,2,3,4] # It can be either a list or a numpy array
-ao_min = 0 # Minimum allowed analog output value
-ao_max = 5 # Maximum allowed analog output value
-will_plot = True
-</code></pre>
-<p>Then, instantiate a class with defined parametes and send the data</p>
-<pre><code class="language-python"># Class Get_data
-s = Send_data(data = data, 
-              device=device_name, 
-              channel= channel_used, 
-              ts=sample_period_in_seconds,
-              ao_min= ao_min, 
-              ao_max=ao_max, 
-              plot=will_plot)
-
-# Method send_data_nidaq
-s.send_data_nidaq()
-</code></pre>
-<p>If you choose to plot you can see the data sent on screen, i.e:</p>
-<p><img alt="" src="/img/sending_data_nidaq.png" /></p>
+<h1 id="jupyter-notebooks">Jupyter Notebooks</h1>
+<p>A full set of jupyter notebooks with several examples 
+of how to use NIDAQ and Arduino for data acquisition, 
+send data and other experiments can be found on <a href="https://github.com/samirmartins/pydaq/tree/main/examples">Github repository</a>.</p>
 
 
 
@@ -627,7 +519,7 @@ s.send_data_nidaq()
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../get_data_arduino/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Arduino" rel="prev">
+        <a href="../step_response_arduino/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Arduino" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -641,21 +533,6 @@ s.send_data_nidaq()
           </div>
         </a>
       
-      
-        
-        <a href="../send_data_arduino/" class="md-footer__link md-footer__link--next" aria-label="Next: Arduino" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Arduino
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
