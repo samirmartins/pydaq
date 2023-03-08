@@ -85,10 +85,10 @@ class Get_data(Base):
         self.arduino_ai_bits = 10
 
         # Arduino analog input max and min
-        self.ard_ao_max, self.ard_ao_min = 5, 0
+        self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / \
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / \
             (2**self.arduino_ai_bits)
 
     def get_data_nidaq(self):
