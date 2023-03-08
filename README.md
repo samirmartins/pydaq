@@ -37,8 +37,32 @@ a path specified by the user (or at Desktop, if no path is provided)
 You can find below some examples from the GUI (Graphical 
 User Interface).
 
+You are strongly advised to check the [PYDAQ documentation](https://samirmartins.github.io/pydaq/)
+
+
 ---
-Quick view
+Instalation and Requirements
+---
+
+The fastest way to install PYDAQ is using pip:
+
+```console
+pip install pydaq
+```
+
+PYDAQ requires:
+
+- Installed driver of the board used (Arduino or National Instruments NIDAQ)
+- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
+- matplotlib (>=3.5.3) as a visualization tool
+- numpy (>=1.22.3) to process data
+- PySimpleGUI (>=4.60.3) as a Graphical User Interface
+- PyQt5 as a backend for PySimpleGui
+- pyserial (>=3.5) to manage data to/from Arduino
+
+
+---
+Quick view and main features
 ---
 
 ![Graphical User Interface PYDAQmx](figures/gui.png)
@@ -48,18 +72,9 @@ Quick view
 ![Data Acquired - .dat](figures/data.png)
 
 
----
-To install:
----
-
-Just as another Python package, run:
-
-```python
-pip install pydaq
-```
 
 ---
-To use (more details in [examples](examples)):
+To use (more details in [documentation](https://samirmartins.github.io/pydaq/) and [examples](examples)):
 ---
 
 Graphical User Interface (NIDAQmx):
