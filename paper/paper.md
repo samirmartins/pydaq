@@ -1,28 +1,25 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'PYDAQ: Data Acquisition and Experimental Analysis with Python'
 tags:
   - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - Data Acquisition
+  - Arduino
+  - NIDAQ
+  - System Identification
+  - Mathematical Modeling
 authors:
   - name: Samir Angelo Milani Martins
     orcid: 0000-0003-1702-8504
     corresponding: true
     affiliation: "1, 2"
 affiliations:
-  - name: Department of Electrical Engineering at Federal University of São João del-Rei, Brazil
+  - name: Department of Electrical Engineering at Federal University of São João del-Rei, Brazil.
     index: 1
-  - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil
+  - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil.
     index: 2
 date: 09 March 2023
 bibliography: paper.bib
 
-# Optional fields if submitting to a AAS journal too, see this blog post:
-# https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-# aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-# aas-journal: Astrophysical Journal <- The name of the AAS journal.
 ---
 
 # Summary
@@ -93,7 +90,7 @@ For a quick reference, the following citation commands can be used:
 # Figures
 
 Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
+![Caption for example figure.\label{fig:example}](../docs/img/data.png)
 and referenced from text using \autoref{fig:example}.
 
 Figure sizes can be customized by adding an optional second parameter:
