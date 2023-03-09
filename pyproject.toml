@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydaq"
-version = "0.0.2"
+version = "0.0.3"
 license = { file = "LICENSE" }
 requires-python = ">=3.7"
 keywords = ["Python", "Data Acquisition", "Arduino", "NIDAQ"]
@@ -30,16 +30,7 @@ classifiers = [
     "Operating System :: OS Independent",
 
 ]
-dependencies = ["numpy>=1.22.3", "nidaqmx>=0.6.5", "matplotlib>=3.5.3", "PySimpleGUI>=4.60.3", "PyQt5", "pyserial>=3.5"]
-
-
-nidaqmx
-matplotlib
-numpy
-PySimpleGUI
-PyQt5
-pyserial
-
+dependencies = ["numpy", "nidaqmx", "matplotlib", "PySimpleGUI", "PyQt5", "pyserial"]
 
 [project.urls]
 homepage = "https://github.com/samirmartins/pydaq"
@@ -48,8 +39,6 @@ documentation = "https://samirmartins.github.io/pydaq/"
 
 [tool.setuptools]
 packages = ["pydaq"]
-
-[tool.setuptools.dynamic]
 
 
 
