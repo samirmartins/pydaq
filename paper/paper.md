@@ -15,7 +15,7 @@ affiliations:
   - name: Department of Electrical Engineering at Federal University of São João del-Rei, Brazil
     index: 1
   - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil
-   index: 2
+    index: 2
   date: 09 March 2023
   bibliography: paper.bib
 
