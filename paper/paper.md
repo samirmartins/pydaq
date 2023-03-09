@@ -9,15 +9,15 @@ tags:
 authors:
   - name: Samir Angelo Milani Martins
     orcid: 0000-0003-1702-8504
-  - corresponding: true
-    affiliation: "1,2" 
+    corresponding: true
+    affiliation: "1, 2"
 affiliations:
   - name: Department of Electrical Engineering at Federal University of São João del-Rei, Brazil
     index: 1
   - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil
     index: 2
-  date: 09 March 2023
-  bibliography: paper.bib
+date: 09 March 2023
+bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
