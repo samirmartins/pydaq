@@ -30,6 +30,16 @@ classifiers = [
     "Operating System :: OS Independent",
 
 ]
+dependencies = ["numpy>=1.22.3", "nidaqmx>=0.6.5", "matplotlib>=3.5.3", "PySimpleGUI>=4.60.3", "PyQt5", "pyserial>=3.5"]
+
+
+nidaqmx
+matplotlib
+numpy
+PySimpleGUI
+PyQt5
+pyserial
+
 
 [project.urls]
 homepage = "https://github.com/samirmartins/pydaq"
@@ -40,6 +50,6 @@ documentation = "https://samirmartins.github.io/pydaq/"
 packages = ["pydaq"]
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+
 
 

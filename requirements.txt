@@ -1,6 +1,0 @@
-nidaqmx
-matplotlib
-numpy
-PySimpleGUI
-PyQt5
-pyserial
