@@ -91,7 +91,7 @@ The fastest way to install PYDAQ is using pip:
 pip install pydaq
 ```
 
-\autoref{fig:nidaq_get_gui} and \autoref{fig:arduino_get_gui} depicts 
+\autoref{fig:nidaq_get_gui} and \autoref{fig:arduino_get_gui} depict 
 the Graphical User Interface developed for Data Acquisition using Arduino or any NIDAQ board.
 
 ![Data Acquisition through NIDAQ.\label{fig:nidaq_get_gui}](../docs/img/get_data_nidaq.png){ width=20%, height=20%}
@@ -150,7 +150,7 @@ required to be a persistently exciting input, as necessary for system identifica
 Step-response is a common way to test a system and acquire data, in order to find a model, as well 
 as system time constant and gain. To facilitate this procedure, a step-response GUI 
 was also created and can be seen in \autoref{fig:step_nidaq} and  \autoref{fig:step_arduino}. 
-To use them, user should use the command: 
+To use them, user should type the command: 
 
 ```python
 from pydaq.step_response import Step_response
@@ -169,8 +169,8 @@ s.step_response_arduino_gui()
 ![Step Response GUI - Arduino.\label{fig:step_arduino}](../docs/img/step_response_arduino_gui.png){ width=20%, height=20%}
 
 Here the user can define when the step will be applied, as well as where data will be saved.
-\autoref{fig:data_sent} and \autoref{fig:step_data} shows data that were empirically-acquired 
-with PYDAQ. In the figures the user will find labels, function (Sending Data/Data Acquisition/Step Response), 
+\autoref{fig:data_sent} and \autoref{fig:step_data} show data that were empirically-acquired 
+with PYDAQ. In the figures the user will find labels, functionality (Sending Data/Data Acquisition/Step Response), 
 device/channel (for NIDAQ boards) or COM port used (for Arduino devices).
 
 
@@ -180,7 +180,7 @@ device/channel (for NIDAQ boards) or COM port used (for Arduino devices).
 
 
 Examples showed above shed light in some functionalities of PYDAQ. For further 
-details and for command line use, reader is welcome to consult full 
+details and for command line use, the reader is welcome to consult full 
 documentation (https://samirmartins.github.io/pydaq/).
 
 
