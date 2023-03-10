@@ -25,42 +25,47 @@ bibliography: paper.bib
 # Summary
 
 System identification is a relevant research topic that aims to find mathematical models 
-using acquired data. One of the first relevant contribution is the work of
+using acquired data. One of the main contributions is the work of
 [@Lju1987], which was substantially developed over the years [@MA2016], [@WMNL2019]. 
 Among system identification tools, SysIdentPy [@Lacerda2020] uses Python in a very 
-straightforward way, while [@ayala2020r] promises to obtain model using R language.
+straightforward way for system modeling through empirical data, while [@ayala2020r] promises to obtain models 
+using R language.
 
-However, as pointed out by [@Lju1987], experimental data are necessary for obtaining 
-black-box models, and this is exactly where this work find its place. PYDAQ is a Python tool 
+As pointed out by [@Lju1987], experimental data are necessary for obtaining 
+black-box models, and this is exactly where PYDAQ find its place. PYDAQ is a Python tool 
 which was primarily developed for experiments with empirical data, either sending and/or 
 acquiring data using simple Graphical User Interfaces or command line, with 
-few (or any) line of codes required using different solutions provided by the 
-market (NIDAQ and Arduino). Thus, even a person working in a biological experiment, for instance, 
-is able to use PYDAQ easily and quickly for data acquisition
+few (or no) lines of code required, using different solutions provided by the 
+market (NIDAQ and Arduino). Thus, even a reseacher working on a biological experiment, for instance, 
+is able to use PYDAQ easily and quickly for data acquisition.
 
-In what follows it will be shown how PYDAQ can be use by any scientist for 
+In what follows it will be shown how PYDAQ can be use by any scientist, its advantages and features for 
 quickly and effective data acquisition experiments, even if the scientist has no programming skills. 
 
 
 # PYDAQ - Data Acquisition and Experimental Analysis
 
 Any scientist or student which needs to acquire data in an ease and quick way, 
-in three Line of Codes (LOC) are target audience of this manuscript/package. PYDAQ 
+in three Line of Codes (LOC) are the target audience of this manuscript/package. PYDAQ 
 is a solution that aims to allow the user to perform experiments from data acquisition to 
-function generators using a Graphical User Interface. 
+signals generation using a Graphical User Interface. 
 
-However, for advanced users, it is also possible to use PYDAQ through command line, as 
-showed up in documentation (https://samirmartins.github.io/pydaq/). 
+Despite this, for advanced users, it is also possible to use PYDAQ through command line, as 
+showed up in documentation (https://samirmartins.github.io/pydaq/), allowing 
+PYDAQ to be integrated in real time with well known modeling tools.
 
 To contextualize the importance of PYDAQ, there are full papers [@Yang2019], [@Koerner2020]
-dealing only with data acquisition, whereas this is commonly only the first 
-in an empirical scientific procedure, such as in the work of [@Ostrovskii2020].
+dealing only with data acquisition. It should be clear at this point 
+that data acquisition is commonly only the first step 
+in an empirical scientific procedure, such as in the work of [@Ostrovskii2020]. 
+Therefore, this step should not take too much energy of a researcher, since he/she 
+needs to be full of energy to continue the research project.
 
 Further, PYDAQ deals from different type of data acquisition cards, since 
 simple and cheaper Arduino boards up to NIDAQ devices, allowing the execution from simple to complex 
 experiments. Also, since PYDAQ can be also used as a command line tool, it can 
 be easily incorporated to be used in production along with any available mathematical tool, such 
-as SysIdentPy[@Lacerda2020] or SciKitLearn[@scikit-learn].
+as SysIdentPy [@Lacerda2020] or SciKitLearn [@scikit-learn].
 
 In literature there are packages that deals with NIDAQ devices, 
 such as [@Koerner2020]. However, they need several 
@@ -76,7 +81,7 @@ Arduino boards are quite cheap and easy to find. Graphical User Interfaces also 
 the user to be directly connected with the subject, as explicitly said by [@Silva_2018].
 
 In what follows examples of how to use PYDAQ will be presented, as well as future 
-research topics. Further details can also be found in documentation (https://samirmartins.github.io/pydaq/). 
+research topics. Further details can also be found in [documentation](https://samirmartins.github.io/pydaq/). 
 
 # Examples
 
