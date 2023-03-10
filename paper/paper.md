@@ -24,22 +24,22 @@ bibliography: paper.bib
 
 # Summary
 
-System identification is a relevant resarch topic that aims to find mathematical models
+System identification is a relevant research topic that aims to find mathematical models 
 using acquired data. One of the first relevant contribution is the work of
 [@Lju1987], which was substantially developed over the years [@MA2016], [@WMNL2019]. 
 Among system identification tools, SysIdentPy [@Lacerda2020] uses Python in a very 
-straighforward way, while [@ayala2020r] promises to obtain model using R language.
+straightforward way, while [@ayala2020r] promises to obtain model using R language.
 
 However, as pointed out by [@Lju1987], experimental data are necessary for obtaining 
-black-box models, and this is exactly where this work find its place. PYDAQ is a Python tool
-which was primarly developed for experiments with empirical data, either sending and/or 
+black-box models, and this is exactly where this work find its place. PYDAQ is a Python tool 
+which was primarily developed for experiments with empirical data, either sending and/or 
 acquiring data using simple Graphical User Interfaces or command line, with 
 few (or any) line of codes required using different solutions provided by the 
 market (NIDAQ and Arduino). Thus, even a person working in a biological experiment, for instance, 
 is able to use PYDAQ easily and quickly for data acquisition
 
 In what follows it will be shown how PYDAQ can be use by any scientist for 
-quickly and efective data acquisition experiments, even if the scientist has no programming skills. 
+quickly and effective data acquisition experiments, even if the scientist has no programming skills. 
 
 
 # PYDAQ - Data Acquisition and Experimental Analysis
@@ -53,7 +53,7 @@ However, for advanced users, it is also possible to use PYDAQ through command li
 showed up in documentation (https://samirmartins.github.io/pydaq/). 
 
 To contextualize the importance of PYDAQ, there are full papers [@Yang2019], [@Koerner2020]
-dealing only with data acquisition, whereas this is commonly only the first
+dealing only with data acquisition, whereas this is commonly only the first 
 in an empirical scientific procedure, such as in the work of [@Ostrovskii2020].
 
 Further, PYDAQ deals from different type of data acquisition cards, since 
@@ -64,18 +64,18 @@ as SysIdentPy[@Lacerda2020] or SciKitLearn[@scikit-learn].
 
 In literature there are packages that deals with NIDAQ devices, 
 such as [@Koerner2020]. However, they need several 
-line of codes in order to make a single data acquisition, and works only with expensive and 
+lines of codes in order to make a single data acquisition, and works only with expensive and 
 proprietary boards. Besides, as far as I know, there is no Graphical User Interface 
-open software that allows instantly and easily data acquisition with Python, being this another
+open software that allows instantly and easily data acquisition with Python, being this another 
 feature of PYDAQ.
 
 Because of the above-mentioned facts, PYDAQ can be used also to introduce new 
 scientist in the System Identification research area. Also, PYDAQ can be used in 
-teaching, during engineering courses and in low-cost laboratories implementation, once
-Arduino boards are quite cheap and easy to find. Graphical User Interfaces also allows
+teaching, during engineering courses and in low-cost laboratories' implementation, once 
+Arduino boards are quite cheap and easy to find. Graphical User Interfaces also allows 
 the user to be directly connected with the subject, as explicitly said by [@Silva_2018].
 
-In what follows examples of how to use PYDAQ will be presented, as well as future
+In what follows examples of how to use PYDAQ will be presented, as well as future 
 research topics. Further details can also be found in documentation (https://samirmartins.github.io/pydaq/). 
 
 # Examples
