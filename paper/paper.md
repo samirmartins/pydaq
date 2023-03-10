@@ -86,7 +86,7 @@ The fastest way to install PYDAQ is using pip:
 pip install pydaq
 ```
 
-Figures \autoref{fig:arduino_get_gui} and \autoref{fig:nidaq_get_gui} depicts
+Figures \autoref{fig:arduino_get_gui} and \autoref{fig:nidaq_get_gui} depicts 
 the Graphical User Interface developed for Data Acquisition using Arduino or any NIDAQ board.
 
 ![Data Acquisition through NIDAQ.\label{fig:nidaq_get_gui}](../docs/img/get_data_nidaq.png){ width=20%, height=20%}
@@ -128,23 +128,22 @@ with the timestamp, in seconds, when each sample was acquired; ii) file data.dat
 
 ![GUI for sending data - NIDAQ.\label{fig:nidaq_send_gui}](../docs/img/send_data_arduino_gui.png){ width=15%, height=15%}
 
-
-It should be emphatized that once this code is executed, a Graphical User Interface will
-manifest on screen, acording to the board selected by the user, as 
+It should be emphasized that once this code is executed, a Graphical User Interface will 
+manifest on screen, according to the board selected by the user, as 
 shown in Figures \autoref{fig:nidaq_send_gui} and \autoref{fig:arduino_send_gui}.
 
 Options are straight-forward and ease to understand. For further details and to check 
 how to use the same functionality using a command line the reader are invited to 
 read the documentation (https://samirmartins.github.io/pydaq/). 
 
-It is noteworthy that any signal can be generated and applied to a physical
-system using the presented GUI, being the used board the main constraint. Data
+It is noteworthy that any signal can be generated and applied to a physical 
+system using the presented GUI, being the used board the main constraint. Data 
 can be either generated manually or using a library (e.g, numpy) to create 
 signals as sine waves, PRBS (Pseudo-Random Binary Signal) or other signal 
-required to be a persistently exciting input, as necessary for system identification [@Lju1987], [@Bil2013]  
+required to be a persistently exciting input, as necessary for system identification [@Lju1987], [@Bil2013].  
 
-Step-response is a common way to test a system and acquire data, in order to find a model, as well
-as system time constant and gain. To facilitate this procedure, a step-response GUI
+Step-response is a common way to test a system and acquire data, in order to find a model, as well 
+as system time constant and gain. To facilitate this procedure, a step-response GUI 
 was also created and can be seen in Figures \label{fig:step_nidaq} and  \label{fig:step_arduino}. 
 To use them, user should use the command: 
 
@@ -166,7 +165,7 @@ s.step_response_arduino_gui()
 
 Here the user can define when the step will be applied, as well as where data will be saved.
 Figures \label{fig:data_sent} and \label{fig:step_data} shows data that were empirically-acquired 
-with PYDAQ. In the figures the user will find lables, function (Sending Data/Data Acquisition/Step Response), 
+with PYDAQ. In the figures the user will find labels, function (Sending Data/Data Acquisition/Step Response), 
 device/channel (for NIDAQ boards) or COM port used (for Arduino devices).
 
 
@@ -182,8 +181,8 @@ documentation (https://samirmartins.github.io/pydaq/).
 
 # Future Work
 
-Future releases will include real-time and data-driven system identification using linear and nonlinear approaches.
+Future releases will include real-time and data-driven system identification using linear and nonlinear approaches. 
 Also, real-time model based controllers will be implemented through PYDAQ. Saving data 
-in a SQL server is a future feature, as well.
+in an SQL server is a future feature, as well.
 
 # References
