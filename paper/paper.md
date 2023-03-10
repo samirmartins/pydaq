@@ -29,11 +29,11 @@ bibliography: paper.bib
 # Examples
 
 
+<img src="../docs/img/data.png"  width="100%" height="100%">
 
 
-
-<img src="../docs/img/data.png"  width="50%" height="50%">
-  |  <img src="../docs/img/data.png"  width="50%" height="50%">
+![Caption for example figure.\label{fig:example}](../docs/img/data.png){ width=20%, height=20%}
+  |  ![Caption for example figure.\label{fig:example}](../docs/img/data.png){ width=30%, height=30%}
 
 
 # Future Work
