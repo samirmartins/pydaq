@@ -177,3 +177,10 @@ Screnshots
 ### Data in .dat format
 
 ![](docs/img/data.png)
+
+---
+Contributing
+---
+
+You are more than welcome to make your contribution 
+ans submit a pull request. To contribute, (read this guide)[CONTRIBUTING.md]

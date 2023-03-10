@@ -38,7 +38,6 @@ bibliography: paper.bib
 
 ![Caption for example figure.\label{fig:example}](../docs/img/send_data_arduino_gui.png){ width=20%, height=20%}
 
-
 ![Caption for example figure.\label{fig:example}](../docs/img/sending_data_arduino.png){ width=20%, height=20%}
 
 ![Caption for example figure.\label{fig:example}](../docs/img/step_response_arduino.png){ width=20%, height=20%}
