@@ -67,11 +67,11 @@ If the user decides to save data, it will be saved in .dat format, located at th
 path defined in the GUI. Figure \label{fig:data} shows an example of how data will be saved: i) one file (time.dat) 
 with the timestamp, in seconds, when each sample was acquired; ii) file data.dat containing acquired values.
 
-![Example of acquired data.\label{fig:data}](../docs/img/data.png){ width=10%, height=10%}
+![Example of acquired data.\label{fig:data}](../docs/img/data.png){ width=20%, height=20%}
 
 ![GUI for sending data - Arduino.\label{fig:arduino_send_gui}](../docs/img/send_data_nidaq_gui.png){ width=20%, height=20%}
 
-![GUI for sending data - NIDAQ.\label{fig:nidaq_send_gui}](../docs/img/send_data_arduino_gui.png){ width=10%, height=10%}
+![GUI for sending data - NIDAQ.\label{fig:nidaq_send_gui}](../docs/img/send_data_arduino_gui.png){ width=15%, height=15%}
 
 
 It should be emphatized that once this code is executed, a Graphical User Interface will
@@ -105,7 +105,7 @@ s.step_response_arduino_gui()
 ```
 
 
-![Step Response GUI - NIDAQ.\label{fig:step_nidaq}](../docs/img/step_response_nidaq_gui.png){ width=40%, height=40%}
+![Step Response GUI - NIDAQ.\label{fig:step_nidaq}](../docs/img/step_response_nidaq_gui.png){ width=30%, height=30%}
 
 ![Step Response GUI - Arduino.\label{fig:step_arduino}](../docs/img/step_response_arduino_gui.png){ width=20%, height=20%}
 
