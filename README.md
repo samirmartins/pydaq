@@ -182,5 +182,4 @@ Screnshots
 Contributing
 ---
 
-You are more than welcome to make your contribution  
-ans submit a pull request. To contribute, [read this guide](/CONTRIBUTING.md)
+You are more than welcome to make your contribution and submit a pull request. To contribute, [read this guide](/CONTRIBUTING.md).
