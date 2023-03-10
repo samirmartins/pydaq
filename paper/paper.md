@@ -24,7 +24,22 @@ bibliography: paper.bib
 
 # Summary
 
+System identification is a relevant resarch topic that aims to find mathematical models
+using acquired data. One of the first relevant contribution is the work of
+[@Lju1987], which was substantially developed over the years [@MA2016], [@WMNL2019]. 
+Among system identification tools, SysIdentPy [@Lacerda2020] uses Python in a very 
+straighforward way, while [@ayala2020r] promises to obtain model using R language.
 
+However, as pointed out by [@Lju1987], experimental data are necessary for obtaining 
+black-box models, and this is exactly where this work find its place. PYDAQ is a Python tool
+which was primarly developed for experiments with empirical data, either sending and/or 
+acquiring data using simple Graphical User Interfaces or command line, with 
+few (or any) line of codes required using different solutions provided by the 
+market (NIDAQ and Arduino). Thus, even a person working in a biological experiment, for instance, 
+is able to use PYDAQ easily and quickly for data acquisition
+
+In what follows it will be shown how PYDAQ can be use by any scientist for 
+quickly and efective data acquisition experiments, even if the scientist has no programming skills. 
 
 
 # PYDAQ - Data Acquisition and Experimental Analysis
@@ -78,7 +93,7 @@ It should be emphatized that once this code is executed, a Graphical User Interf
 manifest on screen, acording to the board selected by the user, as 
 shown in Figures \autoref{fig:nidaq_send_gui} and \autoref{fig:arduino_send_gui}.
 
-Options are straigh-forward and ease to understand. For further details and to check 
+Options are straight-forward and ease to understand. For further details and to check 
 how to use the same functionality using a command line the reader are invited to 
 read the documentation (https://samirmartins.github.io/pydaq/). 
 
