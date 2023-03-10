@@ -80,6 +80,12 @@ research topics. Further details can also be found in documentation (https://sam
 
 # Examples
 
+The fastest way to install PYDAQ is using pip:
+
+```console
+pip install pydaq
+```
+
 Figures \autoref{fig:arduino_get_gui} and \autoref{fig:nidaq_get_gui} depicts
 the Graphical User Interface developed for Data Acquisition using Arduino or any NIDAQ board.
 
