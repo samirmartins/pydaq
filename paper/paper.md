@@ -149,7 +149,7 @@ required to be a persistently exciting input, as necessary for system identifica
 
 Step-response is a common way to test a system and acquire data, in order to find a model, as well 
 as system time constant and gain. To facilitate this procedure, a step-response GUI 
-was also created and can be seen in Figures \label{fig:step_nidaq} and  \label{fig:step_arduino}. 
+was also created and can be seen in Figures \autoref{fig:step_nidaq} and  \autoref{fig:step_arduino}. 
 To use them, user should use the command: 
 
 ```python
