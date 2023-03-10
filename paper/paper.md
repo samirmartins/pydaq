@@ -24,9 +24,17 @@ bibliography: paper.bib
 
 # Summary
 
+# PYDAQ - Data Acquisition and Experimental Analysis
+
+# Examples
 
 
-# Statement of need
+
+![Caption for example figure.\label{fig:example}](../docs/img/data.png)
+  |  ![Caption for example figure.\label{fig:example}](../docs/img/data.png)
+
+
+# Future Work
 
 `Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
 enables wrapping low-level languages (e.g., C) for speed without losing
