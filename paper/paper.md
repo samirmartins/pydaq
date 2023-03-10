@@ -54,9 +54,8 @@ bibliography: paper.bib
 
 # Future Work
 
-
-
-# Acknowledgements
-
+Future releases will include real-time and data-driven system identification using linear and nonlinear approaches.
+Also, real-time model based controllers will be implemented through PYDAQ. Saving data 
+in a SQL server is a future feature, as well.
 
 # References
