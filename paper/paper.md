@@ -57,8 +57,13 @@ dealing only with data acquisition, whereas this is commonly only the first
 in an empirical scientific procedure, such as in the work of [@Ostrovskii2020].
 
 Further, PYDAQ deals from different type of data acquisition cards, since 
-simple and cheaper Arduino boards up to NIDAQ devices. In literature there are 
-packages that deals with NIDAQ devices, such as [@Koerner2020]. However, they need several 
+simple and cheaper Arduino boards up to NIDAQ devices, allowing the execution from simple to complex 
+experiments. Also, since PYDAQ can be also used as a command line tool, it can 
+be easily incorporated to be used in production along with any available mathematical tool, such 
+as SysIdentPy[@Lacerda2020] or SciKitLearn[@scikit-learn].
+
+In literature there are packages that deals with NIDAQ devices, 
+such as [@Koerner2020]. However, they need several 
 line of codes in order to make a single data acquisition, and works only with expensive and 
 proprietary boards. Besides, as far as I know, there is no Graphical User Interface 
 open software that allows instantly and easily data acquisition with Python, being this another
