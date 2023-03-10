@@ -67,11 +67,11 @@ If the user decides to save data, it will be saved in .dat format, located at th
 path defined in the GUI. Figure \label{fig:data} shows an example of how data will be saved: i) one file (time.dat) 
 with the timestamp, in seconds, when each sample was acquired; ii) file data.dat containing acquired values.
 
-![Caption for example figure.\label{fig:data}](../docs/img/data.png){ width=20%, height=20%}
+![Caption for example figure.\label{fig:data}](../docs/img/data.png){ width=10%, height=10%}
 
 ![Caption for example figure.\label{fig:arduino_send_gui}](../docs/img/send_data_nidaq_gui.png){ width=20%, height=20%}
 
-![Caption for example figure.\label{fig:nidaq_send_gui}](../docs/img/send_data_arduino_gui.png){ width=20%, height=20%}
+![Caption for example figure.\label{fig:nidaq_send_gui}](../docs/img/send_data_arduino_gui.png){ width=10%, height=10%}
 
 
 It should be emphatized that once this code is executed, a Graphical User Interface will
@@ -92,7 +92,7 @@ Step-response is a common way to test a system and acquire data, in order to fin
 as system time constant and gain. To facilitate this procedure, a step-response GUI
 was also created and can be seen in Figures \label{fig:step_nidaq} and  \label{fig:step_arduino}.
 
-![Caption for example figure.\label{fig:step_nidaq}](../docs/img/step_response_nidaq_gui.png){ width=20%, height=20%}
+![Caption for example figure.\label{fig:step_nidaq}](../docs/img/step_response_nidaq_gui.png){ width=40%, height=40%}
 
 ![Caption for example figure.\label{fig:step_arduino}](../docs/img/step_response_arduino_gui.png){ width=20%, height=20%}
 
@@ -102,9 +102,9 @@ with PYDAQ. In the figures the user will find lables, function (Sending Data/Dat
 device/channel (for NIDAQ boards) or COM port used (for Arduino devices).
 
 
-![Caption for example figure.\label{fig:data_sent}](../docs/img/sending_data_nidaq.png){ width=20%, height=20%}
+![Caption for example figure.\label{fig:data_sent}](../docs/img/sending_data_nidaq.png){ width=40%, height=40%}
 
-![Caption for example figure.\label{fig:step_data}](../docs/img/step_response_arduino.png){ width=20%, height=20%}
+![Caption for example figure.\label{fig:step_data}](../docs/img/step_response_arduino.png){ width=40%, height=40%}
 
 
 Examples showed above shed light in some functionalities of PYDAQ. For further 
