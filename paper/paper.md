@@ -45,9 +45,9 @@ from pydaq.get_data import Get_data
 # Class Get_data
 g = Get_data()
 
-# Arduino or NIDAQ - Use one of the following lines
-# g.get_data_nidaq_gui() # For NIDAQ devices 
-# g.get_data_arduino_gui() # For arduino boards
+# Arduino or NIDAQ - Use ONE of the following lines 
+g.get_data_nidaq_gui() # For NIDAQ devices 
+g.get_data_arduino_gui() # For arduino boards
 ```
 
 Similarly, to send data, only three LOC are required, as showed up in what follow:
@@ -58,9 +58,9 @@ from pydaq.send_data import Send_data
 # Class Send_data
 s = Send_data()
 
-# Arduino or NIDAQ - Use one of the following lines
-# s.send_data_nidaq_gui()
-# s.send_data_arduino_gui()
+# Arduino or NIDAQ - Use ONE of the following lines 
+s.send_data_nidaq_gui()
+s.send_data_arduino_gui()
 ```
 
 If the user decides to save data, it will be saved in .dat format, located at the 
@@ -90,7 +90,20 @@ required to be a persistently exciting input, as necessary for system identifica
 
 Step-response is a common way to test a system and acquire data, in order to find a model, as well
 as system time constant and gain. To facilitate this procedure, a step-response GUI
-was also created and can be seen in Figures \label{fig:step_nidaq} and  \label{fig:step_arduino}.
+was also created and can be seen in Figures \label{fig:step_nidaq} and  \label{fig:step_arduino}. 
+To use them, user should use the command: 
+
+```python
+from pydaq.step_response import Step_response
+
+# Class Step_Response
+s = Step_response()
+
+# Arduino or NIDAQ - Use ONE of the following lines 
+s.step_response_nidaq_gui()
+s.step_response_arduino_gui()
+```
+
 
 ![Step Response GUI - NIDAQ.\label{fig:step_nidaq}](../docs/img/step_response_nidaq_gui.png){ width=40%, height=40%}
 
