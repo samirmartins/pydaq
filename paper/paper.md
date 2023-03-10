@@ -36,7 +36,7 @@ black-box models, and this is exactly where PYDAQ find its place. PYDAQ is a Pyt
 which was primarily developed for experiments with empirical data, either sending and/or 
 acquiring data using simple Graphical User Interfaces or command line, with 
 few (or no) lines of code required, using different solutions provided by the 
-market (NIDAQ and Arduino). Thus, even a reseacher working on a biological experiment, for instance, 
+market (NIDAQ and Arduino). Even a reseacher with no programming skills 
 is able to use PYDAQ easily and quickly for data acquisition.
 
 In what follows it will be shown how PYDAQ can be use by any scientist, its advantages and features for 
