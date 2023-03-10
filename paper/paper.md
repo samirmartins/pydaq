@@ -29,12 +29,27 @@ bibliography: paper.bib
 # Examples
 
 
-<img src="../docs/img/data.png"  width="100%" height="100%">
 
+![Caption for example figure.\label{fig:example}](../docs/img/get_data_arduino.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/get_data_nidaq.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/send_data_nidaq_gui.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/send_data_arduino_gui.png){ width=20%, height=20%}
+
+
+![Caption for example figure.\label{fig:example}](../docs/img/sending_data_arduino.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/step_response_arduino.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/step_response_nidaq_gui.png){ width=20%, height=20%}
+
+![Caption for example figure.\label{fig:example}](../docs/img/step_response_arduino_gui.png){ width=20%, height=20%}
 
 ![Caption for example figure.\label{fig:example}](../docs/img/data.png){ width=20%, height=20%}
-  |  ![Caption for example figure.\label{fig:example}](../docs/img/data.png){ width=30%, height=30%}
 
+\autoref{fig:example}
 
 # Future Work
 
@@ -82,7 +97,7 @@ Figures can be included like this:
 
 ![Caption for example figure.\label{fig:example}](../docs/img/data.png)
 
-and referenced from text using \autoref{fig:example}.
+and referenced from text using .
 
 Figure sizes can be customized by adding an optional second parameter:
 ![Caption for example figure.](figure.png)
