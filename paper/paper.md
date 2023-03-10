@@ -30,8 +30,10 @@ bibliography: paper.bib
 
 
 
-![Caption for example figure.\label{fig:example}](../docs/img/data.png)
-  |  ![Caption for example figure.\label{fig:example}](../docs/img/data.png)
+
+
+<img src="../docs/img/data.png"  width="50%" height="50%">
+  |  <img src="../docs/img/data.png"  width="50%" height="50%">
 
 
 # Future Work
