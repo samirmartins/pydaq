@@ -44,6 +44,35 @@ quickly and efective data acquisition experiments, even if the scientist has no 
 
 # PYDAQ - Data Acquisition and Experimental Analysis
 
+Any scientist or student which needs to acquire data in an ease and quick way, 
+in three Line of Codes (LOC) are target audience of this manuscript/package. PYDAQ 
+is a solution that aims to allow the user to perform experiments from data acquisition to 
+function generators using a Graphical User Interface. 
+
+However, for advanced users, it is also possible to use PYDAQ through command line, as 
+showed up in documentation (https://samirmartins.github.io/pydaq/). 
+
+To contextualize the importance of PYDAQ, there are full papers [@Yang2019], [@Koerner2020]
+dealing only with data acquisition, whereas this is commonly only the first
+in an empirical scientific procedure, such as in the work of [@Ostrovskii2020].
+
+Further, PYDAQ deals from different type of data acquisition cards, since 
+simple and cheaper Arduino boards up to NIDAQ devices. In literature there are 
+packages that deals with NIDAQ devices, such as [@Koerner2020]. However, they need several 
+line of codes in order to make a single data acquisition, and works only with expensive and 
+proprietary boards. Besides, as far as I know, there is no Graphical User Interface 
+open software that allows instantly and easily data acquisition with Python, being this another
+feature of PYDAQ.
+
+Because of the above-mentioned facts, PYDAQ can be used also to introduce new 
+scientist in the System Identification research area. Also, PYDAQ can be used in 
+teaching, during engineering courses and in low-cost laboratories implementation, once
+Arduino boards are quite cheap and easy to find. Graphical User Interfaces also allows
+the user to be directly connected with the subject, as explicitly said by [@Silva_2018].
+
+In what follows examples of how to use PYDAQ will be presented, as well as future
+research topics. Further details can also be found in documentation (https://samirmartins.github.io/pydaq/). 
+
 # Examples
 
 Figures \autoref{fig:arduino_get_gui} and \autoref{fig:nidaq_get_gui} depicts
