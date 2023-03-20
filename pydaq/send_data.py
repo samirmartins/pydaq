@@ -295,6 +295,7 @@ class Send_data(Base):
         for k in range(self.cycles):
 
             # Sending data
+            self.ser.reset_input_buffer()  # Reseting serial input buffer
             self.ser.write(self.data_send[k])
 
             # Counting time to append data and update interface
