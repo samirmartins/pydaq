@@ -42,8 +42,9 @@ is able to use PYDAQ easily and quickly for data acquisition.
 In what follows it will be shown how PYDAQ can be use by any scientist, its advantages and features for 
 quickly and effective data acquisition experiments, even if the scientist has no programming skills. 
 
+# Statement of need
 
-# PYDAQ - Data Acquisition and Experimental Analysis
+## PYDAQ - Data Acquisition and Experimental Analysis
 
 Any scientist or student which needs to acquire data in an ease and quick way, 
 in three Line of Codes (LOC) are the target audience of this manuscript/package. PYDAQ 
