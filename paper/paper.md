@@ -44,8 +44,6 @@ quickly and effective data acquisition experiments, even if the scientist has no
 
 # Statement of need
 
-## PYDAQ - Data Acquisition and Experimental Analysis
-
 Any scientist or student which needs to acquire data in an ease and quick way, 
 in three Line of Codes (LOC) are the target audience of this manuscript/package. PYDAQ 
 is a solution that aims to allow the user to perform experiments from data acquisition to 
