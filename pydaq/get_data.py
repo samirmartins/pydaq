@@ -122,11 +122,11 @@ class Get_data(Base):
         # Main loop, where data will be acquired
         for k in range(self.cycles):
 
-            # Acquire data
-            temp = task.read()
-
             # Counting time to append data and update interface
             st = time.time()
+
+            # Acquire data
+            temp = task.read()
 
             # Queue data in a list
             self.data.append(temp)
@@ -323,14 +323,14 @@ class Get_data(Base):
         # Main loop, where data will be acquired
         for k in range(self.cycles):
 
+            # Counting time to append data and update interface
+            st = time.time()
+
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             # Get the last complete value
             temp = int(self.ser.read(14).split()
                        [-2].decode('UTF-8')) * self.ard_vpb
-
-            # Counting time to append data and update interface
-            st = time.time()
 
             # Queue data in a list
             self.data.append(temp)

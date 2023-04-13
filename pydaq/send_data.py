@@ -104,11 +104,11 @@ class Send_data(Base):
         # Main loop, where data will be sent
         for k in range(self.cycles):
 
-            # Sending data
-            task.write(self.data[k])
-
             # Counting time to append data and update interface
             st = time.time()
+
+            # Sending data
+            task.write(self.data[k])
 
             # Queue data in a list
             self.time_var.append(k * self.ts)
@@ -294,12 +294,12 @@ class Send_data(Base):
         # Main loop, where data will be sent
         for k in range(self.cycles):
 
+            # Counting time to append data and update interface
+            st = time.time()
+
             # Sending data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             self.ser.write(self.data_send[k])
-
-            # Counting time to append data and update interface
-            st = time.time()
 
             # Queue data in a list
             self.time_var.append(k * self.ts)

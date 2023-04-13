@@ -104,6 +104,8 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+tests.py
+
 # Pycharm
 .idea/
 .idea
