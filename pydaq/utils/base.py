@@ -89,7 +89,7 @@ class Base:
 
         self.ser = serial.Serial()
         self.ser.dtr = True
-        self.ser.baudrate = (2000000)
+        self.ser.baudrate = (9600)
         self.ser.port = self.com_port  # Defining port
 
         if not self.ser.isOpen():  # Open port if not openned
