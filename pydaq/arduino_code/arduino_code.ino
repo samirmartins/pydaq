@@ -15,7 +15,7 @@ int analogValue; // A variable to store data from analogInputPort
 void setup() 
 { 
   // Initializing serial communication :
-  Serial.begin(9600);
+  Serial.begin(2000000);
 
   // Setting up digitalOutputPort
   pinMode(digitallOutputPort, OUTPUT);
