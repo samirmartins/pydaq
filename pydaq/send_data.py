@@ -291,6 +291,8 @@ class Send_data(Base):
             self.title = f'PYDAQ - Sending Data. Arduino, Port: {self.com_port}'
             self._start_updatable_plot()
 
+        time.sleep(2)  # Wait for Arduino and Serial to start up
+
         # Main loop, where data will be sent
         for k in range(self.cycles):
 
