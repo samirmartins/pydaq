@@ -320,6 +320,9 @@ class Get_data(Base):
             self.title = f'PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}'
             self._start_updatable_plot()
 
+
+        time.sleep(2)  # Wait for Arduino and Serial to start up
+
         # Main loop, where data will be acquired
         for k in range(self.cycles):
 
