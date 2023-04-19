@@ -1,0 +1,46 @@
+--------------------------------------------------------------------------------------------------------------
+File for tracking changes in PYDAQ
+--------------------------------------------------------------------------------------------------------------
+
+Changes in PYDAQ
+=====================
+
+
+v0.0.4
+------
+
+CONTRIBUTORS
+~~~~~~~~~~~~
+
+- samirmartins
+
+CHANGES
+~~~~~~~
+
+- Code improvements in order to make sample period more reliable, including a waiting period for Arduino/Pyserial start up
+- Default baud rate changed to 115200 in both Arduino and PYDAQ
+- Changelog created
+-
+
+
+
+v0.0.3
+------
+
+CONTRIBUTORS
+~~~~~~~~~~~~
+
+- samirmartins
+
+CHANGES
+~~~~~~~
+
+- Creation of the whole system from zero.
+- Data acquisition with Arduino.
+- Data acquisition with NIDAQ boards.
+- Sending data with Arduino.
+- Sending data with NIDAQ boards.
+- Step response module.
+- Website with documentation available
+- paper.md was written and submitted to JOSS - The Journal of Open Source Software
+- Jupyter notebooks examples were created
