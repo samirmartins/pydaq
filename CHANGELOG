@@ -17,10 +17,14 @@ CONTRIBUTOR
 CHANGES
 ~~~~~~~
 
-- Code improvements in order to make sample period more reliable, including a waiting period for Arduino/Pyserial start up
+- Code improvements to enhance the reliability of the sample period, including a waiting period for Arduino/Pyserial startup.
 - Default baud rate changed to 115200 in both Arduino and PYDAQ
-- Changelog created
-- Plot type changed to scatter in order to better represente discrete-time samples
+- Change log created to track modifications and evolution of the code.
+- Plot type changed to scatter for a more accurate representation of discrete-time samples.
+- GIF added with detailed information on the documentation website to provide visual details of the project
+
+
+
 
 
 
@@ -35,12 +39,12 @@ CONTRIBUTOR
 CHANGES
 ~~~~~~~
 
-- Creation of the whole system from zero.
+- Building the entire system from scratch.
 - Data acquisition with Arduino.
 - Data acquisition with NIDAQ boards.
 - Sending data with Arduino.
 - Sending data with NIDAQ boards.
 - Step response module.
-- Website with documentation available
-- paper.md was written and submitted to JOSS - The Journal of Open Source Software
-- Jupyter notebooks examples were created
+- Developing a website with comprehensive documentation.
+- Writing and submitting "paper.md" to JOSS - The Journal of Open Source Software.
+- Creating Jupyter notebook examples for demonstration.
