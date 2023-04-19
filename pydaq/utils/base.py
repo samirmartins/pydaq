@@ -9,7 +9,7 @@ import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 
 
-class Base ():
+class Base:
     """
         Base class for data acquisition and to send data.
     """
