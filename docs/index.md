@@ -66,3 +66,7 @@ a step response experiments with available boards ([NIDAQ](https://samirmartins.
 
 In this section it will be provided Jupyter Notebook examples
 presenting code functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/)/[Arduino](https://samirmartins.github.io/pydaq/jupyter_notebooks/))
+
+<p align="center">
+  <img src="img/pydaq.gif" alt= “” class=“center” width="75%" height="75%">
+</p>
