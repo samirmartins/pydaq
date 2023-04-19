@@ -127,10 +127,10 @@ class Base:
         plt.grid()
         if number_of_inputs > 1:
             for k in range(number_of_inputs):
-                self.ax.plot(x_value[k], y_value[k])
+                self.ax.scatter(x_value[k], y_value[k])
                 plt.legend(self.legend)
         else:
-            self.ax.plot(x_value, y_value)
+            self.ax.scatter(x_value, y_value)
             plt.legend(self.legend)
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
