@@ -141,7 +141,7 @@ s.step_response_arduino_gui()
 ```
 
 ---
-Screnshots
+Screnshots (v0.0.3)
 ---
 
 ### Graphical User Interfaces - NIDAQ
