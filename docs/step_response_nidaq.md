@@ -8,10 +8,10 @@ Using GUI for step response is really straighforward and require only
 three LOC (lines of code):
 
 ```python
-from pydaq.step_response import Step_response
+from pydaq.step_response import StepResponse
 
-# Class Step_Response
-s = Step_response()
+# Class StepResponse
+s = StepResponse()
 
 # Method step_response_nidaq_gui
 s.step_response_nidaq_gui()
@@ -30,14 +30,14 @@ the data will or not be plotted and saved.
 
 ## Step Response using command line
 
-It will be presented how to use Step_response (and step_response_nidaq) to 
+It will be presented how to use StepResponse (and step_response_nidaq) to 
 perform a step response experiment using an NIDAQ board. 
 
-Firstly, import library and define parameters:  
+Firstly, import library and define parameters:
 
 ```python
 # Importing PYDAQ
-from pydaq.step_response import Step_response
+from pydaq.step_response import StepResponse
 
 # Defining parameters
 device_name = "Dev1"
@@ -55,8 +55,8 @@ will_plot = True
 Then, instantiate a class with defined parametes and send the data
 
 ```python
-# Class Get_data
-s = Step_response(device=device_name, 
+# Class StepResponse
+s = StepResponse(device=device_name, 
                   ao_channel= ao_channel_used, 
                   ai_channel=ai_channel_used, 
                   ts=sample_period_in_seconds, 

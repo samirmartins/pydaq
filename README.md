@@ -95,48 +95,54 @@ Using GUIs (more details in [documentation](https://samirmartins.github.io/pydaq
 #### Data acquisition (NIDAQ):
 
 ```python
-from pydaq.get_data import Get_data
-g = Get_data()
+from pydaq.get_data import GetData
+
+g = GetData()
 g.get_data_nidaq_gui()
 ```
 
 #### Data acquisition (Arduino):
 
 ```python
-from pydaq.get_data import Get_data
-g = Get_data()
+from pydaq.get_data import GetData
+
+g = GetData()
 g.get_data_arduino_gui()
 ```
 
 #### Sending data (NIDAQ):
 
 ```python
-from pydaq.send_data import Send_data
-s = Send_data()
+from pydaq.send_data import SendData
+
+s = SendData()
 s.send_data_nidaq_gui()
 ```
 
 #### Sending data (Arduino):
 
 ```python
-from pydaq.send_data import Send_data
-s = Send_data()
+from pydaq.send_data import SendData
+
+s = SendData()
 s.send_data_arduino_gui()
 ```
 
 #### Step response (NIDAQ):
 
 ```python
-from pydaq.step_response import Step_response
-s = Step_response()
+from pydaq.step_response import StepResponse
+
+s = StepResponse()
 s.step_response_nidaq_gui()
 ```
 
 #### Step response (Arduino):
 
 ```python
-from pydaq.step_response import Step_response
-s = Step_response()
+from pydaq.step_response import StepResponse
+
+s = StepResponse()
 s.step_response_arduino_gui()
 ```
 

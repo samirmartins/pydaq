@@ -11,7 +11,7 @@ import serial.tools.list_ports
 from pydaq.utils.base import Base
 
 
-class Get_data(Base):
+class GetData(Base):
     """
         Class able to get data from data acquisition boards using (or not) a graphical user interface (GUI)
 

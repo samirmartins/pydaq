@@ -21,10 +21,10 @@ Using GUI to acquire data is really straighforward and require only
 three LOC (lines of code):
 
 ```python
-from pydaq.get_data import Get_data
+from pydaq.get_data import GetData
 
-# Class Get_data
-g = Get_data()
+# Class GetData
+g = GetData()
 
 # Method get_data_arduino
 g.get_data_arduino_gui()
@@ -41,13 +41,13 @@ save data.
 
 ## Data Acquitition using command line
 
-It will be presented how to use Get_data (and get_data_arduino) to acquire signal using an Arduino board. 
+It will be presented how to use GetData (and get_data_arduino) to acquire signal using an Arduino board. 
 
-Firstly, import library and define parameters: 
+Firstly, import library and define parameters:
 
 ```python
 # Importing PYDAQ
-from pydaq.get_data import Get_data
+from pydaq.get_data import GetData
 
 # Defining parameters
 sample_period_in_seconds = 1
@@ -60,8 +60,8 @@ will_plot = True
 Then, instantiate a class with defined parametes and get the data
 
 ```python
-# Class Get_data
-g = Get_data(com=com_port_arduino,
+# Class GetData
+g = GetData(com=com_port_arduino,
              ts=sample_period_in_seconds, 
              session_duration=session_duration_in_seconds, 
              save=save_data, 

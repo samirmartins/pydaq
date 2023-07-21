@@ -16,10 +16,10 @@ Using GUI for step response is really straighforward and require only
 three LOC (lines of code):
 
 ```python
-from pydaq.step_response import Step_response
+from pydaq.step_response import StepResponse
 
-# Class Step_Response
-s = Step_response()
+# Class StepResponse
+s = StepResponse()
 
 # Method step_response_arduino_gui
 s.step_response_arduino_gui()
@@ -37,14 +37,14 @@ and saved.
 
 ## Step Response using command line
 
-It will be presented how to use Step_response (and step_response_arduino) to 
+It will be presented how to use StepResponse (and step_response_arduino) to 
 perform a step response experiment using an Arduino board. 
 
-Firstly, import library and define parameters: 
+Firstly, import library and define parameters:
 
 ```python
 # Importing PYDAQ
-from pydaq.step_response import Step_response
+from pydaq.step_response import StepResponse
 
 # Defining parameters
 sample_period_in_seconds = 1
@@ -57,8 +57,8 @@ will_plot = True
 Then, instantiate a class with defined parametes and send the data
 
 ```python
-# Class Get_data
-s = Step_response(com = com_port_arduino, 
+# Class StepResponse
+s = StepResponse(com = com_port_arduino, 
                   ts=sample_period_in_seconds, 
                   session_duration=session_duration_in_seconds, 
                   step_time=step_time_in_seconds, 

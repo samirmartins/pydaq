@@ -8,10 +8,10 @@ Using GUI to acquire data is really straighforward and require only
 three LOC (lines of code):
 
 ```python
-from pydaq.get_data import Get_data
+from pydaq.get_data import GetData
 
-# Class Get_data
-g = Get_data()
+# Class GetData
+g = GetData()
 
 # Method get_data_nidaq
 g.get_data_nidaq_gui()
@@ -29,13 +29,13 @@ save data.
 
 ## Data Acquitition using command line
 
-It will be presented how to use Get_data (and get_data_nidaq) to acquire signal using a National Instruments board. 
+It will be presented how to use GetData (and get_data_nidaq) to acquire signal using a National Instruments board. 
 
-Firstly, import library and define parameters: 
+Firstly, import library and define parameters:
 
 ```python
 # Importing PYDAQ
-from pydaq.get_data import Get_data
+from pydaq.get_data import GetData
 
 # Defining parameters
 device_name = "Dev1"
@@ -50,8 +50,8 @@ will_plot = True
 Then, instantiate a class with defined parametes and get the data
 
 ```python
-# Class Get_data
-g = Get_data(device=device_name, 
+# Class GetData
+g = GetData(device=device_name, 
              channel=channel_used, 
              terminal=terminal_configuration, 
              ts = sample_period_in_seconds, 

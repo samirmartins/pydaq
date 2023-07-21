@@ -1,6 +1,6 @@
-from pydaq.send_data import Send_data
-from pydaq.get_data import Get_data
-from pydaq.step_response import Step_response
+from pydaq.send_data import SendData
+from pydaq.get_data import GetData
+from pydaq.step_response import StepResponse
 from pydaq.utils.base import Base
 import pytest
 from nidaqmx.constants import TerminalConfiguration
@@ -10,15 +10,15 @@ import os
 
 @pytest.fixture()
 def send():
-    return Send_data()
+    return SendData()
 
 @pytest.fixture()
 def get():
-    return Get_data()
+    return GetData()
 
 @pytest.fixture()
 def step():
-    return Step_response()
+    return StepResponse()
 
 @pytest.fixture()
 def base():
@@ -32,7 +32,7 @@ def test_constructor_send(send):
     assert send.com_port == 'COM1'
     assert len(send.com_ports)>0
 
-    print('\n[Send_data] Constructor method test passed')
+    print('\n[SendData] Constructor method test passed')
 
 
 def test_constructor_base(base):
@@ -51,7 +51,7 @@ def test_constructor_get(get):
     assert get.com_port == 'COM1'
     assert len(get.com_ports)>0
 
-    print('\n[Get_data] Constructor method test passed')
+    print('\n[GetData] Constructor method test passed')
 
 def test_constructor_step(step):
 
@@ -61,7 +61,7 @@ def test_constructor_step(step):
     assert step.com_port == 'COM1'
     assert len(step.com_ports)>0
 
-    print('\n[Step_response] Constructor method test passed')
+    print('\n[StepResponse] Constructor method test passed')
 
 
 # Testing Base
@@ -96,7 +96,7 @@ def test_nidaq_step(step):
     assert len(step.device_categories) > 0
     assert len(step.device_type) > 0
 
-    print('\n[Step_response - _nidaq_info] - Test Passed!')
+    print('\n[StepResponse - _nidaq_info] - Test Passed!')
 
 
 def test_nidaq_send(send):
@@ -107,7 +107,7 @@ def test_nidaq_send(send):
     assert len(send.device_categories) > 0
     assert len(send.device_type) > 0
 
-    print('\n[Send_data - _nidaq_info] - Test Passed!')
+    print('\n[SendData - _nidaq_info] - Test Passed!')
 
 def test_nidaq_get(get):
 
@@ -117,7 +117,7 @@ def test_nidaq_get(get):
     assert len(get.device_categories) > 0
     assert len(get.device_type) > 0
 
-    print('\n[Get_data - _nidaq_info] - Test Passed!')
+    print('\n[GetData - _nidaq_info] - Test Passed!')
 
 def test_save_data_get(get):
 
@@ -126,7 +126,7 @@ def test_save_data_get(get):
     assert os.path.isfile(os.path.join(get.path, 'test.dat')) == True
     os.remove(os.path.join(get.path, 'test.dat'))
 
-    print('\n[Get_data - _save_data] - Test Passed!')
+    print('\n[GetData - _save_data] - Test Passed!')
 
 def test_save_data_send(send):
 
@@ -135,7 +135,7 @@ def test_save_data_send(send):
     assert os.path.isfile(os.path.join(send.path, 'test.dat')) == True
     os.remove(os.path.join(send.path, 'test.dat'))
 
-    print('\n[Send_data - _save_data] - Test Passed!')
+    print('\n[SendData - _save_data] - Test Passed!')
 
 def test_save_data_step(step):
 
@@ -144,4 +144,4 @@ def test_save_data_step(step):
     assert os.path.isfile(os.path.join(step.path, 'test.dat')) == True
     os.remove(os.path.join(step.path, 'test.dat'))
 
-    print('\n[Step_response - _save_data] - Test Passed!')
+    print('\n[StepResponse - _save_data] - Test Passed!')

@@ -8,14 +8,13 @@ from pydaq.utils.base import Base
 import os
 import serial
 import serial.tools.list_ports
-from pydaq.utils.base import Base
 import matplotlib.pyplot as plt
 import warnings
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 
 
-class Step_response(Base):
+class StepResponse(Base):
     """
         Class developed to construct Graphical User Interface for step
         response using arduino and NIDAQ boards

@@ -15,10 +15,10 @@ Using GUI to send data is really straighforward and require only
 three LOC (lines of code):
 
 ```python
-from pydaq.send_data import Send_data
+from pydaq.send_data import SendData
 
-# Class Send_data
-s = Send_data()
+# Class SendData
+s = SendData()
 
 # Method send_data_arduino_gui
 s.send_data_arduino_gui()
@@ -39,18 +39,18 @@ configuration is done, the user only need to click on **SEND DATA** button to st
 
 ## Sending data using command line
 
-It will be presented how to use Send_data (and send_data_arduino) to 
+It will be presented how to use SendData (and send_data_arduino) to 
 send a signal using an Arduino board. 
 
-Firstly, import library and define parameters: 
+Firstly, import library and define parameters:
 
 ```python
 # Importing PYDAQ
-from pydaq.send_data import Send_data
+from pydaq.send_data import SendData
 
 # Defining parameters
 sample_period_in_seconds = 1
-data = [0,0,5,5,0,0,5,5,0,0,5,5] # It can be either a list or a numpy array
+data = [0, 0, 5, 5, 0, 0, 5, 5, 0, 0, 5, 5]  # It can be either a list or a numpy array
 com_port_arduino = 'COM3'
 will_plot = True
 ```
@@ -58,8 +58,8 @@ will_plot = True
 Then, instantiate a class with defined parametes and send the data
 
 ```python
-# Class Send_data
-s = Send_data(data = data, 
+# Class SendData
+s = SendData(data = data, 
               com = com_port_arduino, 
               ts = sample_period_in_seconds)
 

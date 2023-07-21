@@ -10,7 +10,7 @@ import serial.tools.list_ports
 from pydaq.utils.base import Base
 
 
-class Send_data(Base):
+class SendData(Base):
     """
         Class able to send data from data acquisition boards using (or not) a graphical user interface (GUI)
 
