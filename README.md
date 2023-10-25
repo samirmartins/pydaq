@@ -63,6 +63,10 @@ The fastest way to install PYDAQ is using pip:
 pip install pydaq
 ```
 
+**NOTE:** In this version of pydaq (0.0.3), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
+the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
+Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
+
 PYDAQ requires:
 
 - Installed driver of the board used (Arduino or National Instruments NIDAQ)
