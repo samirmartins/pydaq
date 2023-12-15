@@ -188,3 +188,28 @@ Contributing
 ---
 
 You are more than welcome to make your contribution and submit a pull request. To contribute, [read this guide](/CONTRIBUTING.md).
+
+
+---
+CITATION
+---
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.05662/status.svg)](https://doi.org/10.21105/joss.05662)
+
+If you are using PYDAQ on your project, you can cite us as following: 
+
+- Martins, S. A. M. (2023). PYDAQ: Data Acquisition and Experimental Analysis with Python. Journal of Open Source Software, 8(92), 5662. https://doi.org/10.21105/joss.05662
+
+```bibtex
+@article{Martins_PYDAQ_Data_Acquisition_2023,
+  author = {Martins, Samir Angelo Milani},
+  doi = {10.21105/joss.05662},
+  journal = {Journal of Open Source Software},
+  month = dec,
+  number = {92},
+  pages = {5662},
+  title = {{PYDAQ: Data Acquisition and Experimental Analysis with Python}},
+  url = {https://joss.theoj.org/papers/10.21105/joss.05662},
+  volume = {8},
+  year = {2023}
+}
+```
