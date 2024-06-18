@@ -67,7 +67,7 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
                 s.error_max = False
 
             # Separating variables
-            s.device = self.device_combo.currentText().split("/")[0]
+            s.device = self.channel_combo.currentText().split("/")[0]
             s.channel = self.channel_combo.currentText().split("/")[1]
             s.ts = self.Ts_in.value()
             s.plot = True if self.plot_radio_group.checkedId() == -2 else False

@@ -76,7 +76,7 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
 
             # Separating variables
             # Input and output range
-            s.device = self.device_combo.currentText().split("/")[0]
+            s.device = self.ao_channel_combo.currentText().split("/")[0]
             s.ao_channel = self.ao_channel_combo.currentText().split("/")[1]
             s.ai_channel = self.ai_channel_combo.currentText().split("/")[1]
             s.terminal = s.term_map[self.terminal_config_combo.currentText()]

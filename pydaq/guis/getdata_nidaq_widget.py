@@ -23,6 +23,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
                 self.device_names[0]
             ).ai_physical_chans.channel_names
             defchan = chan[0]
+
         except BaseException:
             chan = ""
             defchan = ""
@@ -62,7 +63,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
             g = GetData()
 
             # Separating variables
-            g.device = self.device_combo.currentText().split("/")[0]
+            g.device = self.channel_combo.currentText().split("/")[0]
             g.channel = self.channel_combo.currentText().split("/")[1]
             g.terminal = g.term_map[self.terminal_config_combo.currentText()]
             g.ts = self.Ts_in.value()
