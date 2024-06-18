@@ -88,7 +88,7 @@ class Ui_error_window_dialog(object):
         self.confirm.setText(
             QCoreApplication.translate(
                 "error_window_dialog",
-                "Device, channel, path or data were not choosen properly!",
+                "Device, channel, path or data were not chosen properly!",
                 None,
             )
         )
