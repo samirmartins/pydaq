@@ -1,6 +1,5 @@
 import os
 
-# import PySimpleGUI as sg
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import serial
@@ -9,6 +8,8 @@ import numpy as np
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 import warnings
+
+from ..guis.error_window_gui import Error_window
 
 
 class Base:
@@ -28,56 +29,9 @@ class Base:
     def _range_error(self):
         """Out of range window"""
 
-        # layout2 = [
-        #     [sg.VPush()],
-        #     [sg.Cancel("Out of range value (check step_max and ao_min)!", key="-new-")],
-        #     [sg.VPush()],
-        # ]
-        # window = sg.Window(
-        #     "ERROR!",
-        #     layout2,
-        #     resizable=False,
-        #     finalize=True,
-        #     element_justification="center",
-        #     font="Helvetica",
-        #     size=(600, 100),
-        # )
-        # while True:
-        #     event2, values2 = window.read()
-        #     if event2 == "Exit" or event2 == sg.WIN_CLOSED or event2 == "-new-":
-        #         break
-
-        # window.close()
-
-    def _error_window(self):
-        """Error window"""
-
-        # layout2 = [
-        #     [sg.VPush()],
-        #     [
-        #         sg.Cancel(
-        #             "Device, channel or data were not choosen properly!", key="-new-"
-        #         )
-        #     ],
-        #     [sg.VPush()],
-        # ]
-
-        # window = sg.Window(
-        #     "ERROR!",
-        #     layout2,
-        #     resizable=False,
-        #     finalize=True,
-        #     element_justification="center",
-        #     font="Helvetica",
-        #     size=(600, 100),
-        # )
-
-        # while True:
-        #     event2, values2 = window.read()
-        #     if event2 == "Exit" or event2 == sg.WIN_CLOSED or event2 == "-new-":
-        #         break
-
-        # window.close()
+        error_w = Error_window()
+        error_w.ui.confirm.setText("Out of range value (check step_max and ao_min)!")
+        error_w.exec()
 
     def _check_path(self):
         """Method to check if path was or not defined by the user"""
