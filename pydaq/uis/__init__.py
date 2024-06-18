@@ -1,0 +1,1 @@
+from .ui_PyDAQ_get_data_Arduino_widget import Ui_Arduino_GetData_W

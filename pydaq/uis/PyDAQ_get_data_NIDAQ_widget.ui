@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NIDAQ_GetData_W</class>
+ <widget class="QWidget" name="NIDAQ_GetData_W">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>477</width>
+    <height>447</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QComboBox QAbstractItemView {
+    background-color: rgb(77, 77, 77);
+}
+
+QComboBox QAbstractItemView::item:focus{
+    background-color: rgb(140, 140, 140);
+}
+
+QDoubleSpinBox{
+	background-color: rgb(77, 77, 77);
+	
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+QDoubleSpinBox::up-button{
+    image: url(:/imgs/imgs/drop_up_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+}
+
+QDoubleSpinBox::up-button:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QDoubleSpinBox::up-button:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QDoubleSpinBox::down-button{
+    image: url(:/imgs/imgs/drop_down_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+}
+
+QDoubleSpinBox::down-button:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QDoubleSpinBox::down-button:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QWidget#NIDAQ_GetData_W{
+	background-color: rgb(64, 64, 64);
+}
+
+QWidget{
+	color: rgb(255, 255, 255);
+}
+
+QComboBox{
+	background-color: rgb(77, 77, 77);
+	
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+
+QComboBox::drop-down{
+	image: url(:/imgs/imgs/drop_down_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 2px solid rgb(127, 167, 127);
+	border-left: 2px solid rgb(127, 167, 127);
+
+	border-bottom: 2px solid rgb(0, 0, 0);
+	border-right: 2px solid rgb(0, 0, 0);
+}
+
+QComboBox::drop-down:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QComboBox::drop-down:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QPushButton{
+	background-color: rgb(0, 79, 0);
+
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+
+	
+	font: 12pt &quot;Helvetica&quot;;
+	text-align:center;
+}
+
+QWidget{
+	font: 12pt &quot;Helvetica&quot;;
+}
+
+QPushButton:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QPushButton:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QLineEdit{
+	background-color: rgb(77, 77, 77);
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+QRadioButton::indicator{
+	border-radius: 6px;
+	border-top: 1.5px solid rgb(0, 0, 0);
+	border-left: 1.5px solid rgb(0, 0, 0);
+
+	border-bottom: 1.5px solid rgb(160, 160, 160);
+	border-right: 1.5px solid rgb(160, 160, 160);
+}
+
+QRadioButton::indicator::checked{
+	background-color: white;
+}
+
+QRadioButton::indicator::unchecked:hover{
+	background-color: #9F9F9F;
+}
+
+QRadioButton::indicator::pressed{
+	border: 1.5px solid #505050
+}
+
+QPushButton#reload_devices{
+	image: url(:/imgs/imgs/reload.png);
+	width: 11px;
+	background-color: rgb(0, 79, 0);
+
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+
+	
+	font: 12pt &quot;Helvetica&quot;;
+	text-align:center;
+}
+
+QPushButton#reload_devices:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QPushButton#reload_devices:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Choose channel:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Save data?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Plot data?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2" alignment="Qt::AlignLeft">
+       <widget class="QWidget" name="widget_8" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="yes_save_radio">
+           <property name="text">
+            <string>Yes</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">save_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="no_save_radio">
+           <property name="text">
+            <string>No</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">save_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QWidget" name="widget_5" native="true">
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QDoubleSpinBox" name="Ts_in">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
+           </property>
+           <property name="stepType">
+            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+           </property>
+           <property name="value">
+            <double>0.500000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QWidget" name="widget_3" native="true">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="channel_combo">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="5" column="2" alignment="Qt::AlignLeft">
+       <widget class="QWidget" name="widget_7" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QRadioButton" name="yes_plot_radio">
+           <property name="text">
+            <string>Yes</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">plot_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="no_plot_radio">
+           <property name="text">
+            <string>No</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">plot_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QWidget" name="widget_6" native="true">
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="0">
+          <widget class="QDoubleSpinBox" name="sesh_dur_in">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="maximum">
+            <double>86400.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
+           </property>
+           <property name="stepType">
+            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+           </property>
+           <property name="value">
+            <double>10.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QWidget" name="widget_4" native="true">
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="terminal_config_combo">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Session duration (s)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Terminal Config.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Sample period (s)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Choose device:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QComboBox" name="device_combo">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="7" column="0" alignment="Qt::AlignVCenter">
+       <widget class="QLabel" name="label_8">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Path</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QWidget" name="widget_9" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item alignment="Qt::AlignVCenter">
+          <widget class="QLineEdit" name="path_line_edit">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignVCenter">
+          <widget class="QPushButton" name="path_folder_browse">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="text">
+            <string> Browse </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="1" rowspan="8">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="start_get_data">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string> GET DATA </string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="resources_1.qrc"/>
+ </resources>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="plot_radio_group"/>
+  <buttongroup name="save_radio_group"/>
+ </buttongroups>
+</ui>
