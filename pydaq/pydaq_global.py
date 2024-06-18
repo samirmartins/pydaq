@@ -17,7 +17,7 @@ class PYDAQ_Global_GUI(QtWidgets.QMainWindow, Ui_PydaqGlobal):
         webbrowser.open(url)
 
 
-def PYDAQ_GUI():
+def PydaqGui():
     app = QtWidgets.QApplication(sys.argv)
     window = PYDAQ_Global_GUI()
     window.show()
