@@ -1,3 +1,4 @@
+import os
 import nidaqmx
 
 from PySide6.QtWidgets import QFileDialog, QWidget
@@ -37,6 +38,9 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
 
         # Setting the starting values for some widgets
         self.device_combo.addItems(self.device_type)
+        self.path_line_edit.setText(
+            os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
+        )
         self.ao_channel_combo.addItems(ao_chan)
 
         ao_def_chan_index = self.ao_channel_combo.findText(ao_def_chan)

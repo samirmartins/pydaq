@@ -1,3 +1,4 @@
+import os
 import nidaqmx
 import numpy as np
 
@@ -29,6 +30,9 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
 
         # Setting the starting values for some widgets
         self.device_combo.addItems(self.device_type)
+        self.path_line_edit.setText(
+            os.path.join(os.path.join(os.path.expanduser("~")), "Desktop", "data.dat")
+        )
         self.channel_combo.addItems(chan)
 
         defchan_index = self.channel_combo.findText(defchan)

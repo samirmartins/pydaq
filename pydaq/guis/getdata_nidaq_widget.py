@@ -1,3 +1,4 @@
+import os
 import nidaqmx
 
 from PySide6.QtWidgets import QFileDialog, QWidget
@@ -29,6 +30,9 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         # Setting the starting values for some widgets
         self.device_combo.addItems(self.device_type)
         self.channel_combo.addItems(chan)
+        self.path_line_edit.setText(
+            os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
+        )
         self.terminal_config_combo.addItems(["Diff", "RSE", "NRSE"])
 
         defchan_index = self.channel_combo.findText(defchan)
