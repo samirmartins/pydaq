@@ -65,6 +65,7 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_step_response.released.connect(self.start_func_step_response)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
+        self.reload_devices.released.connect(self.reload_devices_handler)
 
     def start_func_step_response(self):
         try:
@@ -162,3 +163,17 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
             pass
         else:
             self.ai_channel_combo.setCurrentIndex(ai_defchan_index)
+
+    def reload_devices_handler(self):
+        """Updates the devices combo box"""
+        self._nidaq_info()
+
+        # If the signal is not disconnect, it will run into a warning
+        self.device_combo.currentIndexChanged.disconnect(self.update_channels)
+
+        # Updating items on combo box
+        self.device_combo.clear()
+        self.device_combo.addItems(self.device_type)
+
+        # Reconnecting the signal
+        self.device_combo.currentIndexChanged.connect(self.update_channels)

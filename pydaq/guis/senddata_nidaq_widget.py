@@ -46,6 +46,7 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_send_data.released.connect(self.start_func_send_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
+        self.reload_devices.released.connect(self.reload_devices_handler)
 
     def start_func_send_data(self):  # Start sending data
         try:
@@ -131,3 +132,17 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
         else:
             self.channel_combo.setCurrentIndex(defchan_index)
         pass
+
+    def reload_devices_handler(self):
+        """Updates the devices combo box"""
+        self._nidaq_info()
+
+        # If the signal is not disconnect, it will run into a warning
+        self.device_combo.currentIndexChanged.disconnect(self.update_channels)
+
+        # Updating items on combo box
+        self.device_combo.clear()
+        self.device_combo.addItems(self.device_type)
+
+        # Reconnecting the signal
+        self.device_combo.currentIndexChanged.connect(self.update_channels)

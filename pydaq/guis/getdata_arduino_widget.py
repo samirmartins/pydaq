@@ -27,6 +27,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
             os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
         )
 
+
     def update_com_ports(self):  # Updating com ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
         selected = self.device_combo.currentText()

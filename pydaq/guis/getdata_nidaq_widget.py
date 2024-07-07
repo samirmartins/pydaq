@@ -47,6 +47,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_get_data.released.connect(self.start_func_get_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
+        self.reload_devices.released.connect(self.reload_devices_handler)
 
     def locate_path(self):  # Calling the Folder Browser Widget
         output_folder_path = QFileDialog.getExistingDirectory(
@@ -106,7 +107,6 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
 
     def update_channels(self):
         # Changing availables channels if device changes
-
         new_ai_channels = nidaqmx.system.device.Device(
             self.device_names[self.device_type.index(self.device_combo.currentText())]
         ).ai_physical_chans.channel_names
@@ -126,3 +126,17 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
             pass
         else:
             self.channel_combo.setCurrentIndex(defchan_index)
+
+    def reload_devices_handler(self):
+        """Updates the devices combo box"""
+        self._nidaq_info()
+
+        # If the signal is not disconnect, it will run into a warning
+        self.device_combo.currentIndexChanged.disconnect(self.update_channels)
+
+        # Updating items on combo box
+        self.device_combo.clear()
+        self.device_combo.addItems(self.device_type)
+
+        # Reconnecting the signal
+        self.device_combo.currentIndexChanged.connect(self.update_channels)
