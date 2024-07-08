@@ -33,12 +33,12 @@ pip install pydaq
 
 PYDAQ requires:
 
-- Installed driver of the board used (Arduino or National Instruments NIDAQ)
-- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
-- matplotlib (>=3.5.3) as a visualization tool
-- numpy (>=1.22.3) to process data
-- PySide6 (>=6.7.1) as a Graphical User Interface framework
-- pyserial (>=3.5) to manage data to/from Arduino
+- Installed driver of the board used (Arduino or National Instruments NIDAQ);
+- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards;
+- matplotlib (>=3.5.3) as a visualization tool;
+- numpy (>=1.22.3) to process data;
+- PySide6 (>=6.7.1) as a Graphical User Interface framework;
+- pyserial (>=3.5) to manage data to/from Arduino.
 
 ## Documentation Map
 
@@ -53,7 +53,7 @@ or [Arduino](https://samirmartins.github.io/pydaq/get_data_arduino/) boards.
 In this Section is presented how the user can send data
 from [NIDAQ](https://samirmartins.github.io/pydaq/send_data_nidaq/)
 or [Arduino](https://samirmartins.github.io/pydaq/send_data_arduino/),
-by mean of command line or a GUI (Graphical User Interface.)
+by mean of command line or a GUI (Graphical User Interface).
 
 ### Step response
 
@@ -65,7 +65,7 @@ boards ([NIDAQ](https://samirmartins.github.io/pydaq/step_response_nidaq/)/[Ardu
 
 In this section it will be provided Jupyter Notebook examples
 presenting code
-functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/)/[Arduino](https://samirmartins.github.io/pydaq/jupyter_notebooks/))
+functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/)/[Arduino](https://samirmartins.github.io/pydaq/jupyter_notebooks/)).
 
 <p align="center">
   <img src="img/pydaq.gif" alt= “” class=“center” width="75%" height="75%">
