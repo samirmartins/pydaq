@@ -25,6 +25,7 @@ CHANGES
 - GIF added with detailed information on the documentation website to provide visual details of the project
 - PySimpleGui replaced by PySide6
 - Graphical User Interface completely remodelled
+- All PYDAQ functionalities are incorporated in a single window on the Graphical User Interface
 
 v0.0.3
 ------
