@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import QDialog
 
 from ..uis.ui_Error_window import Ui_error_window_dialog
-from ..utils import *
 
 
 class Error_window(QDialog):

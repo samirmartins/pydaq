@@ -4,10 +4,10 @@ import serial.tools.list_ports
 import numpy as np
 
 from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.utils.signals import GuiSignals
 
 from ..uis.ui_PyDAQ_send_data_Arduino_widget import Ui_Arduino_SendData_W
 from .error_window_gui import Error_window
-from ..utils import *
 
 from ..send_data import SendData
 
@@ -21,6 +21,7 @@ class SendData_Arduino_Widget(QWidget, Ui_Arduino_SendData_W):
         self.reload_devices.released.connect(self.update_com_ports)
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_send_data.released.connect(self.start_func_send_data)
+        self.signals = GuiSignals()
 
         # Setting the starting values for some widgets
         self.update_com_ports()
@@ -82,3 +83,4 @@ class SendData_Arduino_Widget(QWidget, Ui_Arduino_SendData_W):
         if not s.error_path:
             # Calling send data method
             s.send_data_arduino()
+            self.signals.returned.emit(s)

@@ -2,11 +2,10 @@ import os
 import nidaqmx
 
 from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.utils.signals import GuiSignals
 
 from ..uis.ui_PyDAQ_get_data_NIDAQ_widget import Ui_NIDAQ_GetData_W
 from .error_window_gui import Error_window
-from ..utils import *
-
 from ..get_data import GetData
 
 
@@ -48,6 +47,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         self.start_get_data.released.connect(self.start_func_get_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
         self.reload_devices.released.connect(self.reload_devices_handler)
+        self.signals = GuiSignals()
 
     def locate_path(self):  # Calling the Folder Browser Widget
         output_folder_path = QFileDialog.getExistingDirectory(
@@ -90,6 +90,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         if not g.error_path:
             # Calling data aquisition method
             g.get_data_nidaq()
+            self.signals.returned.emit(g)
 
     def _nidaq_info(self):
         """Gathering NIDAQ info"""

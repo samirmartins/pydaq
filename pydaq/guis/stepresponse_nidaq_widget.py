@@ -2,10 +2,10 @@ import os
 import nidaqmx
 
 from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.utils.signals import GuiSignals
 
 from ..uis.ui_PyDAQ_step_response_NIDAQ_widget import Ui_NIDAQ_StepResponse_W
 from .error_window_gui import Error_window
-from ..utils import *
 
 from ..step_response import StepResponse
 
@@ -66,6 +66,7 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
         self.start_step_response.released.connect(self.start_func_step_response)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
         self.reload_devices.released.connect(self.reload_devices_handler)
+        self.signals = GuiSignals()
 
     def start_func_step_response(self):
         try:
@@ -98,6 +99,7 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
         # Calling send data method
         if not s.error_path:
             s.step_response_nidaq()
+            self.signals.returned.emit(s)
 
     def locate_path(self):  # Calling the Folder Browser Widget
         output_folder_path = QFileDialog.getExistingDirectory(

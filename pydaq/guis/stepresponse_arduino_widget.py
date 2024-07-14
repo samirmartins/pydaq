@@ -3,10 +3,10 @@ import serial
 import serial.tools.list_ports
 
 from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.utils.signals import GuiSignals
 
 from ..uis.ui_PyDAQ_step_response_Arduino_widget import Ui_Arduino_StepResponse_W
 from .error_window_gui import Error_window
-from ..utils import *
 
 from ..step_response import StepResponse
 
@@ -20,6 +20,7 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
         self.reload_devices.released.connect(self.update_com_ports)
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_step_response.released.connect(self.start_func_step_response)
+        self.signals = GuiSignals()
 
         # Setting the starting values for some widgets
         self.update_com_ports()
@@ -74,6 +75,7 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
                 raise BaseException
 
             s.step_response_arduino()
+            self.signals.returned.emit(s)
 
         except BaseException:
             error_w = Error_window()

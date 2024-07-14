@@ -4,7 +4,6 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import serial
 import serial.tools.list_ports
-import numpy as np
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 import warnings

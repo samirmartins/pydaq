@@ -3,10 +3,10 @@ import nidaqmx
 import numpy as np
 
 from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.utils.signals import GuiSignals
 
 from ..uis.ui_PyDAQ_send_data_NIDAQ_widget import Ui_NIDAQ_SendData_W
 from .error_window_gui import Error_window
-from ..utils import *
 
 from ..send_data import SendData
 
@@ -47,6 +47,7 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
         self.start_send_data.released.connect(self.start_func_send_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
         self.reload_devices.released.connect(self.reload_devices_handler)
+        self.signals = GuiSignals()
 
     def start_func_send_data(self):  # Start sending data
         try:
@@ -82,6 +83,7 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
         if not s.error_path:
             # Calling send data method
             s.send_data_nidaq()
+            self.signals.returned.emit(s)
 
     def locate_path(self):  # Calling the File Browser Widget
         data_path = QFileDialog.getOpenFileName(
