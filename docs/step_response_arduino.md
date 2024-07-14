@@ -25,8 +25,8 @@ PydaqGui()
 ```
 
 After this command, the graphical user interface screen will show up, where the
-user should go to the Step Response tab, to be able to define parameters and start
-to acquire data.
+user should select the Arduino option and go to the Step Response tab,
+to be able to define parameters and start to acquire data.
 
 ![](img/step_response_arduino_gui.png)
 

@@ -29,7 +29,8 @@ PydaqGui()
 ```
 
 After this command, the following screen will show up, where the
-user is able to define parameters and start to acquire data.
+user should select the Arduino option and go to the Get Data tab,
+to be able to define parameters and start to acquire data.
 
 ![](img/get_data_arduino.png)
 

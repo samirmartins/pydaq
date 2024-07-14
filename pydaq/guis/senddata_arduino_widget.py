@@ -62,10 +62,10 @@ class SendData_Arduino_Widget(QWidget, Ui_Arduino_SendData_W):
             s.time_var, s.data = [], []
 
             # Reading data from defined path and rearranjing it
-            self.path = self.path_line_edit.text()
-            self.data = np.loadtxt(self.path)
-            self.data = list(self.data)
-            self.data = [5 if i > 2.5 else 0 for i in self.data]
+            s.path = self.path_line_edit.text()
+            s.data = np.loadtxt(s.path)
+            s.data = list(s.data)
+            s.data = [5 if i > 2.5 else 0 for i in s.data]
 
             # Getting the remaining values from the GUI
             s.com_port = serial.tools.list_ports.comports()[

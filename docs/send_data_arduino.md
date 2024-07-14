@@ -24,7 +24,8 @@ PydaqGui()
 ```
 
 After this command, the graphical user interface screen will show up, where the
-user should go to the Send Data tab, to be able to define parameters and start to send the data.
+user should select the Arduino option and go to the Send Data tab,
+to be able to define parameters and start to send the data.
 
 ![](img/send_data_arduino_gui.png)
 
