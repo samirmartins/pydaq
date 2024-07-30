@@ -160,7 +160,7 @@ class StepResponse(Base):
             print(f"Iteration: {k} of {self.cycles - 1}")
 
             # Updating sent_data
-            if k * self.ts > float(self.step_time):
+            if k * self.ts >= float(self.step_time):
                 sent_data = b"1"
             else:
                 sent_data = b"0"
@@ -261,7 +261,7 @@ class StepResponse(Base):
             print(f"Iteration: {k} of {self.cycles - 1}")
 
             # Updating sent_data
-            if k * self.ts > float(self.step_time):
+            if k * self.ts >= float(self.step_time):
                 sent_data = self.step_max
             else:
                 sent_data = self.step_min
