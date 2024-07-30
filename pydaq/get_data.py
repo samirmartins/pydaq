@@ -33,15 +33,15 @@ class GetData(Base):
     """
 
     def __init__(
-        self,
-        device="Dev1",
-        channel="ai0",
-        terminal="Diff",
-        com="COM1",
-        ts=0.5,
-        session_duration=10.0,
-        save=True,
-        plot=True,
+            self,
+            device="Dev1",
+            channel="ai0",
+            terminal="Diff",
+            com="COM1",
+            ts=0.5,
+            session_duration=10.0,
+            save=True,
+            plot=True,
     ):
         super().__init__()
         self.device = device
@@ -84,7 +84,7 @@ class GetData(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (2**self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (2 ** self.arduino_ai_bits)
 
     def get_data_nidaq(self):
         """
@@ -139,7 +139,7 @@ class GetData(Base):
                 # Updating data values
                 self._update_plot(self.time_var, self.data)
 
-            print(f"Iteration: {k} of {self.cycles-1}")
+            print(f"Iteration: {k} of {self.cycles - 1}")
 
             # Getting end time
             et = time.time()
@@ -202,10 +202,10 @@ class GetData(Base):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            # print(self.ser.read(14).split())
+            
             # Get the last complete value
             temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-            # temp = 5
+
             # Queue data in a list
             self.data.append(temp)
             self.time_var.append(k * self.ts)
@@ -222,7 +222,7 @@ class GetData(Base):
                 # Updating data values
                 self._update_plot(self.time_var, self.data)
 
-            print(f"Iteration: {k} of {self.cycles-1}")
+            print(f"Iteration: {k} of {self.cycles - 1}")
 
             # Getting end time
             et = time.time()

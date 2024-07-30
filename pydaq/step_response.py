@@ -39,18 +39,18 @@ class StepResponse(Base):
     """
 
     def __init__(
-        self,
-        device="Dev1",
-        ao_channel="ao0",
-        ai_channel="ai0",
-        ts=0.5,
-        session_duration=10.0,
-        step_time=3.0,
-        step_min=0,
-        step_max=5,
-        terminal="Diff",
-        com="COM1",
-        plot=True,
+            self,
+            device="Dev1",
+            ao_channel="ao0",
+            ai_channel="ai0",
+            ts=0.5,
+            session_duration=10.0,
+            step_time=3.0,
+            step_min=0,
+            step_max=5,
+            terminal="Diff",
+            com="COM1",
+            plot=True,
     ):
 
         super().__init__()
@@ -90,7 +90,7 @@ class StepResponse(Base):
         self.ard_ao_max, self.ard_ao_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / (2**self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / (2 ** self.arduino_ai_bits)
 
         # Legends
         self.legend = ["Output", "Input"]
@@ -134,7 +134,7 @@ class StepResponse(Base):
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             # Get the last complete value
             temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-
+            
             # Counting time to append data and update interface
             st = time.time()
 
