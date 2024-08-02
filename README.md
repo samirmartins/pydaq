@@ -69,7 +69,7 @@ PYDAQ requires:
 - nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
 - matplotlib (>=3.5.3) as a visualization tool
 - numpy (>=1.22.3) to process data
-- PySide6 (>=6.7.1) as a Graphical User Interface framework
+- PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 
 
