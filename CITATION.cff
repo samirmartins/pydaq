@@ -1,0 +1,30 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Martins
+  given-names: Samir Angelo Milani
+  orcid: "https://orcid.org/0000-0003-1702-8504"
+contact:
+- family-names: Martins
+  given-names: Samir Angelo Milani
+  orcid: "https://orcid.org/0000-0003-1702-8504"
+doi: 10.5281/zenodo.10377251
+message: If you use this software, please cite our article in the
+  Journal of Open Source Software.
+preferred-citation:
+  authors:
+  - family-names: Martins
+    given-names: Samir Angelo Milani
+    orcid: "https://orcid.org/0000-0003-1702-8504"
+  date-published: 2023-12-14
+  doi: 10.21105/joss.05662
+  issn: 2475-9066
+  issue: 92
+  journal: Journal of Open Source Software
+  publisher:
+    name: Open Journals
+  start: 5662
+  title: "PYDAQ: Data Acquisition and Experimental Analysis with Python"
+  type: article
+  url: "https://joss.theoj.org/papers/10.21105/joss.05662"
+  volume: 8
+title: "PYDAQ: Data Acquisition and Experimental Analysis with Python"

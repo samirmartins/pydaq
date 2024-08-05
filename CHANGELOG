@@ -9,9 +9,10 @@ Changes in PYDAQ
 v0.0.4
 ------
 
-CONTRIBUTOR
+CONTRIBUTORS
 ~~~~~~~~~~~~
 
+- jceneziojr
 - samirmartins
 
 CHANGES
@@ -22,11 +23,9 @@ CHANGES
 - Change log created to track modifications and evolution of the code.
 - Plot type changed to scatter for a more accurate representation of discrete-time samples.
 - GIF added with detailed information on the documentation website to provide visual details of the project
-
-
-
-
-
+- PySimpleGui replaced by PySide6
+- Graphical User Interface completely remodelled
+- All PYDAQ functionalities are incorporated in a single window on the Graphical User Interface
 
 v0.0.3
 ------

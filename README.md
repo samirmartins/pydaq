@@ -48,7 +48,7 @@ In what follows you will find
 
 - Installation and Requirements
 - Quick view and Main features 
-- Using Graphical User Interfaces
+- Using Graphical User Interface
 - Screenshots
 
 
@@ -63,14 +63,17 @@ The fastest way to install PYDAQ is using pip:
 pip install pydaq
 ```
 
+**NOTE:** In this version of pydaq (0.0.3), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
+the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
+Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
+
 PYDAQ requires:
 
 - Installed driver of the board used (Arduino or National Instruments NIDAQ)
 - nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
 - matplotlib (>=3.5.3) as a visualization tool
 - numpy (>=1.22.3) to process data
-- PySimpleGUI (>=4.60.3) as a Graphical User Interface
-- PyQt5 as a backend for PySimpleGui
+- PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 
 
@@ -89,65 +92,21 @@ Quick view and Main features
  
 
 ---
-Using GUIs (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
+Using GUI (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
 ---
 
-#### Data acquisition (NIDAQ):
+In the latest version, all functionalities for all boards are incorporated in one single window.
+
+### Launching the GUI:
 
 ```python
-from pydaq.get_data import GetData
+from pydaq.pydaq_global import PydaqGui
 
-g = GetData()
-g.get_data_nidaq_gui()
-```
-
-#### Data acquisition (Arduino):
-
-```python
-from pydaq.get_data import GetData
-
-g = GetData()
-g.get_data_arduino_gui()
-```
-
-#### Sending data (NIDAQ):
-
-```python
-from pydaq.send_data import SendData
-
-s = SendData()
-s.send_data_nidaq_gui()
-```
-
-#### Sending data (Arduino):
-
-```python
-from pydaq.send_data import SendData
-
-s = SendData()
-s.send_data_arduino_gui()
-```
-
-#### Step response (NIDAQ):
-
-```python
-from pydaq.step_response import StepResponse
-
-s = StepResponse()
-s.step_response_nidaq_gui()
-```
-
-#### Step response (Arduino):
-
-```python
-from pydaq.step_response import StepResponse
-
-s = StepResponse()
-s.step_response_arduino_gui()
+PydaqGui()
 ```
 
 ---
-Screnshots (v0.0.3)
+Screnshots (v0.0.4)
 ---
 
 ### Graphical User Interfaces - NIDAQ
@@ -157,6 +116,7 @@ Screnshots (v0.0.3)
 ![](docs/img/send_data_nidaq_gui.png)
 
 ![](docs/img/step_response_nidaq_gui.png)
+
 
 ### Graphical User Interfaces - Arduino
 
@@ -190,3 +150,28 @@ Contributing
 ---
 
 You are more than welcome to make your contribution and submit a pull request. To contribute, [read this guide](/CONTRIBUTING.md).
+
+
+---
+CITATION
+---
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.05662/status.svg)](https://doi.org/10.21105/joss.05662)
+
+If you are using PYDAQ on your project, you can cite us as following: 
+
+- Martins, S. A. M. (2023). PYDAQ: Data Acquisition and Experimental Analysis with Python. Journal of Open Source Software, 8(92), 5662. https://doi.org/10.21105/joss.05662
+
+```bibtex
+@article{Martins_PYDAQ_Data_Acquisition_2023,
+  author = {Martins, Samir Angelo Milani},
+  doi = {10.21105/joss.05662},
+  journal = {Journal of Open Source Software},
+  month = dec,
+  number = {92},
+  pages = {5662},
+  title = {{PYDAQ: Data Acquisition and Experimental Analysis with Python}},
+  url = {https://joss.theoj.org/papers/10.21105/joss.05662},
+  volume = {8},
+  year = {2023}
+}
+```
