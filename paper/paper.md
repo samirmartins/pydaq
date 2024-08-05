@@ -97,25 +97,26 @@ the Graphical User Interface developed for Data Acquisition using Arduino or any
 
 ![Data Acquisition through Arduino.\label{fig:arduino_get_gui}](../docs/img/get_data_arduino.png){ width=20%, height=20%}
 
-To start them, only three line of codes (LOC) are necessary, including one for importing PYDAQ: 
+To start them, only three line of codes (LOC) are necessary, including one for importing PYDAQ:
 
 ```python
-from pydaq.get_data import Get_data
+from pydaq.get_data import GetData
+
 # Class Get_data
-g = Get_data()
+g = GetData()
 
 # Arduino or NIDAQ - Use ONE of the following lines 
-g.get_data_nidaq_gui() # For NIDAQ devices 
-g.get_data_arduino_gui() # For arduino boards
+g.get_data_nidaq_gui()  # For NIDAQ devices 
+g.get_data_arduino_gui()  # For arduino boards
 ```
 
 Similarly, to send data, only three LOC are required, as showed up in what follow:
 
 ```python
-from pydaq.send_data import Send_data
+from pydaq.send_data import SendData
 
 # Class Send_data
-s = Send_data()
+s = SendData()
 
 # Arduino or NIDAQ - Use ONE of the following lines 
 s.send_data_nidaq_gui()
@@ -149,13 +150,13 @@ required to be a persistently exciting input, as necessary for system identifica
 Step-response is a common way to test a system and acquire data, in order to find a model, as well 
 as system time constant and gain. To facilitate this procedure, a step-response GUI 
 was also created and can be seen in \autoref{fig:step_nidaq} and  \autoref{fig:step_arduino}. 
-To use them, user should type the command: 
+To use them, user should type the command:
 
 ```python
-from pydaq.step_response import Step_response
+from pydaq.step_response import StepResponse
 
 # Class Step_Response
-s = Step_response()
+s = StepResponse()
 
 # Arduino or NIDAQ - Use ONE of the following lines 
 s.step_response_nidaq_gui()

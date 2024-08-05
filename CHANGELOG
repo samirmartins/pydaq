@@ -1,0 +1,49 @@
+--------------------------------------------------------------------------------------------------------------
+File for tracking changes in PYDAQ
+--------------------------------------------------------------------------------------------------------------
+
+Changes in PYDAQ
+=====================
+
+
+v0.0.4
+------
+
+CONTRIBUTORS
+~~~~~~~~~~~~
+
+- jceneziojr
+- samirmartins
+
+CHANGES
+~~~~~~~
+
+- Code improvements to enhance the reliability of the sample period, including a waiting period for Arduino/Pyserial startup.
+- Default baud rate changed to 115200 in both Arduino and PYDAQ
+- Change log created to track modifications and evolution of the code.
+- Plot type changed to scatter for a more accurate representation of discrete-time samples.
+- GIF added with detailed information on the documentation website to provide visual details of the project
+- PySimpleGui replaced by PySide6
+- Graphical User Interface completely remodelled
+- All PYDAQ functionalities are incorporated in a single window on the Graphical User Interface
+
+v0.0.3
+------
+
+CONTRIBUTOR
+~~~~~~~~~~~~
+
+- samirmartins
+
+CHANGES
+~~~~~~~
+
+- Building the entire system from scratch.
+- Data acquisition with Arduino.
+- Data acquisition with NIDAQ boards.
+- Sending data with Arduino.
+- Sending data with NIDAQ boards.
+- Step response module.
+- Developing a website with comprehensive documentation.
+- Writing and submitting "paper.md" to JOSS - The Journal of Open Source Software.
+- Creating Jupyter notebook examples for demonstration.

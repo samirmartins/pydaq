@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>error_window_dialog</class>
+ <widget class="QDialog" name="error_window_dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>150</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>450</width>
+    <height>150</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>450</width>
+    <height>150</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>ERROR!</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog{
+	background-color: rgb(64, 64, 64);
+}
+
+QWidget{
+	color: rgb(255, 255, 255);
+}
+
+QPushButton{
+	background-color: rgb(0, 79, 0);
+
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+
+	
+	font: 12pt &quot;Helvetica&quot;;
+	text-align:center;
+}
+
+QWidget{
+	font: 12pt &quot;Helvetica&quot;;
+}
+
+QPushButton:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QPushButton:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QPushButton" name="confirm">
+     <property name="text">
+      <string>Device, channel, path or data were not choosen properly!</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="resources_1.qrc"/>
+ </resources>
+ <connections/>
+</ui>

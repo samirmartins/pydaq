@@ -48,7 +48,7 @@ In what follows you will find
 
 - Installation and Requirements
 - Quick view and Main features 
-- Using Graphical User Interfaces
+- Using Graphical User Interface
 - Screenshots
 
 
@@ -73,8 +73,7 @@ PYDAQ requires:
 - nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
 - matplotlib (>=3.5.3) as a visualization tool
 - numpy (>=1.22.3) to process data
-- PySimpleGUI (>=4.60.3) as a Graphical User Interface
-- PyQt5 as a backend for PySimpleGui
+- PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 
 
@@ -93,59 +92,21 @@ Quick view and Main features
  
 
 ---
-Using GUIs (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
+Using GUI (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
 ---
 
-#### Data acquisition (NIDAQ):
+In the latest version, all functionalities for all boards are incorporated in one single window.
+
+### Launching the GUI:
 
 ```python
-from pydaq.get_data import Get_data
-g = Get_data()
-g.get_data_nidaq_gui()
-```
+from pydaq.pydaq_global import PydaqGui
 
-#### Data acquisition (Arduino):
-
-```python
-from pydaq.get_data import Get_data
-g = Get_data()
-g.get_data_arduino_gui()
-```
-
-#### Sending data (NIDAQ):
-
-```python
-from pydaq.send_data import Send_data
-s = Send_data()
-s.send_data_nidaq_gui()
-```
-
-#### Sending data (Arduino):
-
-```python
-from pydaq.send_data import Send_data
-s = Send_data()
-s.send_data_arduino_gui()
-```
-
-#### Step response (NIDAQ):
-
-```python
-from pydaq.step_response import Step_response
-s = Step_response()
-s.step_response_nidaq_gui()
-```
-
-#### Step response (Arduino):
-
-```python
-from pydaq.step_response import Step_response
-s = Step_response()
-s.step_response_arduino_gui()
+PydaqGui()
 ```
 
 ---
-Screnshots
+Screnshots (v0.0.4)
 ---
 
 ### Graphical User Interfaces - NIDAQ
@@ -155,6 +116,7 @@ Screnshots
 ![](docs/img/send_data_nidaq_gui.png)
 
 ![](docs/img/step_response_nidaq_gui.png)
+
 
 ### Graphical User Interfaces - Arduino
 

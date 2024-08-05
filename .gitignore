@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Test file
+temp.py
+
 # nidaqmx
 nidaqmx-python-master.zip
 
@@ -138,3 +141,4 @@ dmypy.json
 .pyre/
 
 features.txt
+run.py
