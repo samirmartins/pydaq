@@ -1,7 +1,7 @@
 site_name: PYDAQ
 site_description: Data Acquisition and Experimental Analysis with Python
 site_author: Samir Angelo Milani Martins
-site_url: https://www.samirmartins.com.br
+site_url: https://www.pydaq.org
 
 repo_name: samirmartins/pydaq
 repo_url: https://github.com/samirmartins/pydaq
@@ -41,3 +41,4 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+
