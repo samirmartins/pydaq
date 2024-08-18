@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.samirmartins.com.br/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/get_data_arduino/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/get_data_nidaq/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/jupyter_notebooks/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/send_data_arduino/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/send_data_nidaq/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/step_response_arduino/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://www.samirmartins.com.br/step_response_nidaq/</loc>
-         <lastmod>2024-08-05</lastmod>
+         <lastmod>2024-08-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

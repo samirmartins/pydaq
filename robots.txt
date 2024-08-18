@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /drafts/
+Disallow: /404.html
+Disallow: /500.html
+
+Allow: /
+
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.gif$
+
+Sitemap: https://pydaq.org/sitemap.xml
