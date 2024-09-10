@@ -6,20 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>750</width>
+    <height>555</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1280</width>
-    <height>720</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>16777215</width>
-    <height>16777215</height>
+    <width>750</width>
+    <height>0</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,7 +30,7 @@
    </size>
   </property>
   <property name="tabShape">
-   <enum>QTabWidget::Rounded</enum>
+   <enum>QTabWidget::TabShape::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -359,7 +353,7 @@ QScrollArea{
 </string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item alignment="Qt::AlignHCenter">
+    <item alignment="Qt::AlignmentFlag::AlignHCenter">
      <widget class="QPushButton" name="logo">
       <property name="minimumSize">
        <size>
@@ -435,7 +429,7 @@ QScrollArea{
        <item row="0" column="1">
         <widget class="QTabWidget" name="nidaq_tabs">
          <property name="tabPosition">
-          <enum>QTabWidget::North</enum>
+          <enum>QTabWidget::TabPosition::North</enum>
          </property>
          <property name="currentIndex">
           <number>0</number>
@@ -467,8 +461,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_8">
@@ -496,8 +490,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_10">
@@ -525,13 +519,42 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_9">
                <item row="0" column="0">
                 <widget class="StepResponse_NIDAQ_Widget" name="step_nidaq_placeholder" native="true"/>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="get_model_nidaq_tab">
+          <attribute name="title">
+           <string>Page</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_13">
+           <item row="0" column="0">
+            <widget class="QScrollArea" name="scrollArea_7">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>334</width>
+                <height>237</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_15">
+               <item row="0" column="0">
+                <widget class="QWidget" name="getm_nidaq_placeholder" native="true"/>
                </item>
               </layout>
              </widget>
@@ -547,13 +570,13 @@ QScrollArea{
           <string notr="true"/>
          </property>
          <property name="tabShape">
-          <enum>QTabWidget::Rounded</enum>
+          <enum>QTabWidget::TabShape::Rounded</enum>
          </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
          <property name="elideMode">
-          <enum>Qt::ElideNone</enum>
+          <enum>Qt::TextElideMode::ElideNone</enum>
          </property>
          <widget class="QWidget" name="get_data_arduino_tab">
           <attribute name="title">
@@ -570,8 +593,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_11">
@@ -599,8 +622,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_12">
@@ -628,13 +651,42 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>599</width>
-                <height>402</height>
+                <width>334</width>
+                <height>237</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
                <item row="0" column="0">
                 <widget class="StepResponse_Arduino_Widget" name="step_ino_placeholder" native="true"/>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="get_model_arduino_tab">
+          <attribute name="title">
+           <string>Page</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="0">
+            <widget class="QScrollArea" name="scrollArea_8">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>334</width>
+                <height>237</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_17">
+               <item row="0" column="0">
+                <widget class="QWidget" name="getm_arduino_placeholder" native="true"/>
                </item>
               </layout>
              </widget>
@@ -654,7 +706,7 @@ QScrollArea{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>750</width>
      <height>22</height>
     </rect>
    </property>
