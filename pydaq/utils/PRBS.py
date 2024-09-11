@@ -44,7 +44,7 @@ class Signal:
 
         bit_sequence = bitarray([start_value & 0x1])
         new_value = start_value
-        for _ in range(size - 1), desc=f"Gerando sinal (PRBS{self.prbs_bits:d})":
+        for _ in range(size - 1):
             new_bit = ~((new_value >> bit_1) ^ (new_value >> bit_2)) & 0x1
             new_value = ((new_value << 1) + new_bit) & size
             if (new_value == start_value) or (new_value == size):
