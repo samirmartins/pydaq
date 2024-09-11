@@ -35,9 +35,9 @@ dependencies = ["numpy", "nidaqmx", "matplotlib",
     "PySide6_Addons", "PySide6_Essentials", "shiboken6", "sysidentpy==0.3.4"]
 
 [project.urls]
-homepage = "https://pydaq.org/"
+homepage = "https://github.com/samirmartins/pydaq"
 repository = "https://github.com/samirmartins/pydaq"
-documentation = "https://pydaq.org/"
+documentation = "https://samirmartins.github.io/pydaq/"
 
 [tool.setuptools]
 packages = ["pydaq"]
