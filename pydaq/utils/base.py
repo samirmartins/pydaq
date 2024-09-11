@@ -1,5 +1,4 @@
 import os
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import serial
@@ -7,7 +6,6 @@ import serial.tools.list_ports
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 import warnings
-
 from ..guis.error_window_gui import Error_window
 
 
