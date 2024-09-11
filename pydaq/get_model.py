@@ -303,7 +303,7 @@ class GetModel(Base):
                 # Updating data values
                 self._update_plot(
                     [self.time_var, self.time_var],
-                    [sinal[0 : k + 1] * 5, self.out_read],
+                    [sinal[0 : k + 1], self.out_read],
                     2,
                 )
             print(f"Iteration: {k} of {self.cycles-1}")
