@@ -25,7 +25,7 @@ PydaqGui()
 ```
 After this command, the following screen will show up, in the Get Model screen the user is able to define parameters and start to adquire the model.
 
-![](img/get_model_arduino.PNG)
+![](img/get_model_arduino.jpg)
 
 ## Parameters
 
@@ -44,7 +44,7 @@ After this command, the following screen will show up, in the Get Model screen t
 ### Input Signal
 #### PRBS
 A pseudorandom binary sequence (PRBS) is a deterministic signal that alternates between two values and exhibits characteristics similar to white noise. The PRBS signal is inherently periodic, with a maximum period length of 2ⁿ–1, where n represents the order of the PRBS.
-For more information: [Sinais Aleatórios e Pseudoaleatóris (PRBS)](https://youtu.be/cz27YRE7uEk?si=YSt82oJ8eTB8crJy).
+For more information: [Nonlinear System Identification](https://www.amazon.com.br/Nonlinear-System-Identification-Frequency-Spatio-Temporal/dp/1119943590).
 
 In the **Config signal** button, the user can customize the signal parameters.
 
@@ -109,7 +109,7 @@ g.get_model_arduino()
 
 If the user chooses to plot, this screen will appear:
 
-![](img/get_model_arduino_signal.PNG)
+![](img/get_model_arduino_signal.jpg)
 
 At the end of the user-defined time, screens with the results will appear.
 

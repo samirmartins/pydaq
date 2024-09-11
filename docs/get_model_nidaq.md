@@ -13,7 +13,7 @@ PydaqGui()
 ```
 After this command, the following screen will show up, where the user should select the NIDAQ option and go to Get Model tab, to be able to define parameters and start to acquire data.
 
-![](img/get_model_nidaq.PNG)
+![](img/get_model_nidaq.jpg)
 
 ## Parameters
 
@@ -36,7 +36,8 @@ After this command, the following screen will show up, where the user should sel
 ### Input Signal
 #### PRBS
 A pseudorandom binary sequence (PRBS) is a deterministic signal that alternates between two values and exhibits characteristics similar to white noise. The PRBS signal is inherently periodic, with a maximum period length of 2ⁿ–1, where n represents the order of the PRBS.
-For more information: [Sinais Aleatórios e Pseudoaleatóris (PRBS)](https://youtu.be/cz27YRE7uEk?si=YSt82oJ8eTB8crJy)
+For more information: [Nonlinear System Identification](https://www.amazon.com.br/Nonlinear-System-Identification-Frequency-Spatio-Temporal/dp/1119943590)
+
 In the **Config signal** button, the user can customize the signal parameters.
 
 ### Advanced Settings

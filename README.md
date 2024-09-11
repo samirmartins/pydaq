@@ -75,6 +75,7 @@ PYDAQ requires:
 - numpy (>=1.22.3) to process data
 - PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
+- sysidentpy (==0.3.4) for model acquisition
 
 
 ---

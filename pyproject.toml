@@ -32,7 +32,7 @@ classifiers = [
 ]
 dependencies = ["numpy", "nidaqmx", "matplotlib",
     "pyserial", "packaging", "PySide6",
-    "PySide6_Addons", "PySide6_Essentials", "shiboken6"]
+    "PySide6_Addons", "PySide6_Essentials", "shiboken6", "sysidentpy==0.3.4"]
 
 [project.urls]
 homepage = "https://github.com/samirmartins/pydaq"
