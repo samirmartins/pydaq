@@ -11,7 +11,7 @@ import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
 
-from pydaq.utils.PRBS import Signal
+from pydaq.utils.signals import Signal
 from math import floor
 
 import pandas as pd
@@ -247,9 +247,8 @@ class GetModel(Base):
         self.cycles = None
 
     def prbs_final(self):
-        TB = self.ts * self.var_tb
 
-        self.cycles = int(np.floor(self.session_duration / TB)) + 1
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
         len_sinal_prbs = len(self.signal.sinal_prbs)
 
         # Checks if Nt is less than the length of self.signal.sinal_prbs
@@ -327,9 +326,8 @@ class GetModel(Base):
             self._save_data(self.out_read, "data.dat")
             print("\nData saved ...")
 
-        TB = self.ts * self.var_tb
         # adapts the time at which data starts to be saved to obtain the model
-        time_save = int(self.start_save_time / TB)
+        time_save = int(self.start_save_time / self.ts)
 
         data_x = sinal
         data_y = np.array(self.out_read)
@@ -481,9 +479,8 @@ class GetModel(Base):
             self._save_data(self.out_read, "output.dat")
             print("\nData saved ...")
 
-        TB = self.ts * self.var_tb
         # adapts the time at which data starts to be saved to obtain the model
-        time_save = int(self.start_save_time / TB)
+        time_save = int(self.start_save_time / self.ts)
 
         data_x = sinal
         data_y = np.array(self.out_read)
