@@ -558,15 +558,13 @@ class GetModel(Base):
         line_control = 0
         string_list = []
         for ind in r.index:
-            if r.iat[ind, 0] == "1":  # coloca o termo constante sozinho
+            if r.iat[ind, 0] == "1":
                 model_string += f"{float(r.iat[ind,1]):.4f}"
             else:
                 model_string += f"{float(r.iat[ind,1]):.4f}*{r.iat[ind,0]}"
 
             if len(r.index) != ind + 1:
-                if (
-                    float(r.iat[ind + 1, 1]) >= 0
-                ):  # coloca o mais apenas se o proximo parametro n for negativo
+                if float(r.iat[ind + 1, 1]) >= 0:
                     model_string += "+"
             line_control += 1
             if line_control % 2 == 0:
@@ -589,7 +587,7 @@ class GetModel(Base):
         if (
             self.acquired_model.basis_function.degree == 1
             and 0 not in self.acquired_model.final_model
-        ):  # se tem parte constante, não gerar a função de transferência
+        ):
             numerator_string = ""
             denominator_string = "1"
             for i in range(self.acquired_model.n_terms):
@@ -637,9 +635,7 @@ class GetModel(Base):
             string_list.append("")
             string_list.append(latex_eq)
 
-        for i in range(
-            len(string_list)
-        ):  # a função de transferencia não deve vir aqui, do jeito que está a string list
+        for i in range(len(string_list)):
             if string_list[i]:
                 ax.text(
                     0.15 + aux_pos * 0.1,

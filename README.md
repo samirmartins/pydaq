@@ -76,6 +76,8 @@ PYDAQ requires:
 - PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) for model acquisition
+- pandas for model acquisition
+- bitarray to PRBS signal generation
 
 
 ---
@@ -90,6 +92,8 @@ Quick view and Main features
 | Get Data (Arduino)           |                                                                                                    Here the user is able to get data from an Arduino board, using several options. Acquired data can also be saved and plot for further applications |
 | Step Response (NIDAQ) |   In this feature one can perform an automatic step response experiment using a NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
 | Step Response (Arduino)      | In this feature one can perform an automatic step response experiment using an Arduino. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
+| Get Model (Arduino)            | The user is able to obtain mathematical models experimentally, using Arduino boards, with various customization options available. The input signal is a PRBS that can be customized to meet specific needs, and the obtained signal can be saved for future applications.|
+| Get Model (NIDAQ)            | The user is able to obtain mathematical models experimentally, using NIDAQ boards, with various customization options available. The input signal is a PRBS that can be customized to meet specific needs, and the obtained signal can be saved for future applications.|
  
 
 ---
@@ -118,6 +122,8 @@ Screnshots (v0.0.4)
 
 ![](docs/img/step_response_nidaq_gui.png)
 
+![](docs/img/get_model_nidaq.jpg)
+
 
 ### Graphical User Interfaces - Arduino
 
@@ -127,11 +133,15 @@ Screnshots (v0.0.4)
 
 ![](docs/img/step_response_arduino_gui.png)
 
-### Acquired/Sending data and step response - NIDAQ and Arduino
+![](docs/img/get_model_arduino.jpg)
+
+### Acquired/Sending data, step response and PRBS signal response - NIDAQ and Arduino
 
 ![](docs/img/step_response_arduino.png)
 
 ![](docs/img/step_response_nidaq.png)
+
+![](docs/img/get_model_arduino_signal.jpg)
 
 
 ![](docs/img/sending_data_nidaq.png)
