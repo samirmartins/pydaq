@@ -51,6 +51,9 @@ from pydaq.get_model import GetModel
 
 # Defining parameters
 ```python
+# Importing PYDAQ
+from pydaq.get_model import GetModel
+
 device_name = ("Dev1",)
 ao_channel = ("ao0",)
 ai_channel = ("ai0",)
