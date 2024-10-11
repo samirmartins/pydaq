@@ -197,9 +197,7 @@ class GetModel(Base):
         self.var_tb = var_tb
         self.save = save
         self.plot = plot
-        self.signal = Signal(6, 100, 1)
         self.legend = ["Input", "Output"]
-        self.sinal = self.prbs_final()
         self.degree = degree
         self.start_save_time = start_save_time
         self.out_lag = out_lag
@@ -247,6 +245,7 @@ class GetModel(Base):
         self.cycles = None
 
     def prbs_final(self):
+        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
 
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
         len_sinal_prbs = len(self.signal.sinal_prbs)
@@ -274,7 +273,7 @@ class GetModel(Base):
 
         self._open_serial()
 
-        self.data_send = [b"1" if i == 1 else b"0" for i in sinal]
+        self.data_send = [b"1" if i == 5 else b"0" for i in sinal]
 
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data. Arduino, Port: {self.com_port}"
@@ -282,7 +281,6 @@ class GetModel(Base):
 
         time.sleep(2)
         for k in range(self.cycles):
-
             st = time.time()
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             self.ser.write(self.data_send[k])

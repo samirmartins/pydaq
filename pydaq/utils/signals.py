@@ -57,6 +57,8 @@ class Signal:
             bit_sequence.append(bool(new_bit))
 
         # Repeating the signal to the correct size
-        bit_sequence = bit_sequence.tolist() * self.prbs_var_tb
+        bit_sequence = [
+            elem for elem in bit_sequence.tolist() for _ in range(self.prbs_var_tb)
+        ]
 
         return bit_sequence
