@@ -37,7 +37,7 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.num_info_val = 6
         self.estimator = "least_squares"
         self.ext_lsq = False
-        self.perc_value = 15
+        self.perc_value = 30
 
         estimators_list = [i for i in Estimators.__dict__.keys() if i[:1] != "_"]
         self.estimators_handle_dict = dict()

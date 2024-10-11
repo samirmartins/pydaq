@@ -77,7 +77,7 @@ class GetModel_Nidaq_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.num_info_val = 6
         self.estimator = "least_squares"
         self.ext_lsq = False
-        self.perc_value = 15
+        self.perc_value = 30
         self.ao_channel = "ao0"
         self.ai_channel = "ai0"
 
