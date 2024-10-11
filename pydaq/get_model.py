@@ -182,7 +182,7 @@ class GetModel(Base):
         ext_lsq=True,
         prbs_bits=6,
         prbs_seed=101,
-        perc_value=15,
+        perc_value=30,
     ):
 
         super().__init__()
