@@ -64,6 +64,10 @@ class Signal:
         return bit_sequence
 
     def prbs_final(self, cycles, ao_max):
+        """
+        Extends or cut the prbs signal according to
+        the number of cycles
+        """
         len_prbs_signal = len(self.sinal_prbs)
 
         # Checks if Nt is less than the length of self.signal.sinal_prbs
