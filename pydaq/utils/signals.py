@@ -62,3 +62,17 @@ class Signal:
         ]
 
         return bit_sequence
+
+    def prbs_final(self, cycles, ao_max):
+        len_prbs_signal = len(self.sinal_prbs)
+
+        # Checks if Nt is less than the length of self.signal.sinal_prbs
+        if cycles < len_prbs_signal:
+            signal = self.sinal_prbs[:cycles]
+            return [x * ao_max for x in signal]
+        else:
+            num_reps_int = cycles // len_prbs_signal
+            num_left = cycles % len_prbs_signal
+            signal = self.sinal_prbs * num_reps_int
+            signal.extend(self.sinal_prbs[:num_left])
+            return [x * ao_max for x in signal]

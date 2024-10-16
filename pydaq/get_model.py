@@ -244,23 +244,6 @@ class GetModel(Base):
         # Number of necessary cycles
         self.cycles = None
 
-    def prbs_final(self):
-        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-
-        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
-        len_sinal_prbs = len(self.signal.sinal_prbs)
-
-        # Checks if Nt is less than the length of self.signal.sinal_prbs
-        if self.cycles < len_sinal_prbs:
-            sinal = self.signal.sinal_prbs[: self.cycles]
-            return [x * self.ao_max for x in sinal]
-        else:
-            n_rep_int = self.cycles // len_sinal_prbs
-            n_resto = self.cycles % len_sinal_prbs
-            sinal = self.signal.sinal_prbs * n_rep_int
-            sinal.extend(self.signal.sinal_prbs[:n_resto])
-        return [x * self.ao_max for x in sinal]
-
     def get_model_arduino(self):
 
         self.data = []
@@ -268,7 +251,10 @@ class GetModel(Base):
         self.input, self.output = [], []
 
         self._check_path()
-        self.sinal = self.prbs_final()
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
+
+        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
+        self.sinal = self.signal.prbs_final()
         sinal = np.array(self.sinal)
 
         self._open_serial()
