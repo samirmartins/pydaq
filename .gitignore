@@ -6,8 +6,14 @@ __pycache__/
 # C extensions
 *.so
 
-# Test file
+# Test files
 temp.py
+teste.py
+input_ino.dat
+input_ni.dat
+output_ino.dat
+output_ni.dat
+
 
 # nidaqmx
 nidaqmx-python-master.zip

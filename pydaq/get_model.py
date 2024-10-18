@@ -254,10 +254,11 @@ class GetModel(Base):
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-        self.sinal = self.signal.prbs_final()
+        self.sinal = self.signal.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
         sinal = np.array(self.sinal)
 
         self._open_serial()
+        time.sleep(2)
 
         self.data_send = [b"1" if i == 5 else b"0" for i in sinal]
 
@@ -265,9 +266,9 @@ class GetModel(Base):
             self.title = f"PYDAQ - Geting Data. Arduino, Port: {self.com_port}"
             self._start_updatable_plot()
 
-        time.sleep(2)
         for k in range(self.cycles):
             st = time.time()
+
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             self.ser.write(self.data_send[k])
 
@@ -282,7 +283,6 @@ class GetModel(Base):
                     plt.get_figlabels().index("iter_plot")
                 except BaseException:
                     break
-
                 # Updating data values
                 self._update_plot(
                     [self.time_var, self.time_var],
@@ -307,7 +307,8 @@ class GetModel(Base):
             print("\nSaving data ...")
             # Saving time_var and data
             self._save_data(self.time_var, "time.dat")
-            self._save_data(self.out_read, "data.dat")
+            self._save_data(self.sinal, "input.dat")
+            self._save_data(self.out_read, "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
@@ -384,10 +385,18 @@ class GetModel(Base):
         self.show_results(r)
 
     def get_model_nidaq(self):
-        self._check_path()
 
-        self.sinal = self.prbs_final()
+        self.data = []
+        self.time_var = []
+        self.input, self.output = [], []
+
+        self._check_path()
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
+
+        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
+        self.sinal = self.signal.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
         sinal = np.array(self.sinal)
+
         task_ao = nidaqmx.Task()
         task_ai = nidaqmx.Task()
 
@@ -404,22 +413,20 @@ class GetModel(Base):
         # task_ao.start()
         # task_ai.start()
 
+        self.data_send = sinal
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data (NIDAQ). {self.device}, {self.channel}"
             self._start_updatable_plot()
 
-        sent_data = sinal
-
         task_ao.write(self.ao_min)
         for k in range(self.cycles):
-
-            task_ao.write(sent_data[k])
-            temp = task_ai.read()
-
             st = time.time()
 
+            task_ao.write(self.data_send[k])
+            temp = task_ai.read()
+
             self.out_read.append(temp)
-            self.inp_read.append(sent_data[k])
+            self.inp_read.append(self.data_send[k])
             self.time_var.append(k * self.ts)
             if self.plot:
 
@@ -432,7 +439,7 @@ class GetModel(Base):
                 # Updating data values
                 self._update_plot(
                     [self.time_var, self.time_var],
-                    [self.out_read, self.inp_read],
+                    [sinal[0 : k + 1], self.out_read],
                     2,
                 )
 
@@ -451,7 +458,8 @@ class GetModel(Base):
 
         # Turning off the output at the end
         task_ao.write(0)
-
+        # self.out_read.insert(0, self.out_read[0])
+        # self.out_read.pop()
         task_ao.close()
         task_ai.close()
 
@@ -466,8 +474,9 @@ class GetModel(Base):
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        data_x = sinal
         data_y = np.array(self.out_read)
+        data_x = sinal.astype(data_y.dtype)
+
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
         x_train, x_valid = (
