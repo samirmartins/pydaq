@@ -36,7 +36,7 @@ After this command, the following screen will show up, where the user should sel
 ### Input Signal
 #### PRBS
 A pseudorandom binary sequence (PRBS) is a deterministic signal that alternates between two values and exhibits characteristics similar to white noise. The PRBS signal is inherently periodic, with a maximum period length of 2ⁿ–1, where n represents the order of the PRBS.
-For more information: [Nonlinear System Identification](https://www.amazon.com.br/Nonlinear-System-Identification-Frequency-Spatio-Temporal/dp/1119943590)
+For more information: [Nonlinear System Identification: Theory and Practice with Sysidentpy](https://sysidentpy.org/book/0%20-%20Preface/)
 
 In the **Config signal** button, the user can customize the signal parameters.
 
