@@ -90,7 +90,7 @@ class StepResponse(Base):
         self.ard_ao_max, self.ard_ao_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / (2 ** self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / ((2 ** self.arduino_ai_bits)-1)
 
         # Legends
         self.legend = ["Output", "Input"]

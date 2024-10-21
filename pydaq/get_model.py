@@ -239,7 +239,7 @@ class GetModel(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (2**self.arduino_ai_bits)
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2**self.arduino_ai_bits)-1)
 
         # Number of necessary cycles
         self.cycles = None
