@@ -14,7 +14,6 @@ from pydaq.utils.base import Base
 from pydaq.utils.signals import Signal
 from math import floor
 
-import pandas as pd
 from sysidentpy.model_structure_selection import FROLS
 from sysidentpy.basis_function._basis_function import Polynomial
 from sysidentpy.metrics import root_relative_squared_error
@@ -30,6 +29,39 @@ from typing import Tuple
 
 mpl.rcParams["axes.spines.right"] = False
 mpl.rcParams["axes.spines.top"] = False
+
+
+def display_formated_results(results_array):
+    r = np.array(results_array, dtype="U50")
+
+    col_widths = []
+    for col in range(r.shape[1]):
+        max_int_part = 0
+        max_dec_part = 0
+        for item in r[:, col]:
+            if "." in item:
+                int_part, dec_part = item.split(".")
+                max_int_part = max(max_int_part, len(int_part))
+                max_dec_part = max(max_dec_part, len(dec_part))
+            else:
+                max_int_part = max(max_int_part, len(item))
+        col_widths.append((max_int_part, max_dec_part))
+
+    # Display
+    for row in r:
+        formatted_row = []
+        for item, (int_width, dec_width) in zip(row, col_widths):
+            if "." in item:
+                int_part, dec_part = item.split(".")
+                formatted_item = (
+                    f"{int_part.rjust(int_width)}.{dec_part.ljust(dec_width)}"
+                )
+            else:
+                formatted_item = item.rjust(
+                    int_width + dec_width + 1
+                )  # Caso não tenha ponto decimal
+            formatted_row.append(formatted_item)
+        print("  ".join(formatted_row))
 
 
 def plot_combined_results(
@@ -239,7 +271,9 @@ class GetModel(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2**self.arduino_ai_bits)-1)
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (
+            (2**self.arduino_ai_bits) - 1
+        )
 
         # Number of necessary cycles
         self.cycles = None
@@ -344,18 +378,19 @@ class GetModel(Base):
         rrse = root_relative_squared_error(y_valid, yhat)
         print(f"Root relative squared error: {rrse}")
 
-        r = pd.DataFrame(
-            results(
-                model.final_model,
-                model.theta,
-                model.err,
-                model.n_terms,
-                err_precision=8,
-                dtype="sci",
-            ),
-            columns=["Regressors", "Parameters", "ERR"],
+        results_data = results(
+            model.final_model,
+            model.theta,
+            model.err,
+            model.n_terms,
+            err_precision=8,
+            dtype="sci",
         )
-        print(r)
+
+        results_data.insert(0, ["Regressors", "Parameters", "ERR"])
+
+        display_formated_results(results_data)
+
         self.acquired_model = model
         self.final_model = model.final_model
         self.theta = model.theta
@@ -382,7 +417,7 @@ class GetModel(Base):
             model_marker="*",
             linewidth=1.5,
         )
-        self.show_results(r)
+        self.show_results(results_data)
 
     def get_model_nidaq(self):
 
@@ -505,18 +540,18 @@ class GetModel(Base):
         rrse = root_relative_squared_error(y_valid, yhat)
         print(f"Root relative squared error: {rrse}")
 
-        r = pd.DataFrame(
-            results(
-                model.final_model,
-                model.theta,
-                model.err,
-                model.n_terms,
-                err_precision=8,
-                dtype="sci",
-            ),
-            columns=["Regressors", "Parameters", "ERR"],
+        results_data = results(
+            model.final_model,
+            model.theta,
+            model.err,
+            model.n_terms,
+            err_precision=8,
+            dtype="sci",
         )
-        print(r)
+        results_data.insert(0, ["Regressors", "Parameters", "ERR"])
+
+        display_formated_results(results_data)
+
         self.acquired_model = model
         self.final_model = model.final_model
         self.theta = model.theta
@@ -543,21 +578,22 @@ class GetModel(Base):
             model_marker="*",
             linewidth=1.5,
         )
-        self.show_results(r)
+        self.show_results(results_data)
 
-    def show_results(self, results_dataframe):
+    def show_results(self, results):
+        r = np.array(results[1:], dtype="U50")
         model_string = "y_k = "
-        r = results_dataframe
         line_control = 0
         string_list = []
-        for ind in r.index:
-            if r.iat[ind, 0] == "1":
-                model_string += f"{float(r.iat[ind,1]):.4f}"
-            else:
-                model_string += f"{float(r.iat[ind,1]):.4f}*{r.iat[ind,0]}"
 
-            if len(r.index) != ind + 1:
-                if float(r.iat[ind + 1, 1]) >= 0:
+        for ind in range(r.shape[0]):
+            if r[ind, 0] == "1":
+                model_string += f"{float(r[ind,1]):.4f}"
+            else:
+                model_string += f"{float(r[ind,1]):.4f}*{r[ind,0]}"
+
+            if ind < r.shape[0] - 1:
+                if float(r[ind + 1, 1]) >= 0:
                     model_string += "+"
             line_control += 1
             if line_control % 2 == 0:
