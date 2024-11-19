@@ -105,9 +105,9 @@ g.get_model_nidaq()
 
 If the user chooses to plot, this screen will appear:
 
-![](img/adquired_data_arduino_getmodel.PNG)
+![](img/get_model_signal.jpg)
 
 At the end of the user-defined time, screens with the results will appear.
 
 
-<Colocar gif mostrando o uso no final>
+![](img/Getmodel_NIDAQ_gif.gif)

@@ -109,7 +109,7 @@ g.get_model_arduino()
 
 If the user chooses to plot, this screen will appear:
 
-![](img/get_model_arduino_signal.jpg)
+![](img/get_model_signal.jpg)
 
 At the end of the user-defined time, screens with the results will appear.
 

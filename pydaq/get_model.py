@@ -288,13 +288,15 @@ class GetModel(Base):
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-        self.sinal = self.signal.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
-        sinal = np.array(self.sinal)
+        self.signal_finale = self.signal.prbs_final(
+            cycles=self.cycles, ao_max=self.ao_max
+        )
+        signal_finale = np.array(self.signal_finale)
 
         self._open_serial()
         time.sleep(2)
 
-        self.data_send = [b"1" if i == 5 else b"0" for i in sinal]
+        self.data_send = [b"1" if i == 5 else b"0" for i in signal_finale]
 
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data. Arduino, Port: {self.com_port}"
@@ -320,7 +322,7 @@ class GetModel(Base):
                 # Updating data values
                 self._update_plot(
                     [self.time_var, self.time_var],
-                    [sinal[0 : k + 1], self.out_read],
+                    [signal_finale[0 : k + 1], self.out_read],
                     2,
                 )
             print(f"Iteration: {k} of {self.cycles-1}")
@@ -341,14 +343,14 @@ class GetModel(Base):
             print("\nSaving data ...")
             # Saving time_var and data
             self._save_data(self.time_var, "time.dat")
-            self._save_data(self.sinal, "input.dat")
+            self._save_data(self.signal_finale, "input.dat")
             self._save_data(self.out_read, "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        data_x = sinal
+        data_x = signal_finale
         data_y = np.array(self.out_read)
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
@@ -429,8 +431,10 @@ class GetModel(Base):
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-        self.sinal = self.signal.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
-        sinal = np.array(self.sinal)
+        self.signal_finale = self.signal.prbs_final(
+            cycles=self.cycles, ao_max=self.ao_max
+        )
+        signal_finale = np.array(self.signal_finale)
 
         task_ao = nidaqmx.Task()
         task_ai = nidaqmx.Task()
@@ -448,7 +452,7 @@ class GetModel(Base):
         # task_ao.start()
         # task_ai.start()
 
-        self.data_send = sinal
+        self.data_send = signal_finale
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data (NIDAQ). {self.device}, {self.channel}"
             self._start_updatable_plot()
@@ -474,7 +478,7 @@ class GetModel(Base):
                 # Updating data values
                 self._update_plot(
                     [self.time_var, self.time_var],
-                    [sinal[0 : k + 1], self.out_read],
+                    [signal_finale[0 : k + 1], self.out_read],
                     2,
                 )
 
@@ -510,7 +514,7 @@ class GetModel(Base):
         time_save = int(self.start_save_time / self.ts)
 
         data_y = np.array(self.out_read)
-        data_x = sinal.astype(data_y.dtype)
+        data_x = signal_finale.astype(data_y.dtype)
 
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
