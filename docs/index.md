@@ -11,7 +11,7 @@ Here the user can find examples of how to use it for data acquisition and genera
 signals using NIDAQ and Arduino boards.
 
 Also, step-response experiments can be easily performed, as showed up
-in [Step response (NIDAQ)](pydaq/step_response_nidaq) and [Step response (Arduino)](pydaq/step_response_arduino).
+in [Step response (NIDAQ)](https://pydaq.org/step_response_nidaq/) and [Step response (Arduino)](https://pydaq.org/step_response_arduino/).
 
 Furthermore, this tool can be used to apply any generic output in an experimental
 tool, such as PRBS (Pseudo Random Binary Signal) or other persistently exciting signal, in order to generate

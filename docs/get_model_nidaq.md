@@ -46,7 +46,6 @@ The library used for obtaining mathematical models is SysidentPy. It is a Python
 By pressing the **Get Model** button, the program will start and the model will be obtained.
 
 ## Run Get model from the command line
-from pydaq.get_model import GetModel
 
 
 # Defining parameters

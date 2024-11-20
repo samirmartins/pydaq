@@ -13,6 +13,8 @@ input_ino.dat
 input_ni.dat
 output_ino.dat
 output_ni.dat
+buck_id.csv
+buck_valid.csv
 
 
 # nidaqmx
