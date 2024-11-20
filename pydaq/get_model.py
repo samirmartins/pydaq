@@ -1,7 +1,6 @@
 import os
 import time
 import warnings
-
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import nidaqmx
@@ -10,10 +9,8 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
-
 from pydaq.utils.signals import Signal
 from math import floor
-
 from sysidentpy.model_structure_selection import FROLS
 from sysidentpy.basis_function._basis_function import Polynomial
 from sysidentpy.metrics import root_relative_squared_error
@@ -24,7 +21,6 @@ from sysidentpy.residues.residues_correlation import (
     compute_cross_correlation,
 )
 from collections import Counter
-
 from typing import Tuple
 
 mpl.rcParams["axes.spines.right"] = False

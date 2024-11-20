@@ -30,15 +30,15 @@ class SendData(Base):
     """
 
     def __init__(
-            self,
-            data=None,
-            device="Dev1",
-            channel="ao0",
-            com="COM1",
-            ts=0.5,
-            ao_min=0,
-            ao_max=5,
-            plot=True,
+        self,
+        data=None,
+        device="Dev1",
+        channel="ao0",
+        com="COM1",
+        ts=0.5,
+        ao_min=0,
+        ao_max=5,
+        plot=True,
     ):
 
         super().__init__()
@@ -131,7 +131,7 @@ class SendData(Base):
                     break
 
                 # Updating data values
-                self._update_plot(self.time_var, self.data[0: k + 1])
+                self._update_plot(self.time_var, self.data[0 : k + 1])
 
             print(f"Iteration: {k} of {self.cycles - 1}")
 
@@ -208,7 +208,7 @@ class SendData(Base):
                     break
 
                 # Updating data values
-                self._update_plot(self.time_var, self.data[0: k + 1])
+                self._update_plot(self.time_var, self.data[0 : k + 1])
 
             print(f"Iteration: {k} of {self.cycles - 1}")
 

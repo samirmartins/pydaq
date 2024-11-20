@@ -33,15 +33,15 @@ class GetData(Base):
     """
 
     def __init__(
-            self,
-            device="Dev1",
-            channel="ai0",
-            terminal="Diff",
-            com="COM1",
-            ts=0.5,
-            session_duration=10.0,
-            save=True,
-            plot=True,
+        self,
+        device="Dev1",
+        channel="ai0",
+        terminal="Diff",
+        com="COM1",
+        ts=0.5,
+        session_duration=10.0,
+        save=True,
+        plot=True,
     ):
         super().__init__()
         self.device = device
@@ -84,7 +84,9 @@ class GetData(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2 ** self.arduino_ai_bits)-1)
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (
+            (2**self.arduino_ai_bits) - 1
+        )
 
     def get_data_nidaq(self):
         """
@@ -202,7 +204,7 @@ class GetData(Base):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            
+
             # Get the last complete value
             temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
 
