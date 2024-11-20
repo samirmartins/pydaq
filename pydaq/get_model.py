@@ -611,7 +611,7 @@ class GetModel(Base):
         fig, ax = plt.subplots()
         aux_pos = 0
         ax.axis("off")
-        ax.text(0.35, 1, "Model equation", fontsize=18, ha="left")
+        ax.text(0.35, 1, "Mathematical Model", fontsize=18, ha="center")
 
         if (
             self.acquired_model.basis_function.degree == 1
