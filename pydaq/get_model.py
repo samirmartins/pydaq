@@ -292,7 +292,7 @@ class GetModel(Base):
         self._open_serial()
         time.sleep(2)
 
-        self.data_send = [b"1" if i == 5 else b"0" for i in signal_finale]
+        self.sent_data = [b"1" if i == 5 else b"0" for i in signal_finale]
 
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data. Arduino, Port: {self.com_port}"
@@ -302,9 +302,9 @@ class GetModel(Base):
             st = time.time()
 
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-            self.ser.write(self.data_send[k])
+            self.ser.write(self.sent_data[k])
 
-            temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+            temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb # To make sure that last complet value will be read
 
             self.out_read.append(temp)
             self.time_var.append(k * self.ts)
@@ -317,10 +317,10 @@ class GetModel(Base):
                     break
                 # Updating data values
                 self._update_plot(
-                    [self.time_var, self.time_var],
-                    [signal_finale[0 : k + 1], self.out_read],
+                    [self.time_var[0:-1], self.time_var[0:-1]],
+                    [signal_finale[0 : k], self.out_read[1:]],
                     2,
-                )
+                ) # Adjusting data, since no last data is acquired by arduino
             print(f"Iteration: {k} of {self.cycles-1}")
 
             et = time.time()
@@ -338,16 +338,16 @@ class GetModel(Base):
         if self.save:
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.signal_finale, "input.dat")
-            self._save_data(self.out_read, "output.dat")
+            self._save_data(self.time_var[0:-1], "time.dat")
+            self._save_data(self.signal_finale[0:k], "input.dat")
+            self._save_data(self.out_read[1:], "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        data_x = signal_finale
-        data_y = np.array(self.out_read)
+        data_x = signal_finale[0 : k] # Desconsidering first data not acquired by Arduino
+        data_y = np.array(self.out_read[1:]) # Desconsidering first data not acquired by Arduino
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
         x_train, x_valid = (
@@ -448,7 +448,7 @@ class GetModel(Base):
         # task_ao.start()
         # task_ai.start()
 
-        self.data_send = signal_finale
+        self.sent_data = signal_finale
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Geting Data (NIDAQ). {self.device}, {self.channel}"
             self._start_updatable_plot()
@@ -457,11 +457,11 @@ class GetModel(Base):
         for k in range(self.cycles):
             st = time.time()
 
-            task_ao.write(self.data_send[k])
+            task_ao.write(self.sent_data[k])
             temp = task_ai.read()
 
             self.out_read.append(temp)
-            self.inp_read.append(self.data_send[k])
+            self.inp_read.append(self.sent_data[k])
             self.time_var.append(k * self.ts)
             if self.plot:
 
