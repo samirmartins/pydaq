@@ -304,7 +304,9 @@ class GetModel(Base):
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             self.ser.write(self.sent_data[k])
 
-            temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb # To make sure that last complet value will be read
+            temp = (
+                int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+            )  # To make sure that last complet value will be read
 
             self.out_read.append(temp)
             self.time_var.append(k * self.ts)
@@ -318,9 +320,9 @@ class GetModel(Base):
                 # Updating data values
                 self._update_plot(
                     [self.time_var[0:-1], self.time_var[0:-1]],
-                    [signal_finale[0 : k], self.out_read[1:]],
+                    [signal_finale[0:k], self.out_read[1:]],
                     2,
-                ) # Adjusting data, since no last data is acquired by arduino
+                )  # Adjusting data, since no last data is acquired by arduino
             print(f"Iteration: {k} of {self.cycles-1}")
 
             et = time.time()
@@ -335,7 +337,7 @@ class GetModel(Base):
         self.ser.write(b"0")
         self.ser.close()
 
-        if self.save:
+        if self.save:  # Adjusting data, since no last data is acquired by arduino
             print("\nSaving data ...")
             # Saving time_var and data
             self._save_data(self.time_var[0:-1], "time.dat")
@@ -346,8 +348,10 @@ class GetModel(Base):
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        data_x = signal_finale[0 : k] # Desconsidering first data not acquired by Arduino
-        data_y = np.array(self.out_read[1:]) # Desconsidering first data not acquired by Arduino
+        data_x = signal_finale[0:k]  # Desconsidering first data not acquired by Arduino
+        data_y = np.array(
+            self.out_read[1:]
+        )  # Desconsidering first data not acquired by Arduino
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
         x_train, x_valid = (

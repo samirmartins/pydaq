@@ -156,8 +156,10 @@ class StepResponse(Base):
 
                 # Updating data values
                 self._update_plot(
-                    [self.time_var, self.time_var], [self.output, self.input], 2
-                )
+                    [self.time_var[0:-1], self.time_var[0:-1]],
+                    [self.output[1:], self.input[0:k]],
+                    2,
+                )  # Adjusting data, since no last data is acquired by arduino
 
             print(f"Iteration: {k} of {self.cycles - 1}")
 
@@ -185,12 +187,12 @@ class StepResponse(Base):
         self.ser.close()
 
         # Check if data will or not be saved, and save accordingly
-        if self.save:
+        if self.save:  # Adjusting data, since no last data is acquired by arduino
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.input, "input.dat")
-            self._save_data(self.output, "output.dat")
+            self._save_data(self.time_var[0:-1], "time.dat")
+            self._save_data(self.input[0:k], "input.dat")
+            self._save_data(self.output[1:], "output.dat")
             print("\nData saved ...")
         return
 
