@@ -2,10 +2,11 @@
 
 **NOTE 1**: before working with PYDAQ, device driver should be installed and working correctly as a DAQ (Data Acquisition) device
 
-**NOTE 2** To acquire/send data with arduino, the code provided here (located at [arduino_code](https://github.com/samirmartins/pydaq/tree/main/pydaq/arduino_code)) 
-should be uploaded in Arduino first. Default input port is A0, and default output port is 13, those ports can be chanced in the above mencioned code. To the output code is necessary to use a digital output, since this is a limitation of Arduino Boards.
+**NOTE 2:** To get models with Arduino, [the code provided here](https://github.com/samirmartins/pydaq/tree/main/pydaq/arduino_code) 
+should be firstly uploaded in your Arduino board. Default input port is A0, and default output port is 13. Those ports can be changed 
+in the above-mentioned code. This code only works with digital output, since this is a limitation of Arduino Boards.
 
-**NOTE 3** PYDAQ is programmed to use 10 bits as a ADC resolution, and 0V and 5V as the input range.
+**NOTE 3:** PYDAQ is programmed to use 10 bits as an ADC resolution, and 0V and 5V as the input range.
 To change this, the user can alter the following variables:
 
 ```python
@@ -16,14 +17,16 @@ self.ard_ai_min = 0
 
 ## Adquiring the model using Graphical User Interface (GUI)
 
-Using GUI to adquire the model is really straighforward and require only three LOC (lines of code):
+Using GUI to adquire the model is really straighforward and 
+require only two LOC (lines of code):
 
 ```python
 from pydaq.pydaq_global import PydaqGui
 
 PydaqGui()
 ```
-After this command, the following screen will show up, in the Get Model screen the user is able to define parameters and start to adquire the model.
+After this command, the following screen will show up. In "Get Model" 
+screen the user is able to define parameters and start the experiment to adquire the model.
 
 ![](img/get_model_arduino.jpg)
 
@@ -31,15 +34,15 @@ After this command, the following screen will show up, in the Get Model screen t
 
  - **Choose your Arduino**: This option allows you to choose the Arduino you are going to use.
 
- - **Sample Period**: The user can change the time interval between sample readings.
+ - **Sample Period**: The user can change the sample period, i.e., time (in seconds) between samples.
 
  - **Start saving data**: Choose when the data will start being recorded to obtain the model.
 
- - **Session duration**: The user can choose the session duration, which will change the number of iterations.
+ - **Session duration**: The user can choose the session duration.
 
  - **Plot and Save data**: The user can choose whether to plot and save the data.
 
- - **Path**: Choose where the data will be saved.
+ - **Path**: Choose where data will be saved.
 
 ### Input Signal
 #### PRBS
@@ -49,7 +52,7 @@ For more information: [Nonlinear System Identification: Theory and Practice with
 In the **Config signal** button, the user can customize the signal parameters.
 
 ### Advanced Settings
-The library used for obtaining mathematical models is SysidentPy. It is a Python module for System Identification using NARMAX models, built on top of numpy and distributed under the 3-Clause BSD license. You can configure its parameters and customize the way the mathematical model is obtained. Read more about this in the [SysidentPy documentation](https://sysidentpy.org/).
+The library used for obtaining mathematical models is [SysidentPy](https://sysidentpy.org). It is a Python module for System Identification using NARMAX models, built on top of numpy and distributed under the 3-Clause BSD license. You can configure its parameters and customize the way the mathematical model is obtained. Read more about this in the [SysidentPy documentation](https://sysidentpy.org/).
 
 By pressing the **Get Model** button, the program will start and the model will be obtained.
 
@@ -105,13 +108,13 @@ g = GetModel(
 g.get_model_arduino()
 
 ```
-**NOTE**: data will be saved on descktop, by default. To chance the path the user can define "g.path = Desired path".
+**NOTE**: data will be saved on desktop, by default. To change the path the user can define "g.path = Desired path".
 
 If the user chooses to plot, this screen will appear:
 
 ![](img/get_model_signal.jpg)
 
-At the end of the user-defined time, screens with the results will appear.
+At the end of the user-defined time, screens with the results will be shown as depicted below.
 
 ## Example GIF
 

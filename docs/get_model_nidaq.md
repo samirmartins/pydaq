@@ -4,14 +4,16 @@
 
 ## Adquiring the model using Graphical User Interface (GUI)
 
-Using GUI to adquire the model is really straighforward and require only three LOC (lines of code):
+Using GUI to adquire the model is really straighforward and 
+require only two LOC (lines of code):
 
 ```python
 from pydaq.pydaq_global import PydaqGui
 
 PydaqGui()
 ```
-After this command, the following screen will show up, where the user should select the NIDAQ option and go to Get Model tab, to be able to define parameters and start to acquire data.
+After this command, the following screen will show up. In "Get Model" 
+screen the user is able to define parameters and start the experiment to adquire the model.
 
 ![](img/get_model_nidaq.jpg)
 
@@ -21,11 +23,11 @@ After this command, the following screen will show up, where the user should sel
 
  - **Choose Channel**: The user is able to select desired channel.
 
- - **Terminal Configuration**: The user can chance the terminal configuration (Differential, RSE and NRSE).
+ - **Terminal Configuration**: The user can change terminal configuration (Differential, RSE and NRSE).
 
- - **Sample Period**: The user can change the time interval between sample readings.
+ - **Sample Period**: The user can change the sample period, i.e., time (in seconds) between samples.
 
- - **Start Saving Data**: Choose when the data will start being recorded to obtain the model.
+ - **Start Saving Data**: Choose when data will start being recorded to obtain the model.
 
  - **Session Duration**: The user can choose the session duration, which will change the number of iterations.
 
@@ -41,14 +43,11 @@ For more information: [Nonlinear System Identification: Theory and Practice with
 In the **Config signal** button, the user can customize the signal parameters.
 
 ### Advanced Settings
-The library used for obtaining mathematical models is SysidentPy. It is a Python module for System Identification using NARMAX models, built on top of numpy and distributed under the 3-Clause BSD license. You can configure its parameters and customize the way the mathematical model is obtained. Read more about this in the [SysidentPy documentation](https://sysidentpy.org/).
+The library used for obtaining mathematical models is [SysidentPy](https://sysidentpy.org). It is a Python module for System Identification using NARMAX models, built on top of numpy and distributed under the 3-Clause BSD license. You can configure its parameters and customize the way the mathematical model is obtained. Read more about this in the [SysidentPy documentation](https://sysidentpy.org/).
 
 By pressing the **Get Model** button, the program will start and the model will be obtained.
 
 ## Run Get model from the command line
-
-
-# Defining parameters
 ```python
 # Importing PYDAQ
 from pydaq.get_model import GetModel
@@ -100,13 +99,13 @@ g = GetModel(
 # Method get_model_nidaq
 g.get_model_nidaq()
 ```
-**NOTE**: data will be saved on descktop, by default. To chance the path the user can define "g.path = Desired path".
+**NOTE**: data will be saved on desktop, by default. To change the path the user can define "g.path = Desired path".
 
 If the user chooses to plot, this screen will appear:
 
 ![](img/get_model_signal.jpg)
 
-At the end of the user-defined time, screens with the results will appear.
+At the end of the user-defined time, screens with the results will be shown as depicted below.
 
 
 ![](img/Getmodel_NIDAQ_gif.gif)
