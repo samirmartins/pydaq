@@ -10,6 +10,8 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
+from sysidentpy.metrics import __ALL__ as metrics_list
+import sysidentpy.metrics as metrics
 
 from pydaq.utils.signals import Signal
 from math import floor
@@ -563,6 +565,27 @@ class GetModel(Base):
 
         ee = compute_residues_autocorrelation(y_valid, yhat)
         x1e = compute_cross_correlation(y_valid, yhat, x_valid)
+        metrics_df = dict()
+        metrics_namelist = list()
+        metrics_vallist = list()
+
+        for index in range(len(metrics_list)):
+            if (
+                metrics_list[index] == "r2_score"
+                or metrics_list[index] == "forecast_error"
+            ):
+                pass
+            else:
+                metrics_namelist.append(
+                    Base.get_acronym(Base.adjust_string(metrics_list[index]))
+                )
+                metrics_vallist.append(
+                    getattr(metrics, metrics_list[index])(y_valid, yhat)
+                )
+        metrics_df["Metric Name"] = metrics_namelist
+        metrics_df["Value"] = metrics_vallist
+        print(metrics_namelist)
+        print(metrics_vallist)
 
         plot_combined_results(
             y=y_valid,
@@ -582,6 +605,8 @@ class GetModel(Base):
             model_marker="*",
             linewidth=1.5,
         )
+
+        self.metrics(metrics_namelist, metrics_vallist)
         self.show_results(results_data)
 
     def show_results(self, results):
@@ -681,4 +706,20 @@ class GetModel(Base):
 
             ax.axis("off")
 
+        plt.show()
+
+    def metrics(self, metrics_vallist, metrics_namelist):
+        data = np.array([metrics_namelist, metrics_vallist]).T
+
+        fig, ax = plt.subplots()
+
+        ax.axis("off")
+
+        table = ax.table(cellText=data, colLabels=["Name", "Value"], loc="center")
+
+        table.auto_set_font_size(False)
+        table.set_fontsize(12)
+        table.auto_set_column_width([0, 1])
+        for i, j in table.get_celld().keys():
+            table[(i, j)].set_height(0.07)
         plt.show()

@@ -116,3 +116,18 @@ class Base:
             self.device_names.append(device.name)
             self.device_categories.append(device.product_category)
             self.device_type.append(device.product_type)
+
+    def adjust_string(label_string):
+        spaced_string = " ".join(label_string.split("_"))
+        return spaced_string.capitalize()
+
+    def get_acronym(string):
+        if string == "R2 score":
+            return "R2S"
+        else:
+            oupt = string[0]
+
+            for i in range(1, len(string)):
+                if string[i - 1] == " ":
+                    oupt += string[i]
+            return oupt.upper()
