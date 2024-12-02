@@ -70,7 +70,7 @@ class Base:
 
         # Title and labels and plot creation
         plt.title(self.title)
-        plt.xlabel("Time (seconds)")
+        plt.xlabel("Time (samples)")
         plt.ylabel("Voltage")
         plt.grid()
         self.line = self.ax.plot([], [])
@@ -82,7 +82,7 @@ class Base:
 
         self.ax.clear()
         plt.title(self.title)
-        plt.xlabel("Time (seconds)")
+        plt.xlabel("Time (samples)")
         plt.ylabel("Voltage")
         plt.grid()
         if number_of_inputs > 1:

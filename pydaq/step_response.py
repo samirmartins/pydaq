@@ -39,18 +39,18 @@ class StepResponse(Base):
     """
 
     def __init__(
-            self,
-            device="Dev1",
-            ao_channel="ao0",
-            ai_channel="ai0",
-            ts=0.5,
-            session_duration=10.0,
-            step_time=3.0,
-            step_min=0,
-            step_max=5,
-            terminal="Diff",
-            com="COM1",
-            plot=True,
+        self,
+        device="Dev1",
+        ao_channel="ao0",
+        ai_channel="ai0",
+        ts=0.5,
+        session_duration=10.0,
+        step_time=3.0,
+        step_min=0,
+        step_max=5,
+        terminal="Diff",
+        com="COM1",
+        plot=True,
     ):
 
         super().__init__()
@@ -90,7 +90,9 @@ class StepResponse(Base):
         self.ard_ao_max, self.ard_ao_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / ((2 ** self.arduino_ai_bits)-1)
+        self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / (
+            (2**self.arduino_ai_bits) - 1
+        )
 
         # Legends
         self.legend = ["Output", "Input"]
@@ -134,7 +136,7 @@ class StepResponse(Base):
             self.ser.reset_input_buffer()  # Reseting serial input buffer
             # Get the last complete value
             temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-            
+
             # Counting time to append data and update interface
             st = time.time()
 
@@ -154,8 +156,10 @@ class StepResponse(Base):
 
                 # Updating data values
                 self._update_plot(
-                    [self.time_var, self.time_var], [self.output, self.input], 2
-                )
+                    [self.time_var[0:-1], self.time_var[0:-1]],
+                    [self.output[1:], self.input[0:k]],
+                    2,
+                )  # Adjusting data, since no last data is acquired by arduino
 
             print(f"Iteration: {k} of {self.cycles - 1}")
 
@@ -183,12 +187,12 @@ class StepResponse(Base):
         self.ser.close()
 
         # Check if data will or not be saved, and save accordingly
-        if self.save:
+        if self.save:  # Adjusting data, since no last data is acquired by arduino
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.input, "input.dat")
-            self._save_data(self.output, "output.dat")
+            self._save_data(self.time_var[0:-1], "time.dat")
+            self._save_data(self.input[0:k], "input.dat")
+            self._save_data(self.output[1:], "output.dat")
             print("\nData saved ...")
         return
 
