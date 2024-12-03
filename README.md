@@ -115,7 +115,11 @@ Screnshots (v0.0.5)
 ---
 
 <p align="center">
+<<<<<<< HEAD
   <img src="img/pydaq_longo.gif" alt= “” class=“center” width="75%" height="75%">
+=======
+  <img src="img/pydaq.gif" alt= “” class=“center” width="75%" height="75%">
+>>>>>>> 52e7e2ab821c86ea9948a7e95b2e6927bf6016f9
 </p>
 
 ---
