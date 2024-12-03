@@ -114,47 +114,9 @@ Further details can be found in [documentation](https://pydaq.org).
 Screnshots (v0.0.5)
 ---
 
-### Graphical User Interfaces - NIDAQ
-
-![](docs/img/get_data_nidaq.png)
-
-![](docs/img/send_data_nidaq_gui.png)
-
-![](docs/img/step_response_nidaq_gui.png)
-
-![](docs/img/get_model_nidaq.jpg)
-
-
-### Graphical User Interfaces - Arduino
-
-![](docs/img/get_data_arduino.png)
-
-![](docs/img/send_data_arduino_gui.png)
-
-![](docs/img/step_response_arduino_gui.png)
-
-![](docs/img/get_model_arduino.jpg)
-
-### Acquired/Sending data, step response and PRBS signal response - NIDAQ and Arduino
-
-![](docs/img/step_response_arduino.png)
-
-![](docs/img/step_response_nidaq.png)
-
-![](docs/img/get_model_arduino_signal.jpg)
-
-
-![](docs/img/sending_data_nidaq.png)
-
-![](docs/img/sending_data_arduino.png)
-
-![](docs/img/acquired_data_nidaq.png)
-
-![](docs/img/acquired_data_arduino.png)
-
-### Data in .dat format
-
-![](docs/img/data.png)
+<p align="center">
+  <img src="img/pydaq.gif" alt= “” class=“center” width="75%" height="75%">
+</p>
 
 ---
 Contributing
