@@ -114,9 +114,8 @@ Further details can be found in [documentation](https://pydaq.org).
 Screnshots (v0.0.5)
 ---
 
-<p align="center">
-  <img src="img/pydaq_long.gif" alt= “” class=“center” width="75%" height="75%">
-</p>
+![](img/pydaq_long.gif)
+
 
 ---
 Contributing
