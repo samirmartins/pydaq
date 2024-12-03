@@ -114,6 +114,8 @@ Further details can be found in [documentation](https://pydaq.org).
 Screnshots (v0.0.5)
 ---
 
+## gif
+
 ![](img/pydaq_long.gif)
 
 
