@@ -150,7 +150,7 @@ def plot_combined_results_with_metrics(
 
     data = np.array([metrics_namelist, metrics_vallist]).T
     table = ax_table.table(
-        cellText=data, colLabels=["Name", "Value"], loc="center", cellLoc="center"
+        cellText=data, colLabels=["Metrics", "Value"], loc="center", cellLoc="center"
     )
     table.auto_set_font_size(False)
     table.set_fontsize(12)
