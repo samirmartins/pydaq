@@ -396,8 +396,10 @@ class GetModel(Base):
                 metrics_vallist.append(
                     getattr(metrics, metrics_list[index])(y_valid, yhat)
                 )
+        metrics_vallist = [round(value, 4) for value in metrics_vallist]
         metrics_df["Metric Name"] = metrics_namelist
         metrics_df["Value"] = metrics_vallist
+
         print(metrics_namelist)
         print(metrics_vallist)
 
@@ -582,6 +584,7 @@ class GetModel(Base):
                 metrics_vallist.append(
                     getattr(metrics, metrics_list[index])(y_valid, yhat)
                 )
+        metrics_vallist = [round(value, 4) for value in metrics_vallist]
         metrics_df["Metric Name"] = metrics_namelist
         metrics_df["Value"] = metrics_vallist
         print(metrics_namelist)
