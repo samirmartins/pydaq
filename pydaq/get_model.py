@@ -9,6 +9,8 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
+from sysidentpy.metrics import __ALL__ as metrics_list
+import sysidentpy.metrics as metrics
 
 from pydaq.utils.signals import Signal
 from math import floor
@@ -61,11 +63,17 @@ def display_formated_results(results_array):
         print("  ".join(formatted_row))
 
 
-def plot_combined_results(
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def plot_combined_results_with_metrics(
     y: np.ndarray,
     yhat: np.ndarray,
     residuals: np.ndarray,
     cross_corr: np.ndarray,
+    metrics_namelist: list,
+    metrics_vallist: list,
     n: int = 100,
     title_main: str = "Free run simulation",
     title_residuals: str = "Residual Analysis - Autocorrelation",
@@ -79,55 +87,12 @@ def plot_combined_results(
     marker: str = "o",
     model_marker: str = "*",
     linewidth: float = 1.5,
-    figsize: Tuple[int, int] = (10, 18),
+    figsize: Tuple[int, int] = (14, 8),
     style: str = "default",
     facecolor: str = "white",
 ) -> None:
-    """Plot combined results with three stacked subplots.
+    """Plot combined results with three stacked subplots and a metrics table."""
 
-    Parameters
-    ----------
-    y : np.ndarray
-        True data values.
-    yhat : np.ndarray
-        Model predictions.
-    residuals : np.ndarray
-        Autocorrelation values of residuals.
-    cross_corr : np.ndarray
-        Cross-correlation values of residuals.
-    n : int
-        Number of samples to plot.
-    title_main : str
-        Title for the main plot.
-    title_residuals : str
-        Title for the residuals plot.
-    title_cross_corr : str
-        Title for the cross-correlation plot.
-    xlabel_main : str
-        Label for the x-axis of the main plot.
-    ylabel_main : str
-        Label for the y-axis of the main plot.
-    ylabel_residuals : str
-        Label for the y-axis of the residuals plot.
-    ylabel_cross_corr : str
-        Label for the y-axis of the cross-correlation plot.
-    data_color : str
-        Color for the data line.
-    model_color : str
-        Color for the model line.
-    marker : str
-        Marker style for the data line.
-    model_marker : str
-        Marker style for the model line.
-    linewidth : float
-        Line width for both lines.
-    figsize : Tuple[int, int]
-        Figure size (width, height).
-    style : str
-        Matplotlib style.
-    facecolor : str
-        Figure facecolor.
-    """
     if len(y) == 0 or len(yhat) == 0:
         raise ValueError("Arrays must have at least 1 sample.")
 
@@ -140,13 +105,11 @@ def plot_combined_results(
     plt.style.use(style)
     plt.rcParams["axes.facecolor"] = facecolor
 
-    # fig, axs = plt.subplots(4, 1, figsize=figsize, facecolor=facecolor)
-
     fig = plt.figure(figsize=figsize, facecolor=facecolor)
-    gs = plt.GridSpec(2, 2, height_ratios=[2, 1])
+    gs = plt.GridSpec(2, 3, width_ratios=[2, 2, 1], height_ratios=[2, 1])
 
     # Plot main results
-    ax_main = fig.add_subplot(gs[0, :])
+    ax_main = fig.add_subplot(gs[0, :2])
     ax_main.plot(
         y[:n], c=data_color, alpha=1, marker=marker, label="Data", linewidth=linewidth
     )
@@ -180,6 +143,20 @@ def plot_combined_results(
     ax_cross_corr.tick_params(labelsize=14)
     ax_cross_corr.set_ylim([-1, 1])
     ax_cross_corr.set_title(title_cross_corr, fontsize=18)
+
+    # Add table with metrics
+    ax_table = fig.add_subplot(gs[:, 2])
+    ax_table.axis("off")
+
+    data = np.array([metrics_namelist, metrics_vallist]).T
+    table = ax_table.table(
+        cellText=data, colLabels=["Name", "Value"], loc="center", cellLoc="center"
+    )
+    table.auto_set_font_size(False)
+    table.set_fontsize(12)
+    table.auto_set_column_width([0, 1])
+    for i, j in table.get_celld().keys():
+        table[(i, j)].set_height(0.1)
 
     plt.tight_layout()
     plt.show()
@@ -402,7 +379,29 @@ class GetModel(Base):
         ee = compute_residues_autocorrelation(y_valid, yhat)
         x1e = compute_cross_correlation(y_valid, yhat, x_valid)
 
-        plot_combined_results(
+        metrics_df = dict()
+        metrics_namelist = list()
+        metrics_vallist = list()
+
+        for index in range(len(metrics_list)):
+            if (
+                metrics_list[index] == "r2_score"
+                or metrics_list[index] == "forecast_error"
+            ):
+                pass
+            else:
+                metrics_namelist.append(
+                    Base.get_acronym(Base.adjust_string(metrics_list[index]))
+                )
+                metrics_vallist.append(
+                    getattr(metrics, metrics_list[index])(y_valid, yhat)
+                )
+        metrics_df["Metric Name"] = metrics_namelist
+        metrics_df["Value"] = metrics_vallist
+        print(metrics_namelist)
+        print(metrics_vallist)
+
+        plot_combined_results_with_metrics(
             y=y_valid,
             yhat=yhat,
             residuals=ee,
@@ -419,6 +418,8 @@ class GetModel(Base):
             marker="o",
             model_marker="*",
             linewidth=1.5,
+            metrics_namelist=metrics_namelist,
+            metrics_vallist=metrics_vallist,
         )
         self.show_results(results_data)
 
@@ -586,7 +587,7 @@ class GetModel(Base):
         print(metrics_namelist)
         print(metrics_vallist)
 
-        plot_combined_results(
+        plot_combined_results_with_metrics(
             y=y_valid,
             yhat=yhat,
             residuals=ee,
@@ -603,9 +604,10 @@ class GetModel(Base):
             marker="o",
             model_marker="*",
             linewidth=1.5,
+            metrics_namelist=metrics_namelist,
+            metrics_vallist=metrics_vallist,
         )
 
-        self.metrics(metrics_namelist, metrics_vallist)
         self.show_results(results_data)
 
     def show_results(self, results):
@@ -705,20 +707,4 @@ class GetModel(Base):
 
             ax.axis("off")
 
-        plt.show()
-
-    def metrics(self, metrics_vallist, metrics_namelist):
-        data = np.array([metrics_namelist, metrics_vallist]).T
-
-        fig, ax = plt.subplots()
-
-        ax.axis("off")
-
-        table = ax.table(cellText=data, colLabels=["Name", "Value"], loc="center")
-
-        table.auto_set_font_size(False)
-        table.set_fontsize(12)
-        table.auto_set_column_width([0, 1])
-        for i, j in table.get_celld().keys():
-            table[(i, j)].set_height(0.07)
         plt.show()
