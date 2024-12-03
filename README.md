@@ -115,10 +115,8 @@ Screnshots (v0.0.5)
 ---
 
 <p align="center">
-  <img src="img/pydaq_long.gif" alt= “” class=“center” width="75%" height="75%">
+  <img src="docs//img/pydaq_long.gif" alt= “” class=“center” width="75%" height="75%">
 </p>
-
-
 
 ---
 Contributing
