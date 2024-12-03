@@ -400,9 +400,6 @@ class GetModel(Base):
         metrics_df["Metric Name"] = metrics_namelist
         metrics_df["Value"] = metrics_vallist
 
-        print(metrics_namelist)
-        print(metrics_vallist)
-
         plot_combined_results_with_metrics(
             y=y_valid,
             yhat=yhat,
@@ -587,8 +584,6 @@ class GetModel(Base):
         metrics_vallist = [round(value, 4) for value in metrics_vallist]
         metrics_df["Metric Name"] = metrics_namelist
         metrics_df["Value"] = metrics_vallist
-        print(metrics_namelist)
-        print(metrics_vallist)
 
         plot_combined_results_with_metrics(
             y=y_valid,
