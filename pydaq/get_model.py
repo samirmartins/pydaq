@@ -638,8 +638,10 @@ class GetModel(Base):
 
         fig, ax = plt.subplots()
         aux_pos = 0
+        fig.patch.set_facecolor("#404040")  # Fundo cinza escuro
         ax.axis("off")
-        ax.text(0.35, 1, "Mathematical Model", fontsize=18, ha="center")
+        ax.text(0.5, 1, "Mathematical Model", fontsize=18, ha="center", color="white")
+        plt.axhline(y=0.96, color="#044c04", linestyle="-")
 
         if (
             self.acquired_model.basis_function.degree == 1
@@ -667,9 +669,10 @@ class GetModel(Base):
                             if int(regressor_key / 1000) < 2:
                                 if self.acquired_model.theta[i][0] > 0:
                                     regressor_Z_transformed = f"\\,-\\,{self.acquired_model.theta[i][0]:.4f}\\,z^{{{expoent_string}}}"
+                                    denominator_string += regressor_Z_transformed
                                 else:
                                     regressor_Z_transformed = f"\\,+\\,{-self.acquired_model.theta[i][0]:.4f}\\,z^{{{expoent_string}}}"
-                                denominator_string += regressor_Z_transformed
+                                    denominator_string += regressor_Z_transformed
                             else:
                                 if (
                                     numerator_string
@@ -695,14 +698,14 @@ class GetModel(Base):
         for i in range(len(string_list)):
             if string_list[i]:
                 ax.text(
-                    0.15 + aux_pos * 0.1,
+                    0.5,  # Center the text horizontally
                     0.7 - i * 0.07,
                     rf"${string_list[i]}$",
                     fontsize=15,
-                    ha="left",
+                    ha="center",  # Adjust horizontal alignment to center
+                    color="white",  # Texto em branco
                 )
                 aux_pos = 1
 
-            ax.axis("off")
-
+        ax.axis("off")
         plt.show()
