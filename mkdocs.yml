@@ -19,6 +19,9 @@ nav:
   - Step Response:
       - NIDAQ: step_response_nidaq.md
       - Arduino: step_response_arduino.md
+  - Get Model:
+      - NIDAQ: get_model_nidaq.md
+      - Arduino: get_model_arduino.md
   - Jupyter Notebooks: jupyter_notebooks.md
 
 theme:
