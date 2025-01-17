@@ -5,7 +5,7 @@ Acquisition) device
 
 **NOTE 2**: To acquire/send data with arduino, the code provided here (located
 at [arduino_code](https://github.com/samirmartins/pydaq/tree/main/pydaq/arduino_code))
-should be uploaded in Arduino first. Default output port is 13 and analog input is A0 and
+should be firstly uploaded in Arduino. Default output port is 13 and analog input is A0 and
 these ports can be changed in the above-mentioned code.
 This code only works with digital output, since this is a limitation of Arduino Boards.
 

@@ -1,5 +1,4 @@
 import os
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import serial
@@ -7,7 +6,6 @@ import serial.tools.list_ports
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
 import warnings
-
 from ..guis.error_window_gui import Error_window
 
 
@@ -72,7 +70,7 @@ class Base:
 
         # Title and labels and plot creation
         plt.title(self.title)
-        plt.xlabel("Time (seconds)")
+        plt.xlabel("Time (samples)")
         plt.ylabel("Voltage")
         plt.grid()
         self.line = self.ax.plot([], [])
@@ -84,7 +82,7 @@ class Base:
 
         self.ax.clear()
         plt.title(self.title)
-        plt.xlabel("Time (seconds)")
+        plt.xlabel("Time (samples)")
         plt.ylabel("Voltage")
         plt.grid()
         if number_of_inputs > 1:
@@ -118,3 +116,18 @@ class Base:
             self.device_names.append(device.name)
             self.device_categories.append(device.product_category)
             self.device_type.append(device.product_type)
+
+    def adjust_string(label_string):
+        spaced_string = " ".join(label_string.split("_"))
+        return spaced_string.capitalize()
+
+    def get_acronym(string):
+        if string == "R2 score":
+            return "R2S"
+        else:
+            oupt = string[0]
+
+            for i in range(1, len(string)):
+                if string[i - 1] == " ":
+                    oupt += string[i]
+            return oupt.upper()

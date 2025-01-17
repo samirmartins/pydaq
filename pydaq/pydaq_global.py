@@ -42,4 +42,4 @@ def PydaqGui():
         app.exec()
         return window.fetched_object
     except SystemExit:
-        print('')
+        print("")

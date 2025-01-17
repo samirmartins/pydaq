@@ -18,23 +18,24 @@
 
 # PYDAQ - Data Acquisition and Experimental Analysis with Python
 
+## www.pydaq.org
+
 
 ----
 Using Python for applications with experimental data (Arduino and NIDAQ boards)
 ----
 
-This package was firstly designed to use experimental device for data 
-acquisition and signal generator, when performing different experiment, 
-such as a step-response test. 
+This package was initially designed to use an experimental device for data 
+acquisition and signal generation when performing different experiments, 
+such as a step-response test. However, from version v0.0.5 onwards, 
+PYDAQ introduces different functionalities, including real-time system 
+identification using experimental data.
 
-Despite this, one can use PYDAQ to acquire and send a signal from 
-any system, using different boards [(check jupyter notebook examples folder)](examples), 
-through a Graphical User Interface or via command line. In this sense
-the user is capable to generate a customized signal which can be easily
-applied to a system. 
+One can use PYDAQ using different boards [(check jupyter notebook examples folder)](examples), 
+through a Graphical User Interface or via command line. 
 
-It is noteworthy that this application makes data acquisition and 
-empirical experiments simpler, faster and easier. This is relevant
+It is noteworthy that this application makes data acquisition, system identification
+and empirical experiments simpler, faster and easier. This is relevant
 when the user needs empirical data to construct black box linear and
 nonlinear models, commomly used in research projects in forecasting and 
 model-based control schemes.
@@ -42,7 +43,7 @@ model-based control schemes.
 The code provided here allows user to save acquired data in .dat files in 
 a path specified by the user (or at Desktop, if no path is provided), as well
 as send a user-defined data, which can be any nonlinear input signal 
-[(you are strongly advised to check the )](https://samirmartins.github.io/pydaq/)
+[(you are strongly advised to check the docs)](https://pydaq.org)
 
 In what follows you will find
 
@@ -63,39 +64,41 @@ The fastest way to install PYDAQ is using pip:
 pip install pydaq
 ```
 
-**NOTE:** In this version of pydaq (0.0.3), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
-the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
-Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
-
 PYDAQ requires:
 
-- Installed driver of the board used (Arduino or National Instruments NIDAQ)
+- Driver of the board used (Arduino or National Instruments NIDAQ)
 - nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
 - matplotlib (>=3.5.3) as a visualization tool
 - numpy (>=1.22.3) to process data
 - PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
+- sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
+- packaging (>=24.1).
+
+**NOTE 1:** In this version of pydaq (0.0.5), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
+the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
+Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
+
+**NOTE 2:** PYDAQ is fully tested up to Python 3.10. It may run on versions above this, but without guarantees. 
 
 
 ---
 Quick view and Main features
 ---
 
-| Feature                      |                                                                                                                                                                                                                                          Description |
-|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Send Data (NIDAQ)            |                                                                                                                                                   This feature allows the user to send data through any NIDAQ board using a graphical user interface |
-| Send Data (Arduino)          |                                                                                                                                               This feature allows the user to send data through any Arduino board through a graphical user interface |
-| Get Data (NIDAQ)             |                                        Here the user is able to get data from a NIDAQ board, using any terminal configuration (Diff, RSE, NRSE), sample time and other parameters. Acquired data can also be saved and plot for further applications |
-| Get Data (Arduino)           |                                                                                                    Here the user is able to get data from an Arduino board, using several options. Acquired data can also be saved and plot for further applications |
-| Step Response (NIDAQ) |   In this feature one can perform an automatic step response experiment using a NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
-| Step Response (Arduino)      | In this feature one can perform an automatic step response experiment using an Arduino. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
+| Feature                       |                                                                                                                                                                                                                                                                                                                                                                           Description |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Send Data (Arduino/NIDAQ)     |                                                                                                                                                                                                                                                                            This feature allows the user to send data through any Arduino/NIDAQ board using a graphical user interface |
+| Get Data (Arduino/NIDAQ)      |                                                                                                                                             Here the user is able to get data from a(n) Arduino/NIDAQ board (using any terminal configuration - Diff, RSE, NRSE - in NIDAQ case), sample time and other parameters. Acquired data can also be saved and plot for further applications |
+| Step Response (Arduino/NIDAQ) |                                                                                                                         In this feature one can perform an automatic step response experiment using a(n) Arduino/NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
+| Get Model (Arduino/NIDAQ)     | The user can obtain mathematical models experimentally using Arduino/NIDAQ boards, with various customization options available. The input signal is a PRBS, which can be customized to meet specific needs, and both the input and output signals obtained can be saved for future applications. PYDAQ uses [SysIdentPy](www.sysidentpy.org) as a backend for obtaining the models. |
  
 
 ---
 Using GUI (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
 ---
 
-In the latest version, all functionalities for all boards are incorporated in one single window.
+All functionalities for all boards are incorporated in one single window.
 
 ### Launching the GUI:
 
@@ -105,45 +108,15 @@ from pydaq.pydaq_global import PydaqGui
 PydaqGui()
 ```
 
+Further details can be found in [documentation](https://pydaq.org).
+
 ---
-Screnshots (v0.0.4)
+Screnshots (v0.0.5)
 ---
 
-### Graphical User Interfaces - NIDAQ
-
-![](docs/img/get_data_nidaq.png)
-
-![](docs/img/send_data_nidaq_gui.png)
-
-![](docs/img/step_response_nidaq_gui.png)
-
-
-### Graphical User Interfaces - Arduino
-
-![](docs/img/get_data_arduino.png)
-
-![](docs/img/send_data_arduino_gui.png)
-
-![](docs/img/step_response_arduino_gui.png)
-
-### Acquired/Sending data and step response - NIDAQ and Arduino
-
-![](docs/img/step_response_arduino.png)
-
-![](docs/img/step_response_nidaq.png)
-
-
-![](docs/img/sending_data_nidaq.png)
-
-![](docs/img/sending_data_arduino.png)
-
-![](docs/img/acquired_data_nidaq.png)
-
-![](docs/img/acquired_data_arduino.png)
-
-### Data in .dat format
-
-![](docs/img/data.png)
+<p align="center">
+  <img src="docs//img/pydaq_long.gif" alt= “” class=“center” width="75%" height="75%">
+</p>
 
 ---
 Contributing

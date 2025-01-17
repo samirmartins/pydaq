@@ -7,11 +7,17 @@
 ## Introduction
 
 This site presents the full documentation of PYDAQ - Data Acquisition and Experimental Analysis with Python.
-Here the user can find examples of how to use it for data acquisition and generating
-signals using NIDAQ and Arduino boards.
+
+This package was initially designed to use an experimental device for data 
+acquisition and signal generation when performing different experiments, 
+such as a step-response test. However, from version v0.0.5 onwards, 
+PYDAQ introduces different functionalities, including real-time system 
+identification using experimental data. One can use PYDAQ using different boards [(check jupyter notebook examples folder)](https://github.com/samirmartins/pydaq/tree/main/examples), 
+through a Graphical User Interface or via command line. 
+
 
 Also, step-response experiments can be easily performed, as showed up
-in [Step response (NIDAQ)](pydaq/step_response_nidaq) and [Step response (Arduino)](pydaq/step_response_arduino).
+in [Step response (NIDAQ)](https://pydaq.org/step_response_nidaq/) and [Step response (Arduino)](https://pydaq.org/step_response_arduino/).
 
 Furthermore, this tool can be used to apply any generic output in an experimental
 tool, such as PRBS (Pseudo Random Binary Signal) or other persistently exciting signal, in order to generate
@@ -33,13 +39,16 @@ pip install pydaq
 
 PYDAQ requires:
 
-- Installed driver of the board used (Arduino or National Instruments NIDAQ);
-- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards;
-- matplotlib (>=3.5.3) as a visualization tool;
-- numpy (>=1.22.3) to process data;
-- PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework;
-- pyserial (>=3.5) to manage data to/from Arduino.
+- Driver of the board used (Arduino or National Instruments NIDAQ)
+- nidaqmx (>=0.6.5) for data acquisition from National Instruments Boards
+- matplotlib (>=3.5.3) as a visualization tool
+- numpy (>=1.22.3) to process data
+- PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
+- pyserial (>=3.5) to manage data to/from Arduino
+- sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
+- packaging (>=24.1).
 
+ 
 ## Documentation Map
 
 ### Data Acquisition
@@ -61,12 +70,21 @@ Here the user will find examples of how to define parameters to perform
 a step response experiments with available
 boards ([NIDAQ](https://samirmartins.github.io/pydaq/step_response_nidaq/)/[Arduino](https://samirmartins.github.io/pydaq/step_response_arduino/)).
 
-### Examples
+### Get Model
+
+If you need to estimate a model using experimental data, 
+this section is for you. Here, you can find 
+documentation on how to use PYDAQ for this purpose
+with ([NIDAQ](https://samirmartins.github.io/pydaq/get_model_nidaq/)/[Arduino](https://samirmartins.github.io/pydaq/get_model_arduino/))
+
+## Examples
 
 In this section it will be provided Jupyter Notebook examples
 presenting code
 functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/)/[Arduino](https://samirmartins.github.io/pydaq/jupyter_notebooks/)).
 
+## Screenshots
+
 <p align="center">
-  <img src="img/pydaq.gif" alt= “” class=“center” width="75%" height="75%">
+  <img src="img/pydaq_new.gif" alt= “” class=“center” width="75%" height="75%">
 </p>
