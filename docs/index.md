@@ -16,8 +16,9 @@ identification using experimental data. One can use PYDAQ using different boards
 through a Graphical User Interface or via command line. 
 
 
-Also, step-response experiments can be easily performed, as showed up
-in [Step response (NIDAQ)](https://pydaq.org/step_response_nidaq/) and [Step response (Arduino)](https://pydaq.org/step_response_arduino/).
+Also, step-response experiments can be easily performed, as showed up in [Step response (NIDAQ)](https://pydaq.org/step_response_nidaq/) and [Step response (Arduino)](https://pydaq.org/step_response_arduino/).
+
+
 
 Furthermore, this tool can be used to apply any generic output in an experimental
 tool, such as PRBS (Pseudo Random Binary Signal) or other persistently exciting signal, in order to generate
