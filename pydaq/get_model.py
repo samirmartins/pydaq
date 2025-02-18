@@ -111,10 +111,10 @@ def plot_combined_results_with_metrics(
     # Plot main results
     ax_main = fig.add_subplot(gs[0, :2])
     ax_main.plot(
-        y[:n], c=data_color, alpha=1, marker=marker, label="Data", linewidth=linewidth
+        y[:], c=data_color, alpha=1, marker=marker, label="Data", linewidth=linewidth
     )
     ax_main.plot(
-        yhat[:n], c=model_color, marker=model_marker, label="Model", linewidth=linewidth
+        yhat[:], c=model_color, marker=model_marker, label="Model", linewidth=linewidth
     )
     ax_main.set_title(title_main, fontsize=18)
     ax_main.legend()
@@ -124,7 +124,7 @@ def plot_combined_results_with_metrics(
 
     # Plot residuals autocorrelation
     ax_residuals = fig.add_subplot(gs[1, 0])
-    ax_residuals.plot(residuals[0][:n], color=data_color)
+    ax_residuals.plot(residuals[0][:], color=data_color)
     ax_residuals.axhspan(residuals[1], residuals[2], color="#ccd9ff", alpha=0.5, lw=0)
     ax_residuals.set_xlabel("Lag", fontsize=14)
     ax_residuals.set_ylabel(ylabel_residuals, fontsize=14)
@@ -134,7 +134,7 @@ def plot_combined_results_with_metrics(
 
     # Plot residuals cross-correlation
     ax_cross_corr = fig.add_subplot(gs[1, 1])
-    ax_cross_corr.plot(cross_corr[0][:n], color=data_color)
+    ax_cross_corr.plot(cross_corr[0][:], color=data_color)
     ax_cross_corr.axhspan(
         cross_corr[1], cross_corr[2], color="#ccd9ff", alpha=0.5, lw=0
     )
