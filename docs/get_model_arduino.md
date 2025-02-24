@@ -118,4 +118,4 @@ At the end of the user-defined time, screens with the results will be shown as d
 
 ## Example GIF
 
-![](img/Getmodel_arduino_gif.gif)
+![](img/getmodel_arduino_gif.gif)
