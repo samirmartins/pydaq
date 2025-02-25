@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgetIkIyfu.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgethvcyVM.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -185,8 +185,8 @@ class Ui_Arduino_GetModel_W(object):
             "	background-color: rgb(77, 77, 77);\n"
             "	\n"
             "	border-top: 1.5px solid rgb(46, 46, 46);\n"
-            "	b"
-            "order-left: 1.5px solid rgb(46, 46, 46);\n"
+            "	"
+            "border-left: 1.5px solid rgb(46, 46, 46);\n"
             "\n"
             "	border-bottom: 1.5px solid rgb(166, 166, 166);\n"
             "	border-right: 1.5px solid rgb(166, 166, 166);\n"
@@ -228,8 +228,8 @@ class Ui_Arduino_GetModel_W(object):
             "}\n"
             "\n"
             "QWidget{\n"
-            "	font: "
-            '12pt "Helvetica";\n'
+            "	font:"
+            ' 12pt "Helvetica";\n'
             "}\n"
             "\n"
             "QPushButton:hover{\n"
@@ -271,8 +271,8 @@ class Ui_Arduino_GetModel_W(object):
             "}\n"
             "\n"
             "QPushButton#reload_devices{\n"
-            "	image: url(:/imgs/imgs/reload"
-            ".png);\n"
+            "	image: url(:/imgs/imgs/reloa"
+            "d.png);\n"
             "	width: 11px;\n"
             "	background-color: rgb(0, 79, 0);\n"
             "\n"
@@ -379,7 +379,9 @@ class Ui_Arduino_GetModel_W(object):
         self.true_ext_lsq.setObjectName("true_ext_lsq")
         self.true_ext_lsq.setChecked(True)
 
-        self.gridLayout_15.addWidget(self.true_ext_lsq, 1, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_15.addWidget(
+            self.true_ext_lsq, 1, 0, 1, 1, Qt.AlignmentFlag.AlignLeft
+        )
 
         self.false_ext_lsq = QRadioButton(self.widget_18)
         self.extended_lsq_radio_group.addButton(self.false_ext_lsq)
@@ -387,7 +389,7 @@ class Ui_Arduino_GetModel_W(object):
 
         self.gridLayout_15.addWidget(self.false_ext_lsq, 1, 1, 1, 1)
 
-        self.horizontalLayout_3.addWidget(self.widget_18, 0, Qt.AlignLeft)
+        self.horizontalLayout_3.addWidget(self.widget_18, 0, Qt.AlignmentFlag.AlignLeft)
 
         self.gridLayout.addWidget(self.widget_9, 6, 2, 1, 1)
 
@@ -470,8 +472,8 @@ class Ui_Arduino_GetModel_W(object):
 
         self.line = QFrame(self.widget)
         self.line.setObjectName("line")
-        self.line.setFrameShape(QFrame.VLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line, 1, 1, 7, 1)
 
@@ -506,7 +508,7 @@ class Ui_Arduino_GetModel_W(object):
         )
         self.label_2.setText(
             QCoreApplication.translate(
-                "Arduino_GetModel_W", "Percentage of Model for validation ", None
+                "Arduino_GetModel_W", "Percentage of data for validation ", None
             )
         )
         self.label_8.setText(
