@@ -506,7 +506,7 @@ class Ui_Arduino_GetModel_W(object):
         )
         self.label_2.setText(
             QCoreApplication.translate(
-                "Arduino_GetModel_W", "Percentage of Model for validation ", None
+                "Arduino_GetModel_W", "Percentage of data for validation ", None
             )
         )
         self.label_8.setText(
