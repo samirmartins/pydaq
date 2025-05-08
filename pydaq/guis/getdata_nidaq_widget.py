@@ -56,7 +56,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         self.start_get_data.released.connect(self.start_func_get_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
         self.reload_devices.released.connect(self.reload_devices_handler)
-        self.yes_radio.toggled.connect(self.openFilterWindow)
+        self.yes_radio.clicked.connect(self.openFilterWindow)
         self.signals = GuiSignals()
         
         

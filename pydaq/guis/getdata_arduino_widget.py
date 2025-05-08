@@ -35,7 +35,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
         self.path_line_edit.setText(
             os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
         )
-        self.yes_radio.toggled.connect(self.openFilterWindow)
+        self.yes_radio.clicked.connect(self.openFilterWindow)
 
     def openFilterWindow(self):
         self.filterWindow = Digital_Filters_NIDAQ_Widget()
