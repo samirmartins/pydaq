@@ -1,6 +1,7 @@
 import os
 import time
 import warnings
+import threading
 
 import matplotlib.pyplot as plt
 import nidaqmx
@@ -9,6 +10,9 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
+from scipy.signal import lfilter, butter, firwin, filtfilt
+
+
 
 
 class GetData(Base):
@@ -33,15 +37,15 @@ class GetData(Base):
     """
 
     def __init__(
-        self,
-        device="Dev1",
-        channel="ai0",
-        terminal="Diff",
-        com="COM1",
-        ts=0.5,
-        session_duration=10.0,
-        save=True,
-        plot=True,
+            self,
+            device="Dev1",
+            channel="ai0",
+            terminal="Diff",
+            com="COM1",
+            ts=0.5,
+            session_duration=10.0,
+            save=True,
+            plot=True,
     ):
         super().__init__()
         self.device = device
@@ -56,7 +60,9 @@ class GetData(Base):
 
         # Initializing variables
         self.data = []
+        self.data_filtered = []
         self.time_var = []
+        self.coeffs = []
 
         # Gathering nidaq info
         self._nidaq_info()
@@ -84,11 +90,9 @@ class GetData(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (
-            (2**self.arduino_ai_bits) - 1
-        )
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2 ** self.arduino_ai_bits)-1)
 
-    def get_data_nidaq(self):
+    def get_data_nidaq(self, filter_coefs=None):
         """
             This function can be used for data acquisition and step response experiments using Python + NIDAQ boards.
 
@@ -98,8 +102,10 @@ class GetData(Base):
 
         # Cleaning data array
         self.data = []
+        self.data_filtered = []
         self.time_var = []
-
+        self.coeffs = []
+        
         # Checking if path was defined
         self._check_path()
 
@@ -128,7 +134,24 @@ class GetData(Base):
             # Queue data in a list
             self.data.append(temp)
             self.time_var.append(k * self.ts)
+            
+            # Apply filter if coefficients are provided
+            if filter_coefs is not None and len(filter_coefs) > 0:
+           
+                if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                    b, a = filter_coefs
+                    self.coeffs = filter_coefs
+                    self.data_filtered = lfilter(b, a, self.data)
+    
+                else:
+            
+                    fir_coeff = filter_coefs
+                    self.coeffs = filter_coefs
+                    self.data_filtered = lfilter(fir_coeff, 1.0, self.data)
 
+            elif filter_coefs is None:
+                self.data_filtered = self.data.copy()
+            
             if self.plot:
 
                 # Checking if there is still an open figure. If not, stop the
@@ -139,7 +162,7 @@ class GetData(Base):
                     break
 
                 # Updating data values
-                self._update_plot(self.time_var, self.data)
+                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
 
             print(f"Iteration: {k} of {self.cycles - 1}")
 
@@ -164,11 +187,12 @@ class GetData(Base):
             # Saving time_var and data
             self._save_data(self.time_var, "time.dat")
             self._save_data(self.data, "data.dat")
+            self._save_data(self.data_filtered, "data_filtered.dat")
+            self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
-
         return
 
-    def get_data_arduino(self):
+    def get_data_arduino(self, filter_coefs=None):
         """
             This function can be used for data acquisition and step response experiments using Python + Arduino
             through serial communication
@@ -204,13 +228,30 @@ class GetData(Base):
 
             # Acquire data
             self.ser.reset_input_buffer()  # Reseting serial input buffer
-
+            
             # Get the last complete value
             temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
 
             # Queue data in a list
             self.data.append(temp)
             self.time_var.append(k * self.ts)
+
+            # Apply filter if coefficients are provided
+            if filter_coefs is not None and len(filter_coefs) > 0:
+           
+                if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                    b, a = filter_coefs
+                    self.coeffs = filter_coefs
+                    self.data_filtered = lfilter(b, a, self.data)
+    
+                else:
+            
+                    fir_coeff = filter_coefs
+                    self.coeffs = filter_coefs
+                    self.data_filtered = lfilter(fir_coeff, 1.0, self.data)
+
+            elif filter_coefs is None:
+                self.data_filtered = self.data.copy()
 
             if self.plot:
 
@@ -222,10 +263,10 @@ class GetData(Base):
                     break
 
                 # Updating data values
-                self._update_plot(self.time_var, self.data)
+                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
 
             print(f"Iteration: {k} of {self.cycles - 1}")
-
+            
             # Getting end time
             et = time.time()
 
@@ -247,5 +288,31 @@ class GetData(Base):
             # Saving time_var and data
             self._save_data(self.time_var, "time.dat")
             self._save_data(self.data, "data.dat")
+            self._save_data(self.data_filtered, "data_filtered.dat")
+            self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
         return
+
+    def _update_plot_dual(self, time_var, data, data_filtered):
+        plt.ion()  
+        
+        fig = plt.gcf()
+        ax = fig.gca()
+
+        ax.clear()
+
+        ax.plot(time_var, data, label="Original Data", color="blue")
+        ax.scatter(time_var, data, color='blue')
+        ax.plot(time_var, data_filtered, label="Filtered Data", color="red")
+        ax.scatter(time_var, data_filtered, color='red')
+
+        ax.set_title(self.title)
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel("Amplitude")
+        ax.grid()
+        ax.legend()
+
+        plt.draw()
+        plt.pause(self.ts)  
+        plt.ioff()
+        
