@@ -260,6 +260,10 @@ class GetData(Base):
         # Number of self.cycles necessary
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
+        # Start plotting task if enabled
+        self.plot_running = False
+        plot_task = None
+
         # Oppening ports
         self._open_serial()
 
@@ -272,21 +276,24 @@ class GetData(Base):
         # To plot parallel with acquisition
         async def plot_updater():
             while self.plot_running:
-                self._update_plot(self.time_var, self.data)
-                await asyncio.sleep(self.ts+0.5)  # Update plot less frequently than data acquisition
+                if filter_coefs is not None and len(filter_coefs) > 0:
+           
+                    if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                        b, a = filter_coefs
+                        self.coeffs = filter_coefs
+                        self.data_filtered = lfilter(b, a, self.data)
+    
+                    else:
+            
+                        fir_coeff = filter_coefs
+                        self.coeffs = filter_coefs
+                        self.data_filtered = lfilter(fir_coeff, 1.0, self.data)
 
-        def filter_data(value,filter_coefs):
-            if filter_coefs is not None and len(filter_coefs) > 0:
-                if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
-                    b, a = filter_coefs
-                    y = lfilter(b, a, self.data)[-1]  # Filtra tudo e pega o último valor
-                else:
-                    fir_coeff = filter_coefs
-                    y = lfilter(fir_coeff, 1.0, self.data)[-1]
-            else:
-                y = value  # Nenhum filtro → valor original
-
-            self.data_filtered.append(y)
+                elif filter_coefs is None:
+                    self.data_filtered = self.data.copy()
+            
+                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
+                await asyncio.sleep(self.ts+1)  # Update plot less frequently than data acquisition
         
         # Append task (runs in parallel with acquisition)
         async def store_data():
@@ -297,7 +304,6 @@ class GetData(Base):
                 timestamp, value = item
                 self.time_var.append(timestamp)
                 self.data.append(value)
-                value_filtered = filter_data(value)
 
         # Function to print parallel with acquisition
         async def print_worker():
