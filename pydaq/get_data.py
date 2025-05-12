@@ -2,6 +2,7 @@ import os
 import time
 import warnings
 import threading
+import asyncio
 
 import matplotlib.pyplot as plt
 import nidaqmx
@@ -11,8 +12,6 @@ import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
 from scipy.signal import lfilter, butter, firwin, filtfilt
-
-
 
 
 class GetData(Base):
@@ -92,7 +91,7 @@ class GetData(Base):
         # Value per bit - Arduino
         self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2 ** self.arduino_ai_bits)-1)
 
-    def get_data_nidaq(self, filter_coefs=None):
+    async def get_data_nidaq(self, filter_coefs=None):
         """
             This function can be used for data acquisition and step response experiments using Python + NIDAQ boards.
 
@@ -105,7 +104,10 @@ class GetData(Base):
         self.data_filtered = []
         self.time_var = []
         self.coeffs = []
-        
+        # Start asynchronous queue
+        self.data_queue = asyncio.Queue()
+        self.print_queue = asyncio.Queue()
+
         # Checking if path was defined
         self._check_path()
 
@@ -118,78 +120,120 @@ class GetData(Base):
             self.device + "/" + self.channel, terminal_config=self.terminal
         )
 
+        # Start plotting task if enabled
+        self.plot_running = False
+        plot_task = None
+    
         if self.plot:  # If plot, start updatable plot
             self.title = f"PYDAQ - Data Acquisition. {self.device}, {self.channel}"
             self._start_updatable_plot()
+            await asyncio.sleep(0.5)
 
+        # To plot parallel with acquisition
+        async def plot_updater():
+            while self.plot_running:
+                if filter_coefs is not None and len(filter_coefs) > 0:
+           
+                    if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                        b, a = filter_coefs
+                        self.coeffs = filter_coefs
+                        self.data_filtered = lfilter(b, a, self.data)
+    
+                    else:
+            
+                        fir_coeff = filter_coefs
+                        self.coeffs = filter_coefs
+                        self.data_filtered = lfilter(fir_coeff, 1.0, self.data)
+
+                elif filter_coefs is None:
+                    self.data_filtered = self.data.copy()
+            
+                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
+                await asyncio.sleep(self.ts+0.5)  # Update plot less frequently than data acquisition
+        
+        # Append task (runs in parallel with acquisition)
+        async def store_data():
+            while True:
+                item = await self.data_queue.get()
+                if item is None:
+                    break
+                timestamp, value = item
+                self.time_var.append(timestamp)
+                self.data.append(value)
+                
+        # Function to print parallel with acquisition
+        async def print_worker():
+            while True:
+                message = await self.print_queue.get()
+                if message is None:
+                    break
+                print(message)
+
+        # Starting asynchronous tasks
+        consumer_task = asyncio.create_task(store_data())
+        print_task = asyncio.create_task(print_worker())
+        # Starting asynchronous task if request
+        if self.plot:
+            self.plot_running = True
+            plot_task = asyncio.create_task(plot_updater())
+
+        st = time.perf_counter()  # Loop start time
         # Main loop, where data will be acquired
         for k in range(self.cycles):
 
-            # Counting time to append data and update interface
-            st = time.time()
+            Start_iteration_time = time.perf_counter()
 
             # Acquire data
             temp = task.read()
-
-            # Queue data in a list
-            self.data.append(temp)
-            self.time_var.append(k * self.ts)
+            # Acquire real time data
+            time_var = time.perf_counter() - st
             
-            # Apply filter if coefficients are provided
-            if filter_coefs is not None and len(filter_coefs) > 0:
-           
-                if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
-                    b, a = filter_coefs
-                    self.coeffs = filter_coefs
-                    self.data_filtered = lfilter(b, a, self.data)
-    
-                else:
-            
-                    fir_coeff = filter_coefs
-                    self.coeffs = filter_coefs
-                    self.data_filtered = lfilter(fir_coeff, 1.0, self.data)
+            # Queue data for storage
+            await self.data_queue.put((time_var, temp))
 
-            elif filter_coefs is None:
-                self.data_filtered = self.data.copy()
-            
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the
-                # for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except BaseException:
-                    break
-
-                # Updating data values
-                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
-
-            print(f"Iteration: {k} of {self.cycles - 1}")
-
-            # Getting end time
-            et = time.time()
-
-            # Wait for (ts - delta_time) seconds
+            self.wait_time = (st + (k + 1) * self.ts) - time.perf_counter()
             try:
-                time.sleep(self.ts + (st - et))
+                if self.wait_time > 0:
+                    await asyncio.sleep(self.wait_time)
+                    await self.print_queue.put(
+                        f"Iteration: {k} of {self.cycles - 1} | Start time = {(Start_iteration_time - st):.5f} | Wait time = {self.wait_time:.9f}"
+                    )
             except BaseException:
                 warnings.warn(
                     "Time spent to append data and update interface was greater than ts. "
                     "You CANNOT trust time.dat"
                 )
 
+        total_time = time.perf_counter() - st
+        await self.print_queue.put(
+            f"\nLoop time spent: {total_time:.10f}s | Iterations: {k + 1} | Average sleep: {(total_time / (k + 1)):.10f}s"
+        )
+
         # Closing task
         task.close()
-
+        
+        # Finalizing data, print and plot consumer
+        await self.data_queue.put(None)
+        await consumer_task
+        await self.print_queue.put(None)
+        await print_task
+        if self.plot:
+            self.plot_running = False
+            await plot_task
+            
         # Check if data will or not be saved, and save accordingly
         if self.save:
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
+            time_formated = [f"{t:.10f}" for t in self.time_var]
+            self._save_data(time_formated, "time.dat")
             self._save_data(self.data, "data.dat")
             self._save_data(self.data_filtered, "data_filtered.dat")
             self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
+
+        await asyncio.sleep(0.5)
+
         return
 
     def get_data_arduino(self, filter_coefs=None):
@@ -295,7 +339,7 @@ class GetData(Base):
 
     def _update_plot_dual(self, time_var, data, data_filtered):
         plt.ion()  
-        
+
         fig = plt.gcf()
         ax = fig.gca()
 
