@@ -17,6 +17,7 @@ from .error_window_gui import Error_window
 from ..get_data import GetData
 
 from scipy.signal import lfilter, butter, firwin, cheby1, cheby2, ellip
+import asyncio
 
 class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
     def __init__(self, *args):
@@ -144,7 +145,8 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         # this conditional checks if will have filter or not
         if not g.error_path:
             if self.No_radio.isChecked():
-                g.get_data_nidaq()
+                asyncio.run(g.get_data_nidaq())
+                #g.get_data_nidaq()
                 self.signals.returned.emit(g)
             else:
                 fs = (1/float(self.Ts_in.value()))*2.5
@@ -187,7 +189,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
                         self.fir_coeff = firwin(numtaps_fir, fc_fir/(0.5*fs), window=window_fir, pass_zero=type_fir)
     
                     
-                    g.get_data_nidaq(filter_coefs=(self.fir_coeff))
+                    asyncio.run(g.get_data_nidaq(filter_coefs=(self.fir_coeff)))
                     self.signals.returned.emit(g)
                     self.frequency_response()
                 
@@ -212,7 +214,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
                     elif window_iir == 'Elliptic':
                         self.b, self.a = ellip(numtaps_iir, rp, rs, fc_iir/(0.5*fs), btype=type_iir)
                         
-                    g.get_data_nidaq(filter_coefs=(self.b, self.a))
+                    asyncio.run(g.get_data_nidaq(filter_coefs=(self.b, self.a)))
                     self.signals.returned.emit(g)
                     self.frequency_response()
 

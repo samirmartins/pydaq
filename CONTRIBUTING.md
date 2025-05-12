@@ -30,6 +30,7 @@ These are some basic steps to help us with coding:
    pip install -e /path/to/pydaq
    ```   
 6. Create a new branch.
+   - Better understand the structure of the project codes can be found [here](docs/codes_structure.md).
 7. Make changes following the coding style of the project (or suggesting improvements).
 8. Run the tests.
 9. Write and/or adapt existing test if needed.
