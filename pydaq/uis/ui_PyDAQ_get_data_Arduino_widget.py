@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_data_Arduino_widgetmjpSHP.ui'
+## Form generated from reading UI file 'PyDAQ_get_data_Arduino_widgetiBjuHd.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.0
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,6 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QVBoxLayout, QWidget)
-
 
 class Ui_Arduino_GetData_W(object):
     def setupUi(self, Arduino_GetData_W):
@@ -439,19 +438,19 @@ class Ui_Arduino_GetData_W(object):
 
     def retranslateUi(self, Arduino_GetData_W):
         Arduino_GetData_W.setWindowTitle(QCoreApplication.translate("Arduino_GetData_W", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Arduino_GetData_W", u"Choose your arduino:", None))
-        self.label_4.setText(QCoreApplication.translate("Arduino_GetData_W", u"Sample period (s)", None))
+        self.label.setText(QCoreApplication.translate("Arduino_GetData_W", u"Arduino:", None))
+        self.label_4.setText(QCoreApplication.translate("Arduino_GetData_W", u"Sample period (s):", None))
 #if QT_CONFIG(tooltip)
         self.reload_devices.setToolTip(QCoreApplication.translate("Arduino_GetData_W", u"<html><head/><body><p>Update COM ports</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.reload_devices.setText("")
-        self.label_5.setText(QCoreApplication.translate("Arduino_GetData_W", u"Session duration (s)", None))
+        self.label_5.setText(QCoreApplication.translate("Arduino_GetData_W", u"Session duration (s):", None))
         self.label_2.setText(QCoreApplication.translate("Arduino_GetData_W", u"Digital Filter?", None))
         self.yes_radio.setText(QCoreApplication.translate("Arduino_GetData_W", u"Yes", None))
         self.no_radio.setText(QCoreApplication.translate("Arduino_GetData_W", u"No", None))
         self.label_6.setText(QCoreApplication.translate("Arduino_GetData_W", u"Plot data?", None))
         self.label_7.setText(QCoreApplication.translate("Arduino_GetData_W", u"Save data?", None))
-        self.label_8.setText(QCoreApplication.translate("Arduino_GetData_W", u"Path", None))
+        self.label_8.setText(QCoreApplication.translate("Arduino_GetData_W", u"Data Path:", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_GetData_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_GetData_W", u"No", None))
         self.yes_save_radio.setText(QCoreApplication.translate("Arduino_GetData_W", u"Yes", None))

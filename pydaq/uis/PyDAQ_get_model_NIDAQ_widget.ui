@@ -332,7 +332,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Input Signal</string>
+         <string>Input Signal:</string>
         </property>
        </widget>
       </item>
@@ -393,7 +393,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Path</string>
+         <string>Data path:</string>
         </property>
        </widget>
       </item>
@@ -412,7 +412,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Choose device:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -437,7 +437,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>System Identification</string>
+         <string>System Identification:</string>
         </property>
        </widget>
       </item>
@@ -528,7 +528,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Start saving data (s)</string>
+         <string>Start saving data (s):</string>
         </property>
        </widget>
       </item>
@@ -614,7 +614,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Session duration (s)</string>
+         <string>Session duration (s):</string>
         </property>
        </widget>
       </item>
@@ -643,7 +643,7 @@ QPushButton#reload_devices:pressed{
       <item row="1" column="0">
        <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Choose channel ai:</string>
+         <string>Channel ai:</string>
         </property>
        </widget>
       </item>
@@ -713,7 +713,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s)</string>
+         <string>Sample period (s):</string>
         </property>
        </widget>
       </item>
@@ -813,7 +813,7 @@ QPushButton#reload_devices:pressed{
       <item row="2" column="0">
        <widget class="QLabel" name="label_12">
         <property name="text">
-         <string>Choose channel ao:</string>
+         <string>Channel ao:</string>
         </property>
        </widget>
       </item>
@@ -880,7 +880,7 @@ QPushButton#reload_devices:pressed{
   </layout>
  </widget>
  <resources>
-  <include location="C:/Users/rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
+  <include location="../../../../../../../rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
  </resources>
  <connections/>
  <buttongroups>

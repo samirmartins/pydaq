@@ -2,7 +2,7 @@ import os
 import nidaqmx
 import serial
 import serial.tools.list_ports
-from sysidentpy.parameter_estimation import Estimators
+from sysidentpy.parameter_estimation import estimators
 
 from PySide6.QtWidgets import QFileDialog, QWidget
 
@@ -81,7 +81,7 @@ class GetModel_Nidaq_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.ao_channel = "ao0"
         self.ai_channel = "ai0"
 
-        estimators_list = [i for i in Estimators.__dict__.keys() if i[:1] != "_"]
+        estimators_list = [i for i in estimators.__dict__.keys() if i[:1] != "_"]
         self.estimators_handle_dict = dict()
 
         for i in estimators_list:

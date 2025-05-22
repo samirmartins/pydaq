@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>581</height>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -273,14 +273,14 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="1" column="1" alignment="Qt::AlignRight">
+      <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="order_iir_line">
         <property name="text">
          <string>10</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1" alignment="Qt::AlignRight">
+      <item row="4" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="rp_line">
         <property name="text">
          <string>1</string>
@@ -294,7 +294,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="5" column="1" alignment="Qt::AlignRight">
+      <item row="5" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="rs_line">
         <property name="text">
          <string>10</string>
@@ -308,7 +308,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="2" column="1" alignment="Qt::AlignRight">
+      <item row="2" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="fs_iir_line">
         <property name="text">
          <string>1000</string>
@@ -354,7 +354,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="3" column="1" alignment="Qt::AlignRight">
+      <item row="3" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="fc_line">
         <property name="text">
          <string>100</string>
@@ -367,14 +367,14 @@ QPushButton#reload_devices:pressed{
    <item row="1" column="0">
     <widget class="Line" name="line_2">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item row="7" column="0">
     <widget class="QWidget" name="frequency_response" native="true">
      <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="2" alignment="Qt::AlignRight">
+      <item row="0" column="2" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QCheckBox" name="no_fr">
         <property name="maximumSize">
          <size>
@@ -397,7 +397,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="0" column="1" alignment="Qt::AlignRight">
+      <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QCheckBox" name="yes_fr">
         <property name="maximumSize">
          <size>
@@ -419,7 +419,7 @@ QPushButton#reload_devices:pressed{
    <item row="6" column="0">
     <widget class="Line" name="line_3">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -429,7 +429,7 @@ QPushButton#reload_devices:pressed{
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Select your filter:</string>
+         <string>Filter:</string>
         </property>
        </widget>
       </item>
@@ -453,7 +453,7 @@ QPushButton#reload_devices:pressed{
    <item row="4" column="0">
     <widget class="QWidget" name="fir_configs" native="true">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="3" column="1" alignment="Qt::AlignRight">
+      <item row="3" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="lineEdit_4"/>
       </item>
       <item row="2" column="0">
@@ -463,10 +463,10 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="0" column="1" alignment="Qt::AlignRight">
+      <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="lineEdit"/>
       </item>
-      <item row="2" column="1" alignment="Qt::AlignRight">
+      <item row="2" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="lineEdit_3"/>
       </item>
       <item row="3" column="0">
@@ -479,11 +479,11 @@ QPushButton#reload_devices:pressed{
       <item row="0" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Enter filter numtaps:</string>
+         <string>Filter numtaps:</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" alignment="Qt::AlignRight">
+      <item row="1" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QLineEdit" name="lineEdit_2"/>
       </item>
       <item row="1" column="0">
@@ -536,7 +536,7 @@ QPushButton#reload_devices:pressed{
       <item row="0" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Select your arduino board:</string>
+         <string>Arduino:</string>
         </property>
        </widget>
       </item>
@@ -559,14 +559,14 @@ QPushButton#reload_devices:pressed{
    <item row="3" column="0">
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item row="8" column="0">
     <widget class="QWidget" name="bottom" native="true">
      <layout class="QGridLayout" name="gridLayout_6">
-      <item row="1" column="0" alignment="Qt::AlignHCenter">
+      <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
        <widget class="QPushButton" name="Filter_button">
         <property name="minimumSize">
          <size>
@@ -582,7 +582,7 @@ QPushButton#reload_devices:pressed{
       <item row="0" column="0">
        <widget class="Line" name="line_4">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>

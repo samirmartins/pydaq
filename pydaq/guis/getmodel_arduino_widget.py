@@ -1,7 +1,7 @@
 import os
 import serial
 import serial.tools.list_ports
-from sysidentpy.parameter_estimation import Estimators
+from sysidentpy.parameter_estimation import estimators
 
 from PySide6.QtWidgets import QFileDialog, QWidget
 
@@ -39,7 +39,7 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.ext_lsq = False
         self.perc_value = 30
 
-        estimators_list = [i for i in Estimators.__dict__.keys() if i[:1] != "_"]
+        estimators_list = [i for i in estimators.__dict__.keys() if i[:1] != "_"]
         self.estimators_handle_dict = dict()
 
         for i in estimators_list:

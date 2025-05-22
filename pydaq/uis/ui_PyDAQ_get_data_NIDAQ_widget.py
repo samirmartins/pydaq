@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetKoPeIG.ui'
+## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetChnpln.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,6 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QWidget)
-
 
 class Ui_NIDAQ_GetData_W(object):
     def setupUi(self, NIDAQ_GetData_W):
@@ -210,8 +209,8 @@ class Ui_NIDAQ_GetData_W(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.line_2 = QFrame(NIDAQ_GetData_W)
         self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.HLine)
-        self.line_2.setFrameShadow(QFrame.Sunken)
+        self.line_2.setFrameShape(QFrame.Shape.HLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_2.addWidget(self.line_2, 1, 0, 1, 1)
 
@@ -261,7 +260,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.horizontalLayout_2.addWidget(self.no_save_radio)
 
 
-        self.gridLayout.addWidget(self.widget_8, 7, 2, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_8, 7, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_3 = QWidget(self.widget)
         self.widget_3.setObjectName(u"widget_3")
@@ -321,8 +320,8 @@ class Ui_NIDAQ_GetData_W(object):
 
         self.line = QFrame(self.widget)
         self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.VLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line, 0, 1, 9, 1)
 
@@ -356,14 +355,14 @@ class Ui_NIDAQ_GetData_W(object):
         self.path_line_edit.setMinimumSize(QSize(0, 22))
         self.path_line_edit.setMaximumSize(QSize(16777215, 22))
 
-        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.path_folder_browse = QPushButton(self.widget_9)
         self.path_folder_browse.setObjectName(u"path_folder_browse")
         self.path_folder_browse.setMinimumSize(QSize(0, 30))
         self.path_folder_browse.setMaximumSize(QSize(16777215, 30))
 
-        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignmentFlag.AlignVCenter)
 
 
         self.gridLayout.addWidget(self.widget_9, 8, 2, 1, 1)
@@ -379,7 +378,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.Ts_in.setDecimals(4)
         self.Ts_in.setMaximum(999.990000000000009)
         self.Ts_in.setSingleStep(0.010000000000000)
-        self.Ts_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.Ts_in.setValue(0.500000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
@@ -392,7 +391,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.label_8.setMinimumSize(QSize(0, 30))
         self.label_8.setMaximumSize(QSize(16777215, 30))
 
-        self.gridLayout.addWidget(self.label_8, 8, 0, 1, 1, Qt.AlignVCenter)
+        self.gridLayout.addWidget(self.label_8, 8, 0, 1, 1, Qt.AlignmentFlag.AlignVCenter)
 
         self.widget_6 = QWidget(self.widget)
         self.widget_6.setObjectName(u"widget_6")
@@ -405,7 +404,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.sesh_dur_in.setDecimals(4)
         self.sesh_dur_in.setMaximum(86400.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
-        self.sesh_dur_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.sesh_dur_in.setValue(10.000000000000000)
 
         self.gridLayout_7.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
@@ -447,7 +446,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
 
-        self.gridLayout.addWidget(self.widget_7, 6, 2, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_7, 6, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.label_9 = QLabel(self.widget)
         self.label_9.setObjectName(u"label_9")
@@ -475,7 +474,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.horizontalLayout_4.addWidget(self.No_radio)
 
 
-        self.gridLayout.addWidget(self.widget_10, 5, 2, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_10, 5, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
 
         self.gridLayout_2.addWidget(self.widget, 0, 0, 1, 1)
@@ -493,14 +492,14 @@ class Ui_NIDAQ_GetData_W(object):
         self.yes_save_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"No", None))
         self.label.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Device:", None))
-        self.label_4.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Sample period (s)", None))
+        self.label_4.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Sample period (s):", None))
         self.label_3.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Terminal Config.", None))
         self.reload_devices.setText("")
         self.label_7.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Save data?", None))
         self.label_2.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Channel:", None))
-        self.label_5.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Session duration (s)", None))
+        self.label_5.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Session duration (s):", None))
         self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_GetData_W", u" Browse ", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Path:", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Data path:", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"No", None))
         self.label_9.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Digital Filter?", None))

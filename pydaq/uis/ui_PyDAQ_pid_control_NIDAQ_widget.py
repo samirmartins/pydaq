@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetQfdpUu.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetozrDtn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -24,7 +24,7 @@ class Ui_NIDAQ_PID_Control(object):
     def setupUi(self, NIDAQ_PID_Control):
         if not NIDAQ_PID_Control.objectName():
             NIDAQ_PID_Control.setObjectName(u"NIDAQ_PID_Control")
-        NIDAQ_PID_Control.resize(597, 982)
+        NIDAQ_PID_Control.resize(597, 1031)
         NIDAQ_PID_Control.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -859,7 +859,7 @@ class Ui_NIDAQ_PID_Control(object):
 #if QT_CONFIG(tooltip)
         self.label_equation.setToolTip(QCoreApplication.translate("NIDAQ_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the form: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Equation:", None))
+        self.label_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Calibration equation:", None))
         self.label_ao_channel.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"AO channel:", None))
         self.label_kp.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Kp:", None))
         self.label_vunit.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"V(Unit)", None))

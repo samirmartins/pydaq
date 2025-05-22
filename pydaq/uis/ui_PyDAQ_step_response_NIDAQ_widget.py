@@ -1,9 +1,24 @@
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt)
-from PySide6.QtWidgets import (QAbstractSpinBox, QButtonGroup, QComboBox,
-                               QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
-                               QLabel, QLineEdit, QPushButton, QRadioButton,
-                               QWidget)
-from . import resources_1_rc
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetZPRKbp.ui'
+##
+## Created by: Qt User Interface Compiler version 6.7.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QComboBox,
+    QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
+    QLabel, QLineEdit, QPushButton, QRadioButton,
+    QSizePolicy, QWidget)
 
 class Ui_NIDAQ_StepResponse_W(object):
     def setupUi(self, NIDAQ_StepResponse_W):
@@ -259,8 +274,8 @@ class Ui_NIDAQ_StepResponse_W(object):
 
         self.line = QFrame(self.widget)
         self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.VLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line, 0, 2, 11, 1)
 
@@ -276,7 +291,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.label_8.setMinimumSize(QSize(0, 30))
         self.label_8.setMaximumSize(QSize(16777215, 30))
 
-        self.gridLayout.addWidget(self.label_8, 10, 0, 1, 1, Qt.AlignVCenter)
+        self.gridLayout.addWidget(self.label_8, 10, 0, 1, 1, Qt.AlignmentFlag.AlignVCenter)
 
         self.widget_8 = QWidget(self.widget)
         self.widget_8.setObjectName(u"widget_8")
@@ -298,7 +313,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.horizontalLayout_2.addWidget(self.no_save_radio)
 
 
-        self.gridLayout.addWidget(self.widget_8, 9, 3, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_8, 9, 3, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.label_9 = QLabel(self.widget)
         self.label_9.setObjectName(u"label_9")
@@ -334,7 +349,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
 
-        self.gridLayout.addWidget(self.widget_7, 8, 3, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_7, 8, 3, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_11 = QWidget(self.widget)
         self.widget_11.setObjectName(u"widget_11")
@@ -358,7 +373,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.step_range_max_in.setObjectName(u"step_range_max_in")
         self.step_range_max_in.setMinimumSize(QSize(0, 22))
         self.step_range_max_in.setMaximumSize(QSize(16777215, 22))
-        self.step_range_max_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.step_range_max_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.step_range_max_in.setValue(5.000000000000000)
 
         self.gridLayout_9.addWidget(self.step_range_max_in, 0, 1, 1, 1)
@@ -382,7 +397,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.step_range_min_in.setMinimumSize(QSize(0, 22))
         self.step_range_min_in.setMaximumSize(QSize(16777215, 22))
         self.step_range_min_in.setSingleStep(0.500000000000000)
-        self.step_range_min_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.step_range_min_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
 
         self.gridLayout_8.addWidget(self.step_range_min_in, 0, 1, 1, 1)
 
@@ -391,8 +406,8 @@ class Ui_NIDAQ_StepResponse_W(object):
 
         self.line_2 = QFrame(self.widget_11)
         self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.VLine)
-        self.line_2.setFrameShadow(QFrame.Sunken)
+        self.line_2.setFrameShape(QFrame.Shape.VLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_10.addWidget(self.line_2, 0, 1, 1, 1)
 
@@ -436,14 +451,14 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.path_line_edit.setMinimumSize(QSize(0, 22))
         self.path_line_edit.setMaximumSize(QSize(16777215, 22))
 
-        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.path_folder_browse = QPushButton(self.widget_9)
         self.path_folder_browse.setObjectName(u"path_folder_browse")
         self.path_folder_browse.setMinimumSize(QSize(0, 30))
         self.path_folder_browse.setMaximumSize(QSize(16777215, 30))
 
-        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignmentFlag.AlignVCenter)
 
 
         self.gridLayout.addWidget(self.widget_9, 10, 3, 1, 1)
@@ -466,7 +481,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.Ts_in.setDecimals(4)
         self.Ts_in.setMaximum(999.990000000000009)
         self.Ts_in.setSingleStep(0.010000000000000)
-        self.Ts_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.Ts_in.setValue(0.500000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
@@ -492,7 +507,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.sesh_dur_in.setDecimals(4)
         self.sesh_dur_in.setMaximum(86400.990000000005239)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
-        self.sesh_dur_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.sesh_dur_in.setValue(10.000000000000000)
 
         self.gridLayout_7.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
@@ -515,7 +530,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.step_on_s_in.setMaximumSize(QSize(16777215, 22))
         self.step_on_s_in.setMaximum(999.990000000000009)
         self.step_on_s_in.setSingleStep(0.010000000000000)
-        self.step_on_s_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.step_on_s_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.step_on_s_in.setValue(3.000000000000000)
 
         self.gridLayout_11.addWidget(self.step_on_s_in, 0, 0, 1, 1)
@@ -528,8 +543,8 @@ class Ui_NIDAQ_StepResponse_W(object):
 
         self.line_3 = QFrame(NIDAQ_StepResponse_W)
         self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.HLine)
-        self.line_3.setFrameShadow(QFrame.Sunken)
+        self.line_3.setFrameShape(QFrame.Shape.HLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_12.addWidget(self.line_3, 1, 0, 1, 1)
 
@@ -538,7 +553,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.start_step_response.setMinimumSize(QSize(130, 30))
         self.start_step_response.setMaximumSize(QSize(130, 30))
 
-        self.gridLayout_12.addWidget(self.start_step_response, 2, 0, 1, 1, Qt.AlignHCenter)
+        self.gridLayout_12.addWidget(self.start_step_response, 2, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.retranslateUi(NIDAQ_StepResponse_W)
@@ -550,9 +565,9 @@ class Ui_NIDAQ_StepResponse_W(object):
         NIDAQ_StepResponse_W.setWindowTitle(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Form", None))
         self.label_2.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AO channel:", None))
         self.reload_devices.setText("")
-        self.label_10.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step Range (V)", None))
-        self.label_5.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Session duration (s)", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Path", None))
+        self.label_10.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step Range (V):", None))
+        self.label_5.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Session duration (s):", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Data path:", None))
         self.yes_save_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"No", None))
         self.label_9.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AI channel:", None))
@@ -561,12 +576,12 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"No", None))
         self.label_12.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Maximum", None))
         self.label_11.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Minimum", None))
-        self.label_4.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Sample period (s)", None))
+        self.label_4.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Sample period (s):", None))
         self.label_3.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Terminal Config.", None))
         self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u" Browse ", None))
-        self.label.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Choose device:", None))
+        self.label.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Device:", None))
         self.label_7.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Save data?", None))
-        self.label_13.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step ON (s)", None))
+        self.label_13.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step ON (s):", None))
         self.start_step_response.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"STEP RESPONSE", None))
     # retranslateUi
 

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetMpDfuZ.ui'
+## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetpAbuaA.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,7 +18,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QRadioButton, QSizePolicy, QWidget)
-
 
 class Ui_Digitalfilters_NIDAQ_widget(object):
     def setupUi(self, Digitalfilters_NIDAQ_widget):
@@ -316,8 +315,8 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.line_2 = QFrame(Digitalfilters_NIDAQ_widget)
         self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.HLine)
-        self.line_2.setFrameShadow(QFrame.Sunken)
+        self.line_2.setFrameShape(QFrame.Shape.HLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line_2, 4, 0, 1, 1)
 
@@ -347,12 +346,12 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.horizontalLayout.addWidget(self.no_fr)
 
 
-        self.gridLayout_2.addWidget(self.widget_5, 3, 2, 1, 1, Qt.AlignLeft)
+        self.gridLayout_2.addWidget(self.widget_5, 3, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.line_7 = QFrame(self.left_side)
         self.line_7.setObjectName(u"line_7")
-        self.line_7.setFrameShape(QFrame.VLine)
-        self.line_7.setFrameShadow(QFrame.Sunken)
+        self.line_7.setFrameShape(QFrame.Shape.VLine)
+        self.line_7.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_2.addWidget(self.line_7, 0, 1, 5, 1)
 
@@ -414,7 +413,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.label_6 = QLabel(self.iir_widget)
         self.label_6.setObjectName(u"label_6")
 
-        self.gridLayout_9.addWidget(self.label_6, 0, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_9.addWidget(self.label_6, 0, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_11 = QWidget(self.iir_widget)
         self.widget_11.setObjectName(u"widget_11")
@@ -433,7 +432,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_14.addWidget(self.designbox_iir, 0, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_11, 2, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_11, 2, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.widget_13 = QWidget(self.iir_widget)
         self.widget_13.setObjectName(u"widget_13")
@@ -447,7 +446,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_16.addWidget(self.rp, 0, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_13, 3, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_13, 3, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.widget_9 = QWidget(self.iir_widget)
         self.widget_9.setObjectName(u"widget_9")
@@ -459,10 +458,10 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.order_iir.setObjectName(u"order_iir")
         self.order_iir.setMinimumSize(QSize(160, 0))
 
-        self.gridLayout_12.addWidget(self.order_iir, 0, 0, 1, 1, Qt.AlignRight)
+        self.gridLayout_12.addWidget(self.order_iir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
 
-        self.gridLayout_9.addWidget(self.widget_9, 0, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_9, 0, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.widget_14 = QWidget(self.iir_widget)
         self.widget_14.setObjectName(u"widget_14")
@@ -477,12 +476,12 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_17.addWidget(self.rs, 0, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_14, 4, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_14, 4, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.line_4 = QFrame(self.iir_widget)
         self.line_4.setObjectName(u"line_4")
-        self.line_4.setFrameShape(QFrame.VLine)
-        self.line_4.setFrameShadow(QFrame.Sunken)
+        self.line_4.setFrameShape(QFrame.Shape.VLine)
+        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_9.addWidget(self.line_4, 0, 1, 6, 1)
 
@@ -508,7 +507,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_13.addWidget(self.cutoff_iir, 0, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_10, 1, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_10, 1, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.label_12 = QLabel(self.iir_widget)
         self.label_12.setObjectName(u"label_12")
@@ -541,15 +540,15 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_15.addWidget(self.typebox_iir, 0, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_12, 5, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_9.addWidget(self.widget_12, 5, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
 
         self.gridLayout.addWidget(self.iir_widget, 7, 0, 1, 1)
 
         self.line = QFrame(Digitalfilters_NIDAQ_widget)
         self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.HLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.HLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line, 6, 0, 1, 1)
 
@@ -576,14 +575,14 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_11.addWidget(self.type_box, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.widget_8, 3, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.widget_8, 3, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.widget_3 = QWidget(self.fir_widget)
         self.widget_3.setObjectName(u"widget_3")
         self.gridLayout_5 = QGridLayout(self.widget_3)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
 
-        self.gridLayout_3.addWidget(self.widget_3, 6, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.widget_3, 6, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.cutoff_widget = QWidget(self.fir_widget)
         self.cutoff_widget.setObjectName(u"cutoff_widget")
@@ -595,7 +594,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_8.addWidget(self.cutoff_fir, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.cutoff_widget, 4, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.cutoff_widget, 4, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.widget_2 = QWidget(self.fir_widget)
         self.widget_2.setObjectName(u"widget_2")
@@ -610,15 +609,15 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         font.setItalic(False)
         self.order_fir.setFont(font)
 
-        self.gridLayout_4.addWidget(self.order_fir, 0, 0, 1, 1, Qt.AlignRight)
+        self.gridLayout_4.addWidget(self.order_fir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
 
-        self.gridLayout_3.addWidget(self.widget_2, 2, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.widget_2, 2, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.line_3 = QFrame(self.fir_widget)
         self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.VLine)
-        self.line_3.setFrameShadow(QFrame.Sunken)
+        self.line_3.setFrameShape(QFrame.Shape.VLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_3.addWidget(self.line_3, 0, 1, 6, 1)
 
@@ -637,10 +636,10 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.design_box.setMinimumSize(QSize(145, 0))
         self.design_box.setMaximumSize(QSize(300, 16777215))
 
-        self.gridLayout_10.addWidget(self.design_box, 1, 0, 1, 1, Qt.AlignRight)
+        self.gridLayout_10.addWidget(self.design_box, 1, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
 
-        self.gridLayout_3.addWidget(self.widget, 1, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.widget, 1, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.fc_widget = QWidget(self.fir_widget)
         self.fc_widget.setObjectName(u"fc_widget")
@@ -651,7 +650,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.fc1_line.setMinimumSize(QSize(60, 0))
         self.fc1_line.setMaximumSize(QSize(25, 16777215))
 
-        self.gridLayout_18.addWidget(self.fc1_line, 0, 0, 1, 1, Qt.AlignRight)
+        self.gridLayout_18.addWidget(self.fc1_line, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.label_13 = QLabel(self.fc_widget)
         self.label_13.setObjectName(u"label_13")
@@ -666,7 +665,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_18.addWidget(self.fc2_line, 0, 2, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.fc_widget, 5, 2, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.fc_widget, 5, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.bd_widget = QWidget(self.fir_widget)
         self.bd_widget.setObjectName(u"bd_widget")
@@ -678,7 +677,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_19.addWidget(self.label_3, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.bd_widget, 5, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_3.addWidget(self.bd_widget, 5, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.cof_widget = QWidget(self.fir_widget)
         self.cof_widget.setObjectName(u"cof_widget")
@@ -690,7 +689,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_20.addWidget(self.label_14, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.cof_widget, 4, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_3.addWidget(self.cof_widget, 4, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_16 = QWidget(self.fir_widget)
         self.widget_16.setObjectName(u"widget_16")
@@ -702,7 +701,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_21.addWidget(self.label_2, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.widget_16, 3, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_3.addWidget(self.widget_16, 3, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_17 = QWidget(self.fir_widget)
         self.widget_17.setObjectName(u"widget_17")
@@ -714,7 +713,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_22.addWidget(self.label, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.widget_17, 2, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_3.addWidget(self.widget_17, 2, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_18 = QWidget(self.fir_widget)
         self.widget_18.setObjectName(u"widget_18")
@@ -726,7 +725,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_23.addWidget(self.label_7, 0, 0, 1, 1)
 
 
-        self.gridLayout_3.addWidget(self.widget_18, 1, 0, 1, 1, Qt.AlignLeft)
+        self.gridLayout_3.addWidget(self.widget_18, 1, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
 
         self.gridLayout.addWidget(self.fir_widget, 5, 0, 1, 1)
@@ -742,7 +741,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.yes_fr.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Yes", None))
         self.no_fr.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"No", None))
         self.label_5.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Plot frequency response?", None))
-        self.label_4.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Select your filter:", None))
+        self.label_4.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Fillter:", None))
         self.type_filter.setItemText(0, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"FIR", None))
         self.type_filter.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"IIR", None))
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetMsIaUT.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetsxdapy.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -777,7 +777,7 @@ class Ui_Arduino_PID_Control(object):
 #if QT_CONFIG(tooltip)
         self.label_equation.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the for: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p>Equation: </p></body></html>", None))
+        self.label_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p>Calibration equation: </p></body></html>", None))
         self.label_ki.setText(QCoreApplication.translate("Arduino_PID_Control", u"Ki:", None))
         self.label_kd.setText(QCoreApplication.translate("Arduino_PID_Control", u"Kd:", None))
         self.reload_devices.setText("")
@@ -803,7 +803,7 @@ class Ui_Arduino_PID_Control(object):
         self.label_i_type.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_i_type.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><img src=\":/imgs/imgs/inform.png\"/></p></body></html>", None))
-        self.label_periody.setText(QCoreApplication.translate("Arduino_PID_Control", u"Sampling period (s):", None))
+        self.label_periody.setText(QCoreApplication.translate("Arduino_PID_Control", u"Sample period (s):", None))
         self.comboBox_setpoint.setItemText(0, QCoreApplication.translate("Arduino_PID_Control", u"Voltage (V)", None))
         self.comboBox_setpoint.setItemText(1, QCoreApplication.translate("Arduino_PID_Control", u"Temperature (C\u00b0)", None))
         self.comboBox_setpoint.setItemText(2, QCoreApplication.translate("Arduino_PID_Control", u"Other", None))
@@ -824,7 +824,7 @@ class Ui_Arduino_PID_Control(object):
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Helvetica'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/imgs/imgs/inform.png\" /></p></body></html>", None))
-        self.label_system_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"System Equation:", None))
+        self.label_system_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"System equation:", None))
 #if QT_CONFIG(tooltip)
         self.label_i_polinomial.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">Transfer function of a polynomial system G(s) = N(s) / D(s), where N(s) and D(s) are polynomials in s.</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
