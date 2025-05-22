@@ -15,7 +15,7 @@ import sysidentpy.metrics as metrics
 from pydaq.utils.signals import Signal
 from math import floor
 from sysidentpy.model_structure_selection import FROLS
-from sysidentpy.basis_function._basis_function import Polynomial
+from sysidentpy.basis_function import Polynomial
 from sysidentpy.metrics import root_relative_squared_error
 from sysidentpy.utils.display_results import results
 from sysidentpy.utils.plotting import plot_residues_correlation, plot_results

@@ -195,7 +195,7 @@ QPushButton#reload_devices:pressed{
    <item row="1" column="0">
     <widget class="Line" name="line_2">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -249,7 +249,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="7" column="2" alignment="Qt::AlignLeft">
+      <item row="7" column="2" alignment="Qt::AlignmentFlag::AlignLeft">
        <widget class="QWidget" name="widget_8" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
@@ -334,7 +334,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s)</string>
+         <string>Sample period (s):</string>
         </property>
        </widget>
       </item>
@@ -401,7 +401,7 @@ QPushButton#reload_devices:pressed{
       <item row="0" column="1" rowspan="9">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
        </widget>
       </item>
@@ -458,14 +458,14 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Session duration (s)</string>
+         <string>Session duration (s):</string>
         </property>
        </widget>
       </item>
       <item row="8" column="2">
        <widget class="QWidget" name="widget_9" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignmentFlag::AlignVCenter">
           <widget class="QLineEdit" name="path_line_edit">
            <property name="minimumSize">
             <size>
@@ -481,7 +481,7 @@ QPushButton#reload_devices:pressed{
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignmentFlag::AlignVCenter">
           <widget class="QPushButton" name="path_folder_browse">
            <property name="minimumSize">
             <size>
@@ -530,7 +530,7 @@ QPushButton#reload_devices:pressed{
             <double>0.010000000000000</double>
            </property>
            <property name="stepType">
-            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+            <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
             <double>0.500000000000000</double>
@@ -540,7 +540,7 @@ QPushButton#reload_devices:pressed{
         </layout>
        </widget>
       </item>
-      <item row="8" column="0" alignment="Qt::AlignVCenter">
+      <item row="8" column="0" alignment="Qt::AlignmentFlag::AlignVCenter">
        <widget class="QLabel" name="label_8">
         <property name="minimumSize">
          <size>
@@ -555,7 +555,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Path:</string>
+         <string>Data path:</string>
         </property>
        </widget>
       </item>
@@ -586,7 +586,7 @@ QPushButton#reload_devices:pressed{
             <double>0.010000000000000</double>
            </property>
            <property name="stepType">
-            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+            <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
             <double>10.000000000000000</double>
@@ -618,7 +618,7 @@ QPushButton#reload_devices:pressed{
         </layout>
        </widget>
       </item>
-      <item row="6" column="2" alignment="Qt::AlignLeft">
+      <item row="6" column="2" alignment="Qt::AlignmentFlag::AlignLeft">
        <widget class="QWidget" name="widget_7" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
@@ -654,7 +654,7 @@ QPushButton#reload_devices:pressed{
         </property>
        </widget>
       </item>
-      <item row="5" column="2" alignment="Qt::AlignLeft">
+      <item row="5" column="2" alignment="Qt::AlignmentFlag::AlignLeft">
        <widget class="QWidget" name="widget_10" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
@@ -696,8 +696,8 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="filter_radio_group"/>
   <buttongroup name="plot_radio_group"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

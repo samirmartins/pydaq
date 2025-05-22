@@ -923,7 +923,7 @@ QDoubleSpinBox::down-button:hover{
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;The equation should be written in the form: Ax²+Bx+C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Equation:</string>
+         <string>Calibration equation:</string>
         </property>
        </widget>
       </item>
