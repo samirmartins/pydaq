@@ -5,16 +5,32 @@ File for tracking changes in PYDAQ
 Changes in PYDAQ
 =====================
 
+v0.0.5
+------
 
+CONTRIBUTORS
+~~~~~~~~~~~~
+
+- @rafafariac
+- @samirmartins
+
+CHANGES
+~~~~~~~
+
+- New feature implemented - Get Model: obtaining mathematical models from empirical data.
+- Integration of SysIdentPy (www.sysidentpy.org) with PYDAQ.
+- Documentation of Get Model added to website.
+- Minor bugs corrections
+
+------
 v0.0.4
 ------
 
 CONTRIBUTORS
 ~~~~~~~~~~~~
 
-- jceneziojr
-- samirmartins
-- rafafariac
+- @jceneziojr
+- @samirmartins
 
 CHANGES
 ~~~~~~~
@@ -28,13 +44,14 @@ CHANGES
 - Graphical User Interface completely remodelled
 - All PYDAQ functionalities are incorporated in a single window on the Graphical User Interface
 
-v0.0.3
-------
+------------------
+v0.0.1 - v0.0.3
+------------------
 
 CONTRIBUTOR
 ~~~~~~~~~~~~
 
-- samirmartins
+- @samirmartins
 
 CHANGES
 ~~~~~~~
@@ -46,5 +63,5 @@ CHANGES
 - Sending data with NIDAQ boards.
 - Step response module.
 - Developing a website with comprehensive documentation.
-- Writing and submitting "paper.md" to JOSS - The Journal of Open Source Software.
+- Writing and submitting "paper.md" to JOSS - The Journal of Open Source Software, which was accepted and published.
 - Creating Jupyter notebook examples for demonstration.
