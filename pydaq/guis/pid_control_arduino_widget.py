@@ -8,6 +8,8 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QFileDialog, QApplication, QWidget, QVBoxLayout, QPushButton
 from PySide6.QtGui import *
 from PySide6.QtCore import *
+from qasync import QEventLoop
+
 from ..uis.ui_PyDAQ_pid_control_Arduino_widget import Ui_Arduino_PID_Control
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -35,20 +37,6 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
             os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
         )
        
-#Fuctions
- #   def locate_arduino(self):
- #       current_selection = self.comboBox_arduino.currentText()
- #       self.comboBox_arduino.clear()
- #       ports = serial.tools.list_ports.comports()
-#
-#        for port in ports:
-#            self.comboBox_arduino.addItem(f"{port.device} - {port.description}")
-#        
-#        if current_selection:
-#            index = self.comboBox_arduino.findText(current_selection)
-#            if index != -1:
-#                self.comboBox_arduino.setCurrentIndex(index)
-
     def update_com_ports(self):  # Updating com ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
         selected = self.comboBox_arduino.currentText()
@@ -119,9 +107,9 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
         if kd_enabled == False:
             self.doubleSpinBox_kd.setValue(0)
 
-#Method to create a image and show the pid equation
+# Method to create a image and show the pid equation
     def show_pid_equation(self):
-#Condiction to read only the inputs enable and set 'None' on desable inputs
+# Condiction to read only the inputs enable and set 'None' on desable inputs
         if self.doubleSpinBox_kp.isEnabled():
             self.kp = self.doubleSpinBox_kp.value()
         else:
@@ -135,7 +123,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
         else:
             self.kd = None
         equation_parts = []
-#Create a pid equation to show when the line edits are able
+# Create a pid equation to show when the line edits are able
         if self.kp is not None:
             kp_display = f"{self.kp:.2f}"
             equation_parts.append(rf"{kp_display} \cdot e(t)")
@@ -147,22 +135,22 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
             equation_parts.append(rf"{kd_display} \frac{{d}}{{dt}} e(t)")
         if not equation_parts:
             return
-#Equation on latex
+# Equation on latex
         latex = "u(t) = " + " + ".join(equation_parts)
-#Figure created showing the equation, without axes
+# Figure created showing the equation, without axes
         fig = Figure(figsize=(9, 3), facecolor='#404040')
         ax = fig.add_subplot(111, facecolor='#404040')
         ax.text(0.5, 0.5, f"${latex}$", fontsize=15, ha='center', va='center', color='white')
         ax.axis('off')
         canvas = FigureCanvas(fig)
-#Remove the widgets from central content layout in reverse and reset the widget from parents too        
+# Remove the widgets from central content layout in reverse and reset the widget from parents too        
         for i in reversed(range(self.image_layout.count())):
             widget_to_remove = self.image_layout.itemAt(i).widget()
             self.image_layout.removeWidget(widget_to_remove)
             widget_to_remove.setParent(None)
         self.image_layout.addWidget(canvas)
 
-#Create the pid control window
+# Create the pid control window
     def show_graph_window(self):
         self.simulate = True if self.simulate_radio_group.checkedId() == -2 else False
         self.numerator = self.lineEdit_numerator.text()

@@ -456,6 +456,9 @@ QDoubleSpinBox::down-button:hover{
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_period">
+           <property name="decimals">
+            <number>6</number>
+           </property>
            <property name="maximum">
             <double>9999999.000000000000000</double>
            </property>

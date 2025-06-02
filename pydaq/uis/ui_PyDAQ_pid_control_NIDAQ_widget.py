@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetozrDtn.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetLGKsQT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -420,6 +420,7 @@ class Ui_NIDAQ_PID_Control(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.doubleSpinBox_period = QDoubleSpinBox(self.widget_period)
         self.doubleSpinBox_period.setObjectName(u"doubleSpinBox_period")
+        self.doubleSpinBox_period.setDecimals(6)
         self.doubleSpinBox_period.setMaximum(9999999.000000000000000)
         self.doubleSpinBox_period.setSingleStep(0.100000000000000)
         self.doubleSpinBox_period.setValue(1.000000000000000)
