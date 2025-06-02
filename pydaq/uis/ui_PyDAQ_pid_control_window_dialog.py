@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogVpJvYM.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogLKroym.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,11 +18,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QDoubleSpinBox,
     QFrame, QGridLayout, QHBoxLayout, QLabel,
     QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+
 class Ui_Dialog_Plot_PID_Window(object):
     def setupUi(self, Dialog_Plot_PID_Window):
         if not Dialog_Plot_PID_Window.objectName():
             Dialog_Plot_PID_Window.setObjectName(u"Dialog_Plot_PID_Window")
-        Dialog_Plot_PID_Window.resize(510, 602)
+        Dialog_Plot_PID_Window.resize(537, 742)
+        Dialog_Plot_PID_Window.setMinimumSize(QSize(0, 150))
         Dialog_Plot_PID_Window.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -503,7 +505,7 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.widget_image = QWidget(self.frame_image)
         self.widget_image.setObjectName(u"widget_image")
-        self.widget_image.setMinimumSize(QSize(0, 133))
+        self.widget_image.setMinimumSize(QSize(0, 300))
         self.image_layout = QHBoxLayout(self.widget_image)
         self.image_layout.setObjectName(u"image_layout")
 
@@ -518,15 +520,15 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.pushButton_startstop = QPushButton(self.widget_3)
         self.pushButton_startstop.setObjectName(u"pushButton_startstop")
-        self.pushButton_startstop.setMinimumSize(QSize(0, 0))
-        self.pushButton_startstop.setMaximumSize(QSize(100, 16777215))
+        self.pushButton_startstop.setMinimumSize(QSize(130, 0))
+        self.pushButton_startstop.setMaximumSize(QSize(130, 16777215))
 
         self.horizontalLayout.addWidget(self.pushButton_startstop)
 
         self.pushButton_close = QPushButton(self.widget_3)
         self.pushButton_close.setObjectName(u"pushButton_close")
-        self.pushButton_close.setMinimumSize(QSize(60, 0))
-        self.pushButton_close.setMaximumSize(QSize(100, 16777215))
+        self.pushButton_close.setMinimumSize(QSize(130, 0))
+        self.pushButton_close.setMaximumSize(QSize(130, 16777215))
 
         self.horizontalLayout.addWidget(self.pushButton_close)
 
