@@ -325,11 +325,11 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
             elif self.board == 'nidaq':
                 self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
             timestamp = time.perf_counter() - self.t0
-            self.k += 1
             await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
             wait_time = (self.t0 + (self.k) * self.ts) - time.perf_counter()
             if wait_time > 0:
                 await asyncio.sleep(wait_time)
+            self.k += 1
         await self.data_queue.put(None)
 
     async def update_plot_task(self):
