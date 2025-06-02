@@ -148,8 +148,12 @@ class GetData(Base):
                 elif filter_coefs is None:
                     self.data_filtered = self.data.copy()
             
-                self._update_plot_dual(self.time_var, self.data, self.data_filtered)
-                await asyncio.sleep(self.ts+1)  # Update plot less frequently than data acquisition
+                if filter_coefs is None:
+                    self._update_plot(self.time_var, self.data)
+                    await asyncio.sleep(self.ts+1)  # Update plot less frequently than data acquisition
+                else:
+                    self._update_plot_dual(self.time_var, self.data, self.data_filtered)
+                    await asyncio.sleep(self.ts+1)  # Update plot less frequently than data acquisition
         
         # Append task (runs in parallel with acquisition)
         async def store_data():
