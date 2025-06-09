@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
-    <height>742</height>
+    <width>510</width>
+    <height>602</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>0</width>
-    <height>150</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -590,7 +584,7 @@ QDoubleSpinBox::down-button:hover{
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>300</height>
+             <height>133</height>
             </size>
            </property>
            <layout class="QHBoxLayout" name="image_layout"/>
@@ -606,13 +600,13 @@ QDoubleSpinBox::down-button:hover{
           <widget class="QPushButton" name="pushButton_startstop">
            <property name="minimumSize">
             <size>
-             <width>130</width>
+             <width>0</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>130</width>
+             <width>100</width>
              <height>16777215</height>
             </size>
            </property>
@@ -625,13 +619,13 @@ QDoubleSpinBox::down-button:hover{
           <widget class="QPushButton" name="pushButton_close">
            <property name="minimumSize">
             <size>
-             <width>130</width>
+             <width>60</width>
              <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>130</width>
+             <width>100</width>
              <height>16777215</height>
             </size>
            </property>

@@ -378,9 +378,6 @@ QLabel::toolTip {
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_period">
-           <property name="decimals">
-            <number>6</number>
-           </property>
            <property name="maximum">
             <double>9999999.000000000000000</double>
            </property>
@@ -451,7 +448,7 @@ QLabel::toolTip {
 </string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calibration equation: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Equation: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -768,7 +765,7 @@ QLabel::toolTip {
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s):</string>
+         <string>Sampling period (s):</string>
         </property>
        </widget>
       </item>
@@ -837,7 +834,7 @@ QLabel::toolTip {
       <item row="13" column="0">
        <widget class="QLabel" name="label_save">
         <property name="text">
-         <string>Save Data?</string>
+         <string>Save data?</string>
         </property>
        </widget>
       </item>
