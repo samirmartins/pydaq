@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetpAbuaA.ui'
+## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetiWDFpw.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -756,11 +756,11 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.order_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"2", None))
         self.rs.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"1", None))
         self.label_10.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Type:", None))
-        self.label_9.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter Design:", None))
+        self.label_9.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter design:", None))
         self.cutoff_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"0.1", None))
-        self.label_12.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Stopband Attenuation (dB):", None))
+        self.label_12.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Stopband attenuation (dB):", None))
         self.label_8.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Cutoff:", None))
-        self.label_11.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Passband Ripple (dB):", None))
+        self.label_11.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Passband ripple (dB):", None))
         self.typebox_iir.setItemText(0, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"lowpass", None))
         self.typebox_iir.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"highpass", None))
         self.typebox_iir.setItemText(2, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"bandpass", None))
@@ -787,6 +787,6 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.label_14.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Cutoff (Hz):", None))
         self.label_2.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Type:", None))
         self.label.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Order:", None))
-        self.label_7.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter Design:", None))
+        self.label_7.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter design:", None))
     # retranslateUi
 

@@ -67,11 +67,11 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         if self.paused:
             self.plot_running = False
             self.control_running = False
-            self.pushButton_startstop.setText("Start")
+            self.pushButton_startstop.setText("START")
         else:
             self.plot_running = True
             self.control_running = True
-            self.pushButton_startstop.setText("Stop")
+            self.pushButton_startstop.setText("STOP")
             try:
                 loop = asyncio.get_running_loop()
             except RuntimeError:
@@ -235,9 +235,11 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.doubleSpinBox_KdDialog.setValue(self.kd)
         self.doubleSpinBox_SetpointDialog.setValue(self.setpoint)
         if self.save == True:
-            self.pushButton_close.setText("Save and Close")
+            self.pushButton_close.setText("SAVE AND CLOSE")
+            self.pushButton_close.setMinimumWidth(180)
         else:
-            self.pushButton_close.setText("Close")
+            self.pushButton_close.setText("CLOSE")
+            self.pushButton_close.setMinimumWidth(100)
 
     def check_board(self, board, device, ao, ai, terminal, simulate):
         self.board = board

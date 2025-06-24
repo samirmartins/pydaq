@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgetSYzUWA.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgetMqtdCB.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -454,7 +454,7 @@ class Ui_Arduino_GetModel_W(object):
 
     def retranslateUi(self, Arduino_GetModel_W):
         Arduino_GetModel_W.setWindowTitle(QCoreApplication.translate("Arduino_GetModel_W", u"Form", None))
-        self.label_5.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input Lag:", None))
+        self.label_5.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input lag:", None))
         self.label_6.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Number of information values:", None))
         self.label_4.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Degree:", None))
         self.true_ext_lsq.setText(QCoreApplication.translate("Arduino_GetModel_W", u"True", None))
@@ -462,7 +462,7 @@ class Ui_Arduino_GetModel_W(object):
         self.label_2.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Percentage of data for validation :", None))
         self.label_8.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Extended least squares algorithm:", None))
         self.label_7.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Estimator:", None))
-        self.label_9.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Output Lag:", None))
+        self.label_9.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Output lag:", None))
         self.label.setText(QCoreApplication.translate("Arduino_GetModel_W", u"System Identification", None))
     # retranslateUi
 

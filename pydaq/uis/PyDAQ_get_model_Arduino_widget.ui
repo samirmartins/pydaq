@@ -266,7 +266,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Arduino:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -363,7 +363,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -382,7 +382,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Input Signal:</string>
+         <string>Input signal:</string>
         </property>
        </widget>
       </item>
@@ -549,7 +549,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -706,7 +706,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string>Config Signal</string>
+            <string> CONFIG SIGNAL </string>
            </property>
           </widget>
          </item>
@@ -734,7 +734,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>System Identification:</string>
+         <string>System identification:</string>
         </property>
        </widget>
       </item>
@@ -751,7 +751,7 @@ QPushButton#reload_devices:pressed{
          <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
           <widget class="QPushButton" name="system_settings_button">
            <property name="text">
-            <string>Advanced Settings</string>
+            <string> ADVANCED SETTINGS </string>
            </property>
           </widget>
          </item>
@@ -798,9 +798,7 @@ QPushButton#reload_devices:pressed{
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../../../../../../rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
- </resources>
+ <resources/>
  <connections/>
  <buttongroups>
   <buttongroup name="plot_radio_group"/>

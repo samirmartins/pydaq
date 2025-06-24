@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetZPRKbp.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetTJlfUY.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -565,9 +565,9 @@ class Ui_NIDAQ_StepResponse_W(object):
         NIDAQ_StepResponse_W.setWindowTitle(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Form", None))
         self.label_2.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AO channel:", None))
         self.reload_devices.setText("")
-        self.label_10.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step Range (V):", None))
+        self.label_10.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step range (V):", None))
         self.label_5.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Session duration (s):", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Data path:", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Path:", None))
         self.yes_save_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"No", None))
         self.label_9.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AI channel:", None))
@@ -578,7 +578,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.label_11.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Minimum", None))
         self.label_4.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Sample period (s):", None))
         self.label_3.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Terminal Config.", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u" Browse ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u" BROWSE ", None))
         self.label.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Device:", None))
         self.label_7.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Save data?", None))
         self.label_13.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Step ON (s):", None))

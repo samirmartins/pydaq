@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetiPOvxj.ui'
+## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetBIisdU.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_NIDAQ_SendData_W(object):
     def setupUi(self, NIDAQ_SendData_W):
         if not NIDAQ_SendData_W.objectName():
             NIDAQ_SendData_W.setObjectName(u"NIDAQ_SendData_W")
-        NIDAQ_SendData_W.resize(527, 379)
+        NIDAQ_SendData_W.resize(549, 379)
         NIDAQ_SendData_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -451,14 +451,14 @@ class Ui_NIDAQ_SendData_W(object):
         self.label_2.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Channel:", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"No", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_SendData_W", u" Browse ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_SendData_W", u" BROWSE ", None))
         self.label.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Device:", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Data path:", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Path:", None))
         self.label_4.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Sample period (s):", None))
         self.label_6.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Plot data?", None))
-        self.label_3.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Output range (V)", None))
-        self.label_5.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Minimum", None))
-        self.label_7.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Maximum", None))
+        self.label_3.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Output range (V):", None))
+        self.label_5.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Minimum:", None))
+        self.label_7.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Maximum:", None))
         self.start_send_data.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"SEND DATA", None))
     # retranslateUi
 

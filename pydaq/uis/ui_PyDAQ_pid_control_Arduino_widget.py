@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetPXFjCg.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetBPdXYl.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -377,7 +377,6 @@ class Ui_Arduino_PID_Control(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.doubleSpinBox_period = QDoubleSpinBox(self.widget_period)
         self.doubleSpinBox_period.setObjectName(u"doubleSpinBox_period")
-        self.doubleSpinBox_period.setDecimals(6)
         self.doubleSpinBox_period.setMaximum(9999999.000000000000000)
         self.doubleSpinBox_period.setSingleStep(0.100000000000000)
         self.doubleSpinBox_period.setValue(1.000000000000000)
@@ -773,12 +772,12 @@ class Ui_Arduino_PID_Control(object):
         Arduino_PID_Control.setWindowTitle(QCoreApplication.translate("Arduino_PID_Control", u"Form", None))
         self.pushButton_start.setText(QCoreApplication.translate("Arduino_PID_Control", u"PID CONTROL", None))
         self.label_simulate.setText(QCoreApplication.translate("Arduino_PID_Control", u"Simulate?", None))
-        self.label_path.setText(QCoreApplication.translate("Arduino_PID_Control", u"Data path:", None))
-        self.label_arduino.setText(QCoreApplication.translate("Arduino_PID_Control", u"Arduino:", None))
+        self.label_path.setText(QCoreApplication.translate("Arduino_PID_Control", u"Path:", None))
+        self.label_arduino.setText(QCoreApplication.translate("Arduino_PID_Control", u"Device:", None))
 #if QT_CONFIG(tooltip)
         self.label_equation.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the for: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p>Calibration equation: </p></body></html>", None))
+        self.label_equation.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p>Equation: </p></body></html>", None))
         self.label_ki.setText(QCoreApplication.translate("Arduino_PID_Control", u"Ki:", None))
         self.label_kd.setText(QCoreApplication.translate("Arduino_PID_Control", u"Kd:", None))
         self.reload_devices.setText("")
@@ -797,19 +796,19 @@ class Ui_Arduino_PID_Control(object):
         self.lineEdit_equationvu.setText(QCoreApplication.translate("Arduino_PID_Control", u"1*x", None))
         self.label_unitv.setText(QCoreApplication.translate("Arduino_PID_Control", u"Unit(V):", None))
         self.lineEdit_equationuv.setText(QCoreApplication.translate("Arduino_PID_Control", u"1*x", None))
-        self.pushButton_confirm.setText(QCoreApplication.translate("Arduino_PID_Control", u"Confirm", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_PID_Control", u"Browse", None))
+        self.pushButton_confirm.setText(QCoreApplication.translate("Arduino_PID_Control", u" CONFIRM ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_PID_Control", u" BROWSE ", None))
         self.label_setpoint.setText(QCoreApplication.translate("Arduino_PID_Control", u"Setpoint:", None))
 #if QT_CONFIG(tooltip)
         self.label_i_type.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_i_type.setText(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><img src=\":/imgs/imgs/inform.png\"/></p></body></html>", None))
-        self.label_periody.setText(QCoreApplication.translate("Arduino_PID_Control", u"Sample period (s):", None))
+        self.label_periody.setText(QCoreApplication.translate("Arduino_PID_Control", u"Sampling period (s):", None))
         self.comboBox_setpoint.setItemText(0, QCoreApplication.translate("Arduino_PID_Control", u"Voltage (V)", None))
         self.comboBox_setpoint.setItemText(1, QCoreApplication.translate("Arduino_PID_Control", u"Temperature (C\u00b0)", None))
         self.comboBox_setpoint.setItemText(2, QCoreApplication.translate("Arduino_PID_Control", u"Other", None))
 
-        self.label_save.setText(QCoreApplication.translate("Arduino_PID_Control", u"Save Data?", None))
+        self.label_save.setText(QCoreApplication.translate("Arduino_PID_Control", u"Save data?", None))
         self.label_kp.setText(QCoreApplication.translate("Arduino_PID_Control", u"Kp:", None))
         self.label_unit.setText(QCoreApplication.translate("Arduino_PID_Control", u"Unit:", None))
         self.yes_save_radio.setText(QCoreApplication.translate("Arduino_PID_Control", u"Yes", None))
