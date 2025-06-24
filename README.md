@@ -92,8 +92,8 @@ Quick view and Main features
 | Get Data (Arduino/NIDAQ)      |                                                                                                                                             Here the user is able to get data from a(n) Arduino/NIDAQ board (using any terminal configuration - Diff, RSE, NRSE - in NIDAQ case), sample time and other parameters. Acquired data can also be saved and plot for further applications |
 | Step Response (Arduino/NIDAQ) |                                                                                                                         In this feature one can perform an automatic step response experiment using a(n) Arduino/NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
 | Get Model (Arduino/NIDAQ)     | The user can obtain mathematical models experimentally using Arduino/NIDAQ boards, with various customization options available. The input signal is a PRBS, which can be customized to meet specific needs, and both the input and output signals obtained can be saved for future applications. PYDAQ uses [SysIdentPy](www.sysidentpy.org) as a backend for obtaining the models. |
+| PID Control (Arduino/NIDAQ) | This feature allows the user to perform real-time or simulated PID control using Arduino or NIDAQ boards. The control loop can be configured through a graphical user interface, with support for selecting controller type (P, PI, PD, PID). Simulated system control is also supported for testing purposes. |
  
-
 ---
 Using GUI (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
 ---
@@ -123,7 +123,6 @@ Contributing
 ---
 
 You are more than welcome to make your contribution and submit a pull request. To contribute, [read this guide](/CONTRIBUTING.md).
-
 
 ---
 CITATION

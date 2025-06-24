@@ -18,8 +18,6 @@ through a Graphical User Interface or via command line.
 
 Also, step-response experiments can be easily performed, as showed up in [Step response (NIDAQ)](https://pydaq.org/step_response_nidaq/) and [Step response (Arduino)](https://pydaq.org/step_response_arduino/).
 
-
-
 Furthermore, this tool can be used to apply any generic output in an experimental
 tool, such as PRBS (Pseudo Random Binary Signal) or other persistently exciting signal, in order to generate
 data for black box system identification.
@@ -77,6 +75,10 @@ If you need to estimate a model using experimental data,
 this section is for you. Here, you can find 
 documentation on how to use PYDAQ for this purpose
 with ([NIDAQ](https://samirmartins.github.io/pydaq/get_model_nidaq/)/[Arduino](https://samirmartins.github.io/pydaq/get_model_arduino/))
+
+### PID Control
+
+This section explains how to perform real-time or simulated PID control using PYDAQ. Both [NIDAQ](https://samirmartins.github.io/pydaq/pid_control_nidaq/) and [Arduino](https://samirmartins.github.io/pydaq/pid_control_arduino/) boards are supported, and control (including simulation) can be run through the GUI.
 
 ## Examples
 
