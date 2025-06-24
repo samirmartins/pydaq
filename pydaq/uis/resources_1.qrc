@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="imgs">
+    <file>imgs/inform.png</file>
+    <file>imgs/PID_Flow.png</file>
     <file>imgs/favicon.ico</file>
     <file>imgs/logo.png</file>
     <file>imgs/pydaq_logo.png</file>

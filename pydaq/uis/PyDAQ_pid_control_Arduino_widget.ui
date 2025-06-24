@@ -369,7 +369,7 @@ QLabel::toolTip {
       <item row="14" column="0">
        <widget class="QLabel" name="label_path">
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -378,9 +378,6 @@ QLabel::toolTip {
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_period">
-           <property name="decimals">
-            <number>6</number>
-           </property>
            <property name="maximum">
             <double>9999999.000000000000000</double>
            </property>
@@ -410,7 +407,7 @@ QLabel::toolTip {
          </size>
         </property>
         <property name="text">
-         <string>Arduino:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -451,7 +448,7 @@ QLabel::toolTip {
 </string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calibration equation: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Equation: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -703,7 +700,7 @@ QLabel::toolTip {
          </size>
         </property>
         <property name="text">
-         <string>Confirm</string>
+         <string> CONFIRM </string>
         </property>
        </widget>
       </item>
@@ -729,7 +726,7 @@ QLabel::toolTip {
             </size>
            </property>
            <property name="text">
-            <string>Browse</string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -768,7 +765,7 @@ QLabel::toolTip {
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s):</string>
+         <string>Sampling period (s):</string>
         </property>
        </widget>
       </item>
@@ -837,7 +834,7 @@ QLabel::toolTip {
       <item row="13" column="0">
        <widget class="QLabel" name="label_save">
         <property name="text">
-         <string>Save Data?</string>
+         <string>Save data?</string>
         </property>
        </widget>
       </item>
@@ -1057,7 +1054,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="simulate_radio_group"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

@@ -536,7 +536,7 @@ QPushButton#reload_devices:pressed{
       <item row="0" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Arduino:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -575,7 +575,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Filter</string>
+         <string> FILTER </string>
         </property>
        </widget>
       </item>

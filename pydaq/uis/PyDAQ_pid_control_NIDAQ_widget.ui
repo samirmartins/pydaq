@@ -398,7 +398,7 @@ QDoubleSpinBox::down-button:hover{
          </size>
         </property>
         <property name="text">
-         <string>Confirm</string>
+         <string> CONFIRM </string>
         </property>
        </widget>
       </item>
@@ -424,7 +424,7 @@ QDoubleSpinBox::down-button:hover{
             </size>
            </property>
            <property name="text">
-            <string>Browse</string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -447,7 +447,7 @@ QDoubleSpinBox::down-button:hover{
       <item row="16" column="0">
        <widget class="QLabel" name="label_save">
         <property name="text">
-         <string>Save Data?</string>
+         <string>Save data?</string>
         </property>
        </widget>
       </item>
@@ -456,9 +456,6 @@ QDoubleSpinBox::down-button:hover{
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QDoubleSpinBox" name="doubleSpinBox_period">
-           <property name="decimals">
-            <number>6</number>
-           </property>
            <property name="maximum">
             <double>9999999.000000000000000</double>
            </property>
@@ -790,7 +787,7 @@ QDoubleSpinBox::down-button:hover{
       <item row="17" column="0">
        <widget class="QLabel" name="label_path">
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -926,7 +923,7 @@ QDoubleSpinBox::down-button:hover{
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;The equation should be written in the form: Ax²+Bx+C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Calibration equation:</string>
+         <string>Equation:</string>
         </property>
        </widget>
       </item>
@@ -996,7 +993,7 @@ QDoubleSpinBox::down-button:hover{
       <item row="2" column="0">
        <widget class="QLabel" name="label_system_equation">
         <property name="text">
-         <string>System Equation:</string>
+         <string>System equation:</string>
         </property>
        </widget>
       </item>
@@ -1099,7 +1096,7 @@ QDoubleSpinBox::down-button:hover{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="simulate_radio_group"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetGEMBuK.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetwmiawj.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -556,16 +556,16 @@ class Ui_Arduino_GetModel_W(object):
 
     def retranslateUi(self, Arduino_GetModel_W):
         Arduino_GetModel_W.setWindowTitle(QCoreApplication.translate("Arduino_GetModel_W", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Arduino:", None))
+        self.label.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Device:", None))
         self.yes_save_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"No", None))
-        self.label_8.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Data Path:", None))
-        self.label_2.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input Signal:", None))
+        self.label_8.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Path:", None))
+        self.label_2.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input signal:", None))
         self.label_4.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Sample period (s):", None))
         self.label_7.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Save data?", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"No", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_GetModel_W", u" Browse ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_GetModel_W", u" BROWSE ", None))
 #if QT_CONFIG(tooltip)
         self.reload_devices.setToolTip(QCoreApplication.translate("Arduino_GetModel_W", u"<html><head/><body><p>Update COM ports</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -573,9 +573,9 @@ class Ui_Arduino_GetModel_W(object):
         self.label_6.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Plot data?", None))
         self.label_9.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Start saving data (s):", None))
         self.label_5.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Session duration (s):", None))
-        self.config_signal_button.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Config Signal", None))
-        self.label_3.setText(QCoreApplication.translate("Arduino_GetModel_W", u"System Identification:", None))
-        self.system_settings_button.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Advanced Settings", None))
+        self.config_signal_button.setText(QCoreApplication.translate("Arduino_GetModel_W", u" CONFIG SIGNAL ", None))
+        self.label_3.setText(QCoreApplication.translate("Arduino_GetModel_W", u"System identification:", None))
+        self.system_settings_button.setText(QCoreApplication.translate("Arduino_GetModel_W", u" ADVANCED SETTINGS ", None))
         self.start_get_model.setText(QCoreApplication.translate("Arduino_GetModel_W", u" GET MODEL ", None))
     # retranslateUi
 

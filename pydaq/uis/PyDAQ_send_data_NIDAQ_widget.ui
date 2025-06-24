@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
+    <width>549</width>
     <height>379</height>
    </rect>
   </property>
@@ -353,7 +353,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -394,7 +394,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -532,7 +532,7 @@ QPushButton#reload_devices:pressed{
             <item row="0" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>Minimum</string>
+               <string>Minimum:</string>
               </property>
              </widget>
             </item>
@@ -579,7 +579,7 @@ QPushButton#reload_devices:pressed{
             <item row="0" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Maximum</string>
+               <string>Maximum:</string>
               </property>
              </widget>
             </item>

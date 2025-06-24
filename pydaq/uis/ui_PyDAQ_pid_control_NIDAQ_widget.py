@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetLGKsQT.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetaGLVXG.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -420,7 +420,6 @@ class Ui_NIDAQ_PID_Control(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.doubleSpinBox_period = QDoubleSpinBox(self.widget_period)
         self.doubleSpinBox_period.setObjectName(u"doubleSpinBox_period")
-        self.doubleSpinBox_period.setDecimals(6)
         self.doubleSpinBox_period.setMaximum(9999999.000000000000000)
         self.doubleSpinBox_period.setSingleStep(0.100000000000000)
         self.doubleSpinBox_period.setValue(1.000000000000000)
@@ -819,10 +818,10 @@ class Ui_NIDAQ_PID_Control(object):
         NIDAQ_PID_Control.setWindowTitle(QCoreApplication.translate("NIDAQ_PID_Control", u"Form", None))
         self.label_terminal.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Terminal config.:", None))
         self.label_setpoint.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Setpoint:", None))
-        self.pushButton_confirm.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Confirm", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Browse", None))
+        self.pushButton_confirm.setText(QCoreApplication.translate("NIDAQ_PID_Control", u" CONFIRM ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_PID_Control", u" BROWSE ", None))
         self.label_kd.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Kd:", None))
-        self.label_save.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Save Data?", None))
+        self.label_save.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Save data?", None))
 #if QT_CONFIG(tooltip)
         self.label_i_equation.setToolTip(QCoreApplication.translate("NIDAQ_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the form: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -849,7 +848,7 @@ class Ui_NIDAQ_PID_Control(object):
         self.label_simulate.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Simulate?", None))
         self.yes_save_radio.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"No", None))
-        self.label_path.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Data path:", None))
+        self.label_path.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Path:", None))
         self.label_ai_channel.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"AI channel:", None))
         self.comboBox_setpoint.setItemText(0, QCoreApplication.translate("NIDAQ_PID_Control", u"Voltage (V)", None))
         self.comboBox_setpoint.setItemText(1, QCoreApplication.translate("NIDAQ_PID_Control", u"Temperature (C\u00b0)", None))
@@ -860,14 +859,14 @@ class Ui_NIDAQ_PID_Control(object):
 #if QT_CONFIG(tooltip)
         self.label_equation.setToolTip(QCoreApplication.translate("NIDAQ_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the form: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Calibration equation:", None))
+        self.label_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Equation:", None))
         self.label_ao_channel.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"AO channel:", None))
         self.label_kp.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Kp:", None))
         self.label_vunit.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"V(Unit)", None))
         self.lineEdit_equationvu.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"1*x", None))
         self.label_unitv.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"Unit(V)", None))
         self.lineEdit_equationuv.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"1*x", None))
-        self.label_system_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"System Equation:", None))
+        self.label_system_equation.setText(QCoreApplication.translate("NIDAQ_PID_Control", u"System equation:", None))
 #if QT_CONFIG(tooltip)
         self.label_i_polinomial.setToolTip(QCoreApplication.translate("NIDAQ_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">Transfer function of a polynomial system G(s) = N(s) / D(s), where N(s) and D(s) are polynomials in s.</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

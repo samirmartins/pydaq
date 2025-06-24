@@ -302,7 +302,7 @@ QPushButton#reload_devices:pressed{
       <item row="4" column="0">
        <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Step Range (V):</string>
+         <string>Step range (V):</string>
         </property>
        </widget>
       </item>
@@ -347,7 +347,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -663,7 +663,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
