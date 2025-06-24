@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetChnpln.ui'
+## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetiyaXgK.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -498,11 +498,11 @@ class Ui_NIDAQ_GetData_W(object):
         self.label_7.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Save data?", None))
         self.label_2.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Channel:", None))
         self.label_5.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Session duration (s):", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_GetData_W", u" Browse ", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Data path:", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_GetData_W", u" BROWSE ", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Path:", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"No", None))
-        self.label_9.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Digital Filter?", None))
+        self.label_9.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Digital filter?", None))
         self.yes_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"Yes", None))
         self.No_radio.setText(QCoreApplication.translate("NIDAQ_GetData_W", u"No", None))
     # retranslateUi

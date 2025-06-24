@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PYDAQ_Digital_filterss_widgetmxXQXg.ui'
+## Form generated from reading UI file 'PYDAQ_Digital_filterss_widgetYwRNwM.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -561,8 +561,8 @@ class Ui_Digitalfilters_arduino_widget(object):
         self.comboBox_2.setItemText(2, QCoreApplication.translate("Digitalfilters_arduino_widget", u"BANDPASS", None))
         self.comboBox_2.setItemText(3, QCoreApplication.translate("Digitalfilters_arduino_widget", u"LOWPASS", None))
 
-        self.label_7.setText(QCoreApplication.translate("Digitalfilters_arduino_widget", u"Arduino:", None))
+        self.label_7.setText(QCoreApplication.translate("Digitalfilters_arduino_widget", u"Device:", None))
         self.reload_devices.setText("")
-        self.Filter_button.setText(QCoreApplication.translate("Digitalfilters_arduino_widget", u"Filter", None))
+        self.Filter_button.setText(QCoreApplication.translate("Digitalfilters_arduino_widget", u"FILTER", None))
     # retranslateUi
 

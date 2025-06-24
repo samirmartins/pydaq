@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetJiEAZS.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetkzDIet.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -438,11 +438,11 @@ class Ui_Arduino_StepResponse_W(object):
         self.yes_save_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Yes", None))
         self.no_save_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"No", None))
         self.label_11.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Save data?", None))
-        self.label_12.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Data path:", None))
+        self.label_12.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Path:", None))
         self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Yes", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"No", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_StepResponse_W", u" Browse ", None))
-        self.label_2.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Arduino:", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_StepResponse_W", u" BROWSE ", None))
+        self.label_2.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Device:", None))
 #if QT_CONFIG(tooltip)
         self.reload_devices.setToolTip(QCoreApplication.translate("Arduino_StepResponse_W", u"<html><head/><body><p>Update COM ports</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

@@ -398,7 +398,7 @@ QDoubleSpinBox::down-button:hover{
          </size>
         </property>
         <property name="text">
-         <string>Confirm</string>
+         <string> CONFIRM </string>
         </property>
        </widget>
       </item>
@@ -424,7 +424,7 @@ QDoubleSpinBox::down-button:hover{
             </size>
            </property>
            <property name="text">
-            <string>Browse</string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -787,7 +787,7 @@ QDoubleSpinBox::down-button:hover{
       <item row="17" column="0">
        <widget class="QLabel" name="label_path">
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -1096,7 +1096,7 @@ QDoubleSpinBox::down-button:hover{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="simulate_radio_group"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

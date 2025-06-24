@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetHwfXUR.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetBPdXYl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -772,8 +772,8 @@ class Ui_Arduino_PID_Control(object):
         Arduino_PID_Control.setWindowTitle(QCoreApplication.translate("Arduino_PID_Control", u"Form", None))
         self.pushButton_start.setText(QCoreApplication.translate("Arduino_PID_Control", u"PID CONTROL", None))
         self.label_simulate.setText(QCoreApplication.translate("Arduino_PID_Control", u"Simulate?", None))
-        self.label_path.setText(QCoreApplication.translate("Arduino_PID_Control", u"Data path:", None))
-        self.label_arduino.setText(QCoreApplication.translate("Arduino_PID_Control", u"Arduino:", None))
+        self.label_path.setText(QCoreApplication.translate("Arduino_PID_Control", u"Path:", None))
+        self.label_arduino.setText(QCoreApplication.translate("Arduino_PID_Control", u"Device:", None))
 #if QT_CONFIG(tooltip)
         self.label_equation.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><span style=\" font-size:14pt;\">The equation should be written in the for: Ax\u00b2+Bx+C</span></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -796,8 +796,8 @@ class Ui_Arduino_PID_Control(object):
         self.lineEdit_equationvu.setText(QCoreApplication.translate("Arduino_PID_Control", u"1*x", None))
         self.label_unitv.setText(QCoreApplication.translate("Arduino_PID_Control", u"Unit(V):", None))
         self.lineEdit_equationuv.setText(QCoreApplication.translate("Arduino_PID_Control", u"1*x", None))
-        self.pushButton_confirm.setText(QCoreApplication.translate("Arduino_PID_Control", u"Confirm", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_PID_Control", u"Browse", None))
+        self.pushButton_confirm.setText(QCoreApplication.translate("Arduino_PID_Control", u" CONFIRM ", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("Arduino_PID_Control", u" BROWSE ", None))
         self.label_setpoint.setText(QCoreApplication.translate("Arduino_PID_Control", u"Setpoint:", None))
 #if QT_CONFIG(tooltip)
         self.label_i_type.setToolTip(QCoreApplication.translate("Arduino_PID_Control", u"<html><head/><body><p><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))

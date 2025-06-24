@@ -266,7 +266,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Input Lag:</string>
+         <string>Input lag:</string>
         </property>
        </widget>
       </item>
@@ -518,7 +518,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Output Lag:</string>
+         <string>Output lag:</string>
         </property>
        </widget>
       </item>

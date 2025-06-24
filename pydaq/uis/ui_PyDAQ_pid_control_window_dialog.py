@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogFjVeaX.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogypaVbc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -572,8 +572,8 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.label_i_Type.setToolTip(QCoreApplication.translate("Dialog_Plot_PID_Window", u"<html><head/><body><p><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_i_Type.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"<html><head/><body><p><img src=\":/imgs/imgs/inform.png\"/></p></body></html>", None))
-        self.pushButton_apply.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"Apply", None))
-        self.pushButton_startstop.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"Stop", None))
-        self.pushButton_close.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"Close", None))
+        self.pushButton_apply.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"APPLY", None))
+        self.pushButton_startstop.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"STOP", None))
+        self.pushButton_close.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"CLOSE", None))
     # retranslateUi
 

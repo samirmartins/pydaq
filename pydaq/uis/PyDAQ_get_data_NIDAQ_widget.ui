@@ -496,7 +496,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -555,7 +555,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Data path:</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -650,7 +650,7 @@ QPushButton#reload_devices:pressed{
       <item row="5" column="0">
        <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Digital Filter?</string>
+         <string>Digital filter?</string>
         </property>
        </widget>
       </item>
@@ -696,8 +696,8 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="filter_radio_group"/>
   <buttongroup name="plot_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="filter_radio_group"/>
  </buttongroups>
 </ui>
