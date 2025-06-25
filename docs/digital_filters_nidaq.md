@@ -18,16 +18,22 @@ After running the command, the GUI will appear. Navigate to the 'Get Data' scree
 
 ## Parameters
 
-- **Filter**: In this option you can choose your filter, if will be FIR or IIR.
+- **Filter**: Select the type of filter to use — FIR or IIR.
 
-- **Plot frequency response**: You can choose if in the end of the data acquisition if you would like to see the frequency response.
+- **Plot frequency response**: Choose whether to display the filter's frequency response after data acquisition.
 
-- **Filter design**: Here can you choose the design of your filter.
+- **Filter design**: Select the design method for the filter.
 
-- **Order**: The user can entry with some value to choose the order of the filter.
+- **Order**: Specify the filter order by entering a numerical value.
 
-- **Type**: The user can define the type of Filter, between "Lowpass, Highpass, Bandpass or Bandstop".
+- **Type**: Define the filter type — choose from Lowpass, Highpass, Bandpass, or Bandstop.
 
-- **Cutoff** User can define the cutoff frequency.
+- **Cutoff**: Set the filter’s cutoff frequency (or frequencies, depending on the filter type).
+
+## Real-Time Filter
+
+After configuring the digital filter parameters, they will be applied to the real-time data acquisition, as shown in the image below:
+
+![](img/example_digitalfilters.gif)
 
 
