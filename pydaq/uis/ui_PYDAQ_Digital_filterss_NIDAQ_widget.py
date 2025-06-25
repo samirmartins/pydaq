@@ -26,6 +26,9 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         Digitalfilters_NIDAQ_widget.resize(537, 757)
         Digitalfilters_NIDAQ_widget.setMinimumSize(QSize(537, 407))
         Digitalfilters_NIDAQ_widget.setMaximumSize(QSize(537, 800))
+        icon = QIcon()
+        icon.addFile(u":/imgs/imgs/favicon.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        Digitalfilters_NIDAQ_widget.setWindowIcon(icon)
         Digitalfilters_NIDAQ_widget.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"

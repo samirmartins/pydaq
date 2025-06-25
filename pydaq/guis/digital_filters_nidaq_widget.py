@@ -13,6 +13,7 @@ from .error_window_gui import Error_window
 
 from pydaq.utils.signals import GuiSignals
 from PySide6.QtCore import Signal
+from PySide6 import QtWidgets
 
 class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
     dataEntered = Signal(dict)
@@ -20,6 +21,8 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
         super(Digital_Filters_NIDAQ_Widget, self).__init__()
         self.setupUi(self)
         
+
+
         self.signals = GuiSignals()
         self.iir_widget.hide()
         self.fir_widget.show()
