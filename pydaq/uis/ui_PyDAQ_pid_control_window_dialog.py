@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogypaVbc.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogWaazaJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -17,13 +17,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QDoubleSpinBox,
     QFrame, QGridLayout, QHBoxLayout, QLabel,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+    QLayout, QPushButton, QScrollArea, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_Dialog_Plot_PID_Window(object):
     def setupUi(self, Dialog_Plot_PID_Window):
         if not Dialog_Plot_PID_Window.objectName():
             Dialog_Plot_PID_Window.setObjectName(u"Dialog_Plot_PID_Window")
-        Dialog_Plot_PID_Window.resize(510, 602)
+        Dialog_Plot_PID_Window.resize(631, 804)
         Dialog_Plot_PID_Window.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -335,7 +336,15 @@ class Ui_Dialog_Plot_PID_Window(object):
 "")
         self.verticalLayout = QVBoxLayout(Dialog_Plot_PID_Window)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.widget = QWidget(Dialog_Plot_PID_Window)
+        self.scrollArea = QScrollArea(Dialog_Plot_PID_Window)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 611, 784))
+        self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.widget = QWidget(self.scrollAreaWidgetContents)
         self.widget.setObjectName(u"widget")
         self.verticalLayout_3 = QVBoxLayout(self.widget)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -504,7 +513,7 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.widget_image = QWidget(self.frame_image)
         self.widget_image.setObjectName(u"widget_image")
-        self.widget_image.setMinimumSize(QSize(0, 133))
+        self.widget_image.setMinimumSize(QSize(550, 325))
         self.image_layout = QHBoxLayout(self.widget_image)
         self.image_layout.setObjectName(u"image_layout")
 
@@ -515,30 +524,35 @@ class Ui_Dialog_Plot_PID_Window(object):
 
         self.widget_3 = QWidget(self.widget)
         self.widget_3.setObjectName(u"widget_3")
-        self.horizontalLayout = QHBoxLayout(self.widget_3)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.widget_3.setMinimumSize(QSize(570, 41))
+        self.widget_3.setMaximumSize(QSize(16777215, 41))
+        self.hboxLayout = QHBoxLayout(self.widget_3)
+        self.hboxLayout.setObjectName(u"hboxLayout")
+        self.hboxLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.pushButton_startstop = QPushButton(self.widget_3)
         self.pushButton_startstop.setObjectName(u"pushButton_startstop")
         self.pushButton_startstop.setMinimumSize(QSize(0, 0))
         self.pushButton_startstop.setMaximumSize(QSize(100, 16777215))
 
-        self.horizontalLayout.addWidget(self.pushButton_startstop)
+        self.hboxLayout.addWidget(self.pushButton_startstop)
 
         self.pushButton_close = QPushButton(self.widget_3)
         self.pushButton_close.setObjectName(u"pushButton_close")
         self.pushButton_close.setMinimumSize(QSize(60, 0))
         self.pushButton_close.setMaximumSize(QSize(100, 16777215))
 
-        self.horizontalLayout.addWidget(self.pushButton_close)
+        self.hboxLayout.addWidget(self.pushButton_close)
 
 
         self.verticalLayout_3.addWidget(self.widget_3)
 
 
-        self.verticalLayout.addWidget(self.widget)
+        self.gridLayout_2.addWidget(self.widget, 0, 0, 1, 1)
 
-        QWidget.setTabOrder(self.pushButton_apply, self.pushButton_startstop)
-        QWidget.setTabOrder(self.pushButton_startstop, self.pushButton_close)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout.addWidget(self.scrollArea)
+
 
         self.retranslateUi(Dialog_Plot_PID_Window)
 

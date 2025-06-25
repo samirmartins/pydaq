@@ -25,7 +25,6 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
     def __init__(self, *args):
         super(PID_Control_Window_Dialog, self).__init__()
         self.setupUi(self)
-        self.setMinimumSize(900, 700)
 
         self.ensure_async_loop()
 
@@ -33,7 +32,6 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.pushButton_close.clicked.connect(self.go_back)
         self.pushButton_apply.clicked.connect(self.apply_parameters)
         self.comboBox_TypeDialog.currentIndexChanged.connect(self.on_type_combo_changed)
-
         self.paused = False
         self.pid = None
         self.control_running = False
@@ -111,6 +109,12 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.plot_running = False
         self.control_running = False
         self.close()
+    
+    def closeEvent(self, event):
+        # Ensures the same behavior as the "CLOSE" or "SAVE AND CLOSE" button
+        self.go_back()
+        # The event needs to be explicitly accepted for PySide6 to close the window
+        event.accept()
 
     def apply_parameters(self): #apply all pid parameters while the event goes on
         try:
@@ -316,23 +320,26 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         )
 
     async def control_loop_task(self):
+
         while not self.paused:
             if not self.control_running:
                 break
-            t_start = time.perf_counter()
-            if self.simulate == True:
+            
+            target_time = self.t0 + self.k * self.ts
+            wait_time = target_time - time.perf_counter()
+            if wait_time > 0:
+                await asyncio.sleep(wait_time)
+            if self.simulate:
                 self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
             elif self.board == 'arduino':
                 self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
             elif self.board == 'nidaq':
                 self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
+
             timestamp = time.perf_counter() - self.t0
             await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
-            wait_time = (self.t0 + (self.k) * self.ts) - time.perf_counter()
-            if wait_time > 0:
-                await asyncio.sleep(wait_time)
+
             self.k += 1
-        await self.data_queue.put(None)
 
     async def update_plot_task(self):
         while self.plot_running:
