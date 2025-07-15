@@ -17,3 +17,4 @@ profiler.dump_stats("saida.prof")
 stats = pstats.Stats(profiler)
 stats.strip_dirs().sort_stats('cumtime').print_stats(30)
 
+#plot_update_interval
