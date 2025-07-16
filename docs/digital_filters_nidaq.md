@@ -2,7 +2,7 @@
 
 **NOTE**: Before working with PYDAQ, the device driver should be installed and working correctly as a DAQ (Data Acquisition) device.
 
-## Controlling using Graphical User Interface (GUI)
+## Filtering using Graphical User Interface (GUI)
 
 Using the digital filters through the GUI is very simple, and with just two lines of code, you can open the GUI:
 

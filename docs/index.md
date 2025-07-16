@@ -46,6 +46,7 @@ PYDAQ requires:
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
 - packaging (>=24.1).
+- scipy to project the digital filters.
 
  
 ## Documentation Map
@@ -79,6 +80,10 @@ with ([NIDAQ](https://samirmartins.github.io/pydaq/get_model_nidaq/)/[Arduino](h
 ### PID Control
 
 This section explains how to perform real-time or simulated PID control using PYDAQ. Both [NIDAQ](https://samirmartins.github.io/pydaq/pid_control_nidaq/) and [Arduino](https://samirmartins.github.io/pydaq/pid_control_arduino/) boards are supported, and control (including simulation) can be run through the GUI.
+
+### Digital Filters
+
+This section explains how to design and apply digital filters in PYDAQ. The user can choose the filter type (FIR or IIR), define parameters such as cutoff frequency and order, and apply the filter in real time using either [Arduino](https://samirmartins.github.io/pydaq/pid_control_arduino/) or [NIDAQ](https://samirmartins.github.io/pydaq/pid_control_nidaq/) boards. Everything can be done through the graphical interface, with support for both simulation and live data processing.
 
 ## Examples
 
