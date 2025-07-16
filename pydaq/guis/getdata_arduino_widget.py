@@ -133,7 +133,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
 
         if not g.error_path:
             if self.no_radio.isChecked():
-                asyncio.run(g.get_data_arduino())
+                g.get_data_arduino()
                 self.signals.returned.emit(g)
             else:
                 fs = (1/float(self.Ts_in.value()))*2.5
@@ -176,7 +176,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
                         self.fir_coeff = firwin(numtaps_fir, fc_fir/(0.5*fs), window=window_fir, pass_zero=type_fir)
     
                     
-                    asyncio.run(g.get_data_arduino(filter_coefs=(self.fir_coeff)))
+                    g.get_data_arduino(filter_coefs=(self.fir_coeff))
                     self.signals.returned.emit(g)
                     self.frequency_response()
                 
@@ -201,7 +201,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
                     elif window_iir == 'Elliptic':
                         self.b, self.a = ellip(numtaps_iir, rp, rs, fc_iir/(0.5*fs), btype=type_iir)
                         
-                    asyncio.run(g.get_data_arduino(filter_coefs=(self.b, self.a)))
+                    g.get_data_arduino(filter_coefs=(self.b, self.a))
                     self.signals.returned.emit(g)
                     self.frequency_response()
 
