@@ -46,7 +46,7 @@ class GetData(Base):
             ts=0.5,
             session_duration=10.0,
             save=True,
-            plot=True,
+            plot_mode="no", # Options: "realtime", "end", "no"
     ):
         super().__init__()
         self.device = device
@@ -54,7 +54,7 @@ class GetData(Base):
         self.ts = ts
         self.session_duration = session_duration
         self.save = save
-        self.plot = plot
+        self.plot_mode = plot_mode
 
         # Terminal configuration
         self.terminal = self.term_map[terminal]
@@ -170,7 +170,7 @@ class GetData(Base):
         print_queue = queue.Queue()
         self.acquisition_running = True
         self.plot_closed_by_user = False
-        self.plot_ready_event.clear() # Clear the event at the start of a new acquisition
+        self.plot_ready_event.clear()
 
         self._check_path()
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
@@ -182,17 +182,24 @@ class GetData(Base):
         )
         acquisition_thread.start()
 
-        if self.plot:
+        if self.plot_mode == 'realtime':
             self.title = f"PYDAQ - Data Acquisition. {self.device}, {self.channel}"
             self._start_updatable_plot(title_str=self.title) 
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
-            self.plot_ready_event.set() # Signal that plot is ready for acquisition worker
+            self.plot_ready_event.set()
+        else:
+            # Se não for em tempo real, libera a aquisição imediatamente
+            self.plot_ready_event.set()
 
         k_iteration = 0
         start_main_loop_time = time.perf_counter()
-        plot_update_interval = 0.5
-        last_plot_update_time = time.perf_counter()
 
+        if self.ts >= 0.25:
+            plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
+
+        last_plot_update_time = time.perf_counter()
 
         while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty() or not print_queue.empty():
             try:
@@ -200,30 +207,13 @@ class GetData(Base):
 
                 if item is None:
                     self.acquisition_running = False
+                    # Esvazia a fila para garantir que todos os dados sejam processados
                     while not data_queue.empty():
                         remaining_item = data_queue.get_nowait()
                         if remaining_item is not None:
                             timestamp, value = remaining_item
                             self.time_var.append(timestamp)
                             self.data.append(value)
-                            if self.plot:
-                                if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
-                                    if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
-                                        b, a = filter_coefs
-                                        self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
-                                    else:
-                                        self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
-                                else:
-                                    self.data_filtered = self.data.copy()
-                                self._update_plot(
-                                    self.time_var,
-                                    self.data,
-                                    y2_values=self.data_filtered if (filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0)) else None,
-                                    y1_label="Original Data",
-                                    y2_label="Filtered Data"
-                                )
-                    if not print_queue.empty():
-                        continue
                     break
 
                 timestamp, value = item
@@ -231,20 +221,19 @@ class GetData(Base):
                 self.data.append(value)
 
                 now = time.perf_counter()
-                if self.plot and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running or len(self.data) % self.cycles == 0):
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
+                    # Aplica o filtro para plotagem em tempo real
                     if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
                         if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
                             b, a = filter_coefs
                             self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
                         else:
                             self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
-                    else:
-                        self.data_filtered = self.data.copy()
-
+                    
                     self._update_plot(
                         self.time_var,
                         self.data,
-                        y2_values=self.data_filtered if (filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0)) else None,
+                        y2_values=self.data_filtered if self.data_filtered else None,
                         y1_label="Original Data",
                         y2_label="Filtered Data"
                     )
@@ -262,50 +251,52 @@ class GetData(Base):
 
             except queue.Empty:
                 time.sleep(0.01)
-                try:
-                    msg = print_queue.get_nowait()
-                    print(msg)
-                except queue.Empty:
-                    pass
-
-                if (not self.acquisition_running or self.plot_closed_by_user) and data_queue.empty() and print_queue.empty():
-                    print("Main thread: Acquisition/Plotting finished. Exiting processing loop gracefully.")
+                if not self.acquisition_running and data_queue.empty():
                     break
-            except Exception as e:
-                print(f"Error in main thread processing: {e}")
-                self.acquisition_running = False
-                self.plot_closed_by_user = True
-                break
         
         acquisition_thread.join()
-        print("Main thread: Acquisition thread joined.")
+        
+        # Aplica o filtro final se houver coeficientes (para salvar e plotar no final)
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                b, a = filter_coefs
+                self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+            else:
+                self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
 
-        total_main_loop_time = time.perf_counter() - start_main_loop_time
-        if k_iteration > 0:
-            avg_time_per_iteration = total_main_loop_time / k_iteration
-            print(f"\nMain loop finished. Total time: {total_main_loop_time:.5f}s | Iterations: {k_iteration} | Average time per iteration: {avg_time_per_iteration:.5f}s")
-        else:
-            print("\nMain loop finished. No data processed.")
-
-        if self.plot and not self.plot_closed_by_user:
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
             print("Plot remaining open. Close window manually to exit.")
             plt.show(block=True)
+        
+        # NOVO BLOCO: Lógica para plotar no final
+        if self.plot_mode == 'end' and self.time_var:
+            print("\nGenerating plot at the end of acquisition...")
+            self.title = f"PYDAQ - Final Acquisition: {self.device}, {self.channel}"
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(
+                self.time_var,
+                self.data,
+                y2_values=self.data_filtered if self.data_filtered else None,
+                y1_label="Original Data",
+                y2_label="Filtered Data"
+            )
+            plt.show(block=True) # Mantém o plot final aberto
 
         if self.save:
             print("\nSaving data ...")
             time_formated = [f"{t:.10f}" for t in self.time_var]
             self._save_data(time_formated, "time.dat")
             self._save_data(self.data, "data.dat")
-            self._save_data(self.data_filtered, "data_filtered.dat")
-            self._save_data(self.coeffs, "filter_coeffs.dat")
+            if self.data_filtered:
+                self._save_data(self.data_filtered, "data_filtered.dat")
+            if len(self.coeffs) > 0:
+                self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
 
-        if self.plot and self.plot_closed_by_user:
-             plt.ioff()
-             plt.close(self.fig)
-
+        if self.plot_mode == 'realtime' and self.plot_closed_by_user:
+            plt.ioff()
+            plt.close(self.fig)
         return
-
 
     def _acquisition_worker_arduino(self, data_queue, print_queue):
         """
@@ -322,7 +313,7 @@ class GetData(Base):
             self.ser = serial.Serial(
                 self.com_port,
                 timeout=1,
-                baudrate=9600
+                baudrate=9600  # Aumentar pode melhorar a taxa de aquisição, mas depende do Arduino. Aqui que está o gargalo.
             )
             print(f"Serial port {self.com_port} opened successfully.")
             
@@ -365,17 +356,11 @@ class GetData(Base):
             else:
                 print_queue.put("\nAcquisition Thread finished. No data cycles acquired.")
 
-
-
     def get_data_arduino(self, filter_coefs=None):
         """
-            This function can be used for data acquisition and step response experiments using Python + Arduino
-            through serial communication. Now adapted to threading model for consistent plot handling.
-
-        :example:
-            get_data_arduino()
+        This function can be used for data acquisition and step response experiments using Python + Arduino
+        through serial communication. Now adapted to threading model for consistent plot handling.
         """
-
         self.data = []
         self.data_filtered = []
         self.time_var = []
@@ -387,13 +372,11 @@ class GetData(Base):
 
         data_queue = queue.Queue()
         print_queue = queue.Queue()
-
         self.acquisition_running = True
         self.plot_closed_by_user = False
-        self.plot_ready_event.clear() # Clear the event at the start of a new acquisition
+        self.plot_ready_event.clear()
 
         self._check_path()
-
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         acquisition_thread = threading.Thread(
@@ -403,15 +386,22 @@ class GetData(Base):
         )
         acquisition_thread.start()
 
-        if self.plot:
+        if self.plot_mode == 'realtime':
             self.title = f"PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
-            self.plot_ready_event.set() # Signal that plot is ready for acquisition worker
+            self.plot_ready_event.set()
+        else:
+            # Se não for em tempo real, libera a aquisição imediatamente
+            self.plot_ready_event.set()
 
         k_iteration = 0
         start_main_loop_time = time.perf_counter()
-        plot_update_interval = 0.5
+
+        if self.ts > 0.1:
+            plot_update_interval = self.ts+0.05
+        else:
+            plot_update_interval = 0.1
         last_plot_update_time = time.perf_counter()
 
         while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty() or not print_queue.empty():
@@ -420,30 +410,13 @@ class GetData(Base):
 
                 if item is None:
                     self.acquisition_running = False
+                    # Esvazia a fila para garantir que todos os dados sejam processados
                     while not data_queue.empty():
                         remaining_item = data_queue.get_nowait()
                         if remaining_item is not None:
                             timestamp, value = remaining_item
                             self.time_var.append(timestamp)
                             self.data.append(value)
-                            if self.plot:
-                                if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
-                                    if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
-                                        b, a = filter_coefs
-                                        self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
-                                    else:
-                                        self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
-                                else:
-                                    self.data_filtered = self.data.copy()
-                                self._update_plot(
-                                    self.time_var,
-                                    self.data,
-                                    y2_values=self.data_filtered if (filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0)) else None,
-                                    y1_label="Original Data",
-                                    y2_label="Filtered Data"
-                                )
-                    if not print_queue.empty():
-                        continue
                     break
 
                 timestamp, value = item
@@ -451,21 +424,19 @@ class GetData(Base):
                 self.data.append(value)
 
                 now = time.perf_counter()
-                if self.plot and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running or len(self.data) % self.cycles == 0):
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
+                    # Aplica o filtro para plotagem em tempo real
                     if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
                         if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
                             b, a = filter_coefs
                             self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
                         else:
-                            fir_coeff = filter_coefs
-                            self.data_filtered = lfilter(fir_coeff, 1.0, np.array(self.data)).tolist()
-                    else:
-                        self.data_filtered = self.data.copy()
-
+                            self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
+                    
                     self._update_plot(
                         self.time_var,
                         self.data,
-                        y2_values=self.data_filtered if (filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0)) else None,
+                        y2_values=self.data_filtered if self.data_filtered else None,
                         y1_label="Original Data",
                         y2_label="Filtered Data"
                     )
@@ -483,47 +454,51 @@ class GetData(Base):
 
             except queue.Empty:
                 time.sleep(0.01)
-                try:
-                    msg = print_queue.get_nowait()
-                    print(msg)
-                except queue.Empty:
-                    pass
-
-                if (not self.acquisition_running or self.plot_closed_by_user) and data_queue.empty() and print_queue.empty():
-                    print("Main thread: Acquisition/Plotting finished. Exiting processing loop gracefully.")
+                if not self.acquisition_running and data_queue.empty():
                     break
-            except Exception as e:
-                print(f"Error in main thread processing: {e}")
-                self.acquisition_running = False
-                self.plot_closed_by_user = True
-                break
-
+        
         acquisition_thread.join()
-        print("Main thread: Acquisition thread joined.")
 
-        total_main_loop_time = time.perf_counter() - start_main_loop_time
-        if k_iteration > 0:
-            avg_time_per_iteration = total_main_loop_time / k_iteration
-            print(f"\nMain loop finished. Total time: {total_main_loop_time:.5f}s | Iterations: {k_iteration} | Average time per iteration: {avg_time_per_iteration:.5f}s")
-        else:
-            print("\nMain loop finished. No data processed.")
+        # Aplica o filtro final se houver coeficientes (para salvar e plotar no final)
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                b, a = filter_coefs
+                self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+            else:
+                self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
 
-        if self.plot and not self.plot_closed_by_user:
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
             print("Plot remaining open. Close window manually to exit.")
             plt.show(block=True)
+            
+        # NOVO BLOCO: Lógica para plotar no final
+        if self.plot_mode == 'end' and self.time_var:
+            print("\nGenerating plot at the end of acquisition...")
+            self.title = f"PYDAQ - Final Acquisition: Arduino, Port: {self.com_port}"
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(
+                self.time_var,
+                self.data,
+                y2_values=self.data_filtered if self.data_filtered else None,
+                y1_label="Original Data",
+                y2_label="Filtered Data"
+            )
+            plt.show(block=True) # Mantém o plot final aberto
 
         if self.save:
             print("\nSaving data ...")
             time_formated = [f"{t:.10f}" for t in self.time_var]
             self._save_data(time_formated, "time.dat")
             self._save_data(self.data, "data.dat")
-            self._save_data(self.data_filtered, "data_filtered.dat")
-            self._save_data(self.coeffs, "filter_coeffs.dat")
+            if self.data_filtered:
+                self._save_data(self.data_filtered, "data_filtered.dat")
+            if len(self.coeffs) > 0:
+                self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
 
-        if self.plot and self.plot_closed_by_user:
-             plt.ioff()
-             plt.close(self.fig)
+        if self.plot_mode == 'realtime' and self.plot_closed_by_user:
+            plt.ioff()
+            plt.close(self.fig)
 
         return
 
