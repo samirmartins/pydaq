@@ -85,6 +85,11 @@ This section explains how to perform real-time or simulated PID control using PY
 
 This section explains how to design and apply digital filters in PYDAQ. The user can choose the filter type (FIR or IIR), define parameters such as cutoff frequency and order, and apply the filter in real time using either [Arduino](https://samirmartins.github.io/pydaq/pid_control_arduino/) or [NIDAQ](https://samirmartins.github.io/pydaq/pid_control_nidaq/) boards. Everything can be done through the graphical interface, with support for both simulation and live data processing.
 
+### Benchmarking
+
+This section runs a performance test to estimate the maximum sampling frequency your computer can handle reliably. It helps identify how quickly your system can read and process data without delays or data loss. This is useful for applications that require real-time or high-speed data acquisition.
+
+
 ## Examples
 
 In this section it will be provided Jupyter Notebook examples

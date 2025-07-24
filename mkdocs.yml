@@ -10,9 +10,16 @@ copyright: Copyright &copy; 2025 - Samir Martins
 
 nav:
   - Home: index.md
+  - Benchmarking: benchmarking.md
   - Data Acquisition:
-      - NIDAQ: get_data_nidaq.md
-      - Arduino: get_data_arduino.md
+      - NIDAQ: 
+          Get Data: get_data_nidaq.md
+          Digital Filters: digital_filters_nidaq.md
+      - Arduino: 
+          Get Data: get_data_arduino.md
+          Digital Filters: digital_filters_arduino.md
+      
+  
   - Sending Data:
       - NIDAQ: send_data_nidaq.md
       - Arduino: send_data_arduino.md

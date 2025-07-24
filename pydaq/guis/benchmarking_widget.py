@@ -1,10 +1,9 @@
-from PySide6.QtWidgets import QFileDialog, QWidget, QMessageBox
+from PySide6.QtWidgets import QFileDialog, QWidget
 from pydaq.uis.ui_PyDAQ_Benchmarking import Ui_Form
-from pydaq.guis.error_window_gui import Error_window
 import time
 import serial
 
-ser = None  # Inicialmente vazio
+ser = serial.Serial('COM5', 115200, timeout=0.05)  # Arduino default: 115200 baud
 ard_vpb = 1  # Conversion factor, if needed
 
 class BenchmarkingWidget(QWidget, Ui_Form):
@@ -15,24 +14,12 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         self.start_button.released.connect(self.inicialize_benchmarking)
         self.com_port = com  # Default COM port
 
-        # Tenta abrir a porta serial aqui
-        global ser
-        try:
-            ser = serial.Serial(self.com_port, 115200, timeout=0.05)
-        except serial.SerialException as e:
-            QMessageBox.critical(self, "Serial Error", f"Could not open port {self.com_port}:\n{e}")
-            ser = None
-
     def close_window(self):
         self.close()
 
     def inicialize_benchmarking(self, periods_ms=[10, 5, 2, 1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001], duration_s=5):
-        if ser is None or not ser.is_open:
-            QMessageBox.warning(self, "Serial Not Available", "Serial port is not open or available.")
-            return
-
         print(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
-        min_period_recommended = None
+        min_period_recommended = None  # To store the smallest stable Ts
         best_stable_period = None
 
         for period_ms in periods_ms:
@@ -46,10 +33,13 @@ class BenchmarkingWidget(QWidget, Ui_Form):
 
                 try:
                     line = ser.readline().decode("utf-8").strip()
+
                     if line.isdigit():
                         value = int(line) * ard_vpb
+                        # print(f"Read value: {value}")
                     else:
-                        continue
+                        continue  # Skip invalid lines
+
                 except Exception as e:
                     print("Serial read error:", e)
                     continue
@@ -73,12 +63,12 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             delay_percent = (delays / total_samples) * 100
             status = "✅ OK" if delays == 0 else "⚠️ FAIL"
 
-            print(f"Period: {period_ms:7.5f} ms | Samples: {total_samples:5} | Delays: {delays:4} "
+            print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | Delays: {delays:4} "
                 f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.4f} ms | {status}")
 
             if delays == 0:
                 best_stable_period = period_ms
-                min_period_recommended = avg_cycle * 1.2
+                min_period_recommended = avg_cycle * 1.2  # Apply 20% safety margin
 
         if min_period_recommended:
             print("\n✅ Ideal sampling period (with 20% safety margin): "
@@ -86,3 +76,4 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             print(f"➡️  You can safely use Ts = {best_stable_period} ms or greater.")
         else:
             print("\n❌ No stable sampling period was found. Try higher values or check serial performance.")
+            pass
