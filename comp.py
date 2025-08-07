@@ -5,3 +5,4 @@ PydaqGui()
 
 
 
+#plot_update_interval em todos

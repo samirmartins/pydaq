@@ -28,8 +28,8 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_get_data.released.connect(self.start_func_get_data)
         self.signals = GuiSignals()
-
-
+        self.label_warning.hide()
+        self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
 
         # Setting the starting values for some widgets
         self.update_com_ports()
@@ -113,7 +113,12 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
             ].name
             g.ts = self.Ts_in.value()
             g.session_duration = self.sesh_dur_in.value()
-            g.plot = True if self.plot_radio_group.checkedId() == -2 else False
+            if self.yes_rt_plot_radio.isChecked(): # Assumindo que 'yes_radio' agora significa 'Real time'
+                g.plot_mode = 'realtime'
+            elif self.yes_ate_plot_radio.isChecked(): # Supondo que você criou um radio button com este nome
+                g.plot_mode = 'end'
+            else: # self.No_radio.isChecked()
+                g.plot_mode = 'no'
             g.save = True if self.save_radio_group.checkedId() == -2 else False
             g.path = self.path_line_edit.text()
 
@@ -133,7 +138,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
 
         if not g.error_path:
             if self.no_radio.isChecked():
-                asyncio.run(g.get_data_arduino())
+                g.get_data_arduino()
                 self.signals.returned.emit(g)
             else:
                 fs = (1/float(self.Ts_in.value()))*2.5
@@ -176,7 +181,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
                         self.fir_coeff = firwin(numtaps_fir, fc_fir/(0.5*fs), window=window_fir, pass_zero=type_fir)
     
                     
-                    asyncio.run(g.get_data_arduino(filter_coefs=(self.fir_coeff)))
+                    g.get_data_arduino(filter_coefs=(self.fir_coeff))
                     self.signals.returned.emit(g)
                     self.frequency_response()
                 
@@ -201,7 +206,7 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
                     elif window_iir == 'Elliptic':
                         self.b, self.a = ellip(numtaps_iir, rp, rs, fc_iir/(0.5*fs), btype=type_iir)
                         
-                    asyncio.run(g.get_data_arduino(filter_coefs=(self.b, self.a)))
+                    g.get_data_arduino(filter_coefs=(self.b, self.a))
                     self.signals.returned.emit(g)
                     self.frequency_response()
 
@@ -305,3 +310,9 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
                 plt.show()
         else:
             pass
+    
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
