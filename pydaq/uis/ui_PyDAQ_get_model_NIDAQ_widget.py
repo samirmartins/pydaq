@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_NIDAQ_widgetgFJvvM.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_NIDAQ_widgetRPghLW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -316,20 +316,32 @@ class Ui_Arduino_GetModel_W(object):
         self.widget_4.setObjectName(u"widget_4")
         self.gridLayout_2 = QGridLayout(self.widget_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.yes_plot_radio = QRadioButton(self.widget_4)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_4)
         self.plot_radio_group = QButtonGroup(Arduino_GetModel_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.gridLayout_2.addWidget(self.yes_plot_radio, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.yes_rt_plot_radio, 0, 0, 1, 1)
 
         self.no_plot_radio = QRadioButton(self.widget_4)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
-        self.gridLayout_2.addWidget(self.no_plot_radio, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.no_plot_radio, 0, 3, 1, 1)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_4)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.gridLayout_2.addWidget(self.yes_ate_plot_radio, 0, 2, 1, 1)
+
+        self.label_warning = QLabel(self.widget_4)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.gridLayout_2.addWidget(self.label_warning, 0, 1, 1, 1)
 
 
         self.gridLayout.addWidget(self.widget_4, 7, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
@@ -621,8 +633,10 @@ class Ui_Arduino_GetModel_W(object):
         self.path_folder_browse.setText(QCoreApplication.translate("Arduino_GetModel_W", u" BROWSE ", None))
         self.label_2.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input signal:", None))
         self.label_11.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Terminal Config.", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Real time", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"No", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"At the end", None))
+        self.label_warning.setText(QCoreApplication.translate("Arduino_GetModel_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
         self.label_8.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Path:", None))
         self.label.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Device:", None))
         self.label_3.setText(QCoreApplication.translate("Arduino_GetModel_W", u"System identification:", None))

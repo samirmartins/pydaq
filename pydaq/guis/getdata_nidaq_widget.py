@@ -62,6 +62,12 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         self.label_warning.hide()
         self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
 
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def openFilterWindow(self):
         self.filterWindow = Digital_Filters_NIDAQ_Widget()
         self.filterWindow.dataEntered.connect(self.update_values)
@@ -372,8 +378,4 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         else:
             pass
     
-    def _update_warning_label(self):
-        if self.yes_rt_plot_radio.isChecked():
-            self.label_warning.show()
-        else:
-            self.label_warning.hide()
+    

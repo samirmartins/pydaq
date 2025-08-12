@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetTJlfUY.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetKEaNnF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -24,7 +24,7 @@ class Ui_NIDAQ_StepResponse_W(object):
     def setupUi(self, NIDAQ_StepResponse_W):
         if not NIDAQ_StepResponse_W.objectName():
             NIDAQ_StepResponse_W.setObjectName(u"NIDAQ_StepResponse_W")
-        NIDAQ_StepResponse_W.resize(582, 605)
+        NIDAQ_StepResponse_W.resize(582, 622)
         NIDAQ_StepResponse_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -333,18 +333,35 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.widget_7.setObjectName(u"widget_7")
         self.horizontalLayout = QHBoxLayout(self.widget_7)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.yes_plot_radio = QRadioButton(self.widget_7)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group = QButtonGroup(NIDAQ_StepResponse_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.horizontalLayout.addWidget(self.yes_plot_radio)
+        self.horizontalLayout.addWidget(self.yes_rt_plot_radio)
+
+        self.label_warning = QLabel(self.widget_7)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.horizontalLayout.addWidget(self.label_warning)
+
+        self.label_14 = QLabel(self.widget_7)
+        self.label_14.setObjectName(u"label_14")
+
+        self.horizontalLayout.addWidget(self.label_14)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_7)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.horizontalLayout.addWidget(self.yes_ate_plot_radio)
 
         self.no_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
@@ -572,7 +589,10 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.no_save_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"No", None))
         self.label_9.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AI channel:", None))
         self.label_6.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Plot data?", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Real Time", None))
+        self.label_warning.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
+        self.label_14.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"<html><head/><body><p><br/></p></body></html>", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"No", None))
         self.label_12.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Maximum", None))
         self.label_11.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Minimum", None))

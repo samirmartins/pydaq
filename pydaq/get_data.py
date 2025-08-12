@@ -107,14 +107,17 @@ class GetData(Base):
         # Wait for plot to be ready before starting acquisition to synchronize time_now to ~0
         self.plot_ready_event.wait() 
 
-        st_worker = time.perf_counter()
-        self.st_worker = st_worker
         task = nidaqmx.Task()
+        
         try:
             task.ai_channels.add_ai_voltage_chan(
                 self.device + "/" + self.channel, terminal_config=self.terminal
             )
             num_cycles_performed = 0
+            
+            st_worker = time.perf_counter()
+            self.st_worker = st_worker
+            
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break
@@ -186,9 +189,9 @@ class GetData(Base):
             self.title = f"PYDAQ - Data Acquisition. {self.device}, {self.channel}"
             self._start_updatable_plot(title_str=self.title) 
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            time.sleep(0.5)
             self.plot_ready_event.set()
         else:
-            # Se não for em tempo real, libera a aquisição imediatamente
             self.plot_ready_event.set()
 
         k_iteration = 0
@@ -229,7 +232,7 @@ class GetData(Base):
                             self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
                         else:
                             self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
-                    
+
                     self._update_plot(
                         self.time_var,
                         self.data,
@@ -253,9 +256,9 @@ class GetData(Base):
                 time.sleep(0.01)
                 if not self.acquisition_running and data_queue.empty():
                     break
-        
+
         acquisition_thread.join()
-        
+
         # Aplica o filtro final se houver coeficientes (para salvar e plotar no final)
         if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
             if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
@@ -267,7 +270,7 @@ class GetData(Base):
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
             print("Plot remaining open. Close window manually to exit.")
             plt.show(block=True)
-        
+
         # NOVO BLOCO: Lógica para plotar no final
         if self.plot_mode == 'end' and self.time_var:
             print("\nGenerating plot at the end of acquisition...")
@@ -306,8 +309,6 @@ class GetData(Base):
         # Wait for plot to be ready before starting acquisition to synchronize time_now to ~0
         self.plot_ready_event.wait()
 
-        st_worker = time.perf_counter()
-        self.st_worker = st_worker
         num_cycles_performed = 0
         try:
             self.ser = serial.Serial(
@@ -317,6 +318,9 @@ class GetData(Base):
             )
             print(f"Serial port {self.com_port} opened successfully.")
             
+            st_worker = time.perf_counter()
+            self.st_worker = st_worker
+
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break
@@ -390,6 +394,7 @@ class GetData(Base):
             self.title = f"PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            time.sleep(0.5)
             self.plot_ready_event.set()
         else:
             # Se não for em tempo real, libera a aquisição imediatamente
@@ -470,7 +475,7 @@ class GetData(Base):
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
             print("Plot remaining open. Close window manually to exit.")
             plt.show(block=True)
-            
+
         # NOVO BLOCO: Lógica para plotar no final
         if self.plot_mode == 'end' and self.time_var:
             print("\nGenerating plot at the end of acquisition...")

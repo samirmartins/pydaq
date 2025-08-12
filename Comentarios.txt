@@ -1,0 +1,103 @@
+READ ME:
+- Changed Quick view and Main features. 
+- Need to change Screenshots.
+
+MKDOCS (https://pydaq.org/):
+- Changed Home.
+- Created a PID Control menu
+- Yet not changed Screenshots.
+- Created a gif.
+- Changed Code Structure.
+
+Comentários:
+- Verificar a letra maiúscula em before, ponto final e padronizar os dois pontos devem ser corrigidos em https://pydaq.org/get_data_arduino/.
+
+Também trabalhado:
+- Padronizado os textos.
+- No eixo sample (s) fica visível.
+- Ao fechar o dialog, salva os dados e desliga o arduino.
+- Soluções para o tempo de amostragem.
+- Encontrar alternativas para acessar o hardware
+
+- Bitmark
+- Tornar tudo assincrono
+
+async def control_loop_task(self):
+    while not self.paused:
+        if not self.control_running:
+            break
+
+        t_loop_start = time.perf_counter()
+
+        # Atualiza valores
+        if self.simulate:
+            self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
+        elif self.board == 'arduino':
+            self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
+        elif self.board == 'nidaq':
+            self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
+
+        timestamp = time.perf_counter() - self.t0
+        await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
+
+        # Medição do tempo de execução
+        elapsed = time.perf_counter() - t_loop_start
+        sleep_time = self.ts - elapsed
+        if sleep_time > 0:
+            await asyncio.sleep(sleep_time)
+
+while not self.paused:
+            if not self.control_running:
+                break
+            t_start = time.perf_counter()
+            if self.simulate == True:
+                self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
+            elif self.board == 'arduino':
+                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
+            elif self.board == 'nidaq':
+                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
+            timestamp = time.perf_counter() - self.t0
+            await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
+            wait_time = (self.t0 + (self.k) * self.ts) - time.perf_counter()
+            if wait_time > 0:
+                await asyncio.sleep(wait_time)
+            self.k += 1
+        await self.data_queue.put(None)
+
+
+Em níveis de prioridade:
+-plot
+-- placas
+-- thread all
+-- bentmark
+-- docs all
+-- Pesquisar sobre a nomeclatura
+-- Trocar o icone para um mais chamativo (amarelo)
+-- dia 06/08 - 18h30. Lembrar Samir dia 04
+
+Realizados:
+Yes: Designer all to salve data with 3 options
+Yes: Change the icon to yellow
+
+Yes: change 2 and create base funcions on base.py
+Yes: Sleep inicial
+Yes: change the get model
+Yes: change pid to thread
+commit
+start to work on docs
+change all the plot informations
+verify a way to open the pid control.py throughout the line codes
+documentations
+
+retirar todos os comentários em inglês
+
+# pyside6-rcc resources_1.qrc -o resources_1_rc.py
+
+07/08
+Prints ao final
+problema do plot no send data / step response / get model/ pid control (arquino / nidaq)
+colocar o tools no warning
+Comentários todos em inglês
+Tool on label warning
+
+segunda 18/08 16hrs

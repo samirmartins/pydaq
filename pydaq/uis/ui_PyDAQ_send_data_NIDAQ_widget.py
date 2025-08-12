@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetBIisdU.ui'
+## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetSgvDbm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.1
 ##
@@ -24,7 +24,7 @@ class Ui_NIDAQ_SendData_W(object):
     def setupUi(self, NIDAQ_SendData_W):
         if not NIDAQ_SendData_W.objectName():
             NIDAQ_SendData_W.setObjectName(u"NIDAQ_SendData_W")
-        NIDAQ_SendData_W.resize(549, 379)
+        NIDAQ_SendData_W.resize(554, 384)
         NIDAQ_SendData_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -258,18 +258,30 @@ class Ui_NIDAQ_SendData_W(object):
         self.widget_7.setObjectName(u"widget_7")
         self.horizontalLayout = QHBoxLayout(self.widget_7)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.yes_plot_radio = QRadioButton(self.widget_7)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group = QButtonGroup(NIDAQ_SendData_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.horizontalLayout.addWidget(self.yes_plot_radio)
+        self.horizontalLayout.addWidget(self.yes_rt_plot_radio)
+
+        self.label_warning = QLabel(self.widget_7)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.horizontalLayout.addWidget(self.label_warning)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_7)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.horizontalLayout.addWidget(self.yes_ate_plot_radio)
 
         self.no_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
@@ -381,6 +393,8 @@ class Ui_NIDAQ_SendData_W(object):
         self.out_range_min_in.setObjectName(u"out_range_min_in")
         self.out_range_min_in.setMinimumSize(QSize(0, 22))
         self.out_range_min_in.setMaximumSize(QSize(16777215, 22))
+        self.out_range_min_in.setMinimum(-1.000000000000000)
+        self.out_range_min_in.setMaximum(999.000000000000000)
         self.out_range_min_in.setSingleStep(0.500000000000000)
         self.out_range_min_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
 
@@ -449,7 +463,9 @@ class Ui_NIDAQ_SendData_W(object):
         NIDAQ_SendData_W.setWindowTitle(QCoreApplication.translate("NIDAQ_SendData_W", u"Form", None))
         self.reload_devices.setText("")
         self.label_2.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Channel:", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Real time", None))
+        self.label_warning.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"No", None))
         self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_SendData_W", u" BROWSE ", None))
         self.label.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Device:", None))

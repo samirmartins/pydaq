@@ -482,7 +482,7 @@ QPushButton#reload_devices:pressed{
          <item>
           <widget class="QRadioButton" name="yes_rt_plot_radio">
            <property name="text">
-            <string>Real Time</string>
+            <string>Real time</string>
            </property>
            <property name="checked">
             <bool>false</bool>
@@ -638,7 +638,7 @@ QPushButton#reload_devices:pressed{
  <connections/>
  <buttongroups>
   <buttongroup name="plot_radio_group"/>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

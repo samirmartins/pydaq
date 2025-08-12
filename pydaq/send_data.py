@@ -82,7 +82,7 @@ class SendData(Base):
         self.plot_closed_by_user = False
         self.plot_ready_event = threading.Event()
     
-     # Handler for plot window closure
+    # Handler for plot window closure
     def _on_plot_close(self, event):
         """..."""
         print("Plot window closed by user. Halting data sending...")
@@ -132,7 +132,7 @@ class SendData(Base):
         if self.data is None:
             warnings.warn("You must define data to be sent.")
             return
-        
+
         self.time_var, self.sent_data_history = [], []
         progress_queue = queue.Queue()
         self.sending_running = True
@@ -150,50 +150,61 @@ class SendData(Base):
             self.title = f"PYDAQ - Sending Data. {self.device}, {self.channel}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+
+            # Add a short delay to allow the plot window to open fully
+            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            time.sleep(0.5)
+
             self.plot_ready_event.set()
         else:
             self.plot_ready_event.set()
 
-        # --- INÍCIO DA CORREÇÃO ---
         # Control variables for periodic plot update
-        plot_update_interval = 0.2  # Update plot every 0.2 seconds
+        if self.ts >= 0.25:
+            plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
         last_plot_time = time.perf_counter()
-        # --- FIM DA CORREÇÃO ---
 
-        while self.sending_running and not self.plot_closed_by_user:
+        # Main loop to consume progress and update plot
+        while (self.sending_running and not self.plot_closed_by_user) or not progress_queue.empty():
             try:
                 item = progress_queue.get(timeout=0.01)
+
                 if item is None:
                     self.sending_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not progress_queue.empty():
+                        remaining_item = progress_queue.get_nowait()
+                        if remaining_item:
+                            timestamp, sent_value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.sent_data_history.append(sent_value)
                     break
-                
+
                 timestamp, sent_value = item
                 self.time_var.append(timestamp)
                 self.sent_data_history.append(sent_value)
 
-                # --- INÍCIO DA CORREÇÃO ---
-                # Check if it's time to update the plot
                 now = time.perf_counter()
-                if self.plot_mode == 'realtime' and (now - last_plot_time > plot_update_interval):
-                    self._update_plot(self.time_var, self.sent_data_history)
-                    last_plot_time = now # Reset the timer
-                # --- FIM DA CORREGEÇÃO ---
+                # Improved plot condition to ensure the final frame is drawn
+                if self.plot_mode == 'realtime' and (now - last_plot_time >= plot_update_interval or not self.sending_running):
+                    self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+                    last_plot_time = now
             
             except queue.Empty:
-                # When the queue is empty, we can still process GUI events to keep it responsive
-                if self.plot_mode == 'realtime':
-                    plt.pause(0.01)
-                else:
-                    time.sleep(0.01)
+                time.sleep(0.01)
+                if not self.sending_running and progress_queue.empty():
+                    break
 
         sending_thread.join()
 
         # Plotting at the end logic remains the same
-        if self.plot_mode == 'end':
+        if self.plot_mode == 'end' and self.sent_data_history:
             self.title = f"PYDAQ - Final Sent Data (NIDAQ)"
             self._start_updatable_plot(title_str=self.title)
-            final_time_var = np.arange(0, len(self.data) * self.ts, self.ts)
-            self._update_plot(final_time_var, self.data)
+            # Use the actual sent data history for the final plot
+            self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
             plt.show(block=True)
             
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
@@ -206,6 +217,7 @@ class SendData(Base):
         self.plot_ready_event.wait()
         
         st_worker = time.perf_counter()
+        # This logic is specific to sending digital signals based on a voltage threshold
         data_to_send = [b"1" if i > 2.5 else b"0" for i in self.data]
         cycles = len(data_to_send)
 
@@ -265,49 +277,60 @@ class SendData(Base):
             self.title = f"PYDAQ - Sending Data. Arduino, Port: {self.com_port}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+
+            # Add a short delay to allow the plot window to open fully
+            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            time.sleep(0.5)
+
             self.plot_ready_event.set()
         else:
             self.plot_ready_event.set()
 
-        # --- INÍCIO DA CORREÇÃO ---
         # Control variables for periodic plot update
-        plot_update_interval = 0.2  # Update plot every 0.2 seconds
+        if self.ts >= 0.25:
+            plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
         last_plot_time = time.perf_counter()
-        # --- FIM DA CORREÇÃO ---
 
-        while self.sending_running and not self.plot_closed_by_user:
+        # Main loop to consume progress and update plot
+        while (self.sending_running and not self.plot_closed_by_user) or not progress_queue.empty():
             try:
                 item = progress_queue.get(timeout=0.01)
+
                 if item is None:
                     self.sending_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not progress_queue.empty():
+                        remaining_item = progress_queue.get_nowait()
+                        if remaining_item:
+                            timestamp, sent_value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.sent_data_history.append(sent_value)
                     break
                 
                 timestamp, sent_value = item
                 self.time_var.append(timestamp)
                 self.sent_data_history.append(sent_value)
 
-                # --- INÍCIO DA CORREÇÃO ---
-                # Check if it's time to update the plot
                 now = time.perf_counter()
-                if self.plot_mode == 'realtime' and (now - last_plot_time > plot_update_interval):
-                    self._update_plot(self.time_var, self.sent_data_history)
-                    last_plot_time = now # Reset the timer
-                # --- FIM DA CORREÇÃO ---
+                # Improved plot condition to ensure the final frame is drawn
+                if self.plot_mode == 'realtime' and (now - last_plot_time >= plot_update_interval or not self.sending_running):
+                    self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+                    last_plot_time = now
             
             except queue.Empty:
-                # When the queue is empty, we can still process GUI events to keep it responsive
-                if self.plot_mode == 'realtime':
-                    plt.pause(0.01)
-                else:
-                    time.sleep(0.01)
+                time.sleep(0.01)
+                if not self.sending_running and progress_queue.empty():
+                    break
 
         sending_thread.join()
 
-        if self.plot_mode == 'end':
+        if self.plot_mode == 'end' and self.sent_data_history:
             self.title = f"PYDAQ - Final Sent Data (Arduino)"
             self._start_updatable_plot(title_str=self.title)
-            final_time_var = np.arange(0, len(self.data) * self.ts, self.ts)
-            self._update_plot(final_time_var, self.data)
+            # Use the actual sent data history for the final plot
+            self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
             plt.show(block=True)
         
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:

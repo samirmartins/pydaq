@@ -49,7 +49,7 @@ class PIDControl(Base):
         self.ai_channel="ai0"
         self.terminal="Diff"
         self.com_port = 'COM1' # To arduino  # Default COM port
-        self.a = 0.2 # To simulated
+        self.a = 0.2 # To simulate
 
     def update(self, feedback_value):
         error = self.setpoint - feedback_value
@@ -74,29 +74,29 @@ class PIDControl(Base):
         self.ard_ao_max, self.ard_ao_min = 5, 0 # Arduino analog input max and min
         self.ard_vpb = (self.ard_ao_max - self.ard_ao_min) / ((2 ** self.arduino_ai_bits)-1) # Value per bit - Arduino
         self.ser.reset_input_buffer()
-        time.sleep(1)  # Wait for Arduino and Serial to start up
+        time.sleep(0.5)  # Wait for Arduino and Serial to start up
         self.title = f"PYDAQ - Step Response (Arduino), Port: {self.com_port}" # Start updatable plot
 
 # Updating the Datas to plot
     def update_plot_arduino(self):
-        if self.ser.in_waiting > 64:  # If there's more than 64 bits accumulated
-            self.ser.reset_input_buffer()
+        
+        self.ser.reset_input_buffer()
+        
         self.time_elapsed += self.period # Clock
         data = self.ser.read(14).decode("UTF-8") # Get the feedback sensor value
         try:
             self.feedback_value =  int(data.split()[-2]) * self.ard_vpb
         except (IndexError, ValueError):
-            #print('using the data value ',self.feedback_value)
             self.feedback_value = self.feedback_value # Use the last valid value
 
         self.feedback_calibrated = self.calibrationuv(self.feedback_value) #Calibration by U(v)
         self.control_unit, error = self.update(self.feedback_calibrated) # Get the control value
         self.control_voltage = self.calibrationvu(self.control_unit) #Calibration by V(u)
         self.control = self.control_voltage
-        if(self.control <= 0):
-            self.control = 0
-        elif (self.control >=5):
-            self.control = 5
+        if(self.control <= self.ard_ao_min):
+            self.control = self.ard_ao_min
+        elif (self.control >=self.ard_ao_max):
+            self.control = self.ard_ao_max
         self.duty_cycle_control = int((self.control/self.ard_ao_max) *255) # Change to a duty cicle
         self.ser.write(f"{self.duty_cycle_control}\n".encode("utf-8")) # Send data to arduino 
         self.error = error
@@ -116,6 +116,7 @@ class PIDControl(Base):
             min_val=0.0,  # Max value to usb 6009
             max_val=5.0   # Max value to usb 6009
         )
+
         self.time_elapsed = 0.0
         self.feedback_value = 0
         self.control = 0
@@ -132,7 +133,7 @@ class PIDControl(Base):
         self.control = self.setpoint
         if(self.control <= 0):
             self.control = 0
-        elif (self.control >=5):
+        elif (self.control >= 5):
             self.control = 5
         self.task_ao.write(self.control)
         self.error = self.setpoint - self.feedback_calibrated

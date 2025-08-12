@@ -178,7 +178,7 @@ class GetModel(Base):
         ao_max=5,
         session_duration=10.0,
         save=True,
-        plot=True,
+        plot_mode="no",
         degree=2,
         start_save_time=1,
         out_lag=3,
@@ -202,7 +202,7 @@ class GetModel(Base):
         self.ts = ts
         self.var_tb = var_tb
         self.save = save
-        self.plot = plot
+        plot_mode = "no"
         self.legend = ["Input", "Output"]
         self.degree = degree
         self.start_save_time = start_save_time

@@ -54,7 +54,7 @@ class StepResponse(Base):
         step_max=5,
         terminal="Diff",
         com="COM1",
-        plot_mode="realtime", # Options: "realtime", "end", "no"
+        plot_mode="no", # Options: "realtime", "end", "no"
         save=True,
     ):
 
@@ -183,33 +183,60 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Step Response (Arduino), Port: {self.com_port}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            
+            # Add a short delay to allow the plot window to open fully
+            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            time.sleep(0.5)
+
             self.plot_ready_event.set()
         else:
             self.plot_ready_event.set()
 
+        # Plot update throttling logic for performance
+        if self.ts >= 0.25:
+            plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
+        last_plot_update_time = time.perf_counter()
+
         while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty():
             try:
                 item = data_queue.get(timeout=0.01)
+                
                 if item is None:
                     self.acquisition_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not data_queue.empty():
+                        remaining_item = data_queue.get_nowait()
+                        if remaining_item is not None:
+                            timestamp, input_val, output_val = remaining_item
+                            self.time_var.append(timestamp)
+                            self.input.append(input_val)
+                            self.output.append(output_val)
                     break
+
                 timestamp, input_val, output_val = item
                 self.time_var.append(timestamp)
                 self.input.append(input_val)
                 self.output.append(output_val)
 
-                if self.plot_mode == 'realtime':
+                # Throttle plot updates for performance
+                now = time.perf_counter()
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
                     self._update_plot(
-                        [self.time_var, self.time_var],
-                        [self.output, self.input],
+                        self.time_var,
+                        self.output,
+                        y2_values=self.input,
                         y1_label=self.legend[0],
                         y2_label=self.legend[1]
                     )
+                    last_plot_update_time = now
+
             except queue.Empty:
-                if self.plot_mode == 'realtime':
-                    plt.pause(0.01)
-                else:
-                    time.sleep(0.01)
+                # This keeps the loop responsive
+                time.sleep(0.01)
+                if not self.acquisition_running and data_queue.empty():
+                    break
 
         acquisition_thread.join()
 
@@ -217,8 +244,9 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Final Step Response (Arduino)"
             self._start_updatable_plot(title_str=self.title)
             self._update_plot(
-                [self.time_var, self.time_var],
-                [self.output, self.input],
+                self.time_var,
+                self.output,
+                y2_values=self.input,  # Formato correto
                 y1_label=self.legend[0],
                 y2_label=self.legend[1]
             )
@@ -313,10 +341,22 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Step Response (NIDAQ). {self.device}, {self.ai_channel}, {self.ao_channel}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+
+            # Add a short delay to allow the plot window to open fully
+            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            time.sleep(0.5)
+
             self.plot_ready_event.set()
         else:
             self.plot_ready_event.set() # Allow acquisition to start immediately
 
+        # Plot update throttling logic for performance
+        if self.ts >= 0.25:
+            plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
+        last_plot_update_time = time.perf_counter()
+        
         # Main loop for data consumption and plotting
         while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty():
             try:
@@ -324,6 +364,14 @@ class StepResponse(Base):
 
                 if item is None:
                     self.acquisition_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not data_queue.empty():
+                        remaining_item = data_queue.get_nowait()
+                        if remaining_item is not None:
+                            timestamp, input_val, output_val = remaining_item
+                            self.time_var.append(timestamp)
+                            self.input.append(input_val)
+                            self.output.append(output_val)
                     break
 
                 timestamp, input_val, output_val = item
@@ -331,22 +379,23 @@ class StepResponse(Base):
                 self.input.append(input_val)
                 self.output.append(output_val)
 
-                # Periodic plot update for 'realtime' mode
-                if self.plot_mode == 'realtime':
-                    # A simple periodic update can be added here if needed for performance
+                # Throttle plot updates for performance
+                now = time.perf_counter()
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
                     self._update_plot(
-                        [self.time_var, self.time_var],
-                        [self.output, self.input],
+                        self.time_var,
+                        self.output,
+                        y2_values=self.input,
                         y1_label=self.legend[0],
                         y2_label=self.legend[1]
                     )
+                    last_plot_update_time = now
 
             except queue.Empty:
-                # This keeps the loop responsive and allows GUI event processing
-                if self.plot_mode == 'realtime':
-                    plt.pause(0.01)
-                else:
-                    time.sleep(0.01)
+                # This keeps the loop responsive
+                time.sleep(0.01)
+                if not self.acquisition_running and data_queue.empty():
+                    break
 
         acquisition_thread.join()
 
@@ -354,8 +403,9 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Final Step Response (NIDAQ)"
             self._start_updatable_plot(title_str=self.title)
             self._update_plot(
-                [self.time_var, self.time_var],
-                [self.output, self.input],
+                self.time_var,
+                self.output,
+                y2_values=self.input,  # Formato correto
                 y1_label=self.legend[0],
                 y2_label=self.legend[1]
             )
@@ -371,5 +421,5 @@ class StepResponse(Base):
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
             print("\nPlot remains open. Close window manually to exit.")
             plt.show(block=True)
-        
+
         return
