@@ -22,49 +22,6 @@ Também trabalhado:
 - Bitmark
 - Tornar tudo assincrono
 
-async def control_loop_task(self):
-    while not self.paused:
-        if not self.control_running:
-            break
-
-        t_loop_start = time.perf_counter()
-
-        # Atualiza valores
-        if self.simulate:
-            self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
-        elif self.board == 'arduino':
-            self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
-        elif self.board == 'nidaq':
-            self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
-
-        timestamp = time.perf_counter() - self.t0
-        await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
-
-        # Medição do tempo de execução
-        elapsed = time.perf_counter() - t_loop_start
-        sleep_time = self.ts - elapsed
-        if sleep_time > 0:
-            await asyncio.sleep(sleep_time)
-
-while not self.paused:
-            if not self.control_running:
-                break
-            t_start = time.perf_counter()
-            if self.simulate == True:
-                self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
-            elif self.board == 'arduino':
-                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
-            elif self.board == 'nidaq':
-                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
-            timestamp = time.perf_counter() - self.t0
-            await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
-            wait_time = (self.t0 + (self.k) * self.ts) - time.perf_counter()
-            if wait_time > 0:
-                await asyncio.sleep(wait_time)
-            self.k += 1
-        await self.data_queue.put(None)
-
-
 Em níveis de prioridade:
 -plot
 -- placas
@@ -75,29 +32,31 @@ Em níveis de prioridade:
 -- Trocar o icone para um mais chamativo (amarelo)
 -- dia 06/08 - 18h30. Lembrar Samir dia 04
 
-Realizados:
-Yes: Designer all to salve data with 3 options
-Yes: Change the icon to yellow
+Para 07/08:
+v: Designer all to salve data with 3 options
+v: Change the icon to yellow
+v: change 2 and create base funcions on base.py
+v: Sleep inicial
+x: change the get model
+v: change pid to thread
+v: commit
 
-Yes: change 2 and create base funcions on base.py
-Yes: Sleep inicial
-Yes: change the get model
-Yes: change pid to thread
-commit
-start to work on docs
-change all the plot informations
-verify a way to open the pid control.py throughout the line codes
-documentations
+Para 22/08:
+v: Problema do plot no send data / step response / pid control (arquino / nidaq)
+Get model on thread e problema do plot
+Tool on label warning
+Change all plot informations (?)
+Prints do plot ao final
+Observar o resultado ótimo de plot_update_interval para atualizar a cada instante em baixa frequência. ( Aplicar em todos: get data, send data...)
+Ver o erro com o save and close no pid control
 
-retirar todos os comentários em inglês
+Comentários e prints todos em inglês
+Verify a way to open the pid control.py throughout the line codes
+
+Padronizar casas decimais, limite superior e inferior.
+Se estivermos bem com o tempo: Real Time Control / Plot at the end / No plot no PID Control.
+Documentations
 
 # pyside6-rcc resources_1.qrc -o resources_1_rc.py
 
-07/08
-Prints ao final
-problema do plot no send data / step response / get model/ pid control (arquino / nidaq)
-colocar o tools no warning
-Comentários todos em inglês
-Tool on label warning
-
-segunda 18/08 16hrs
+sexta 22/08 17hrs

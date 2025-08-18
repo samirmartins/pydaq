@@ -76,12 +76,12 @@ class SendData(Base):
         # Plot title and legend
         self.title = None
         self.legend = ["Output"]
-        
+
         # Threading control
         self.sending_running = False
         self.plot_closed_by_user = False
         self.plot_ready_event = threading.Event()
-    
+
     # Handler for plot window closure
     def _on_plot_close(self, event):
         """..."""
@@ -92,16 +92,18 @@ class SendData(Base):
     def _send_data_worker_nidaq(self, progress_queue):
         self.plot_ready_event.wait() # Wait for plot to be ready
 
-        st_worker = time.perf_counter()
-        task = nidaqmx.Task()
         try:
             task.ao_channels.add_ao_voltage_chan(
                 f"{self.device}/{self.channel}",
                 min_val=float(self.ao_min),
                 max_val=float(self.ao_max),
             )
-            
+
             cycles = len(self.data)
+            
+            st_worker = time.perf_counter()
+            task = nidaqmx.Task()
+            
             for k in range(cycles):
                 if not self.sending_running:
                     break
@@ -110,6 +112,7 @@ class SendData(Base):
                 task.write(current_value)
                 
                 time_now = time.perf_counter() - st_worker
+                
                 # Put progress on the queue for the main thread to plot
                 progress_queue.put((time_now, current_value))
 
@@ -216,14 +219,15 @@ class SendData(Base):
     def _send_data_worker_arduino(self, progress_queue):
         self.plot_ready_event.wait()
         
-        st_worker = time.perf_counter()
         # This logic is specific to sending digital signals based on a voltage threshold
         data_to_send = [b"1" if i > 2.5 else b"0" for i in self.data]
         cycles = len(data_to_send)
 
         try:
             self._open_serial()
-            time.sleep(2) # Wait for serial to settle
+            time.sleep(0.5) # Wait for serial to settle
+            
+            st_worker = time.perf_counter()
 
             for k in range(cycles):
                 if not self.sending_running:

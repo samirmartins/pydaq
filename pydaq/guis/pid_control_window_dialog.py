@@ -205,7 +205,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
     def control_loop_task(self):
         st_worker = time.perf_counter()
         self.t0 = st_worker
-        self.k = 1
+        self.k = 0
 
         while not self.paused:
             if not self.control_running:
@@ -335,28 +335,6 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.ax2.legend(loc='upper right')
 
         self.figure.subplots_adjust(bottom=0.25)
-
-    def control_loop_task(self):
-        while not self.paused:
-            if not self.control_running:
-                break
-            target_time = self.t0 + self.k * self.ts
-            wait_time = target_time - time.perf_counter()
-            if wait_time > 0:
-                time.sleep(wait_time)
-
-            with self.lock:
-                if self.simulate:
-                    self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
-                elif self.board == 'arduino':
-                    self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
-                elif self.board == 'nidaq':
-                    self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
-
-            timestamp = time.perf_counter() - self.t0
-            self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
-
-            self.k += 1
 
     def update_plot_task(self):
         while self.plot_running:
