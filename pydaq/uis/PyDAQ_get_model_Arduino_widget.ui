@@ -502,6 +502,9 @@ QPushButton#reload_devices:pressed{
          </item>
          <item row="0" column="1">
           <widget class="QLabel" name="label_warning">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &amp;lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/imgs/imgs/Warning_logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>

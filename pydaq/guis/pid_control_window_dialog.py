@@ -25,7 +25,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
 # Signal to send back to QWidget the values
     send_values = Signal(float, float, float, int, float)
-    update_plot_signal = Signal()  # Adicionado ao lado de send_values
+    update_plot_signal = Signal()  # Added next to send_values
 
 
     def __init__(self, *args):
@@ -42,7 +42,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
         self.path = os.path.join(os.path.join(os.path.expanduser("~")), "Desktop") # Defining default path
         self.figure = plt.figure(figsize =(6.4,4.8), facecolor='#404040') #Starting the canvas
-        self.figure.patch.set_facecolor('#404040')  # Fundo externo
+        self.figure.patch.set_facecolor('#404040')  # External background
         self.ax = self.figure.add_subplot(111, facecolor='#505050')  # Output graph
         self.ax2 = self.ax.twinx()
         self.canvas = FigureCanvas(self.figure)
@@ -56,6 +56,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.setpoints = []
         self.controls = []
         self.time_var = []
+        self.elapsed_time = 0.0
         
         self.lock = threading.Lock()
         self.update_plot_signal.connect(self._update_plot_gui_safe)
@@ -66,6 +67,8 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         if self.paused:
             self.plot_running = False
             self.control_running = False
+            # saves the time accumulated so far
+            self.elapsed_time += time.perf_counter() - self.t0
             self.pushButton_startstop.setText("START")
         else:
             self.plot_running = True
@@ -74,6 +77,9 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
             self.start_threaded_control()
             
     def go_back(self): #def to save and go back
+        if hasattr(self, "_already_closed") and self._already_closed:
+            return
+        self._already_closed = True
         if self.save: #save if wanted
             print("\nSaving data ...")
             self._save_data(self.time_var, "time.dat") # Saving time_var and data
@@ -97,18 +103,24 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
             self.pid.ser.write(b"0") # Turning off the output at the end
             self.pid.ser.close() # Closing port
         elif self.board == 'nidaq':
-                self.pid.task_ao.write(0) # Turning off the output at the end
-                self.pid.task_ao.close() # Closing task
-                self.pid.task_ai.close()
+            try:
+                if self.pid.task_ao:
+                    self.pid.task_ao.write(0)
+                    self.pid.task_ao.close()
+                if self.pid.task_ai:
+                    self.pid.task_ai.close()
+            except Exception as e:
+                print("Warning when closing NI-DAQ tasks:", e)
+
         self.plot_running = False
         self.control_running = False
         self.close()
 
     def closeEvent(self, event):
         # Ensures the same behavior as the "CLOSE" or "SAVE AND CLOSE" button
-        self.go_back()
-        # The event needs to be explicitly accepted for PySide6 to close the window
-        event.accept()
+        if not hasattr(self, "_already_closed"):
+            self.go_back()
+        event.accept()         # The event needs to be explicitly accepted for PySide6 to close the window
 
     def apply_parameters(self): #apply all pid parameters while the event goes on
         try:
@@ -190,7 +202,6 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.data_queue = queue.Queue()
         self.plot_running = True
         self.control_running = True
-        self.t0 = time.perf_counter()
         self.ts = self.period
         self.k = 1
 
@@ -219,7 +230,8 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
                 elif self.board == 'nidaq':
                     self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
 
-            time_now = time.perf_counter() - st_worker
+            time_now = (time.perf_counter() - self.t0) + self.elapsed_time
+            
             self.data_queue.put((time_now, self.output, self.error, self.setpoint, self.control))
 
             target_time = st_worker + (self.k + 1) * self.ts
@@ -315,12 +327,12 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.ax.set_ylabel(self.unit)
         self.ax2.set_ylabel('Error')
 
-        # Forçar cor dos labels
+        # Force label color
         self.ax.xaxis.label.set_color('white')      # Sample (s)
         self.ax.yaxis.label.set_color('white')      # Voltage (V)
         self.ax2.yaxis.label.set_color('white')     # Error
 
-        # Forçar cor dos ticks e bordas
+        # Force tick and border color
         for spine in ['bottom', 'top', 'left', 'right']:
             self.ax.spines[spine].set_color('white')
             self.ax2.spines[spine].set_color('white')

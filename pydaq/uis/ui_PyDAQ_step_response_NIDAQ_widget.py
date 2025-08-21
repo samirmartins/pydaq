@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetKEaNnF.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetUsltfn.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -590,6 +590,9 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.label_9.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"AI channel:", None))
         self.label_6.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Plot data?", None))
         self.yes_rt_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"Real Time", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("NIDAQ_StepResponse_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.label_warning.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
         self.label_14.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"<html><head/><body><p><br/></p></body></html>", None))
         self.yes_ate_plot_radio.setText(QCoreApplication.translate("NIDAQ_StepResponse_W", u"At the end", None))

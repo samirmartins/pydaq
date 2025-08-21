@@ -155,7 +155,7 @@ class SendData(Base):
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
 
             # Add a short delay to allow the plot window to open fully
-            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
             time.sleep(0.5)
 
             self.plot_ready_event.set()
@@ -163,10 +163,11 @@ class SendData(Base):
             self.plot_ready_event.set()
 
         # Control variables for periodic plot update
-        if self.ts >= 0.25:
-            plot_update_interval = 0.25
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
         else:
-            plot_update_interval = 0.5
+            plot_update_interval = 0.25
+            
         last_plot_time = time.perf_counter()
 
         # Main loop to consume progress and update plot
@@ -283,7 +284,7 @@ class SendData(Base):
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
 
             # Add a short delay to allow the plot window to open fully
-            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
             time.sleep(0.5)
 
             self.plot_ready_event.set()
@@ -291,10 +292,11 @@ class SendData(Base):
             self.plot_ready_event.set()
 
         # Control variables for periodic plot update
-        if self.ts >= 0.25:
-            plot_update_interval = 0.25
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
         else:
-            plot_update_interval = 0.5
+            plot_update_interval = 0.25
+
         last_plot_time = time.perf_counter()
 
         # Main loop to consume progress and update plot

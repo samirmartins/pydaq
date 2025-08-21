@@ -637,8 +637,8 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="plot_radio_group"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="plot_radio_group"/>
  </buttongroups>
 </ui>

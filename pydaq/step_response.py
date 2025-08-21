@@ -185,7 +185,7 @@ class StepResponse(Base):
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
             
             # Add a short delay to allow the plot window to open fully
-            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
             time.sleep(0.5)
 
             self.plot_ready_event.set()
@@ -193,10 +193,11 @@ class StepResponse(Base):
             self.plot_ready_event.set()
 
         # Plot update throttling logic for performance
-        if self.ts >= 0.25:
-            plot_update_interval = 0.25
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
         else:
-            plot_update_interval = 0.5
+            plot_update_interval = 0.25
+
         last_plot_update_time = time.perf_counter()
 
         while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty():
@@ -246,7 +247,7 @@ class StepResponse(Base):
             self._update_plot(
                 self.time_var,
                 self.output,
-                y2_values=self.input,  # Formato correto
+                y2_values=self.input,  # Correct format
                 y1_label=self.legend[0],
                 y2_label=self.legend[1]
             )
@@ -343,7 +344,7 @@ class StepResponse(Base):
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
 
             # Add a short delay to allow the plot window to open fully
-            print("\nPlot em tempo real iniciado. Aguardando 0.5s para a janela renderizar...")
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
             time.sleep(0.5)
 
             self.plot_ready_event.set()
@@ -351,10 +352,11 @@ class StepResponse(Base):
             self.plot_ready_event.set() # Allow acquisition to start immediately
 
         # Plot update throttling logic for performance
-        if self.ts >= 0.25:
-            plot_update_interval = 0.25
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
         else:
-            plot_update_interval = 0.5
+            plot_update_interval = 0.25
+            
         last_plot_update_time = time.perf_counter()
         
         # Main loop for data consumption and plotting
@@ -405,12 +407,12 @@ class StepResponse(Base):
             self._update_plot(
                 self.time_var,
                 self.output,
-                y2_values=self.input,  # Formato correto
+                y2_values=self.input,  # Correct format
                 y1_label=self.legend[0],
                 y2_label=self.legend[1]
             )
             plt.show(block=True)
-            
+
         if self.save:
             print("\nSaving data ...")
             self._save_data(self.time_var, "time.dat")

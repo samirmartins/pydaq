@@ -55,3 +55,44 @@ A disturbance input can also be simulated during real-time control. It acts as a
 ## Example GIF
 
 ![](img/Getmodel_NIDAQ_gif.gif)
+
+# Control PID with NIDAQ (GUI via code)
+
+It is possible to access the PID Control GUI for NIDAQ devices directly with a few lines of code.
+
+
+## Example
+
+The following code demonstrates how to set up and launch the control interface for an NI-DAQ device, specifying the device name and the analog input and output channels.
+
+```python
+import sys, os, serial.tools.list_ports
+from PySide6.QtWidgets import QApplication
+from pydaq.pid_control_window_dialog import PID_Control_Window_Dialog
+
+app = QApplication(sys.argv)
+plot_window = PID_Control_Window_Dialog()
+
+# Select Arduino port automatically
+com_port = serial.tools.list_ports.comports()[0].name
+plot_window.check_board(board="nidaq", device="Dev1", ao="ao0", ai="ai0", terminal="RSE", simulate=False)
+
+# Define PID parameters
+kp, ki, kd, setpoint, period = 1.0, 0.2, 0.05, 2.0, 0.1
+index, path, save = 3, None, True  
+
+# index = 0 -> P, 1 -> PI, 2 -> PD, 3 -> PID.
+
+# when path = None, by defaut saves to C:\Users\Desktop
+
+plot_window.set_parameters(kp, ki, kd, index, "1", "s+0.2", setpoint, "Voltage (V)", "", "", period, path, save)
+
+# Open GUI
+plot_window.exec()
+```
+
+- check_board: Selects and configures the NI-DAQ device. You must specify the device name (device), the analog output channel (ao), the analog input channel (ai), and the terminal configuration (terminal).
+
+- set_parameters: Sets the controller gains, setpoint, sampling period, and the path to save the data.
+
+- exec(): Opens the real-time control interface.

@@ -52,7 +52,7 @@ from pydaq.send_data import SendData
 sample_period_in_seconds = 1
 data = [0, 0, 5, 5, 0, 0, 5, 5, 0, 0, 5, 5]  # It can be either a list or a numpy array
 com_port_arduino = 'COM3'
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and send the data

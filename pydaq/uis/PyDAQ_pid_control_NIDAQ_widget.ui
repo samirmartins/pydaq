@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>597</width>
+    <width>549</width>
     <height>1031</height>
    </rect>
   </property>
@@ -387,7 +387,7 @@ QDoubleSpinBox::down-button:hover{
        <widget class="QPushButton" name="pushButton_confirm">
         <property name="minimumSize">
          <size>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </size>
         </property>
@@ -419,7 +419,7 @@ QDoubleSpinBox::down-button:hover{
           <widget class="QPushButton" name="path_folder_browse">
            <property name="minimumSize">
             <size>
-             <width>70</width>
+             <width>90</width>
              <height>30</height>
             </size>
            </property>
@@ -1096,7 +1096,7 @@ QDoubleSpinBox::down-button:hover{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="simulate_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="simulate_radio_group"/>
  </buttongroups>
 </ui>

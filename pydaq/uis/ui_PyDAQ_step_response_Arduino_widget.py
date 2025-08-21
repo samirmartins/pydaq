@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetojqfNB.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgethgzBLJ.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -452,6 +452,9 @@ class Ui_Arduino_StepResponse_W(object):
         self.label_11.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Save data?", None))
         self.label_12.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Path:", None))
         self.yes_rt_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Real Time", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("Arduino_StepResponse_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.label_warning.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
         self.yes_ate_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"No", None))
