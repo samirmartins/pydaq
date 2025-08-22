@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QFileDialog, QWidget
 from pydaq.uis.ui_PyDAQ_Benchmarking import Ui_Form
+from PySide6.QtWidgets import QApplication
 import time
 import serial
 import warnings
@@ -109,6 +110,8 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
         if periods_ms is None:
             periods_ms = [10, 5, 2, 1, 0.5, 0.2, 0.1, 0.01]
         print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
+        self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
+        QApplication.processEvents()
 
         try:
             self.task = nidaqmx.Task()
@@ -147,6 +150,8 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
             total_samples = len(cycle_times)
             if total_samples == 0:
                 print(f"Period: {period_ms:7.5f} ms | No valid readings ❌\n")
+                self.value_beench.appendPlainText(f"Period: {period_ms:7.5f} ms | No valid readings ❌\n")
+                QApplication.processEvents()
                 continue
 
             avg_cycle = sum(cycle_times) / total_samples
@@ -155,6 +160,8 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
 
             print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | Delays: {delays:4} "
                   f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.4f} ms | {status}")
+            self.value_beench.appendPlainText(f"Sample Period: {period_ms:7.5f} s | {status}\n")
+            QApplication.processEvents()
 
             if delays == 0:
                 best_stable_period = period_ms
@@ -168,6 +175,6 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
             print("\n✅ Ideal sampling period (with 20% safety margin): "
                   f"{min_period_recommended*1000:.3f} ms")
             print(f"➡️  You can safely use Ts = {best_stable_period} ms or greater.")
-            self.value_beench.setText(f"{min_period_recommended*1000:.3f} ms")
+            self.value_beench.appendPlainText(f"{min_period_recommended*1000:.3f} ms")
         else:
             print("\n❌ No stable sampling period was found. Try higher values or check device performance.")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_BenchmarkingWBpzpm.ui'
+## Form generated from reading UI file 'PyDAQ_BenchmarkingzwdVJS.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -16,13 +16,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QWidget)
+    QPlainTextEdit, QPushButton, QSizePolicy, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(448, 265)
+        Form.resize(448, 481)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -349,51 +349,43 @@ class Ui_Form(object):
 "")
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label_2 = QLabel(Form)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setMinimumSize(QSize(300, 0))
-        self.label_2.setMaximumSize(QSize(16777215, 120))
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setMaximumSize(QSize(16777215, 60))
         font = QFont()
         font.setFamilies([u"Helvetica"])
         font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
-        font.setUnderline(False)
-        font.setStrikeOut(False)
-        font.setKerning(True)
-        self.label_2.setFont(font)
+        self.label.setFont(font)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(False)
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.label_2 = QLabel(Form)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(300, 0))
+        self.label_2.setMaximumSize(QSize(16777215, 120))
+        font1 = QFont()
+        font1.setFamilies([u"Helvetica"])
+        font1.setPointSize(12)
+        font1.setBold(False)
+        font1.setItalic(False)
+        font1.setUnderline(False)
+        font1.setStrikeOut(False)
+        font1.setKerning(True)
+        self.label_2.setFont(font1)
         self.label_2.setTextFormat(Qt.TextFormat.PlainText)
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignJustify|Qt.AlignmentFlag.AlignTop)
         self.label_2.setWordWrap(True)
 
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
 
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
-        self.label.setMaximumSize(QSize(16777215, 60))
-        font1 = QFont()
-        font1.setFamilies([u"Helvetica"])
-        font1.setPointSize(12)
-        font1.setBold(False)
-        font1.setItalic(False)
-        self.label.setFont(font1)
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.label.setWordWrap(False)
-
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        self.screen = QWidget(Form)
-        self.screen.setObjectName(u"screen")
-        self.screen.setStyleSheet(u"border: 2px solid black;")
-        self.gridLayout_2 = QGridLayout(self.screen)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.value_beench = QLineEdit(self.screen)
+        self.value_beench = QPlainTextEdit(Form)
         self.value_beench.setObjectName(u"value_beench")
 
-        self.gridLayout_2.addWidget(self.value_beench, 0, 0, 1, 1)
-
-
-        self.gridLayout.addWidget(self.screen, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.value_beench, 2, 0, 1, 1)
 
         self.widget = QWidget(Form)
         self.widget.setObjectName(u"widget")
@@ -421,8 +413,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_2.setText(QCoreApplication.translate("Form", u"This screen is used to evaluate your computer's performance by measuring the maximum sampling frequency it can handle in real time. It helps determine how fast your system can acquire and process data without losing samples, which is crucial for applications involving high-speed data acquisition or real-time signal processing.", None))
         self.label.setText(QCoreApplication.translate("Form", u"Benchmarking", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"This screen is used to evaluate your computer's performance by measuring the maximum sampling frequency it can handle in real time. It helps determine how fast your system can acquire and process data without losing samples, which is crucial for applications involving high-speed data acquisition or real-time signal processing.", None))
         self.start_button.setText(QCoreApplication.translate("Form", u"Start", None))
         self.close_button.setText(QCoreApplication.translate("Form", u"Close", None))
     # retranslateUi
