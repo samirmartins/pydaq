@@ -15,81 +15,101 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
         self.com_port = com
-        self.ser = None  # Só tentaremos abrir depois
+        self.ser = None 
 
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, periods_ms=[10, 5, 2, 1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001], duration_s=5):
-        print(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
-
+    def inicialize_benchmarking(self, periods_ms=[10, 5, 2, 1, 0.5, 0.2, 0.1], duration_s=5, allowed_delay_percent=2.0):
+        print(f"Testing Arduino Serial sampling performance for {duration_s} seconds per period...\n")
+        self.value_beench.appendPlainText(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
+        QApplication.processEvents()
+        
         try:
             self.ser = serial.Serial(self.com_port, 115200, timeout=0.05)
-            print(f"✅ Porta serial {self.com_port} aberta com sucesso.")
+            print(f"✅ Serial Port {self.com_port} open with success.")
         except serial.SerialException as e:
-            warnings.warn(f"⚠️ Não foi possível abrir a porta serial {self.com_port}: {e}")
-            print("❌ Abortando benchmarking.")
-            return  # Interrompe a execução sem causar erro
+            warnings.warn(f"⚠️ It was not possible to open the Serial Port {self.com_port}: {e}")
+            print("❌ Aborting benchmarking.")
+            return  
 
         min_period_recommended = None
         best_stable_period = None
 
         for period_ms in periods_ms:
             period_s = period_ms / 1000
+            sample_times = []
             delays = 0
-            cycle_times = []
             start = time.perf_counter()
+            next_sample_time = start
+            sample_count = 0
 
-            while (time.perf_counter() - start) < duration_s:
-                t0 = time.perf_counter()
-
-                try:
-                    line = self.ser.readline().decode("utf-8").strip()
-
-                    if line.isdigit():
-                        value = int(line) * ard_vpb
-                        # print(f"Read value: {value}")
-                    else:
+            while time.perf_counter() - start < duration_s:
+                now = time.perf_counter()
+                if now >= next_sample_time:
+                    t0 = now
+                    try:
+                        line = self.ser.readline().decode("utf-8").strip()
+                        if line.isdigit():
+                            value = int(line) * ard_vpb
+                        else:
+                            continue
+                    except Exception as e:
+                        print("Serial read error:", e)
                         continue
 
-                except Exception as e:
-                    print("Serial read error:", e)
-                    continue
+                    t1 = time.perf_counter()
+                    sample_times.append(t1)
+                    sample_count += 1
 
-                t1 = time.perf_counter()
-                cycle_time = t1 - t0
-                cycle_times.append(cycle_time)
+                    # Atualiza o tempo da próxima amostra
+                    next_sample_time += period_s
 
-                if cycle_time > period_s:
-                    delays += 1
+                    # Detecta se houve atraso
+                    if t1 - t0 > period_s:
+                        delays += 1
                 else:
-                    time.sleep(period_s - cycle_time)
+                    time.sleep(max(0, next_sample_time - now))
 
-            total_samples = len(cycle_times)
-
-            if total_samples == 0:
-                print(f"Period: {period_ms:7.5f} ms | No valid readings ❌\n")
+            # Cálculos finais
+            total_samples = len(sample_times)
+            if total_samples < 2:
+                print(f"Period: {period_ms:7.5f} s | No valid readings ❌\n")
+                self.value_beench.appendPlainText(f"Period: {period_ms:7.5f} s | No valid readings ❌\n")
+                QApplication.processEvents()
                 continue
 
-            avg_cycle = sum(cycle_times) / total_samples
+            # Calcula jitter real
+            intervals = [t2 - t1 for t1, t2 in zip(sample_times[:-1], sample_times[1:])]
+            jitter = max(intervals) - min(intervals)
+            avg_cycle = sum(intervals) / len(intervals)
+            theoretical_samples = duration_s / period_s
             delay_percent = (delays / total_samples) * 100
-            status = "✅ OK" if delays == 0 else "⚠️ FAIL"
+            status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
 
-            print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | Delays: {delays:4} "
-                  f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.4f} ms | {status}")
+            print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | "
+                f"Theoretical: {theoretical_samples:6.1f} | Delays: {delays:4} "
+                f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.3f} ms | "
+                f"Jitter: {jitter*1000:7.3f} ms | {status}")
+            self.value_beench.appendPlainText(
+                f"Period {period_ms:7.5f} s | {status}"
+            )
+            QApplication.processEvents()
 
-            if delays == 0:
+            if delay_percent <= allowed_delay_percent:
                 best_stable_period = period_ms
                 min_period_recommended = avg_cycle * 1.2
 
         if self.ser and self.ser.is_open:
             self.ser.close()
-            print(f"🔌 Porta serial {self.com_port} fechada.")
+            print(f"🔌 Serial Port {self.com_port} closed.")
 
         if min_period_recommended:
             print("\n✅ Ideal sampling period (with 20% safety margin): "
-                  f"{min_period_recommended*1000:.3f} ms")
+                f"{min_period_recommended*1000:.3f} ms")
             print(f"➡️  You can safely use Ts = {best_stable_period} ms or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period} ms or greater.")
+            QApplication.processEvents()
         else:
             print("\n❌ No stable sampling period was found. Try higher values or check serial performance.")
 

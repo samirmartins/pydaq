@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_BenchmarkingzwdVJS.ui'
+## Form generated from reading UI file 'PyDAQ_BenchmarkingiiXHjO.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(448, 481)
+        Form.resize(462, 481)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -354,10 +354,10 @@ class Ui_Form(object):
         self.label.setMaximumSize(QSize(16777215, 60))
         font = QFont()
         font.setFamilies([u"Helvetica"])
-        font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
         self.label.setFont(font)
+        self.label.setStyleSheet(u"font-size: 24px;")
         self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setWordWrap(False)
 

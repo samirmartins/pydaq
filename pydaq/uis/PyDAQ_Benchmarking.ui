@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>448</width>
+    <width>462</width>
     <height>481</height>
    </rect>
   </property>
@@ -344,10 +344,13 @@ QScrollArea{
      <property name="font">
       <font>
        <family>Helvetica</family>
-       <pointsize>12</pointsize>
+       <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 24px;</string>
      </property>
      <property name="text">
       <string>Benchmarking</string>
