@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetwmiawj.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetHzidsB.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -364,20 +364,32 @@ class Ui_Arduino_GetModel_W(object):
         self.widget_4.setObjectName(u"widget_4")
         self.gridLayout_2 = QGridLayout(self.widget_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.yes_plot_radio = QRadioButton(self.widget_4)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_4)
         self.plot_radio_group = QButtonGroup(Arduino_GetModel_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.gridLayout_2.addWidget(self.yes_plot_radio, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.yes_rt_plot_radio, 0, 0, 1, 1)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_4)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.gridLayout_2.addWidget(self.yes_ate_plot_radio, 0, 2, 1, 1)
 
         self.no_plot_radio = QRadioButton(self.widget_4)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
-        self.gridLayout_2.addWidget(self.no_plot_radio, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.no_plot_radio, 0, 3, 1, 1)
+
+        self.label_warning = QLabel(self.widget_4)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.gridLayout_2.addWidget(self.label_warning, 0, 1, 1, 1)
 
 
         self.gridLayout.addWidget(self.widget_4, 4, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
@@ -563,8 +575,13 @@ class Ui_Arduino_GetModel_W(object):
         self.label_2.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Input signal:", None))
         self.label_4.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Sample period (s):", None))
         self.label_7.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Save data?", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"Real time", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_GetModel_W", u"No", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("Arduino_GetModel_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_warning.setText(QCoreApplication.translate("Arduino_GetModel_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
         self.path_folder_browse.setText(QCoreApplication.translate("Arduino_GetModel_W", u" BROWSE ", None))
 #if QT_CONFIG(tooltip)
         self.reload_devices.setToolTip(QCoreApplication.translate("Arduino_GetModel_W", u"<html><head/><body><p>Update COM ports</p></body></html>", None))

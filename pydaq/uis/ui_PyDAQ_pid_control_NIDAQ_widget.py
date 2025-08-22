@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetaGLVXG.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_NIDAQ_widgetNhsYDw.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_NIDAQ_PID_Control(object):
     def setupUi(self, NIDAQ_PID_Control):
         if not NIDAQ_PID_Control.objectName():
             NIDAQ_PID_Control.setObjectName(u"NIDAQ_PID_Control")
-        NIDAQ_PID_Control.resize(597, 1031)
+        NIDAQ_PID_Control.resize(549, 1031)
         NIDAQ_PID_Control.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -379,7 +379,7 @@ class Ui_NIDAQ_PID_Control(object):
 
         self.pushButton_confirm = QPushButton(self.widget_top)
         self.pushButton_confirm.setObjectName(u"pushButton_confirm")
-        self.pushButton_confirm.setMinimumSize(QSize(80, 30))
+        self.pushButton_confirm.setMinimumSize(QSize(90, 30))
         self.pushButton_confirm.setMaximumSize(QSize(100, 16777215))
 
         self.gridLayout_2.addWidget(self.pushButton_confirm, 18, 3, 1, 1, Qt.AlignmentFlag.AlignHCenter)
@@ -396,7 +396,7 @@ class Ui_NIDAQ_PID_Control(object):
 
         self.path_folder_browse = QPushButton(self.widget_path)
         self.path_folder_browse.setObjectName(u"path_folder_browse")
-        self.path_folder_browse.setMinimumSize(QSize(70, 30))
+        self.path_folder_browse.setMinimumSize(QSize(90, 30))
 
         self.horizontalLayout_10.addWidget(self.path_folder_browse)
 

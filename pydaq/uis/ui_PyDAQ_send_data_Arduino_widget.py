@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_send_data_Arduino_widgetpIQheF.ui'
+## Form generated from reading UI file 'PyDAQ_send_data_Arduino_widgetPTUmib.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_Arduino_SendData_W(object):
     def setupUi(self, Arduino_SendData_W):
         if not Arduino_SendData_W.objectName():
             Arduino_SendData_W.setObjectName(u"Arduino_SendData_W")
-        Arduino_SendData_W.resize(354, 320)
+        Arduino_SendData_W.resize(475, 320)
         Arduino_SendData_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -215,18 +215,30 @@ class Ui_Arduino_SendData_W(object):
         self.widget_7.setObjectName(u"widget_7")
         self.horizontalLayout = QHBoxLayout(self.widget_7)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.yes_plot_radio = QRadioButton(self.widget_7)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group = QButtonGroup(Arduino_SendData_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.horizontalLayout.addWidget(self.yes_plot_radio)
+        self.horizontalLayout.addWidget(self.yes_rt_plot_radio)
+
+        self.label_warning = QLabel(self.widget_7)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.horizontalLayout.addWidget(self.label_warning)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_7)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.horizontalLayout.addWidget(self.yes_ate_plot_radio)
 
         self.no_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
@@ -356,7 +368,12 @@ class Ui_Arduino_SendData_W(object):
 
     def retranslateUi(self, Arduino_SendData_W):
         Arduino_SendData_W.setWindowTitle(QCoreApplication.translate("Arduino_SendData_W", u"Form", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_SendData_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("Arduino_SendData_W", u"Real time", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("Arduino_SendData_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_warning.setText(QCoreApplication.translate("Arduino_SendData_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("Arduino_SendData_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_SendData_W", u"No", None))
         self.label_4.setText(QCoreApplication.translate("Arduino_SendData_W", u"Sample period (s):", None))
         self.label_8.setText(QCoreApplication.translate("Arduino_SendData_W", u"Path:", None))

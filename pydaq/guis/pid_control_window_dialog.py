@@ -2,9 +2,12 @@ import sys, os
 import serial
 import serial.tools.list_ports
 import numpy as np
+import warnings
 import time
 import asyncio
 import qasync
+import queue
+import threading
 from pydaq.utils.base import Base
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QDialog, QFileDialog, QApplication, QWidget, QVBoxLayout, QPushButton, QSizePolicy
@@ -17,16 +20,17 @@ import matplotlib.animation as animation
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
+
 class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
 # Signal to send back to QWidget the values
     send_values = Signal(float, float, float, int, float)
+    update_plot_signal = Signal()  # Added next to send_values
+
 
     def __init__(self, *args):
         super(PID_Control_Window_Dialog, self).__init__()
         self.setupUi(self)
-
-        self.ensure_async_loop()
 
         self.pushButton_startstop.clicked.connect(self.stopstart)
         self.pushButton_close.clicked.connect(self.go_back)
@@ -38,7 +42,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
         self.path = os.path.join(os.path.join(os.path.expanduser("~")), "Desktop") # Defining default path
         self.figure = plt.figure(figsize =(6.4,4.8), facecolor='#404040') #Starting the canvas
-        self.figure.patch.set_facecolor('#404040')  # Fundo externo
+        self.figure.patch.set_facecolor('#404040')  # External background
         self.ax = self.figure.add_subplot(111, facecolor='#505050')  # Output graph
         self.ax2 = self.ax.twinx()
         self.canvas = FigureCanvas(self.figure)
@@ -46,40 +50,36 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.canvas.setMinimumHeight(350)
 
-        self.k = 1
+        self.k = 0
         self.system_values = []
         self.errors = []
         self.setpoints = []
         self.controls = []
         self.time_var = []
+        self.elapsed_time = 0.0
+        
+        self.lock = threading.Lock()
+        self.update_plot_signal.connect(self._update_plot_gui_safe)
 
-    def ensure_async_loop(self):
-        try:
-            asyncio.get_running_loop()
-        except RuntimeError:
-            loop = qasync.QEventLoop(self)
-            asyncio.set_event_loop(loop)
 
-    def stopstart (self): #stop/start the event and change the button text
+    def stopstart(self):
         self.paused = not self.paused
         if self.paused:
             self.plot_running = False
             self.control_running = False
+            # saves the time accumulated so far
+            self.elapsed_time += time.perf_counter() - self.t0
             self.pushButton_startstop.setText("START")
         else:
             self.plot_running = True
             self.control_running = True
             self.pushButton_startstop.setText("STOP")
-            try:
-                loop = asyncio.get_running_loop()
-            except RuntimeError:
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                loop.run_in_executor(None, lambda: loop.run_until_complete(self.start_async_control()))
-            else:
-                asyncio.create_task(self.start_async_control())
-
+            self.start_threaded_control()
+            
     def go_back(self): #def to save and go back
+        if hasattr(self, "_already_closed") and self._already_closed:
+            return
+        self._already_closed = True
         if self.save: #save if wanted
             print("\nSaving data ...")
             self._save_data(self.time_var, "time.dat") # Saving time_var and data
@@ -103,18 +103,24 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
             self.pid.ser.write(b"0") # Turning off the output at the end
             self.pid.ser.close() # Closing port
         elif self.board == 'nidaq':
-                self.pid.task_ao.write(0) # Turning off the output at the end
-                self.pid.task_ao.close() # Closing task
-                self.pid.task_ai.close()
+            try:
+                if self.pid.task_ao:
+                    self.pid.task_ao.write(0)
+                    self.pid.task_ao.close()
+                if self.pid.task_ai:
+                    self.pid.task_ai.close()
+            except Exception as e:
+                print("Warning when closing NI-DAQ tasks:", e)
+
         self.plot_running = False
         self.control_running = False
         self.close()
-    
+
     def closeEvent(self, event):
         # Ensures the same behavior as the "CLOSE" or "SAVE AND CLOSE" button
-        self.go_back()
-        # The event needs to be explicitly accepted for PySide6 to close the window
-        event.accept()
+        if not hasattr(self, "_already_closed"):
+            self.go_back()
+        event.accept()         # The event needs to be explicitly accepted for PySide6 to close the window
 
     def apply_parameters(self): #apply all pid parameters while the event goes on
         try:
@@ -188,18 +194,54 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
                 self.unit, self.period
             )
             self.check_start()
-
-            try:
-                loop = asyncio.get_running_loop()
-            except RuntimeError:
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                loop.run_in_executor(None, lambda: loop.run_until_complete(self.start_async_control()))
-            else:
-                asyncio.create_task(self.start_async_control())
-
+            self.start_threaded_control()
         except Exception as e:
             print("Error starting control:", e)
+
+    def start_threaded_control(self):
+        self.data_queue = queue.Queue()
+        self.plot_running = True
+        self.control_running = True
+        self.ts = self.period
+        self.k = 1
+
+        self.control_thread = threading.Thread(target=self.control_loop_task, daemon=True)
+        self.plot_thread = threading.Thread(target=self.update_plot_task, daemon=True)
+        self.save_thread = threading.Thread(target=self.save_data_task, daemon=True)
+
+        self.control_thread.start()
+        self.plot_thread.start()
+        self.save_thread.start()
+
+    def control_loop_task(self):
+        st_worker = time.perf_counter()
+        self.t0 = st_worker
+        self.k = 0
+
+        while not self.paused:
+            if not self.control_running:
+                break
+
+            with self.lock:
+                if self.simulate:
+                    self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
+                elif self.board == 'arduino':
+                    self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
+                elif self.board == 'nidaq':
+                    self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
+
+            time_now = (time.perf_counter() - self.t0) + self.elapsed_time
+            
+            self.data_queue.put((time_now, self.output, self.error, self.setpoint, self.control))
+
+            target_time = st_worker + (self.k + 1) * self.ts
+            wait_time = target_time - time.perf_counter()
+            if wait_time > 0:
+                time.sleep(wait_time)
+            else:
+                warnings.warn("Loop overran the period. You CANNOT trust time precision for this sample.")
+
+            self.k += 1
 
     def _update_plot(self):
         if len(self.time_var) == 0:
@@ -285,12 +327,12 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.ax.set_ylabel(self.unit)
         self.ax2.set_ylabel('Error')
 
-        # Forçar cor dos labels
+        # Force label color
         self.ax.xaxis.label.set_color('white')      # Sample (s)
         self.ax.yaxis.label.set_color('white')      # Voltage (V)
         self.ax2.yaxis.label.set_color('white')     # Error
 
-        # Forçar cor dos ticks e bordas
+        # Force tick and border color
         for spine in ['bottom', 'top', 'left', 'right']:
             self.ax.spines[spine].set_color('white')
             self.ax2.spines[spine].set_color('white')
@@ -306,55 +348,25 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
         self.figure.subplots_adjust(bottom=0.25)
 
-    async def start_async_control(self):
-        self.data_queue = asyncio.Queue()
-        self.plot_running = True
-        self.control_running = True
-        self.t0 = time.perf_counter()
-        self.ts = self.period
-
-        await asyncio.gather(
-            self.control_loop_task(),
-            self.update_plot_task(),
-            self.save_data_task(),
-        )
-
-    async def control_loop_task(self):
-
-        while not self.paused:
-            if not self.control_running:
-                break
-            
-            target_time = self.t0 + self.k * self.ts
-            wait_time = target_time - time.perf_counter()
-            if wait_time > 0:
-                await asyncio.sleep(wait_time)
-            if self.simulate:
-                self.output, self.error, self.setpoint, self.control = self.pid.update_simulated_system()
-            elif self.board == 'arduino':
-                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_arduino()
-            elif self.board == 'nidaq':
-                self.output, self.error, self.setpoint, self.control = self.pid.update_plot_nidaq()
-
-            timestamp = time.perf_counter() - self.t0
-            await self.data_queue.put((timestamp, self.output, self.error, self.setpoint, self.control))
-
-            self.k += 1
-
-    async def update_plot_task(self):
+    def update_plot_task(self):
         while self.plot_running:
-            self._update_plot()
-            self.canvas.draw()
-            await asyncio.sleep(self.ts + 0.5)
+            self.update_plot_signal.emit()
+            time.sleep(self.ts + 0.5)
 
-    async def save_data_task(self):
-        while True:
-            item = await self.data_queue.get()
-            if item is None:
-                break
+    def save_data_task(self):
+        while self.control_running or not self.data_queue.empty():
+            try:
+                item = self.data_queue.get(timeout=0.05)
+            except queue.Empty:
+                continue
             t, y, e, s, u = item
             self.time_var.append(t)
             self.system_values.append(y)
             self.errors.append(e)
             self.setpoints.append(s)
             self.controls.append(u)
+
+    def _update_plot_gui_safe(self):
+        with self.lock:
+            self._update_plot()
+            self.canvas.draw()

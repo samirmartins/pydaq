@@ -43,7 +43,7 @@ terminal_configuration = 'Diff'
 sample_period_in_seconds = 1
 session_duration_in_seconds = 10.0
 save_data = True
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and get the data
@@ -56,7 +56,7 @@ g = GetData(device=device_name,
             ts=sample_period_in_seconds,
             session_duration=session_duration_in_seconds,
             save=save_data,
-            plot=will_plot)
+            plot_mode=will_plot)
 
 # Method get_data_nidaq
 g.get_data_nidaq()

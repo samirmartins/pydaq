@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>662</height>
+    <height>668</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -347,9 +347,22 @@ QPushButton#reload_devices:pressed{
        <widget class="QWidget" name="widget_4" native="true">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QRadioButton" name="yes_plot_radio">
+          <widget class="QRadioButton" name="yes_rt_plot_radio">
            <property name="text">
-            <string>Yes</string>
+            <string>Real time</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">plot_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QRadioButton" name="no_plot_radio">
+           <property name="text">
+            <string>No</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -359,14 +372,24 @@ QPushButton#reload_devices:pressed{
            </attribute>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QRadioButton" name="no_plot_radio">
+         <item row="0" column="2">
+          <widget class="QRadioButton" name="yes_ate_plot_radio">
            <property name="text">
-            <string>No</string>
+            <string>At the end</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">plot_radio_group</string>
            </attribute>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_warning">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &amp;lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/imgs/imgs/Warning_logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -879,10 +902,12 @@ QPushButton#reload_devices:pressed{
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources_1.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="plot_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="plot_radio_group"/>
  </buttongroups>
 </ui>

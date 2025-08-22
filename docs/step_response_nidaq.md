@@ -48,7 +48,7 @@ step_time_in_seconds = 3.0
 step_min_in_volts = 0
 step_max_in_volts = 5
 terminal_configuration = 'Diff'
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and send the data
@@ -64,7 +64,7 @@ s = StepResponse(device=device_name,
                  step_min=step_min_in_volts,
                  step_max=step_max_in_volts,
                  terminal=terminal_configuration,
-                 plot=will_plot)
+                 plot_mode=will_plot)
 
 # Method step_response_nidaq
 s.step_response_nidaq()

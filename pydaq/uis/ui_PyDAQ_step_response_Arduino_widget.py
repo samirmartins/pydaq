@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetkzDIet.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgethgzBLJ.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_Arduino_StepResponse_W(object):
     def setupUi(self, Arduino_StepResponse_W):
         if not Arduino_StepResponse_W.objectName():
             Arduino_StepResponse_W.setObjectName(u"Arduino_StepResponse_W")
-        Arduino_StepResponse_W.resize(603, 401)
+        Arduino_StepResponse_W.resize(603, 405)
         Arduino_StepResponse_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -326,18 +326,30 @@ class Ui_Arduino_StepResponse_W(object):
         self.widget_13.setObjectName(u"widget_13")
         self.horizontalLayout_6 = QHBoxLayout(self.widget_13)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.yes_plot_radio = QRadioButton(self.widget_13)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_13)
         self.plot_radio_group = QButtonGroup(Arduino_StepResponse_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.horizontalLayout_6.addWidget(self.yes_plot_radio)
+        self.horizontalLayout_6.addWidget(self.yes_rt_plot_radio)
+
+        self.label_warning = QLabel(self.widget_13)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.horizontalLayout_6.addWidget(self.label_warning)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_13)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.horizontalLayout_6.addWidget(self.yes_ate_plot_radio)
 
         self.no_plot_radio = QRadioButton(self.widget_13)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
         self.horizontalLayout_6.addWidget(self.no_plot_radio)
 
@@ -439,7 +451,12 @@ class Ui_Arduino_StepResponse_W(object):
         self.no_save_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"No", None))
         self.label_11.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Save data?", None))
         self.label_12.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Path:", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Yes", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Real Time", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("Arduino_StepResponse_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_warning.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"No", None))
         self.path_folder_browse.setText(QCoreApplication.translate("Arduino_StepResponse_W", u" BROWSE ", None))
         self.label_2.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Device:", None))

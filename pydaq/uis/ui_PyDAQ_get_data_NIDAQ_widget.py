@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetumSpsv.ui'
+## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetBZSfpI.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##

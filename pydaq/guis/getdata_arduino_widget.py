@@ -38,6 +38,12 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
         )
         self.yes_radio.clicked.connect(self.openFilterWindow)
 
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def openFilterWindow(self):
         self.filterWindow = Digital_Filters_NIDAQ_Widget()
         self.filterWindow.dataEntered.connect(self.update_values)
@@ -179,8 +185,6 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
 
                     else:
                         self.fir_coeff = firwin(numtaps_fir, fc_fir/(0.5*fs), window=window_fir, pass_zero=type_fir)
-    
-                    
                     g.get_data_arduino(filter_coefs=(self.fir_coeff))
                     self.signals.returned.emit(g)
                     self.frequency_response()
@@ -311,8 +315,4 @@ class GetData_Arduino_Widget(QWidget, Ui_Arduino_GetData_W):
         else:
             pass
     
-    def _update_warning_label(self):
-        if self.yes_rt_plot_radio.isChecked():
-            self.label_warning.show()
-        else:
-            self.label_warning.hide()
+    
