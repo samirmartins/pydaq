@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_BenchmarkingQKRCsV.ui'
+## Form generated from reading UI file 'PyDAQ_BenchmarkingWBpzpm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -16,13 +16,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QPushButton, QSizePolicy, QWidget)
+    QLineEdit, QPushButton, QSizePolicy, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(448, 519)
+        Form.resize(448, 265)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -385,6 +385,13 @@ class Ui_Form(object):
         self.screen = QWidget(Form)
         self.screen.setObjectName(u"screen")
         self.screen.setStyleSheet(u"border: 2px solid black;")
+        self.gridLayout_2 = QGridLayout(self.screen)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.value_beench = QLineEdit(self.screen)
+        self.value_beench.setObjectName(u"value_beench")
+
+        self.gridLayout_2.addWidget(self.value_beench, 0, 0, 1, 1)
+
 
         self.gridLayout.addWidget(self.screen, 2, 0, 1, 1)
 

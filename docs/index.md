@@ -46,7 +46,7 @@ PYDAQ requires:
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
 - packaging (>=24.1).
-- scipy to project the digital filters.
+- scipy (>=1.16.1) for digital filters.
 
  
 ## Documentation Map
