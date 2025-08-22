@@ -59,8 +59,15 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         self.reload_devices.released.connect(self.reload_devices_handler)
         self.yes_radio.clicked.connect(self.openFilterWindow)
         self.signals = GuiSignals()
-        
-        
+        self.label_warning.hide()
+        self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
+
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def openFilterWindow(self):
         self.filterWindow = Digital_Filters_NIDAQ_Widget()
         self.filterWindow.dataEntered.connect(self.update_values)
@@ -124,7 +131,12 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
             g.terminal = g.term_map[self.terminal_config_combo.currentText()]
             g.ts = self.Ts_in.value()
             g.session_duration = self.sesh_dur_in.value()
-            g.plot = True if self.plot_radio_group.checkedId() == -2 else False
+            if self.yes_rt_plot_radio.isChecked(): # Assumindo que 'yes_radio' agora significa 'Real time'
+                g.plot_mode = 'realtime'
+            elif self.yes_ate_plot_radio.isChecked(): # Supondo que você criou um radio button com este nome
+                g.plot_mode = 'end'
+            else: # self.No_radio.isChecked()
+                g.plot_mode = 'no'
             g.save = True if self.save_radio_group.checkedId() == -2 else False
             g.path = self.path_line_edit.text()
 
@@ -365,3 +377,5 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
                 plt.show()
         else:
             pass
+    
+    

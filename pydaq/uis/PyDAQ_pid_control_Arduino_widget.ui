@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
+    <width>549</width>
     <height>884</height>
    </rect>
   </property>
@@ -689,13 +689,13 @@ QLabel::toolTip {
        <widget class="QPushButton" name="pushButton_confirm">
         <property name="minimumSize">
          <size>
-          <width>80</width>
+          <width>90</width>
           <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>100</width>
+          <width>110</width>
           <height>16777215</height>
          </size>
         </property>
@@ -721,7 +721,7 @@ QLabel::toolTip {
           <widget class="QPushButton" name="path_folder_browse">
            <property name="minimumSize">
             <size>
-             <width>70</width>
+             <width>90</width>
              <height>30</height>
             </size>
            </property>
@@ -1054,7 +1054,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="simulate_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="simulate_radio_group"/>
  </buttongroups>
 </ui>

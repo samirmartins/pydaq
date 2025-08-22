@@ -62,3 +62,43 @@ A disturbance input can also be simulated during real-time control. It acts as a
 ## Example GIF
 
 ![](img/pidcontrol_arduino_gif.gif)
+
+# Control PID with Arduino (GUI via code)
+
+It is possible to access the PID Control GUI directly with a few lines of code.
+
+## Example
+
+The following code demonstrates how to automatically find an Arduino board and launch the control interface with predefined PID parameters.
+
+```python
+import sys, os, serial.tools.list_ports
+from PySide6.QtWidgets import QApplication
+from pydaq.pid_control_window_dialog import PID_Control_Window_Dialog
+
+app = QApplication(sys.argv)
+plot_window = PID_Control_Window_Dialog()
+
+# Select Arduino port automatically
+com_port = serial.tools.list_ports.comports()[0].name
+plot_window.check_board(board="arduino", device=com_port, ao=None, ai=None, terminal=None, simulate=False)
+
+# Define PID parameters
+kp, ki, kd, setpoint, period = 1.0, 0.2, 0.05, 2.0, 0.1
+index, path, save = 3, None, True  
+
+# index = 0 -> P, 1 -> PI, 2 -> PD, 3 -> PID.
+
+# when path = None, by defaut saves to C:\Users\Desktop
+
+plot_window.set_parameters(kp, ki, kd, index, "1", "s+0.2", setpoint, "Voltage (V)", "", "", period, path, save)
+
+# Open GUI
+plot_window.exec()
+```
+
+- check_board: selects Arduino as the control device.
+
+- set_parameters: sets gains, setpoint, sampling period, and save path.
+
+- exec(): opens the control interface.

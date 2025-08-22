@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>448</width>
-    <height>519</height>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -404,6 +404,11 @@ QScrollArea{
      <property name="styleSheet">
       <string notr="true">border: 2px solid black;</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="value_beench"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="3" column="0">

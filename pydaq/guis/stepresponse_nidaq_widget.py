@@ -65,9 +65,17 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_step_response.released.connect(self.start_func_step_response)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
+        self.label_warning.hide()
+        self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
         self.reload_devices.released.connect(self.reload_devices_handler)
         self.signals = GuiSignals()
 
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def start_func_step_response(self):
         try:
             # Instantiating the StepResponse class
@@ -87,7 +95,12 @@ class StepResponse_NIDAQ_Widget(QWidget, Ui_NIDAQ_StepResponse_W):
             s.ts = self.Ts_in.value()
             s.session_duration = self.sesh_dur_in.value()
             s.step_time = self.step_on_s_in.value()
-            s.plot = True if self.plot_radio_group.checkedId() == -2 else False
+            if self.yes_rt_plot_radio.isChecked(): # Assumindo que 'yes_radio' agora significa 'Real time'
+                s.plot_mode = 'realtime'
+            elif self.yes_ate_plot_radio.isChecked(): # Supondo que você criou um radio button com este nome
+                s.plot_mode = 'end'
+            else: # self.No_radio.isChecked()
+                s.plot_mode = 'no'
             s.save = True if self.save_radio_group.checkedId() == -2 else False
             s.path = self.path_line_edit.text()
             s.error_path = False

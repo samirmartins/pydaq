@@ -47,8 +47,16 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
         self.start_send_data.released.connect(self.start_func_send_data)
         self.device_combo.currentIndexChanged.connect(self.update_channels)
         self.reload_devices.released.connect(self.reload_devices_handler)
+        self.label_warning.hide()
+        self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
         self.signals = GuiSignals()
 
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def start_func_send_data(self):  # Start sending data
         try:
             # Instantiating the SendData class
@@ -72,7 +80,12 @@ class SendData_NIDAQ_Widget(QWidget, Ui_NIDAQ_SendData_W):
             s.device = self.channel_combo.currentText().split("/")[0]
             s.channel = self.channel_combo.currentText().split("/")[1]
             s.ts = self.Ts_in.value()
-            s.plot = True if self.plot_radio_group.checkedId() == -2 else False
+            if self.yes_rt_plot_radio.isChecked(): # Assumindo que 'yes_radio' agora significa 'Real time'
+                s.plot_mode = 'realtime'
+            elif self.yes_ate_plot_radio.isChecked(): # Supondo que você criou um radio button com este nome
+                s.plot_mode = 'end'
+            else: # self.No_radio.isChecked()
+                s.plot_mode = 'no'
             s.error_path = False
 
         except BaseException:

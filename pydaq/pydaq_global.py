@@ -2,7 +2,8 @@ import sys
 
 from PySide6 import QtWidgets
 from .uis.ui_PyDAQ_Base import Ui_PydaqGlobal
-from pydaq.guis.benchmarking_widget import BenchmarkingWidget
+from pydaq.guis.benchmarking_widget import BenchmarkingWidget 
+from pydaq.guis.benchmarking_widget import BenchmarkingNIWidget
 import webbrowser
 
 
@@ -23,9 +24,9 @@ class PYDAQ_Global_GUI(QtWidgets.QMainWindow, Ui_PydaqGlobal):
         self.send_nidaq_placeholder.signals.returned.connect(self.fetch_object)
         self.step_ino_placeholder.signals.returned.connect(self.fetch_object)
         self.step_nidaq_placeholder.signals.returned.connect(self.fetch_object)
-        self.actionArduino.triggered.connect(self.open_benchmarking)
-        self.actionNIDAQ.triggered.connect(self.open_benchmarking)
-        self.actionAbout_PYDAQ.triggered.connect(self.open_pydaq_website)
+        self.actionArduino_2.triggered.connect(self.open_benchmarking_arduino)
+        self.actionNIDAQ_2.triggered.connect(self.open_benchmarking_nidaq)
+        self.actionAbout.triggered.connect(self.open_pydaq_website)
     
     def fetch_object(self, fetched_obj):
         self.fetched_object = fetched_obj
@@ -34,8 +35,12 @@ class PYDAQ_Global_GUI(QtWidgets.QMainWindow, Ui_PydaqGlobal):
         url = "https://samirmartins.github.io/pydaq/"
         webbrowser.open(url)
 
-    def open_benchmarking(self):
+    def open_benchmarking_arduino(self):
         self.benchmarking = BenchmarkingWidget()
+        self.benchmarking.show()
+
+    def open_benchmarking_nidaq(self):
+        self.benchmarking = BenchmarkingNIWidget()
         self.benchmarking.show()
 
 

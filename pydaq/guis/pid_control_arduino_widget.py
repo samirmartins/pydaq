@@ -20,7 +20,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
         super(PID_Control_Arduino_Widget, self).__init__()
         self.setupUi(self)
 
-#Calling the functions
+# Calling the functions
         self.update_com_ports()
         self.reload_devices.clicked.connect(self.update_com_ports)
         self.on_unit_change()
@@ -50,7 +50,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
         else:
             self.comboBox_arduino.setCurrentIndex(index_current)
 
-#Condiction to show the line edit equation and unit
+# Condiction to show the line edit equation and unit
     def on_unit_change(self):
         selected_unit = self.comboBox_setpoint.currentText()
         if selected_unit == 'Other':
@@ -87,7 +87,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
             self.label_system_equation.show()
             self.label_i_polinomial.show()
 
-#Enable the pid parameters inputs 
+# Enable the pid parameters inputs 
     def on_type_combo_changed(self, index):
         if index == 0:  
             self.enable_pid_parameters(True, False, False)
@@ -180,7 +180,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
         plot_window.exec()
 
     def locate_path(self):  # Calling the Folder Browser Widget
-        output_folder_path = QFileDialog.getExistingDirectory( #to locate the data path to armazenate
+        output_folder_path = QFileDialog.getExistingDirectory( # To locate the data path to armazenate
             self, caption="Choose a folder to save the data file"
         )
         if output_folder_path == "":
@@ -189,7 +189,7 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
             self.path_line_edit.setText(output_folder_path.replace("/", "\\"))
 
     def update_values(self, value1, value2, value3, value4, value5):
-        # Define os valores nos QDoubleSpinBox correspondentes
+        # Sets the values in the corresponding QDoubleSpinBox
         self.doubleSpinBox_kp.setValue(value1)
         self.doubleSpinBox_ki.setValue(value2)
         self.doubleSpinBox_kd.setValue(value3)
