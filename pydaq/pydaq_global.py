@@ -24,10 +24,9 @@ class PYDAQ_Global_GUI(QtWidgets.QMainWindow, Ui_PydaqGlobal):
         self.send_nidaq_placeholder.signals.returned.connect(self.fetch_object)
         self.step_ino_placeholder.signals.returned.connect(self.fetch_object)
         self.step_nidaq_placeholder.signals.returned.connect(self.fetch_object)
-        self.actionArduino_2.triggered.connect(self.open_benchmarking_arduino)
-        self.actionNIDAQ_2.triggered.connect(self.open_benchmarking_nidaq)
-        self.actionAbout.triggered.connect(self.open_pydaq_website)
-    
+        self.actionArduino_3.triggered.connect(self.open_benchmarking_arduino)
+        self.actionNIDAQ_3.triggered.connect(self.open_benchmarking_nidaq)
+        self.actionDocumentation.triggered.connect(self.open_pydaq_website)
     def fetch_object(self, fetched_obj):
         self.fetched_object = fetched_obj
 

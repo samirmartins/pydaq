@@ -47,6 +47,8 @@ PYDAQ requires:
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
 - packaging (>=24.1).
 - scipy (>=1.16.1) for digital filters.
+- sympy
+- async
 
  
 ## Documentation Map

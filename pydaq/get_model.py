@@ -6,6 +6,7 @@ import queue
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import nidaqmx
+import sysidentpy
 from nidaqmx.constants import TerminalConfiguration
 import numpy as np
 import serial
@@ -13,7 +14,8 @@ import serial.tools.list_ports
 from pydaq.utils.base import Base
 from sysidentpy.metrics import __ALL__ as metrics_list
 import sysidentpy.metrics as metrics
-from sysidentpy.parameter_estimation import LeastSquares, RecursiveLeastSquares
+from sysidentpy.parameter_estimation import LeastSquaresMinimalResidual
+
 
 from pydaq.utils.signals import Signal
 from math import floor

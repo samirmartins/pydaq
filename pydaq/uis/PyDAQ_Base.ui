@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1302</width>
-    <height>747</height>
+    <width>1097</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -461,8 +461,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>507</width>
+                <height>335</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_8">
@@ -490,8 +490,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>82</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_10">
@@ -519,8 +519,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>82</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_9">
@@ -548,8 +548,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>82</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_15">
@@ -577,8 +577,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>82</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_21">
@@ -622,8 +622,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>508</width>
+                <height>335</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_11">
@@ -651,8 +651,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>65</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_12">
@@ -680,8 +680,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>65</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
@@ -709,8 +709,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>65</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_17">
@@ -738,8 +738,8 @@ QScrollArea{
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>610</width>
-                <height>418</height>
+                <width>65</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_19">
@@ -764,26 +764,25 @@ QScrollArea{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1302</width>
+     <width>1097</width>
      <height>33</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMenu">
+   <widget class="QMenu" name="menuBeenchmarking">
     <property name="title">
-     <string>Menu</string>
+     <string>Beenchmarking</string>
     </property>
-    <widget class="QMenu" name="menuBenchmarking_2">
-     <property name="title">
-      <string>Benchmarking</string>
-     </property>
-     <addaction name="actionArduino_2"/>
-     <addaction name="actionNIDAQ_2"/>
-    </widget>
-    <addaction name="separator"/>
-    <addaction name="menuBenchmarking_2"/>
-    <addaction name="actionAbout"/>
+    <addaction name="actionArduino_3"/>
+    <addaction name="actionNIDAQ_3"/>
    </widget>
-   <addaction name="menuMenu"/>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionDocumentation"/>
+   </widget>
+   <addaction name="menuBeenchmarking"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionArduino">
@@ -814,6 +813,21 @@ QScrollArea{
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Documentation</string>
+   </property>
+  </action>
+  <action name="actionArduino_3">
+   <property name="text">
+    <string>Arduino</string>
+   </property>
+  </action>
+  <action name="actionNIDAQ_3">
+   <property name="text">
+    <string>NIDAQ</string>
    </property>
   </action>
  </widget>
