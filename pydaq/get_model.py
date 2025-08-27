@@ -15,7 +15,7 @@ from pydaq.utils.base import Base
 from sysidentpy.metrics import __ALL__ as metrics_list
 import sysidentpy.metrics as metrics
 from sysidentpy.parameter_estimation import LeastSquaresMinimalResidual
-
+from sysidentpy.parameter_estimation import LeastSquares, RecursiveLeastSquares
 
 from pydaq.utils.signals import Signal
 from math import floor
@@ -33,7 +33,6 @@ from typing import Tuple
 
 mpl.rcParams["axes.spines.right"] = False
 mpl.rcParams["axes.spines.top"] = False
-
 
 def display_formated_results(results_array):
     r = np.array(results_array, dtype="U50")
