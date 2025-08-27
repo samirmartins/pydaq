@@ -1,12 +1,9 @@
 import os
 import time
 import warnings
-import threading
-import queue
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import nidaqmx
-import sysidentpy
 from nidaqmx.constants import TerminalConfiguration
 import numpy as np
 import serial
@@ -14,13 +11,13 @@ import serial.tools.list_ports
 from pydaq.utils.base import Base
 from sysidentpy.metrics import __ALL__ as metrics_list
 import sysidentpy.metrics as metrics
-from sysidentpy.parameter_estimation import LeastSquaresMinimalResidual
-from sysidentpy.parameter_estimation import LeastSquares, RecursiveLeastSquares
+import threading
+import queue
 
 from pydaq.utils.signals import Signal
 from math import floor
 from sysidentpy.model_structure_selection import FROLS
-from sysidentpy.basis_function import Polynomial
+from sysidentpy.basis_function._basis_function import Polynomial
 from sysidentpy.metrics import root_relative_squared_error
 from sysidentpy.utils.display_results import results
 from sysidentpy.utils.plotting import plot_residues_correlation, plot_results
@@ -33,6 +30,7 @@ from typing import Tuple
 
 mpl.rcParams["axes.spines.right"] = False
 mpl.rcParams["axes.spines.top"] = False
+
 
 def display_formated_results(results_array):
     r = np.array(results_array, dtype="U50")
@@ -62,10 +60,13 @@ def display_formated_results(results_array):
             else:
                 formatted_item = item.rjust(
                     int_width + dec_width + 1
-                )  # If there is no decimal point
+                )  # Caso não tenha ponto decimal
             formatted_row.append(formatted_item)
         print("  ".join(formatted_row))
 
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 def plot_combined_results_with_metrics(
     y: np.ndarray,
@@ -209,6 +210,7 @@ class GetModel(Base):
         self.out_lag = out_lag
         self.inp_lag = inp_lag
         self.num_info_val = num_info_values
+        self.estimator = estimator
         self.ext_lsq = ext_lsq
         self.prbs_bits = prbs_bits
         self.prbs_seed = prbs_seed
@@ -255,19 +257,6 @@ class GetModel(Base):
 
         # Number of necessary cycles
         self.cycles = None
-
-        # Estimator selection
-        if estimator is None:
-            self.estimator = LeastSquares()
-        elif isinstance(estimator, str):
-            if estimator.lower() == "least_squares":
-                self.estimator = LeastSquares()
-            elif estimator.lower() == "recursive_least_squares":
-                self.estimator = RecursiveLeastSquares()
-            else:
-                raise ValueError(f"Estimator '{estimator}' não reconhecido")
-        else:
-            self.estimator = estimator
 
     def _acquisition_worker_arduino(self, data_queue, signal_to_send, sent_data_bytes):
         """Worker to send signal and acquire data with Arduino."""
@@ -445,9 +434,15 @@ class GetModel(Base):
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        min_len = min(len(signal_finale), len(self.out_read[1:]))
-        data_x = np.array(signal_finale[:min_len])  # Desconsidering first data not acquired by Arduino
-        data_y = np.array(self.out_read[1: min_len+1])  # Desconsidering first data not acquired by Arduino
+        # FIX: Use the data that was actually collected by the thread.
+        data_x = np.array(self.inp_read)
+        data_y = np.array(self.out_read)
+        
+        # Ensure arrays are the same length (extra security)
+        min_len = min(len(data_x), len(data_y))
+        data_x = data_x[:min_len]
+        data_y = data_y[:min_len]
+
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
         x_train, x_valid = (
@@ -460,26 +455,17 @@ class GetModel(Base):
         )
 
         basis_function = Polynomial(degree=self.degree)
-        
-        estimator = self.estimator
-        if isinstance(estimator, str):
-            if estimator.lower() == "least_squares":
-                estimator = LeastSquares()
-            elif estimator.lower() == "recursive_least_squares":
-                estimator = RecursiveLeastSquares()
-            else:
-                raise ValueError(f"Estimator '{estimator}' não reconhecido")
 
         model = FROLS(
             order_selection=True,
             n_info_values=self.num_info_val,
+            extended_least_squares=self.ext_lsq,
             ylag=[i + 1 for i in range(self.inp_lag)],
             xlag=[i + 1 for i in range(self.out_lag)],
             info_criteria="aic",
-            estimator=estimator,  
+            estimator=self.estimator,
             basis_function=basis_function,
         )
-
         model.fit(X=x_train, y=y_train)
         yhat = model.predict(X=x_valid, y=y_valid)
         rrse = root_relative_squared_error(y_valid, yhat)
@@ -548,8 +534,6 @@ class GetModel(Base):
             metrics_vallist=metrics_vallist,
         )
         self.show_results(results_data)
-
-        return self.acquired_model
 
     def get_model_nidaq(self):
         self._check_path()
@@ -577,10 +561,15 @@ class GetModel(Base):
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
-
-        min_len = min(len(signal_finale), len(self.out_read))
-        data_x = np.array(signal_finale[:min_len])
-        data_y = np.array(self.out_read[:min_len])
+        
+        # FIX: Use the data that was actually collected by the thread.
+        data_x = np.array(self.inp_read)
+        data_y = np.array(self.out_read)
+        
+        # Ensure arrays are the same length (extra security)
+        min_len = min(len(data_x), len(data_y))
+        data_x = data_x[:min_len]
+        data_y = data_y[:min_len]
 
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
@@ -595,26 +584,16 @@ class GetModel(Base):
 
         basis_function = Polynomial(degree=self.degree)
 
-        estimator = self.estimator
-        if isinstance(estimator, str):
-            if estimator.lower() == "least_squares":
-                estimator = LeastSquares()
-            elif estimator.lower() == "recursive_least_squares":
-                estimator = RecursiveLeastSquares()
-            else:
-                raise ValueError(f"Estimator '{estimator}' não reconhecido")
-
         model = FROLS(
             order_selection=True,
             n_info_values=self.num_info_val,
-            #extended_least_squares=self.ext_lsq,
+            extended_least_squares=self.ext_lsq,
             ylag=[i + 1 for i in range(self.inp_lag)],
             xlag=[i + 1 for i in range(self.out_lag)],
             info_criteria="aic",
-            estimator=estimator,  
+            estimator=self.estimator,
             basis_function=basis_function,
         )
-
         model.fit(X=x_train, y=y_train)
         yhat = model.predict(X=x_valid, y=y_valid)
         rrse = root_relative_squared_error(y_valid, yhat)
@@ -682,8 +661,6 @@ class GetModel(Base):
         )
 
         self.show_results(results_data)
-
-        return self.acquired_model
 
     def show_results(self, results):
         r = np.array(results[1:], dtype="U50")
@@ -715,7 +692,7 @@ class GetModel(Base):
 
         fig, ax = plt.subplots()
         aux_pos = 0
-        fig.patch.set_facecolor("#404040")  # Dark gray background
+        fig.patch.set_facecolor("#404040")  # Fundo cinza escuro
         ax.axis("off")
         ax.text(0.5, 1, "Mathematical Model", fontsize=18, ha="center", color="white")
         plt.axhline(y=0.96, color="#044c04", linestyle="-")
@@ -780,7 +757,7 @@ class GetModel(Base):
                     rf"${string_list[i]}$",
                     fontsize=15,
                     ha="center",  # Adjust horizontal alignment to center
-                    color="white",  # White text
+                    color="white",  # Texto em branco
                 )
                 aux_pos = 1
 

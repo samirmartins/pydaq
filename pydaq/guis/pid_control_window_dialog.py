@@ -4,8 +4,6 @@ import serial.tools.list_ports
 import numpy as np
 import warnings
 import time
-import asyncio
-import qasync
 import queue
 import threading
 from pydaq.utils.base import Base
