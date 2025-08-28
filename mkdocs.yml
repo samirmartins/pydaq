@@ -10,16 +10,9 @@ copyright: Copyright &copy; 2025 - Samir Martins
 
 nav:
   - Home: index.md
-  - Benchmarking: benchmarking.md
   - Data Acquisition:
-      - NIDAQ: 
-          Get Data: get_data_nidaq.md
-          Digital Filters: digital_filters_nidaq.md
-      - Arduino: 
-          Get Data: get_data_arduino.md
-          Digital Filters: digital_filters_arduino.md
-      
-  
+      - NIDAQ: get_data_nidaq.md
+      - Arduino: get_data_arduino.md
   - Sending Data:
       - NIDAQ: send_data_nidaq.md
       - Arduino: send_data_arduino.md
@@ -29,9 +22,6 @@ nav:
   - Get Model:
       - NIDAQ: get_model_nidaq.md
       - Arduino: get_model_arduino.md
-  - PID Control: 
-      - NIDAQ: pid_control_nidaq.md
-      - Arduino: pid_control_arduino.md
   - Jupyter Notebooks: jupyter_notebooks.md
 
 theme:
@@ -64,3 +54,10 @@ plugins:
       min_length: 50
       max_length: 160
       trim: false
+      
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
