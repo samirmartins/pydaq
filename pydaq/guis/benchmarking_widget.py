@@ -62,16 +62,16 @@ class BenchmarkingWidget(QWidget, Ui_Form):
                     sample_times.append(t1)
                     sample_count += 1
 
-                    # Atualiza o tempo da próxima amostra
+                    
                     next_sample_time += period_s
 
-                    # Detecta se houve atraso
+                  
                     if t1 - t0 > period_s:
                         delays += 1
                 else:
                     time.sleep(max(0, next_sample_time - now))
 
-            # Cálculos finais
+          
             total_samples = len(sample_times)
             if total_samples < 2:
                 print(f"Period: {period_ms:7.5f} s | No valid readings ❌\n")
@@ -79,7 +79,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
                 QApplication.processEvents()
                 continue
 
-            # Calcula jitter real
+         
             intervals = [t2 - t1 for t1, t2 in zip(sample_times[:-1], sample_times[1:])]
             jitter = max(intervals) - min(intervals)
             avg_cycle = sum(intervals) / len(intervals)
@@ -90,9 +90,9 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | "
                 f"Theoretical: {theoretical_samples:6.1f} | Delays: {delays:4} "
                 f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.3f} ms | "
-                f"Jitter: {jitter*1000:7.3f} ms | {status}")
+                f"Jitter: {jitter*1000:7.3f} ms | Avg cycle: {avg_cycle*1000:7.3f} ms | {status}")
             self.value_beench.appendPlainText(
-                f"Period {period_ms:7.5f} s | {status}"
+                f"Period {period_ms:7.5f} s  | Avg cycle: {avg_cycle*1000:7.3f} ms | {status}"
             )
             QApplication.processEvents()
 

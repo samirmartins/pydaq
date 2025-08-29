@@ -19,7 +19,6 @@ nav:
           Get Data: get_data_arduino.md
           Digital Filters: digital_filters_arduino.md
       
-  
   - Sending Data:
       - NIDAQ: send_data_nidaq.md
       - Arduino: send_data_arduino.md

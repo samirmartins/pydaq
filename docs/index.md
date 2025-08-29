@@ -45,10 +45,10 @@ PYDAQ requires:
 - PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
-- packaging (>=24.1).
-- scipy (>=1.16.1) for digital filters.
-- sympy
-- async
+- packaging (>=24.1)
+- scipy (>=1.16.1) for digital filters
+- sympy (>= 1.13.3)
+- async 
 
  
 ## Documentation Map
