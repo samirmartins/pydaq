@@ -276,16 +276,11 @@ class GetModel(Base):
                 self.ser.reset_input_buffer()
                 self.ser.write(sent_data_bytes[k])
 
-                try:
-                    # Read the last complete value
-                    line_bytes = self.ser.readline()
-                    read_value = int(line_bytes.decode("UTF-8").strip()) * self.ard_vpb
-                except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException):
-                    read_value = 0 # Default to 0 on error
+                temp = int(self.ser.readline().split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 sent_value = signal_to_send[k]
                 time_now = time.perf_counter() - st_worker
-                data_queue.put((time_now, sent_value, read_value))
+                data_queue.put((time_now, sent_value, temp))
 
                 wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
                 if wait_time > 0:
