@@ -129,12 +129,7 @@ class StepResponse(Base):
                 self.ser.write(sent_data)
                 self.ser.reset_input_buffer()
                 
-                try:
-                    line_bytes = self.ser.readline()
-                    # A robust parsing is important here
-                    temp = int(line_bytes.decode("UTF-8").strip()) * self.ard_vpb
-                except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException):
-                    temp = 0 # Default to 0 on error
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, 5.0 * float(sent_data.decode()), temp))
@@ -183,7 +178,7 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Step Response (Arduino), Port: {self.com_port}"
             self._start_updatable_plot(title_str=self.title)
             self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
-            
+
             # Add a short delay to allow the plot window to open fully
             print("\nReal-time plot started. Waiting 0.5s for the window to render...")
             time.sleep(0.5)

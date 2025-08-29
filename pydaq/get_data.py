@@ -311,12 +311,7 @@ class GetData(Base):
                     break
                 
                 self.ser.reset_input_buffer()
-                try:
-                    line_bytes = self.ser.readline()
-                    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
-                except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException) as e:
-                    warnings.warn(f"Error reading from Arduino: {e}. Skipping sample.")
-                    temp = 0
+                temp = int(self.ser.readline().split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, temp))
@@ -368,7 +363,7 @@ class GetData(Base):
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
         acquisition_thread = threading.Thread(
-            target=self._acquisition_worker_nidaq,
+            target=self._acquisition_worker_arduino,
             args=(data_queue,), 
             daemon=True
         )
