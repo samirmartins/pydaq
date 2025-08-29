@@ -4,8 +4,6 @@ import serial.tools.list_ports
 import numpy as np
 import warnings
 import time
-import asyncio
-import qasync
 import queue
 import threading
 from pydaq.utils.base import Base
@@ -41,7 +39,7 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.control_running = False
 
         self.path = os.path.join(os.path.join(os.path.expanduser("~")), "Desktop") # Defining default path
-        self.figure = plt.figure(figsize =(6.4,4.8), facecolor='#404040') #Starting the canvas
+        self.figure = Figure(figsize=(6.4, 4.8), facecolor='#404040')  # Starting the canvas
         self.figure.patch.set_facecolor('#404040')  # External background
         self.ax = self.figure.add_subplot(111, facecolor='#505050')  # Output graph
         self.ax2 = self.ax.twinx()

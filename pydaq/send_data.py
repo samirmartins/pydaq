@@ -11,7 +11,6 @@ import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
 
-
 class SendData(Base):
     """
     Class able to send data from data acquisition boards using (or not) a graphical user interface (GUI)
@@ -93,6 +92,8 @@ class SendData(Base):
         self.plot_ready_event.wait() # Wait for plot to be ready
 
         try:
+            task = nidaqmx.Task()   # cria primeiro
+
             task.ao_channels.add_ao_voltage_chan(
                 f"{self.device}/{self.channel}",
                 min_val=float(self.ao_min),
@@ -102,8 +103,7 @@ class SendData(Base):
             cycles = len(self.data)
             
             st_worker = time.perf_counter()
-            task = nidaqmx.Task()
-            
+
             for k in range(cycles):
                 if not self.sending_running:
                     break

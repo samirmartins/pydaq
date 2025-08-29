@@ -1,7 +1,6 @@
 import os
 import time
 import numpy as np
-import sympy as sp
 from scipy.signal import dlti, dlsim
 import scipy.signal as signal
 import serial
@@ -13,7 +12,6 @@ import serial.tools.list_ports
 import matplotlib.pyplot as plt
 import warnings
 import nidaqmx
-from sympy import symbols, parse_expr
 from nidaqmx.constants import TerminalConfiguration
 
 class PIDControl(Base): 
@@ -176,29 +174,97 @@ class PIDControl(Base):
         return self.feedback_calibrated, self.error, self.setpoint, self.control
 
     def calibrationvu(self, output):
-        if not self.calibration_equation_vu.strip():
+        if not self.calibration_equation_vu or not self.calibration_equation_vu.strip():
             return output
         else:
-            equation = parse_expr(self.calibration_equation_vu)
-            output_calibrated = equation.subs('x', output) # X is the variable used
-            output_calibrated = float(output_calibrated)
-            return output_calibrated
+            # WARNING: Using eval is a security risk if the equation string is not from a trusted source.
+            # It can execute arbitrary code. For this application, we assume the user provides a safe
+            # mathematical expression.
+            try:
+                # Safely evaluate the expression with only 'x' available as a variable.
+                output_calibrated = eval(self.calibration_equation_vu, {"__builtins__": None}, {"x": output})
+                return float(output_calibrated)
+            except Exception as e:
+                print(f"Error evaluating calibration_equation_vu: {e}")
+                return output # Return original value in case of error
 
     def calibrationuv(self, output):
-        if not self.calibration_equation_uv.strip():
+        if not self.calibration_equation_uv or not self.calibration_equation_uv.strip():
             return output
         else:
-            equation = parse_expr(self.calibration_equation_uv)
-            output_calibrated = equation.subs('x', output) # X is the variable used
-            output_calibrated = float(output_calibrated)
-            return output_calibrated
+            # WARNING: Using eval is a security risk if the equation string is not from a trusted source.
+            # It can execute arbitrary code. For this application, we assume the user provides a safe
+            # mathematical expression.
+            try:
+                # Safely evaluate the expression with only 'x' available as a variable.
+                output_calibrated = eval(self.calibration_equation_uv, {"__builtins__": None}, {"x": output})
+                return float(output_calibrated)
+            except Exception as e:
+                print(f"Error evaluating calibration_equation_uv: {e}")
+                return output # Return original value in case of error
 
     def parse_polynomial(self,poly_str):
-        s = sp.symbols('s')
-        poly_expr = sp.sympify(poly_str)
-        coeffs = sp.Poly(poly_expr, s).all_coeffs()
-        return [float(c) for c in coeffs]
+        """
+        Parses a polynomial string (e.g., '2*s**2 + 3*s - 1') into a list of coefficients.
+        This function does not require SymPy.
+        """
+        poly_str = poly_str.replace(' ', '').replace('-', '+-')
+        if poly_str.startswith('+-'):
+            poly_str = poly_str[1:] # Correct for leading negative sign
+        
+        terms = poly_str.split('+')
+        
+        # --- Find the highest degree of the polynomial ---
+        max_degree = 0
+        for term in terms:
+            if not term: continue
+            if 's' in term:
+                if '**' in term:
+                    try:
+                        degree = int(term.split('**')[1])
+                        if degree > max_degree:
+                            max_degree = degree
+                    except (ValueError, IndexError):
+                        raise ValueError(f"Invalid term format: {term}")
+                else: # s is present, but s** is not, so degree is 1
+                    if 1 > max_degree:
+                        max_degree = 1
 
+        # --- Initialize coefficient list with zeros ---
+        # For a degree 'n' polynomial, we need n+1 coefficients (from s^n to s^0)
+        coeffs = [0.0] * (max_degree + 1)
+        
+        # --- Populate coefficients from each term ---
+        for term in terms:
+            if not term: continue
+            
+            # --- Case 1: Constant term (no 's') ---
+            if 's' not in term:
+                coeffs[max_degree] += float(term)
+                continue
+
+            # --- Case 2: Terms with 's' ---
+            if '**' in term:
+                parts = term.split('**')
+                degree = int(parts[1])
+                coeff_part = parts[0].replace('s', '').replace('*', '')
+            else: # Degree is 1
+                degree = 1
+                coeff_part = term.replace('s', '').replace('*', '')
+            
+            # Determine the coefficient value
+            if coeff_part == '':
+                coeff_val = 1.0
+            elif coeff_part == '-':
+                coeff_val = -1.0
+            else:
+                coeff_val = float(coeff_part)
+            
+            # Place the coefficient in the correct position in the list
+            # The position is (max_degree - current_degree)
+            coeffs[max_degree - degree] += coeff_val
+
+        return coeffs
     def get_value_simulate_system(self, system, period, control, x0):
 
         time_control = np.linspace(0, period, 100)  

@@ -8,7 +8,6 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QFileDialog, QApplication, QWidget, QVBoxLayout, QPushButton
 from PySide6.QtGui import *
 from PySide6.QtCore import *
-from qasync import QEventLoop
 
 from ..uis.ui_PyDAQ_pid_control_Arduino_widget import Ui_Arduino_PID_Control
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
