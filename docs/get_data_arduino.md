@@ -16,7 +16,7 @@ self.ard_ai_max = 5
 self.ard_ai_min = 0
 ```
 
-## Data Acquitition using Graphical User Interface (GUI)
+## Data Acquisition using Graphical User Interface (GUI)
 
 Using GUI to acquire data is really straighforward and require only
 two LOC (lines of code):
@@ -38,7 +38,7 @@ The user is now able to select desired device, sample period and session duratio
 the user will define if the data will or not be plotted and saved, as well as the path to
 save data.
 
-## Data Acquitition using command line
+## Data Acquisition using command line
 
 It will be presented how to use GetData (and get_data_arduino) to acquire signal using an Arduino board.
 
