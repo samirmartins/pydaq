@@ -37,7 +37,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         best_stable_period = None
 
         for Ts in periods_s:
-            duration_s = max(base_duration, 5 * Ts)  # garante pelo menos 5 amostras
+            duration_s = max(base_duration, 5 * Ts)  
             sample_times = []
             delays = 0
             start = time.perf_counter()
