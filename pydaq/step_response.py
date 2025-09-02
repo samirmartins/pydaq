@@ -137,9 +137,11 @@ class StepResponse(Base):
                 self.ser.write(sent_data)
                 
                 self.ser.reset_input_buffer()
+                
                 try:
                     line_bytes = self.ser.readline()
-                    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
+                    parts = line_bytes.split()
+                    temp = int(parts[0].decode("UTF-8")) * self.ard_vpb
                 except (ValueError, IndexError, UnicodeDecodeError):
                     warnings.warn(f"Invalid read from Arduino on cycle {k}. Using value 0.")
                     temp = 0 # Error handling to avoid breaking the loop.
