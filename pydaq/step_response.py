@@ -138,7 +138,6 @@ class StepResponse(Base):
                 
                 self.ser.reset_input_buffer()
                 
-                #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
 
                 try:
                     self.ser.reset_input_buffer()
@@ -148,6 +147,8 @@ class StepResponse(Base):
                 except (ValueError, IndexError, UnicodeDecodeError):
                     warnings.warn(f"Invalid read from Arduino on cycle {k}. Using value 0.")
                     temp = 0 # Error handling to avoid breaking the loop.
+                
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, 5.0 * float(sent_data.decode()), temp))
