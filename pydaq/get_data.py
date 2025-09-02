@@ -297,6 +297,7 @@ class GetData(Base):
         
         try:
             self._open_serial()
+
             
             st_worker = time.perf_counter()
             self.st_worker = st_worker
@@ -308,6 +309,7 @@ class GetData(Base):
                 self.ser.reset_input_buffer()
 
                 #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+                
                 try:
                     line_bytes = self.ser.readline()
                     temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
