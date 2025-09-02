@@ -21,8 +21,6 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
         super(Digital_Filters_NIDAQ_Widget, self).__init__()
         self.setupUi(self)
         
-
-
         self.signals = GuiSignals()
         self.iir_widget.hide()
         self.fir_widget.show()
