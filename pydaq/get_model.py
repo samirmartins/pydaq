@@ -276,7 +276,7 @@ class GetModel(Base):
                 self.ser.reset_input_buffer()
                 self.ser.write(sent_data_bytes[k])
 
-                temp = int(self.ser.readline().split()[-2].decode("UTF-8")) * self.ard_vpb
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 sent_value = signal_to_send[k]
                 time_now = time.perf_counter() - st_worker

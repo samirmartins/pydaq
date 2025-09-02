@@ -109,12 +109,12 @@ class StepResponse(Base):
     def _step_response_worker_arduino(self, data_queue):
         self.plot_ready_event.wait()
         
-        st_worker = time.perf_counter()
-        
         try:
             self._open_serial()
             sent_data = b"0"
             self.ser.write(sent_data)
+            
+            st_worker = time.perf_counter()
 
             for k in range(self.cycles):
                 if not self.acquisition_running:
@@ -144,6 +144,7 @@ class StepResponse(Base):
             if hasattr(self, 'ser') and self.ser.is_open:
                 self.ser.write(b"0")
                 self.ser.close()
+                print(f"Serial port {self.com_port} closed.")
             data_queue.put(None)
     
 

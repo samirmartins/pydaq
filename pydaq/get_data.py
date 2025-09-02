@@ -311,7 +311,7 @@ class GetData(Base):
                     break
                 
                 self.ser.reset_input_buffer()
-                temp = int(self.ser.readline().split()[-2].decode("UTF-8")) * self.ard_vpb
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
                 
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, temp))
