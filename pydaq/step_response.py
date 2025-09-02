@@ -112,6 +112,16 @@ class StepResponse(Base):
         try:
             self._open_serial()
             
+            # --- WARM-UP SECTION ---
+            # Send an initial command (b"0") to "wake up" the Arduino.
+            self.ser.write(b"0")
+            self.ser.reset_input_buffer()
+
+            # Perform a "warm-up read". This is the call that will be slow.
+            # We will not use this data, so we assign it to '_' (discard).
+            _ = self.ser.readline()
+            # --- END WARM-UP SECTION ---
+
             st_worker = time.perf_counter()
 
             for k in range(self.cycles):
@@ -127,7 +137,12 @@ class StepResponse(Base):
                 self.ser.write(sent_data)
                 
                 self.ser.reset_input_buffer()
-                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+                try:
+                    line_bytes = self.ser.readline()
+                    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
+                except (ValueError, IndexError, UnicodeDecodeError):
+                    warnings.warn(f"Invalid read from Arduino on cycle {k}. Using value 0.")
+                    temp = 0 # Error handling to avoid breaking the loop.
                 
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, 5.0 * float(sent_data.decode()), temp))
