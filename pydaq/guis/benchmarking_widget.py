@@ -9,7 +9,7 @@ import nidaqmx
 ard_vpb = 1  # Conversion factor, if needed
 
 class BenchmarkingWidget(QWidget, Ui_Form):
-    def __init__(self, com="COM5", *args):
+    def __init__(self, com="COM6", *args):
         super(BenchmarkingWidget, self).__init__()
         self.setupUi(self)
         self.close_button.released.connect(self.close_window)

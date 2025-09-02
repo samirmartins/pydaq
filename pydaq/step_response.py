@@ -115,6 +115,7 @@ class StepResponse(Base):
             self.ser.write(sent_data)
             
             # Update step value
+            k = 0
             if k * self.ts >= float(self.step_time):
                 sent_data = b"1"
             else:
