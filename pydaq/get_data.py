@@ -311,13 +311,23 @@ class GetData(Base):
                 
                 self.ser.reset_input_buffer()
                 #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-                try:
+                #try:
+                #    line_bytes = self.ser.readline()
+                #    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
+                #except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException) as e:
+                #    warnings.warn(f"Error reading from serial port: {e}. Skipping this sample.")
+                #    temp = 0
+
+                start_time = time.perf_counter()
+
+                temp = None
+                while temp is None and (time.perf_counter() - start_time) < self.ts:
                     line_bytes = self.ser.readline()
-                    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
-                except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException) as e:
-                    warnings.warn(f"Error reading from serial port: {e}. Skipping this sample.")
-                    temp = 0
-                    
+                    try:
+                        temp = int(line_bytes.decode("UTF-8").split()[-2]) * self.ard_vpb
+                    except (ValueError, IndexError, UnicodeDecodeError):
+                        temp = None
+
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, temp))
                 num_cycles_performed += 1
