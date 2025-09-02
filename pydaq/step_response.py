@@ -111,14 +111,18 @@ class StepResponse(Base):
         
         try:
             self._open_serial()
-            sent_data = b"0"
-            self.ser.write(sent_data)
             
-            # Update step value
-            if k * self.ts >= float(self.step_time):
-                sent_data = b"1"
-            else:
-                sent_data = b"0"
+            st_worker = time.perf_counter()
+
+            for k in range(self.cycles):
+                if not self.acquisition_running:
+                    break
+                
+                # Update step value
+                if k * self.ts >= float(self.step_time):
+                    sent_data = b"1"
+                else:
+                    sent_data = b"0"
 
                 self.ser.write(sent_data)
                 
