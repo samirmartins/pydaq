@@ -114,20 +114,20 @@ class StepResponse(Base):
             sent_data = b"0"
             self.ser.write(sent_data)
             
-            st_worker = time.perf_counter()
+            # Update step value
+            if k * self.ts >= float(self.step_time):
+                sent_data = b"1"
+            else:
+                sent_data = b"0"
+
+            self.ser.write(sent_data)
+            self.ser.reset_input_buffer()
+            
+            st_worker = time.perf_counter() # Changed order to start cont time after write the first data on arduino and not loss time
 
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break
-                
-                # Update step value
-                if k * self.ts >= float(self.step_time):
-                    sent_data = b"1"
-                else:
-                    sent_data = b"0"
-
-                self.ser.write(sent_data)
-                self.ser.reset_input_buffer()
                 
                 try:
                     line_bytes = self.ser.readline()
@@ -143,6 +143,15 @@ class StepResponse(Base):
                 wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
                 if wait_time > 0:
                     time.sleep(wait_time)
+                
+                # Update step value
+                if k * self.ts >= float(self.step_time):
+                    sent_data = b"1"
+                else:
+                    sent_data = b"0"
+
+                self.ser.write(sent_data)
+                self.ser.reset_input_buffer()
 
         except serial.SerialException as e:
             warnings.warn(f"Failed to open or use serial port {self.com_port}: {e}")
