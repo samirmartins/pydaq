@@ -310,14 +310,14 @@ class GetData(Base):
                     break
                 
                 self.ser.reset_input_buffer()
+                #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
                 try:
                     line_bytes = self.ser.readline()
                     temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
                 except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException) as e:
-                    warnings.warn(f"Error reading from Arduino: {e}. Skipping sample.")
+                    warnings.warn(f"Error reading from serial port: {e}. Skipping this sample.")
                     temp = 0
-                #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-
+                    
                 time_now = time.perf_counter() - st_worker
                 data_queue.put((time_now, temp))
                 num_cycles_performed += 1

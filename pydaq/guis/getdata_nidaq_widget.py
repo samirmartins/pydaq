@@ -158,7 +158,6 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
         if not g.error_path:
             if self.No_radio.isChecked():
                 g.get_data_nidaq()
-                #g.get_data_nidaq()
                 self.signals.returned.emit(g)
             else:
                 fs = (1/float(self.Ts_in.value()))*2.5
@@ -291,7 +290,7 @@ class GetData_NIDAQ_Widget(QWidget, Ui_NIDAQ_GetData_W):
                 mag = 20*np.log10(np.abs(h))
                 phase = np.angle(h)
                 
-                dt = 1/(fs*2.5)  # 1/(fs*2)
+                dt = 1/(fs*2.5)  
         
                 fft_data = np.fft.fft(y2)
                 freqs = np.fft.fftfreq(len(y2), dt)

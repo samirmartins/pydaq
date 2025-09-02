@@ -12,8 +12,7 @@ from .error_window_gui import Error_window
 
 from ..get_data import GetData
 
-from scipy.signal import lfilter, butter, firwin, cheby1, cheby2, ellip
-from scipy.signal import firwin, lfilter, freqz
+from scipy.signal import lfilter, butter, firwin, cheby1, cheby2, ellip, freqz
 import asyncio
 import numpy as np
 import matplotlib.pyplot as plt
