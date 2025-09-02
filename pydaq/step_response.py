@@ -111,38 +111,12 @@ class StepResponse(Base):
         
         try:
             self._open_serial()
-            sent_data = b"0"
-            self.ser.write(sent_data)
             
-            # Update step value
-            if k * self.ts >= float(self.step_time):
-                sent_data = b"1"
-            else:
-                sent_data = b"0"
-
-            self.ser.write(sent_data)
-            self.ser.reset_input_buffer()
-            
-            st_worker = time.perf_counter() # Changed order to start cont time after write the first data on arduino and not loss time
+            st_worker = time.perf_counter()
 
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break
-                
-                try:
-                    line_bytes = self.ser.readline()
-                    temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
-                except (ValueError, IndexError, UnicodeDecodeError, serial.SerialException) as e:
-                    warnings.warn(f"Error reading from Arduino: {e}. Skipping sample.")
-                    temp = 0
-                #temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-                
-                time_now = time.perf_counter() - st_worker
-                data_queue.put((time_now, 5.0 * float(sent_data.decode()), temp))
-
-                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
-                if wait_time > 0:
-                    time.sleep(wait_time)
                 
                 # Update step value
                 if k * self.ts >= float(self.step_time):
@@ -151,7 +125,16 @@ class StepResponse(Base):
                     sent_data = b"0"
 
                 self.ser.write(sent_data)
+                
                 self.ser.reset_input_buffer()
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+                
+                time_now = time.perf_counter() - st_worker
+                data_queue.put((time_now, 5.0 * float(sent_data.decode()), temp))
+
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
 
         except serial.SerialException as e:
             warnings.warn(f"Failed to open or use serial port {self.com_port}: {e}")
