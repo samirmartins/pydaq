@@ -301,6 +301,17 @@ class GetData(Base):
             st_worker = time.perf_counter()
             self.st_worker = st_worker
 
+            # --- WARM-UP SECTION ---
+            # Send an initial command (b"0") to "wake up" the Arduino.
+            time.sleep(0.05)
+            self.ser.write(b"0")
+            self.ser.reset_input_buffer()
+
+            # Perform a "warm-up read". This is the call that will be slow.
+            # We will not use this data, so we assign it to '_' (discard).
+            _ = self.ser.readline()
+            # --- END WARM-UP SECTION ---
+
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break
@@ -308,7 +319,7 @@ class GetData(Base):
                 self.ser.reset_input_buffer()
 
                 temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-                
+
                 '''try:
                     line_bytes = self.ser.readline()
                     temp = int(line_bytes.split()[-2].decode("UTF-8")) * self.ard_vpb
