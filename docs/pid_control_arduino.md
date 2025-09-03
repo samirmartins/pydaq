@@ -25,7 +25,7 @@ PydaqGui()
 
 After running the command, the GUI will appear. Navigate to the "PID Control" screen, where you can define the parameters and start the control session.
 
-![](img/pid_control_arduino.gui.png)
+![](img/pid_control_arduino_gui.png)
 
 ## Parameters
 
