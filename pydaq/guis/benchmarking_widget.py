@@ -9,12 +9,24 @@ import matplotlib.pyplot as plt
 
 ard_vpb = 1  
 
+def find_arduino():
+        ports = serial.tools.list_ports.comports()
+        for port in ports:
+            if "Arduino" in port.description or "CH340" in port.description:
+                return port.device
+        return None
+
 class BenchmarkingWidget(QWidget, Ui_Form):
-    def __init__(self, com="COM5", *args):
+    def __init__(self, com=None, *args):
         super(BenchmarkingWidget, self).__init__()
         self.setupUi(self)
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
+
+        if com is None:
+            com = find_arduino()
+        
+
         self.com_port = com
         self.ser = None 
 
