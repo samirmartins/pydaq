@@ -148,7 +148,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
 
 
 class BenchmarkingNIWidget(QWidget, Ui_Form):
-    def __init__(self, nidaq_channel="Dev1/ai0", *args):
+    def __init__(self, nidaq_channel="Dev2/ai0", *args):
         super().__init__(*args)
         self.setupUi(self)
         self.close_button.released.connect(self.close_window)
@@ -159,9 +159,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, periods_ms=None, duration_s=5):
-        if periods_ms is None:
-            periods_ms = [10, 5, 2, 1, 0.5, 0.2, 0.1, 0.01]
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001], duration_s=5, allowed_delay_percent=2.0):
         print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
@@ -169,55 +167,72 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
         try:
             self.task = nidaqmx.Task()
             self.task.ai_channels.add_ai_voltage_chan(self.nidaq_channel)
+            print(f"✅ NI-DAQ channel {self.nidaq_channel} initialized successfully.")
         except Exception as e:
             print(f"❌ Could not initialize NI-DAQ task: {e}")
             return
 
         min_period_recommended = None
         best_stable_period = None
+        results = []
 
-        for period_ms in periods_ms:
-            period_s = period_ms / 1000
+        for Ts in period_s:
+            sample_times = []
             delays = 0
-            cycle_times = []
             start = time.perf_counter()
+            next_sample_time = start + Ts
+            sample_count = 0
 
-            while (time.perf_counter() - start) < duration_s:
-                t0 = time.perf_counter()
+            while time.perf_counter() - start < duration_s:
+                now = time.perf_counter()
+                if now >= next_sample_time:
+                    t0 = now
+                    try:
+                        value = self.task.read()
+                    except Exception as e:
+                        print("NI-DAQ read error:", e)
+                        continue
 
-                try:
-                    value = self.task.read()
-                except Exception as e:
-                    print("NI-DAQ read error:", e)
-                    continue
+                    t1 = time.perf_counter()
+                    sample_times.append(t1)
+                    sample_count += 1
+                    next_sample_time = start + (sample_count + 1) * Ts
 
-                t1 = time.perf_counter()
-                cycle_time = t1 - t0
-                cycle_times.append(cycle_time)
-
-                if cycle_time > period_s:
-                    delays += 1
+                    if t1 - t0 > Ts:
+                        delays += 1
                 else:
-                    time.sleep(max(0, period_s - cycle_time))
+                    time.sleep(max(0, next_sample_time - now))
 
-            total_samples = len(cycle_times)
-            if total_samples == 0:
-                print(f"Period: {period_ms:7.5f} ms | No valid readings ❌\n")
-                self.value_beench.appendPlainText(f"Period: {period_ms:7.5f} ms | No valid readings ❌\n")
+            total_samples = len(sample_times)
+            if total_samples < 2:
+                print(f"Period: {Ts:7.5f} s | No valid readings ❌\n")
+                self.value_beench.appendPlainText(f"Period: {Ts:7.5f} s | No valid readings ❌\n")
                 QApplication.processEvents()
                 continue
 
-            avg_cycle = sum(cycle_times) / total_samples
-            delay_percent = (delays / total_samples) * 100
-            status = "✅ OK" if delays == 0 else "⚠️ FAIL"
+            intervals = [t2 - t1 for t1, t2 in zip(sample_times[:-1], sample_times[1:])]
+            if len(intervals) > 1:
+                intervals = intervals[1:]  # descarta o primeiro
 
-            print(f"Sample Period: {period_ms:7.5f} s | Samples: {total_samples:5} | Delays: {delays:4} "
-                  f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle*1000:7.4f} ms | {status}")
-            self.value_beench.appendPlainText(f"Sample Period: {period_ms:7.5f} s | {status}\n")
+            jitter = max(intervals) - min(intervals)
+            avg_cycle = sum(intervals) / len(intervals)
+            theoretical_samples = duration_s / Ts
+            delay_percent = (delays / total_samples) * 100
+            status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
+
+            print(f"Sample Period: {Ts:7.5f} s | Samples: {total_samples:5} | "
+                  f"Theoretical: {theoretical_samples:6.1f} | Delays: {delays:4} "
+                  f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle:7.5f} s | "
+                  f"Jitter: {jitter:7.3f} s | {status}")
+            self.value_beench.appendPlainText(
+                f"Target Ts {Ts:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
+            )
             QApplication.processEvents()
 
-            if delays == 0:
-                best_stable_period = period_ms
+            results.append((Ts, avg_cycle, jitter, status))
+
+            if delay_percent <= allowed_delay_percent:
+                best_stable_period = Ts
                 min_period_recommended = avg_cycle * 1.2
 
         if self.task:
@@ -226,8 +241,26 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
 
         if min_period_recommended:
             print("\n✅ Ideal sampling period (with 20% safety margin): "
-                  f"{min_period_recommended*1000:.3f} ms")
-            print(f"➡️  You can safely use Ts = {best_stable_period} ms or greater.")
-            self.value_beench.appendPlainText(f"{min_period_recommended*1000:.3f} ms")
+                  f"{min_period_recommended:.3f} s")
+            print(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
+            QApplication.processEvents()
         else:
-            print("\n❌ No stable sampling period was found. Try higher values or check device performance.")
+            print("\n❌ No stable sampling period was found. Try higher values or check NI-DAQ performance.")
+
+        if results:
+            Ts_values = [r[0] for r in results]
+            avg_values = [r[1] for r in results]
+            jitter_values = [r[2] for r in results]
+
+            plt.errorbar(Ts_values, avg_values, yerr=jitter_values, fmt='o-', capsize=5, label="Avg Ts ± Jitter")
+            plt.plot(Ts_values, Ts_values, 'r--', label="Target Ts")
+            plt.xscale("log")
+            plt.yscale("log")
+            plt.xlabel("Target Ts (s)")
+            plt.ylabel("Measured Avg Ts (s)")
+            plt.title("NI-DAQ Benchmarking Ts vs Measured Avg Ts")
+            plt.legend()
+            plt.grid(True, which="both", ls="--", lw=0.5)
+            plt.show()
+
