@@ -298,8 +298,7 @@ class GetData(Base):
         try:
             self._open_serial()
             
-            st_worker = time.perf_counter()
-            self.st_worker = st_worker
+            
 
             # --- WARM-UP SECTION ---
             # Send an initial command (b"0") to "wake up" the Arduino.
@@ -312,6 +311,9 @@ class GetData(Base):
             _ = self.ser.readline()
             # --- END WARM-UP SECTION ---
 
+            st_worker = time.perf_counter()
+            self.st_worker = st_worker
+            
             for k in range(self.cycles):
                 if not self.acquisition_running:
                     break

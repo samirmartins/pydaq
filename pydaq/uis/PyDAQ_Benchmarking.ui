@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>462</width>
-    <height>481</height>
+    <width>618</width>
+    <height>668</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -367,14 +367,14 @@ QScrollArea{
     <widget class="QLabel" name="label_2">
      <property name="minimumSize">
       <size>
-       <width>300</width>
+       <width>600</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>120</height>
+       <height>600</height>
       </size>
      </property>
      <property name="font">
@@ -389,7 +389,10 @@ QScrollArea{
       </font>
      </property>
      <property name="text">
-      <string>This screen is used to evaluate your computer's performance by measuring the maximum sampling frequency it can handle in real time. It helps determine how fast your system can acquire and process data without losing samples, which is crucial for applications involving high-speed data acquisition or real-time signal processing.</string>
+      <string>This screen is used to evaluate your computer’s performance by testing different sampling periods (Ts).
+The sampling period (Ts) is the time interval between two consecutive measurements. Its inverse (1/Ts) is the sampling frequency, which indicates how many samples are acquired per second.
+
+By measuring how your system behaves for different Ts values, you can determine the maximum sampling rate your computer can reliably sustain without delays or data loss. This information is crucial for applications that involve high-speed data acquisition or real-time signal processing, where maintaining a stable and predictable Ts ensures accuracy and prevents aliasing or missed events.</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::PlainText</enum>
@@ -403,7 +406,20 @@ QScrollArea{
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QPlainTextEdit" name="value_beench"/>
+    <widget class="QPlainTextEdit" name="value_beench">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>400</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QWidget" name="widget" native="true">

@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(462, 481)
+        Form.resize(618, 668)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -365,8 +365,8 @@ class Ui_Form(object):
 
         self.label_2 = QLabel(Form)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setMinimumSize(QSize(300, 0))
-        self.label_2.setMaximumSize(QSize(16777215, 120))
+        self.label_2.setMinimumSize(QSize(600, 0))
+        self.label_2.setMaximumSize(QSize(16777215, 600))
         font1 = QFont()
         font1.setFamilies([u"Helvetica"])
         font1.setPointSize(12)
@@ -384,6 +384,8 @@ class Ui_Form(object):
 
         self.value_beench = QPlainTextEdit(Form)
         self.value_beench.setObjectName(u"value_beench")
+        self.value_beench.setMinimumSize(QSize(0, 400))
+        self.value_beench.setMaximumSize(QSize(16777215, 400))
 
         self.gridLayout.addWidget(self.value_beench, 2, 0, 1, 1)
 
@@ -414,7 +416,10 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"Benchmarking", None))
-        self.label_2.setText(QCoreApplication.translate("Form", u"This screen is used to evaluate your computer's performance by measuring the maximum sampling frequency it can handle in real time. It helps determine how fast your system can acquire and process data without losing samples, which is crucial for applications involving high-speed data acquisition or real-time signal processing.", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"This screen is used to evaluate your computer\u2019s performance by testing different sampling periods (Ts).\n"
+"The sampling period (Ts) is the time interval between two consecutive measurements. Its inverse (1/Ts) is the sampling frequency, which indicates how many samples are acquired per second.\n"
+"\n"
+"By measuring how your system behaves for different Ts values, you can determine the maximum sampling rate your computer can reliably sustain without delays or data loss. This information is crucial for applications that involve high-speed data acquisition or real-time signal processing, where maintaining a stable and predictable Ts ensures accuracy and prevents aliasing or missed events.", None))
         self.start_button.setText(QCoreApplication.translate("Form", u"Start", None))
         self.close_button.setText(QCoreApplication.translate("Form", u"Close", None))
     # retranslateUi
