@@ -209,7 +209,7 @@ class PIDControl(Base):
         """
         poly_str = poly_str.replace(' ', '').replace('-', '+-')
         if poly_str.startswith('+-'):
-            poly_str = poly_str[1:] # Correct for leading negative sign
+            poly_str = poly_str[1:] # Correct for leading negative si   gn
         
         terms = poly_str.split('+')
         

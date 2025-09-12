@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogWaazaJ.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogleTYPt.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -372,7 +372,9 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.doubleSpinBox_KdDialog = QDoubleSpinBox(self.widget_6)
         self.doubleSpinBox_KdDialog.setObjectName(u"doubleSpinBox_KdDialog")
-        self.doubleSpinBox_KdDialog.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_KdDialog.setDecimals(6)
+        self.doubleSpinBox_KdDialog.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_KdDialog.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_6.addWidget(self.doubleSpinBox_KdDialog)
 
@@ -412,7 +414,9 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.doubleSpinBox_KiDialog = QDoubleSpinBox(self.widget_7)
         self.doubleSpinBox_KiDialog.setObjectName(u"doubleSpinBox_KiDialog")
-        self.doubleSpinBox_KiDialog.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_KiDialog.setDecimals(6)
+        self.doubleSpinBox_KiDialog.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_KiDialog.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_5.addWidget(self.doubleSpinBox_KiDialog)
 
@@ -438,7 +442,9 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.doubleSpinBox_SetpointDialog = QDoubleSpinBox(self.widget_5)
         self.doubleSpinBox_SetpointDialog.setObjectName(u"doubleSpinBox_SetpointDialog")
         self.doubleSpinBox_SetpointDialog.setEnabled(True)
-        self.doubleSpinBox_SetpointDialog.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_SetpointDialog.setDecimals(6)
+        self.doubleSpinBox_SetpointDialog.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_SetpointDialog.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_7.addWidget(self.doubleSpinBox_SetpointDialog)
 
@@ -451,7 +457,9 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.doubleSpinBox_KpDialog = QDoubleSpinBox(self.widget_8)
         self.doubleSpinBox_KpDialog.setObjectName(u"doubleSpinBox_KpDialog")
-        self.doubleSpinBox_KpDialog.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_KpDialog.setDecimals(6)
+        self.doubleSpinBox_KpDialog.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_KpDialog.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_4.addWidget(self.doubleSpinBox_KpDialog)
 
@@ -488,7 +496,9 @@ class Ui_Dialog_Plot_PID_Window(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.doubleSpinBox_DisturbeDialog = QDoubleSpinBox(self.widget_4)
         self.doubleSpinBox_DisturbeDialog.setObjectName(u"doubleSpinBox_DisturbeDialog")
-        self.doubleSpinBox_DisturbeDialog.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_DisturbeDialog.setDecimals(6)
+        self.doubleSpinBox_DisturbeDialog.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_DisturbeDialog.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_2.addWidget(self.doubleSpinBox_DisturbeDialog)
 

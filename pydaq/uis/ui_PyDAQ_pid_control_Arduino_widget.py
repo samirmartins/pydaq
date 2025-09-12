@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetMFbInx.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetGsGRbL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -377,8 +377,9 @@ class Ui_Arduino_PID_Control(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.doubleSpinBox_period = QDoubleSpinBox(self.widget_period)
         self.doubleSpinBox_period.setObjectName(u"doubleSpinBox_period")
-        self.doubleSpinBox_period.setMaximum(9999999.000000000000000)
-        self.doubleSpinBox_period.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_period.setDecimals(6)
+        self.doubleSpinBox_period.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_period.setSingleStep(0.010000000000000)
         self.doubleSpinBox_period.setValue(1.000000000000000)
 
         self.horizontalLayout_8.addWidget(self.doubleSpinBox_period)
@@ -399,7 +400,9 @@ class Ui_Arduino_PID_Control(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.doubleSpinBox_kp = QDoubleSpinBox(self.widget_kp)
         self.doubleSpinBox_kp.setObjectName(u"doubleSpinBox_kp")
-        self.doubleSpinBox_kp.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_kp.setDecimals(6)
+        self.doubleSpinBox_kp.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_kp.setSingleStep(0.010000000000000)
         self.doubleSpinBox_kp.setValue(1.000000000000000)
 
         self.horizontalLayout_6.addWidget(self.doubleSpinBox_kp)
@@ -459,7 +462,9 @@ class Ui_Arduino_PID_Control(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.doubleSpinBox_ki = QDoubleSpinBox(self.widget_ki)
         self.doubleSpinBox_ki.setObjectName(u"doubleSpinBox_ki")
-        self.doubleSpinBox_ki.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_ki.setDecimals(6)
+        self.doubleSpinBox_ki.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_ki.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_4.addWidget(self.doubleSpinBox_ki)
 
@@ -639,7 +644,9 @@ class Ui_Arduino_PID_Control(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.doubleSpinBox_kd = QDoubleSpinBox(self.widget_kd)
         self.doubleSpinBox_kd.setObjectName(u"doubleSpinBox_kd")
-        self.doubleSpinBox_kd.setSingleStep(0.100000000000000)
+        self.doubleSpinBox_kd.setDecimals(6)
+        self.doubleSpinBox_kd.setMaximum(999999999999.000000000000000)
+        self.doubleSpinBox_kd.setSingleStep(0.010000000000000)
 
         self.horizontalLayout_5.addWidget(self.doubleSpinBox_kd)
 

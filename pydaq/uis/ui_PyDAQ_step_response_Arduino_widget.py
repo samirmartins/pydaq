@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgethgzBLJ.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetcIwBpn.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -231,8 +231,8 @@ class Ui_Arduino_StepResponse_W(object):
         self.sesh_dur_in.setObjectName(u"sesh_dur_in")
         self.sesh_dur_in.setMinimumSize(QSize(0, 22))
         self.sesh_dur_in.setMaximumSize(QSize(16777215, 22))
-        self.sesh_dur_in.setDecimals(4)
-        self.sesh_dur_in.setMaximum(86400.990000000005239)
+        self.sesh_dur_in.setDecimals(6)
+        self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.sesh_dur_in.setValue(10.000000000000000)
@@ -250,8 +250,8 @@ class Ui_Arduino_StepResponse_W(object):
         self.Ts_in.setObjectName(u"Ts_in")
         self.Ts_in.setMinimumSize(QSize(0, 22))
         self.Ts_in.setMaximumSize(QSize(16777215, 22))
-        self.Ts_in.setDecimals(4)
-        self.Ts_in.setMaximum(999.990000000000009)
+        self.Ts_in.setDecimals(6)
+        self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.Ts_in.setValue(0.500000000000000)
@@ -269,7 +269,8 @@ class Ui_Arduino_StepResponse_W(object):
         self.step_on_s_in.setObjectName(u"step_on_s_in")
         self.step_on_s_in.setMinimumSize(QSize(0, 22))
         self.step_on_s_in.setMaximumSize(QSize(16777215, 22))
-        self.step_on_s_in.setMaximum(999.990000000000009)
+        self.step_on_s_in.setDecimals(6)
+        self.step_on_s_in.setMaximum(999999999999.000000000000000)
         self.step_on_s_in.setSingleStep(0.010000000000000)
         self.step_on_s_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.step_on_s_in.setValue(3.000000000000000)

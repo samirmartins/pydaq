@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
+    <width>786</width>
     <height>622</height>
    </rect>
   </property>
@@ -531,6 +531,15 @@ QPushButton#reload_devices:pressed{
                 <height>22</height>
                </size>
               </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="maximum">
+               <double>999999999999999983222784.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.050000000000000</double>
+              </property>
               <property name="stepType">
                <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
               </property>
@@ -578,8 +587,14 @@ QPushButton#reload_devices:pressed{
                 <height>22</height>
                </size>
               </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="maximum">
+               <double>999999999999.000000000000000</double>
+              </property>
               <property name="singleStep">
-               <double>0.500000000000000</double>
+               <double>0.050000000000000</double>
               </property>
               <property name="stepType">
                <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
@@ -737,10 +752,10 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="decimals">
-            <number>4</number>
+            <number>6</number>
            </property>
            <property name="maximum">
-            <double>999.990000000000009</double>
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
@@ -793,10 +808,10 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="decimals">
-            <number>4</number>
+            <number>6</number>
            </property>
            <property name="maximum">
-            <double>86400.990000000005239</double>
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
@@ -836,8 +851,11 @@ QPushButton#reload_devices:pressed{
              <height>22</height>
             </size>
            </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
            <property name="maximum">
-            <double>999.990000000000009</double>
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
@@ -889,7 +907,7 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="save_radio_group"/>
   <buttongroup name="plot_radio_group"/>
+  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>
