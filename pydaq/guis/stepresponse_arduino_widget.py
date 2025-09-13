@@ -21,6 +21,8 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_step_response.released.connect(self.start_func_step_response)
         self.label_warning.hide()
+        self.pidshow()
+        self.pid_radio_group.buttonClicked.connect(self.pidshow)
         self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
         self.signals = GuiSignals()
 
@@ -60,6 +62,8 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
 
     def start_func_step_response(self):
         try:
+            self.get_sintony_type()
+            
             # Instantiating the StepResponse class
             s = StepResponse()
 
@@ -79,6 +83,8 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
                 s.plot_mode = 'no'
             s.save = True if self.save_radio_group.checkedId() == -2 else False
             s.path = self.path_line_edit.text()
+            s.calculate_pid = True if self.pid_radio_group.checkedId() == -2 else False
+            s.sintony_type =  self.sintony_type
 
             # Restarting variables
             self.time_var, self.input, self.output = [], [], []
@@ -93,3 +99,16 @@ class StepResponse_Arduino_Widget(QWidget, Ui_Arduino_StepResponse_W):
         except BaseException:
             error_w = Error_window()
             error_w.exec()
+
+    def pidshow(self):
+        self.enabled = True if self.pid_radio_group.checkedId() == -2 else False
+        if self.enabled is False: #Simulate = False
+            self.PID_comboBox.setEnabled(False)
+        else:
+            self.PID_comboBox.setEnabled(True)
+
+    def get_sintony_type(self):
+        if self.PID_comboBox.isEnabled():
+            self.sintony_type = self.PID_comboBox.currentIndex() # Can be 0, 1 or 2: P, PI or PID
+        else:
+            self.sintony_type = None # None if disabled

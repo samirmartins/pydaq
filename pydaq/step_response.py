@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import warnings
 import nidaqmx
 from nidaqmx.constants import TerminalConfiguration
-
+from scipy.signal import savgol_filter
 
 class StepResponse(Base):
     """
@@ -93,6 +93,10 @@ class StepResponse(Base):
 
         # Legends
         self.legend = ["Output", "Input"]
+
+        self.calculate_pid = False  # Flag to enable calculation
+        self.sintony_type = 0  # Tuning type: 'P', 'PI', or 'PID'
+        self.pid_parameters = []    # To store the results [Kp, Ki, Kd]
 
         # Threading control flags and events
         self.acquisition_running = False
@@ -256,6 +260,31 @@ class StepResponse(Base):
 
         acquisition_thread.join()
 
+        if self.calculate_pid and self.time_var:
+            print("\nCalculating PID parameters using Ziegler-Nichols method...")
+            Kp, Ki, Kd, tangent_plot, output_norm, gain_norm = self.get_parameters(
+                self.time_var,
+                self.output,
+                self.step_time,
+                self.sintony_type,
+                self.ard_ao_min, # Min for Arduino
+                self.ard_ao_max  # Max for Arduino
+            )
+
+            self.pid_parameters = [Kp, Ki, Kd]
+
+            # Plot tuning results
+            plt.figure(figsize=(10, 6))
+            plt.plot(self.time_var, output_norm, label="Normalized System Output", linewidth=2)
+            plt.plot(self.time_var, tangent_plot, '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
+            plt.plot(self.time_var, gain_norm, label="Normalized Step Input (Gain K)", linewidth=2)
+            plt.title("Ziegler-Nichols Tuning Analysis", fontsize=16)
+            plt.xlabel("Time (s)", fontsize=14)
+            plt.ylabel("Normalized Amplitude", fontsize=14)
+            plt.legend()
+            plt.grid(True)
+            plt.show(block=False) # Show the plot without blocking the code
+
         if self.plot_mode == 'end' and self.time_var:
             self.title = f"PYDAQ - Final Step Response (Arduino)"
             self._start_updatable_plot(title_str=self.title)
@@ -267,7 +296,7 @@ class StepResponse(Base):
                 y2_label=self.legend[1]
             )
             plt.show(block=True)
-            
+
         if self.save:
             print("\nSaving data ...")
             self._save_data(self.time_var, "time.dat")
@@ -416,6 +445,30 @@ class StepResponse(Base):
 
         acquisition_thread.join()
 
+        if self.calculate_pid and self.time_var:
+
+            Kp, Ki, Kd, tangent_plot, output_norm, gain_norm = self.get_parameters(
+                self.time_var,
+                self.output,
+                self.step_time,
+                self.sintony_type,
+                self.step_min, # Min for NIDAQ
+                self.step_max  # Max for NIDAQ
+            )
+            self.pid_parameters = [Kp, Ki, Kd]
+
+            # Plot tuning results
+            plt.figure(figsize=(10, 6))
+            plt.plot(self.time_var, output_norm, label="Normalized System Output", linewidth=2)
+            plt.plot(self.time_var, tangent_plot, '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
+            plt.plot(self.time_var, gain_norm, label="Normalized Step Input (Gain K)", linewidth=2)
+            plt.title("Ziegler-Nichols Tuning Analysis", fontsize=16)
+            plt.xlabel("Time (s)", fontsize=14)
+            plt.ylabel("Normalized Amplitude", fontsize=14)
+            plt.legend()
+            plt.grid(True)
+            plt.show(block=False) # Show the plot without blocking the code
+
         if self.plot_mode == 'end' and self.time_var:
             self.title = f"PYDAQ - Final Step Response (NIDAQ)"
             self._start_updatable_plot(title_str=self.title)
@@ -440,3 +493,81 @@ class StepResponse(Base):
             plt.show(block=True)
 
         return
+    
+    # PASTE THESE TWO METHODS INSIDE THE StepResponse CLASS
+
+    def get_parameters(self, time, system_value, step_time, type_sintony, min_val, max_val):
+        time = np.array(time)
+        system_value = np.array(system_value)
+        
+        # Normalize output to start at zero
+        system_value_normalized = system_value - system_value[0]
+
+        # Calculate the process gain K
+        delta_input = max_val - min_val
+        if delta_input == 0:
+            # Avoid division by zero if step is zero
+            k = np.inf
+        else:
+            k = (system_value_normalized[-1] - system_value_normalized[0]) / delta_input
+
+        max_derivative_idx, derivative = self.get_max_derivative_idx(time, system_value_normalized, step_time)
+
+        time_inflection = time[max_derivative_idx]
+        sys_inflection = system_value_normalized[max_derivative_idx]
+
+        # Fit tangent line at the inflection point
+        slope = derivative[max_derivative_idx]
+        intercept = sys_inflection - slope * time_inflection
+        tangent_line = slope * time + intercept
+
+        # Find L (delay) and T (time constant)
+        # L is the time until the tangent crosses the y=0 axis
+        L = -intercept / slope
+        # T is the time the tangent takes to go from y=0 to y=K
+        T = k / slope
+
+        # L adjusted by the step time
+        L_adjusted = L - step_time
+        
+        type_sintony_code = type_sintony
+
+        if type_sintony_code == 0:  # P
+            Kp = T / L_adjusted
+            Ki = 0
+            Kd = 0
+        elif type_sintony_code == 1: # PI
+            Kp = 0.9 * (T / L_adjusted)
+            Ti = L_adjusted / 0.3
+            Ki = Kp / Ti
+            Kd = 0
+        else: # PID
+            Kp = 1.2 * (T / L_adjusted)
+            Ti = 2 * L_adjusted
+            Ki = Kp / Ti
+            Td = 0.5 * L_adjusted
+            Kd = Kp * Td
+        
+        print(f"Gains: Kp={Kp:.4f}, Ki={Ki:.4f}, Kd={Kd:.4f}")
+
+        gain_normalized = np.where(time < step_time, 0, k)
+        
+        return Kp, Ki, Kd, tangent_line, system_value_normalized, gain_normalized
+
+    def get_max_derivative_idx(self, time, system_value, step_time, window_size=11, polyorder=2):
+        time = np.array(time)
+        system_value = np.array(system_value)
+        system_value_smooth = savgol_filter(system_value, window_size, polyorder)
+        derivative = np.gradient(system_value_smooth, time)
+        
+        valid_indices = time >= step_time
+        derivative_valid = derivative[valid_indices]
+        
+        if len(derivative_valid) == 0:
+            # Return 0 if no data is available after the step
+            return 0, derivative
+
+        max_derivative_local_idx = np.argmax(np.abs(derivative_valid))
+        max_derivative_idx = np.where(valid_indices)[0][max_derivative_local_idx]
+        
+        return max_derivative_idx, derivative
