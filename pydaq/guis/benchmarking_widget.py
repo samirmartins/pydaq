@@ -33,7 +33,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001], duration_s=5, allowed_delay_percent=2.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=2.0):
         print(f"Testing Arduino Serial sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
@@ -102,11 +102,10 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
 
             print(f"Sample Period: {period_s:7.5f} s | Samples: {total_samples:5} | "
-                f"Theoretical: {theoretical_samples:6.1f} | Delays: {delays:4} "
-                f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle:7.5f} s | "
+                f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                 f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
             )
             QApplication.processEvents()
 
@@ -159,7 +158,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001], duration_s=5, allowed_delay_percent=2.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=2.0):
         print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
@@ -221,11 +220,10 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
             status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
 
             print(f"Sample Period: {Ts:7.5f} s | Samples: {total_samples:5} | "
-                  f"Theoretical: {theoretical_samples:6.1f} | Delays: {delays:4} "
-                  f"({delay_percent:5.1f}%) | Avg cycle: {avg_cycle:7.5f} s | "
+                  f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                   f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts {Ts:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
+                f"Target Ts: {Ts:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
             )
             QApplication.processEvents()
 

@@ -18,8 +18,6 @@ nav:
       - Arduino: 
           - Get Data: get_data_arduino.md
           - Digital Filters: digital_filters_arduino.md
-      
-  
   - Sending Data:
       - NIDAQ: send_data_nidaq.md
       - Arduino: send_data_arduino.md
@@ -29,6 +27,9 @@ nav:
   - Get Model:
       - NIDAQ: get_model_nidaq.md
       - Arduino: get_model_arduino.md
+  - PID Control:
+      - NIDAQ: pid_control_nidaq.md
+      - Arduino: pid_control_arduino.md
   - Jupyter Notebooks: jupyter_notebooks.md
 
 theme:
