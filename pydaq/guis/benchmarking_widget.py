@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QFileDialog, QWidget
 from pydaq.uis.ui_PyDAQ_Benchmarking import Ui_Form
 from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon
 import time
 import serial
 import warnings
@@ -20,6 +21,8 @@ class BenchmarkingWidget(QWidget, Ui_Form):
     def __init__(self, com=None, *args):
         super(BenchmarkingWidget, self).__init__()
         self.setupUi(self)
+        self.setWindowTitle("Arduino Benchmarking")
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
 
@@ -150,6 +153,8 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
     def __init__(self, nidaq_channel="Dev2/ai0", *args):
         super().__init__(*args)
         self.setupUi(self)
+        self.setWindowTitle("NI-DAQ Benchmarking")
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
         self.nidaq_channel = nidaq_channel

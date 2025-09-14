@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_BenchmarkingJmWkcV.ui'
+## Form generated from reading UI file 'PyDAQ_BenchmarkingbozJHp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(618, 668)
+        Form.resize(618, 587)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"

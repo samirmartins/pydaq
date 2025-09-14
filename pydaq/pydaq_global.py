@@ -13,7 +13,6 @@ class PYDAQ_Global_GUI(QtWidgets.QMainWindow, Ui_PydaqGlobal):
         self.setupUi(self)
         self.nidaq_tabs.setHidden(True)
         self.logo.released.connect(self.open_pydaq_website)
-        #self.benchmarking_button.released.connect(self.open_benchmarking)
 
         # Connecting Signals to access data
         self.fetched_object = None

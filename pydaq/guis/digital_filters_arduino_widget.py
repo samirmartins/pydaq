@@ -8,13 +8,14 @@ from ..get_data import GetData
 from .error_window_gui import Error_window
 from pydaq.utils.signals import GuiSignals
 from PySide6.QtCore import Signal
+from PySide6.QtGui import QIcon
 
 class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
     dataEntered = Signal(dict)
     def __init__(self, *args):
         super(Digital_Filters_NIDAQ_Widget, self).__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
         self.signals = GuiSignals()
         self.iir_widget.hide()
         self.fir_widget.show()
