@@ -4,18 +4,13 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon
 import time
 import serial
+import serial.tools.list_ports
 import warnings
 import nidaqmx
 import matplotlib.pyplot as plt
+from nidaqmx.system import System
 
 ard_vpb = 1  
-
-def find_arduino():
-        ports = serial.tools.list_ports.comports()
-        for port in ports:
-            if "Arduino" in port.description or "CH340" in port.description:
-                return port.device
-        return None
 
 class BenchmarkingWidget(QWidget, Ui_Form):
     def __init__(self, com=None, *args):
@@ -25,13 +20,23 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         self.setWindowIcon(QIcon('docs/img/favicon.ico'))
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
+        self.reload_devices.released.connect(self.update_com_ports)
+        self.update_com_ports()
 
-        if com is None:
-            com = find_arduino()
-        
+    def update_com_ports(self):  
+        ports = list(serial.tools.list_ports.comports())
+        #self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+        selected = self.device_box.currentText()
+        self.device_box.clear()
 
-        self.com_port = com
-        self.ser = None 
+        for p in ports:
+            text = f"{p.device} - {p.description}"
+            self.device_box.addItem(text, p.device)
+        #self.device_box.addItems([p.device for p in ports])
+        index_current = self.device_box.findText(selected)
+
+        if index_current != -1:
+            self.device_box.setCurrentIndex(index_current)
 
     def close_window(self):
         self.close()
@@ -42,6 +47,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         QApplication.processEvents()
         
         try:
+            self.com_port = self.device_box.currentData()
             self.ser = serial.Serial(self.com_port, 115200, timeout=0.05)
             print(f"✅ Serial Port {self.com_port} open with success.")
         except serial.SerialException as e:
@@ -157,8 +163,26 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
         self.setWindowIcon(QIcon('docs/img/favicon.ico'))
         self.close_button.released.connect(self.close_window)
         self.start_button.released.connect(self.inicialize_benchmarking)
-        self.nidaq_channel = nidaq_channel
+        self.reload_devices.released.connect(self.update_nidaq_devices)
+
+        self.nidaq_channel = None
         self.task = None
+        self.update_nidaq_devices()
+
+    def update_nidaq_devices(self):
+        system = System.local()
+        selected = self.device_box.currentText()
+        self.device_box.clear()
+
+        for dev in system.devices:
+            for chan in dev.ai_physical_chans:
+                text = f"{chan.name} - {dev.product_type}"
+                self.device_box.addItem(text, chan.name)
+
+        index_current = self.device_box.findText(selected)
+        if index_current != -1:
+            self.device_box.setCurrentIndex(index_current)
+            
 
     def close_window(self):
         self.close()
@@ -169,6 +193,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
         QApplication.processEvents()
 
         try:
+            self.nidaq_channel = self.device_box.currentData()
             self.task = nidaqmx.Task()
             self.task.ai_channels.add_ai_voltage_chan(self.nidaq_channel)
             print(f"✅ NI-DAQ channel {self.nidaq_channel} initialized successfully.")
