@@ -145,10 +145,19 @@ class Base:
     def _save_data(self, data, name):
         """Method to save data in self.path with name"""
 
-        file = open(self.path + "\\" + name, "w")
-        for d in data:
-            file.write(str(d) + "\n")
-        file.close()
+        try:
+
+            os.makedirs(self.path, exist_ok=True)
+
+            # Safely join the path components for cross-platform compatibility
+            full_path = os.path.join(self.path, name)
+            
+            with open(full_path, "w") as file:
+                for d in data:
+                    file.write(str(d) + "\n")        
+
+        except OSError as e:
+            warnings.warn(f"Error saving data to {full_path}: {e}")
 
     def _nidaq_info(self):
         """Gathering NIDAQ info"""

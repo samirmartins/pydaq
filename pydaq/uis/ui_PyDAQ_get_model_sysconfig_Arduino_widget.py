@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgetMqtdCB.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_sysconfig_Arduino_widgetXzhGUk.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -282,7 +282,8 @@ class Ui_Arduino_GetModel_W(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.perc_data_val_in = QSpinBox(self.widget_19)
         self.perc_data_val_in.setObjectName(u"perc_data_val_in")
-        self.perc_data_val_in.setMinimum(10)
+        self.perc_data_val_in.setMinimum(0)
+        self.perc_data_val_in.setMaximum(999999999)
 
         self.horizontalLayout_2.addWidget(self.perc_data_val_in)
 
@@ -298,6 +299,7 @@ class Ui_Arduino_GetModel_W(object):
         self.inp_lag_sysid_in.setMinimumSize(QSize(0, 22))
         self.inp_lag_sysid_in.setMaximumSize(QSize(16777215, 22))
         self.inp_lag_sysid_in.setBaseSize(QSize(0, 12))
+        self.inp_lag_sysid_in.setMaximum(999999999)
         self.inp_lag_sysid_in.setValue(3)
 
         self.gridLayout_7.addWidget(self.inp_lag_sysid_in, 0, 0, 1, 1)
@@ -313,6 +315,7 @@ class Ui_Arduino_GetModel_W(object):
         self.out_lag_sysid_in.setObjectName(u"out_lag_sysid_in")
         self.out_lag_sysid_in.setMinimumSize(QSize(0, 22))
         self.out_lag_sysid_in.setMaximumSize(QSize(16777215, 22))
+        self.out_lag_sysid_in.setMaximum(999999999)
         self.out_lag_sysid_in.setValue(3)
 
         self.gridLayout_5.addWidget(self.out_lag_sysid_in, 0, 0, 1, 1)
@@ -364,6 +367,7 @@ class Ui_Arduino_GetModel_W(object):
         self.degree_sysid_in.setObjectName(u"degree_sysid_in")
         self.degree_sysid_in.setMinimumSize(QSize(0, 22))
         self.degree_sysid_in.setMaximumSize(QSize(16777215, 22))
+        self.degree_sysid_in.setMaximum(999999999)
         self.degree_sysid_in.setSingleStep(1)
         self.degree_sysid_in.setValue(2)
 
@@ -416,6 +420,7 @@ class Ui_Arduino_GetModel_W(object):
         self.num_inf_value_sysid_in.setObjectName(u"num_inf_value_sysid_in")
         self.num_inf_value_sysid_in.setMinimumSize(QSize(0, 22))
         self.num_inf_value_sysid_in.setMaximumSize(QSize(16777215, 22))
+        self.num_inf_value_sysid_in.setMaximum(999999999)
 
         self.gridLayout_2.addWidget(self.num_inf_value_sysid_in, 0, 0, 1, 1)
 

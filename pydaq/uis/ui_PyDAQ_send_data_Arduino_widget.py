@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_send_data_Arduino_widgetPTUmib.ui'
+## Form generated from reading UI file 'PyDAQ_send_data_Arduino_widgetRJKtxP.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -325,8 +325,8 @@ class Ui_Arduino_SendData_W(object):
         self.Ts_in.setObjectName(u"Ts_in")
         self.Ts_in.setMinimumSize(QSize(0, 22))
         self.Ts_in.setMaximumSize(QSize(16777215, 22))
-        self.Ts_in.setDecimals(4)
-        self.Ts_in.setMaximum(999.990000000000009)
+        self.Ts_in.setDecimals(6)
+        self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.Ts_in.setValue(0.500000000000000)

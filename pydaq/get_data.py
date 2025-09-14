@@ -2,8 +2,6 @@ import os
 import time
 import warnings
 import threading
-import asyncio
-import threading
 import queue
 
 import matplotlib.pyplot as plt

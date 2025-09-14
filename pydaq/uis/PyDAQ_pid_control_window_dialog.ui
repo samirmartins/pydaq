@@ -373,8 +373,14 @@ QDoubleSpinBox::down-button:hover{
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
                  <widget class="QDoubleSpinBox" name="doubleSpinBox_KdDialog">
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999999.000000000000000</double>
+                  </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -436,8 +442,14 @@ QDoubleSpinBox::down-button:hover{
                <layout class="QHBoxLayout" name="horizontalLayout_5">
                 <item>
                  <widget class="QDoubleSpinBox" name="doubleSpinBox_KiDialog">
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999999.000000000000000</double>
+                  </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -478,8 +490,14 @@ QDoubleSpinBox::down-button:hover{
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999999.000000000000000</double>
+                  </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -491,8 +509,14 @@ QDoubleSpinBox::down-button:hover{
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
                  <widget class="QDoubleSpinBox" name="doubleSpinBox_KpDialog">
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999999.000000000000000</double>
+                  </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -555,8 +579,14 @@ QDoubleSpinBox::down-button:hover{
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QDoubleSpinBox" name="doubleSpinBox_DisturbeDialog">
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                  <property name="maximum">
+                   <double>999999999999.000000000000000</double>
+                  </property>
                   <property name="singleStep">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                  </widget>
                 </item>

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetiWDFpw.ui'
+## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetLqJeNf.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -26,9 +26,6 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         Digitalfilters_NIDAQ_widget.resize(537, 757)
         Digitalfilters_NIDAQ_widget.setMinimumSize(QSize(537, 407))
         Digitalfilters_NIDAQ_widget.setMaximumSize(QSize(537, 800))
-        icon = QIcon()
-        icon.addFile(u":/imgs/imgs/favicon.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        Digitalfilters_NIDAQ_widget.setWindowIcon(icon)
         Digitalfilters_NIDAQ_widget.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -445,6 +442,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.rp = QLineEdit(self.widget_13)
         self.rp.setObjectName(u"rp")
         self.rp.setMinimumSize(QSize(160, 0))
+        self.rp.setMaxLength(999999999)
 
         self.gridLayout_16.addWidget(self.rp, 0, 0, 1, 1)
 
@@ -460,6 +458,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.order_iir = QLineEdit(self.widget_9)
         self.order_iir.setObjectName(u"order_iir")
         self.order_iir.setMinimumSize(QSize(160, 0))
+        self.order_iir.setMaxLength(999999999)
 
         self.gridLayout_12.addWidget(self.order_iir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
@@ -475,6 +474,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.rs.setObjectName(u"rs")
         self.rs.setEnabled(True)
         self.rs.setMinimumSize(QSize(160, 0))
+        self.rs.setMaxLength(999999999)
 
         self.gridLayout_17.addWidget(self.rs, 0, 0, 1, 1)
 
@@ -506,6 +506,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.cutoff_iir = QLineEdit(self.widget_10)
         self.cutoff_iir.setObjectName(u"cutoff_iir")
         self.cutoff_iir.setMinimumSize(QSize(160, 0))
+        self.cutoff_iir.setMaxLength(999999999)
 
         self.gridLayout_13.addWidget(self.cutoff_iir, 0, 0, 1, 1)
 
@@ -593,6 +594,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.cutoff_fir = QLineEdit(self.cutoff_widget)
         self.cutoff_fir.setObjectName(u"cutoff_fir")
+        self.cutoff_fir.setMaxLength(999999999)
 
         self.gridLayout_8.addWidget(self.cutoff_fir, 0, 0, 1, 1)
 
@@ -611,6 +613,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         font.setBold(False)
         font.setItalic(False)
         self.order_fir.setFont(font)
+        self.order_fir.setMaxLength(999999999)
 
         self.gridLayout_4.addWidget(self.order_fir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
@@ -652,6 +655,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.fc1_line.setObjectName(u"fc1_line")
         self.fc1_line.setMinimumSize(QSize(60, 0))
         self.fc1_line.setMaximumSize(QSize(25, 16777215))
+        self.fc1_line.setMaxLength(999999999)
 
         self.gridLayout_18.addWidget(self.fc1_line, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
 
@@ -664,6 +668,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.fc2_line.setObjectName(u"fc2_line")
         self.fc2_line.setMinimumSize(QSize(60, 0))
         self.fc2_line.setMaximumSize(QSize(60, 16777215))
+        self.fc2_line.setMaxLength(999999999)
 
         self.gridLayout_18.addWidget(self.fc2_line, 0, 2, 1, 1)
 

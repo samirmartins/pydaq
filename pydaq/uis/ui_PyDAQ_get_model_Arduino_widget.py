@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetHzidsB.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetkeWXjt.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -301,8 +301,8 @@ class Ui_Arduino_GetModel_W(object):
         self.sesh_dur_in.setMinimumSize(QSize(0, 22))
         self.sesh_dur_in.setMaximumSize(QSize(16777215, 22))
         self.sesh_dur_in.setBaseSize(QSize(0, 12))
-        self.sesh_dur_in.setDecimals(2)
-        self.sesh_dur_in.setMaximum(86400.000000000000000)
+        self.sesh_dur_in.setDecimals(6)
+        self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.sesh_dur_in.setValue(150.000000000000000)
@@ -342,8 +342,9 @@ class Ui_Arduino_GetModel_W(object):
         self.Ts_in.setObjectName(u"Ts_in")
         self.Ts_in.setMinimumSize(QSize(0, 22))
         self.Ts_in.setMaximumSize(QSize(16777215, 22))
-        self.Ts_in.setDecimals(2)
-        self.Ts_in.setMinimum(0.010000000000000)
+        self.Ts_in.setDecimals(6)
+        self.Ts_in.setMinimum(0.000000000000000)
+        self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.Ts_in.setValue(0.500000000000000)
@@ -402,7 +403,9 @@ class Ui_Arduino_GetModel_W(object):
         self.save_time_in.setObjectName(u"save_time_in")
         self.save_time_in.setMinimumSize(QSize(0, 22))
         self.save_time_in.setMaximumSize(QSize(16777215, 22))
-        self.save_time_in.setMaximum(86000.000000000000000)
+        self.save_time_in.setDecimals(6)
+        self.save_time_in.setMaximum(999999999999.000000000000000)
+        self.save_time_in.setSingleStep(0.010000000000000)
 
         self.gridLayout_5.addWidget(self.save_time_in, 0, 0, 1, 1)
 

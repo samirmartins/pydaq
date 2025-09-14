@@ -74,7 +74,7 @@ The following code demonstrates how to automatically find an Arduino board and l
 ```python
 import sys, os, serial.tools.list_ports
 from PySide6.QtWidgets import QApplication
-from pydaq.pid_control_window_dialog import PID_Control_Window_Dialog
+from pydaq.pydaq.guis.pid_control_window_dialog import PID_Control_Window_Dialog
 
 app = QApplication(sys.argv)
 plot_window = PID_Control_Window_Dialog()
@@ -91,7 +91,7 @@ index, path, save = 3, None, True
 
 # when path = None, by defaut saves to C:\Users\Desktop
 
-plot_window.set_parameters(kp, ki, kd, index, "1", "s+0.2", setpoint, "Voltage (V)", "", "", period, path, save)
+plot_window.set_parameters(kp, ki, kd, index, " ", " ", setpoint, "Voltage (V)", "", "", period, path, save)
 
 # Open GUI
 plot_window.exec()

@@ -295,7 +295,10 @@ QPushButton#reload_devices:pressed{
          <item>
           <widget class="QSpinBox" name="perc_data_val_in">
            <property name="minimum">
-            <number>10</number>
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
           </widget>
          </item>
@@ -325,6 +328,9 @@ QPushButton#reload_devices:pressed{
              <height>12</height>
             </size>
            </property>
+           <property name="maximum">
+            <number>999999999</number>
+           </property>
            <property name="value">
             <number>3</number>
            </property>
@@ -349,6 +355,9 @@ QPushButton#reload_devices:pressed{
              <width>16777215</width>
              <height>22</height>
             </size>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
            <property name="value">
             <number>3</number>
@@ -428,6 +437,9 @@ QPushButton#reload_devices:pressed{
              <width>16777215</width>
              <height>22</height>
             </size>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
            <property name="singleStep">
             <number>1</number>
@@ -557,6 +569,9 @@ QPushButton#reload_devices:pressed{
              <width>16777215</width>
              <height>22</height>
             </size>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
           </widget>
          </item>

@@ -206,11 +206,10 @@ class PIDControl(Base):
     def parse_polynomial(self,poly_str):
         """
         Parses a polynomial string (e.g., '2*s**2 + 3*s - 1') into a list of coefficients.
-        This function does not require SymPy.
         """
         poly_str = poly_str.replace(' ', '').replace('-', '+-')
         if poly_str.startswith('+-'):
-            poly_str = poly_str[1:] # Correct for leading negative sign
+            poly_str = poly_str[1:] # Correct for leading negative si   gn
         
         terms = poly_str.split('+')
         
