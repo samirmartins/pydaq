@@ -29,7 +29,8 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
     def __init__(self, *args):
         super(PID_Control_Window_Dialog, self).__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
+        self.setWindowTitle("PYDAQ - PID Control")
         self.pushButton_startstop.clicked.connect(self.stopstart)
         self.pushButton_close.clicked.connect(self.go_back)
         self.pushButton_apply.clicked.connect(self.apply_parameters)

@@ -1,51 +1,21 @@
-# Importing PYDAQ
-from pydaq.get_model import GetModel
+import sys, os, serial.tools.list_ports
+from PySide6.QtWidgets import QApplication
+from pydaq.guis.pid_control_window_dialog import PID_Control_Window_Dialog
 
-device_name = ("Dev1",)
-ao_channel = ("ao0",)
-ai_channel = ("ai0",)
-channel = ("ai0",)
-terminal = ("Diff",)
-ao_min = (0,)
-ao_max = (5,)
-plot_data = "realtime"
+app = QApplication(sys.argv)
+plot_window = PID_Control_Window_Dialog()
 
-# system identification parameters
-degree = 2
-start_save_time_in_s = 0
-out_lag = 2
-inp_lag = 2
-num_info_val = 6
-estimator = "least_squares"
-ext_lsq = True
-perc_value_to_train_the_model = 15
+# Selection NIDAQ board
+plot_window.check_board(board="nidaq", device="Dev1", ao="ao0", ai="ai0", terminal="RSE", simulate=False)
 
-# PRBS input parameters
-prbs_bits = 6
-prbs_seed = 100
-var_tb = 1
+# Define PID parameters
+kp, ki, kd, setpoint, period = 1.0, 0.2, 0.05, 2.0, 0.1
+index, path, save = 3, None, True  
+# index = 0 -> P, 1 -> PI, 2 -> PD, 3 -> PID.
 
-# Class GetModel
-g = GetModel(
-    device=device_name,
-    ai_channel=ai_channel,
-    ao_channel=ao_channel,
-    ao_min=ao_min,
-    ao_max=ao_max,
-    channel=channel,
-    degree=degree,
-    start_save_time=start_save_time_in_s,
-    out_lag=out_lag,
-    inp_lag=inp_lag,
-    num_info_values=num_info_val,
-    estimator=estimator,
-    ext_lsq=ext_lsq,
-    perc_value=perc_value_to_train_the_model,
-    prbs_bits=prbs_bits,
-    prbs_seed=prbs_seed,
-    var_tb=var_tb,
-    plot_mode= plot_data
-)
+# when path = None, by defaut saves to C:\Users\Desktop
 
-# Method get_model_nidaq
-g.get_model_nidaq()
+plot_window.set_parameters(kp, ki, kd, index, " ", " ", setpoint, "Voltage (V)", "", "", period, path, save)
+
+# Open GUI
+plot_window.exec()

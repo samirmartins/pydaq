@@ -3,6 +3,7 @@ import serial
 import serial.tools.list_ports
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from PySide6.QtGui import QIcon
 
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QFileDialog, QApplication, QWidget, QVBoxLayout, QPushButton
@@ -21,6 +22,8 @@ class PID_Control_Arduino_Widget(QWidget, Ui_Arduino_PID_Control):
 
 # Calling the functions
         self.update_com_ports()
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
+        self.setWindowTitle("PYDAQ - PID Control Arduino")
         self.reload_devices.clicked.connect(self.update_com_ports)
         self.on_unit_change()
         self.comboBox_setpoint.currentIndexChanged.connect(self.on_unit_change)
