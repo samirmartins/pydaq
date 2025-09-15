@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>537</width>
-    <height>757</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -929,6 +929,9 @@ QDoubleSpinBox::down-button:hover{
         <layout class="QGridLayout" name="gridLayout_18">
          <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignRight">
           <widget class="QLineEdit" name="fc1_line">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="minimumSize">
             <size>
              <width>60</width>

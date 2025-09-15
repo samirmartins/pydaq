@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetLqJeNf.ui'
+## Form generated from reading UI file 'PYDAQ_Digital_filterss_NIDAQ_widgetRTPUwT.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,11 +19,12 @@ from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QRadioButton, QSizePolicy, QWidget)
 
+
 class Ui_Digitalfilters_NIDAQ_widget(object):
     def setupUi(self, Digitalfilters_NIDAQ_widget):
         if not Digitalfilters_NIDAQ_widget.objectName():
             Digitalfilters_NIDAQ_widget.setObjectName(u"Digitalfilters_NIDAQ_widget")
-        Digitalfilters_NIDAQ_widget.resize(537, 757)
+        Digitalfilters_NIDAQ_widget.resize(537, 800)
         Digitalfilters_NIDAQ_widget.setMinimumSize(QSize(537, 407))
         Digitalfilters_NIDAQ_widget.setMaximumSize(QSize(537, 800))
         Digitalfilters_NIDAQ_widget.setStyleSheet(u"QWidget{\n"
@@ -653,6 +654,7 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.gridLayout_18.setObjectName(u"gridLayout_18")
         self.fc1_line = QLineEdit(self.fc_widget)
         self.fc1_line.setObjectName(u"fc1_line")
+        self.fc1_line.setEnabled(True)
         self.fc1_line.setMinimumSize(QSize(60, 0))
         self.fc1_line.setMaximumSize(QSize(25, 16777215))
         self.fc1_line.setMaxLength(999999999)
