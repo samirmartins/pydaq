@@ -61,7 +61,8 @@ Then, instantiate a class with defined parametes and send the data
 # Class SendData
 s = SendData(data=data,
              com=com_port_arduino,
-             ts=sample_period_in_seconds)
+             ts=sample_period_in_seconds,
+             plot_mode=will_plot)
 
 # Method send_data_arduino()
 s.send_data_arduino()

@@ -1,56 +1,51 @@
-import serial
-import time
-import matplotlib.pyplot as plt
+# Importing PYDAQ
+from pydaq.get_model import GetModel
 
-# Configura a porta serial do Arduino
-ser = serial.Serial("COM5", 115200, timeout=1)
+device_name = ("Dev1",)
+ao_channel = ("ao0",)
+ai_channel = ("ai0",)
+channel = ("ai0",)
+terminal = ("Diff",)
+ao_min = (0,)
+ao_max = (5,)
+plot_data = "realtime"
 
-timestamps = []
-values = []
+# system identification parameters
+degree = 2
+start_save_time_in_s = 0
+out_lag = 2
+inp_lag = 2
+num_info_val = 6
+estimator = "least_squares"
+ext_lsq = True
+perc_value_to_train_the_model = 15
 
-print("📡 Coletando dados do Arduino... pressione Ctrl+C para parar.")
-try:
-    while True:
-        line = ser.readline().decode("utf-8").strip()
-        if not line:
-            continue
+# PRBS input parameters
+prbs_bits = 6
+prbs_seed = 100
+var_tb = 1
 
-        try:
-            t_str, v_str = line.split(",")
-            t = int(t_str) / 1e6   # converte microssegundos -> segundos
-            v = int(v_str)
-            timestamps.append(t)
-            values.append(v)
-        except ValueError:
-            continue  # ignora linhas inválidas
+# Class GetModel
+g = GetModel(
+    device=device_name,
+    ai_channel=ai_channel,
+    ao_channel=ao_channel,
+    ao_min=ao_min,
+    ao_max=ao_max,
+    channel=channel,
+    degree=degree,
+    start_save_time=start_save_time_in_s,
+    out_lag=out_lag,
+    inp_lag=inp_lag,
+    num_info_values=num_info_val,
+    estimator=estimator,
+    ext_lsq=ext_lsq,
+    perc_value=perc_value_to_train_the_model,
+    prbs_bits=prbs_bits,
+    prbs_seed=prbs_seed,
+    var_tb=var_tb,
+    plot_mode= plot_data
+)
 
-except KeyboardInterrupt:
-    print("\n⏹️ Coleta interrompida pelo usuário.")
-
-finally:
-    ser.close()
-    print("🔌 Serial fechado.")
-
-# --- Processamento ---
-if len(timestamps) > 2:
-    # Calcula intervalos entre amostras
-    intervals = [t2 - t1 for t1, t2 in zip(timestamps[:-1], timestamps[1:])]
-    avg_Ts = sum(intervals) / len(intervals)
-    jitter = max(intervals) - min(intervals)
-    fs = 1 / avg_Ts
-
-    print(f"\n✅ Resultados da aquisição no hardware:")
-    print(f"  Amostras: {len(values)}")
-    print(f"  Ts médio: {avg_Ts*1000:.3f} ms")
-    print(f"  Frequência média: {fs:.1f} Hz")
-    print(f"  Jitter: {jitter*1000:.3f} ms")
-
-    # --- Plot ---
-    plt.figure()
-    plt.plot(timestamps, values, label="Sinal bruto")
-    plt.xlabel("Tempo (s)")
-    plt.ylabel("Valor ADC")
-    plt.title("Aquisição no Arduino (com timestamp do hardware)")
-    plt.grid(True)
-    plt.legend()
-    plt.show()
+# Method get_model_nidaq
+g.get_model_nidaq()
