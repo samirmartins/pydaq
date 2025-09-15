@@ -15,14 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QPlainTextEdit, QPushButton, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
+    QLabel, QPlainTextEdit, QPushButton, QSizePolicy,
+    QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(618, 668)
+        Form.resize(618, 639)
         Form.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
 "}\n"
@@ -349,46 +350,6 @@ class Ui_Form(object):
 "")
         self.gridLayout = QGridLayout(Form)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
-        self.label.setMaximumSize(QSize(16777215, 60))
-        font = QFont()
-        font.setFamilies([u"Helvetica"])
-        font.setBold(False)
-        font.setItalic(False)
-        self.label.setFont(font)
-        self.label.setStyleSheet(u"font-size: 24px;")
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.label.setWordWrap(False)
-
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        self.label_2 = QLabel(Form)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setMinimumSize(QSize(600, 0))
-        self.label_2.setMaximumSize(QSize(16777215, 600))
-        font1 = QFont()
-        font1.setFamilies([u"Helvetica"])
-        font1.setPointSize(12)
-        font1.setBold(False)
-        font1.setItalic(False)
-        font1.setUnderline(False)
-        font1.setStrikeOut(False)
-        font1.setKerning(True)
-        self.label_2.setFont(font1)
-        self.label_2.setTextFormat(Qt.TextFormat.PlainText)
-        self.label_2.setAlignment(Qt.AlignmentFlag.AlignJustify|Qt.AlignmentFlag.AlignTop)
-        self.label_2.setWordWrap(True)
-
-        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
-
-        self.value_beench = QPlainTextEdit(Form)
-        self.value_beench.setObjectName(u"value_beench")
-        self.value_beench.setMinimumSize(QSize(0, 400))
-        self.value_beench.setMaximumSize(QSize(16777215, 400))
-
-        self.gridLayout.addWidget(self.value_beench, 2, 0, 1, 1)
-
         self.widget = QWidget(Form)
         self.widget.setObjectName(u"widget")
         self.widget.setMaximumSize(QSize(16777215, 50))
@@ -405,7 +366,71 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.close_button)
 
 
-        self.gridLayout.addWidget(self.widget, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget, 4, 0, 1, 1)
+
+        self.label_2 = QLabel(Form)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(600, 0))
+        self.label_2.setMaximumSize(QSize(16777215, 600))
+        font = QFont()
+        font.setFamilies([u"Helvetica"])
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+        self.label_2.setFont(font)
+        self.label_2.setTextFormat(Qt.TextFormat.PlainText)
+        self.label_2.setAlignment(Qt.AlignmentFlag.AlignJustify|Qt.AlignmentFlag.AlignTop)
+        self.label_2.setWordWrap(True)
+
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setMaximumSize(QSize(16777215, 60))
+        font1 = QFont()
+        font1.setFamilies([u"Helvetica"])
+        font1.setBold(False)
+        font1.setItalic(False)
+        self.label.setFont(font1)
+        self.label.setStyleSheet(u"font-size: 24px;")
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setWordWrap(False)
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.value_beench = QPlainTextEdit(Form)
+        self.value_beench.setObjectName(u"value_beench")
+        self.value_beench.setMinimumSize(QSize(0, 400))
+        self.value_beench.setMaximumSize(QSize(16777215, 400))
+
+        self.gridLayout.addWidget(self.value_beench, 3, 0, 1, 1)
+
+        self.device_widget = QWidget(Form)
+        self.device_widget.setObjectName(u"device_widget")
+        self.horizontalLayout_2 = QHBoxLayout(self.device_widget)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.label_3 = QLabel(self.device_widget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setMaximumSize(QSize(50, 16777215))
+
+        self.horizontalLayout_2.addWidget(self.label_3)
+
+        self.device_box = QComboBox(self.device_widget)
+        self.device_box.setObjectName(u"device_box")
+
+        self.horizontalLayout_2.addWidget(self.device_box)
+
+        self.reload_devices = QPushButton(self.device_widget)
+        self.reload_devices.setObjectName(u"reload_devices")
+        self.reload_devices.setMaximumSize(QSize(25, 16777215))
+
+        self.horizontalLayout_2.addWidget(self.reload_devices)
+
+
+        self.gridLayout.addWidget(self.device_widget, 2, 0, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -415,12 +440,14 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Benchmarking", None))
+        self.start_button.setText(QCoreApplication.translate("Form", u"Start", None))
+        self.close_button.setText(QCoreApplication.translate("Form", u"Close", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"This screen is used to evaluate your computer\u2019s performance by testing different sampling periods (Ts).\n"
 "The sampling period (Ts) is the time interval between two consecutive measurements. Its inverse (1/Ts) is the sampling frequency, which indicates how many samples are acquired per second.\n"
 "\n"
 "By measuring how your system behaves for different Ts values, you can determine the maximum sampling rate your computer can reliably sustain without delays or data loss. This information is crucial for applications that involve high-speed data acquisition or real-time signal processing, where maintaining a stable and predictable Ts ensures accuracy and prevents aliasing or missed events.", None))
-        self.start_button.setText(QCoreApplication.translate("Form", u"Start", None))
-        self.close_button.setText(QCoreApplication.translate("Form", u"Close", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Benchmarking", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"Device: ", None))
+        self.reload_devices.setText("")
     # retranslateUi
 
