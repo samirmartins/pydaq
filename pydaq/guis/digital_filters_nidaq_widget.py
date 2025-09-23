@@ -14,7 +14,7 @@ from .error_window_gui import Error_window
 from pydaq.utils.signals import GuiSignals
 from PySide6.QtCore import Signal
 from PySide6 import QtWidgets
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QPalette, QColor
 
 class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
     dataEntered = Signal(dict)
@@ -31,7 +31,9 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
         # Signals 
         self.type_filter.currentTextChanged.connect(self.check_filter)
         self.type_box.currentTextChanged.connect(self.bandstop_ui)
+        self.typebox_iir.currentTextChanged.connect(self.bandstop_ui_iir)
         self.save_button.clicked.connect(self.send_data)
+        self.designbox_iir.currentTextChanged.connect(self.design_iir)
         
     # Function to send the variables to get data window
     def send_data(self):
@@ -81,8 +83,31 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
             self.bd_widget.hide()
             self.fc_widget.hide()
             
+    def bandstop_ui_iir(self, text):
+        if text == 'bandstop' or text == 'bandpass':
+            self.cutoff2_label.show()
+            self.fc_widget_2.show()
+            self.cutoff1_label.hide()
+            self.cutoff1_widget.hide()
+        else:
+            self.cutoff2_label.hide()
+            self.fc_widget_2.hide()
+            self.cutoff1_label.show()
+            self.cutoff1_widget.show()
             
-            
+    
+    def design_iir(self, text):
+            if text == 'Chebyshev Type I':
+                self.rs.setDisabled(True)
+                self.rs.setStyleSheet("""
+            QLineEdit:disabled {
+                background-color: #404040;
+                color: #555555;
+            }
+        """)
+            else:
+                self.rs.setDisabled(False)
+                self.rs.setStyleSheet("")
     
 
     
