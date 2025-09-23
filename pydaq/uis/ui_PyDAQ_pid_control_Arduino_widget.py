@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetGsGRbL.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetLUJucm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -608,7 +608,8 @@ class Ui_Arduino_PID_Control(object):
         self.doubleSpinBox_setpoint.setObjectName(u"doubleSpinBox_setpoint")
         self.doubleSpinBox_setpoint.setMinimumSize(QSize(100, 0))
         self.doubleSpinBox_setpoint.setMaximumSize(QSize(100, 16777215))
-        self.doubleSpinBox_setpoint.setMaximum(9999999.000000000000000)
+        self.doubleSpinBox_setpoint.setDecimals(6)
+        self.doubleSpinBox_setpoint.setMaximum(999999999999.000000000000000)
         self.doubleSpinBox_setpoint.setSingleStep(0.100000000000000)
         self.doubleSpinBox_setpoint.setValue(5.000000000000000)
 

@@ -147,7 +147,7 @@ class GetData(Base):
         Event handler for Matplotlib figure closure.
         Sets acquisition_running to False and plot_closed_by_user to True.
         """
-        print("Plot window closed by user. Initiating graceful shutdown...")
+        print("Plot window closed by user. Initiating shutdown...")
         self.acquisition_running = False # Signal acquisition to stop
         self.plot_closed_by_user = True # Signal that plot was closed manually
         

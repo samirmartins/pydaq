@@ -217,6 +217,14 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.t0 = st_worker
         self.k = 0
 
+        # Shadow Acquisition discarded
+        if self.board == 'arduino':
+            _ = self.pid.update_plot_arduino()
+        elif self.board == 'nidaq':
+            _ = self.pid.update_plot_nidaq()
+        elif self.simulate:
+            _ = self.pid.update_simulated_system()
+
         while not self.paused:
             if not self.control_running:
                 break
@@ -348,9 +356,14 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.figure.subplots_adjust(bottom=0.25)
 
     def update_plot_task(self):
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
+
         while self.plot_running:
             self.update_plot_signal.emit()
-            time.sleep(self.ts + 0.5)
+            time.sleep(plot_update_interval)
 
     def save_data_task(self):
         while self.control_running or not self.data_queue.empty():

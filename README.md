@@ -27,7 +27,7 @@ Using Python for applications with experimental data (Arduino and NIDAQ boards)
 
 This package was initially designed to use an experimental device for data 
 acquisition and signal generation when performing different experiments, 
-such as a step-response test. However, from version v0.0.5 onwards, 
+such as a step-response test. However, from version v0.0.6 onwards, 
 PYDAQ introduces different functionalities, including real-time system 
 identification using experimental data.
 
@@ -111,7 +111,7 @@ PydaqGui()
 Further details can be found in [documentation](https://pydaq.org).
 
 ---
-Screnshots (v0.0.5)
+Screnshots (v0.0.6)
 ---
 
 <p align="center">
