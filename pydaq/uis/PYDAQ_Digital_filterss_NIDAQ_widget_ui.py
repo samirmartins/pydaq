@@ -24,8 +24,8 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
     def setupUi(self, Digitalfilters_NIDAQ_widget):
         if not Digitalfilters_NIDAQ_widget.objectName():
             Digitalfilters_NIDAQ_widget.setObjectName(u"Digitalfilters_NIDAQ_widget")
-        Digitalfilters_NIDAQ_widget.resize(537, 800)
-        Digitalfilters_NIDAQ_widget.setMinimumSize(QSize(537, 407))
+        Digitalfilters_NIDAQ_widget.resize(537, 520)
+        Digitalfilters_NIDAQ_widget.setMinimumSize(QSize(537, 520))
         Digitalfilters_NIDAQ_widget.setMaximumSize(QSize(537, 800))
         Digitalfilters_NIDAQ_widget.setStyleSheet(u"QWidget{\n"
 "	background-color: rgb(64, 64, 64);\n"
@@ -408,13 +408,13 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.iir_widget = QWidget(Digitalfilters_NIDAQ_widget)
         self.iir_widget.setObjectName(u"iir_widget")
         self.iir_widget.setMinimumSize(QSize(519, 259))
-        self.iir_widget.setMaximumSize(QSize(550, 259))
+        self.iir_widget.setMaximumSize(QSize(550, 300))
         self.gridLayout_9 = QGridLayout(self.iir_widget)
         self.gridLayout_9.setObjectName(u"gridLayout_9")
-        self.label_6 = QLabel(self.iir_widget)
-        self.label_6.setObjectName(u"label_6")
+        self.label_12 = QLabel(self.iir_widget)
+        self.label_12.setObjectName(u"label_12")
 
-        self.gridLayout_9.addWidget(self.label_6, 0, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
+        self.gridLayout_9.addWidget(self.label_12, 4, 0, 1, 1)
 
         self.widget_11 = QWidget(self.iir_widget)
         self.widget_11.setObjectName(u"widget_11")
@@ -435,99 +435,17 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
 
         self.gridLayout_9.addWidget(self.widget_11, 2, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
-        self.widget_13 = QWidget(self.iir_widget)
-        self.widget_13.setObjectName(u"widget_13")
-        self.widget_13.setMinimumSize(QSize(0, 50))
-        self.gridLayout_16 = QGridLayout(self.widget_13)
-        self.gridLayout_16.setObjectName(u"gridLayout_16")
-        self.rp = QLineEdit(self.widget_13)
-        self.rp.setObjectName(u"rp")
-        self.rp.setMinimumSize(QSize(160, 0))
-        self.rp.setMaxLength(999999999)
+        self.cutoff1_label = QLabel(self.iir_widget)
+        self.cutoff1_label.setObjectName(u"cutoff1_label")
 
-        self.gridLayout_16.addWidget(self.rp, 0, 0, 1, 1)
-
-
-        self.gridLayout_9.addWidget(self.widget_13, 3, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-        self.widget_9 = QWidget(self.iir_widget)
-        self.widget_9.setObjectName(u"widget_9")
-        self.widget_9.setMinimumSize(QSize(0, 50))
-        self.widget_9.setMaximumSize(QSize(16777215, 16777215))
-        self.gridLayout_12 = QGridLayout(self.widget_9)
-        self.gridLayout_12.setObjectName(u"gridLayout_12")
-        self.order_iir = QLineEdit(self.widget_9)
-        self.order_iir.setObjectName(u"order_iir")
-        self.order_iir.setMinimumSize(QSize(160, 0))
-        self.order_iir.setMaxLength(999999999)
-
-        self.gridLayout_12.addWidget(self.order_iir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-
-        self.gridLayout_9.addWidget(self.widget_9, 0, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-        self.widget_14 = QWidget(self.iir_widget)
-        self.widget_14.setObjectName(u"widget_14")
-        self.widget_14.setMinimumSize(QSize(0, 50))
-        self.gridLayout_17 = QGridLayout(self.widget_14)
-        self.gridLayout_17.setObjectName(u"gridLayout_17")
-        self.rs = QLineEdit(self.widget_14)
-        self.rs.setObjectName(u"rs")
-        self.rs.setEnabled(True)
-        self.rs.setMinimumSize(QSize(160, 0))
-        self.rs.setMaxLength(999999999)
-
-        self.gridLayout_17.addWidget(self.rs, 0, 0, 1, 1)
-
-
-        self.gridLayout_9.addWidget(self.widget_14, 4, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+        self.gridLayout_9.addWidget(self.cutoff1_label, 6, 0, 1, 1)
 
         self.line_4 = QFrame(self.iir_widget)
         self.line_4.setObjectName(u"line_4")
         self.line_4.setFrameShape(QFrame.Shape.VLine)
         self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.gridLayout_9.addWidget(self.line_4, 0, 1, 6, 1)
-
-        self.label_10 = QLabel(self.iir_widget)
-        self.label_10.setObjectName(u"label_10")
-
-        self.gridLayout_9.addWidget(self.label_10, 5, 0, 1, 1)
-
-        self.label_9 = QLabel(self.iir_widget)
-        self.label_9.setObjectName(u"label_9")
-
-        self.gridLayout_9.addWidget(self.label_9, 2, 0, 1, 1)
-
-        self.widget_10 = QWidget(self.iir_widget)
-        self.widget_10.setObjectName(u"widget_10")
-        self.widget_10.setMinimumSize(QSize(0, 50))
-        self.gridLayout_13 = QGridLayout(self.widget_10)
-        self.gridLayout_13.setObjectName(u"gridLayout_13")
-        self.cutoff_iir = QLineEdit(self.widget_10)
-        self.cutoff_iir.setObjectName(u"cutoff_iir")
-        self.cutoff_iir.setMinimumSize(QSize(160, 0))
-        self.cutoff_iir.setMaxLength(999999999)
-
-        self.gridLayout_13.addWidget(self.cutoff_iir, 0, 0, 1, 1)
-
-
-        self.gridLayout_9.addWidget(self.widget_10, 1, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-        self.label_12 = QLabel(self.iir_widget)
-        self.label_12.setObjectName(u"label_12")
-
-        self.gridLayout_9.addWidget(self.label_12, 4, 0, 1, 1)
-
-        self.label_8 = QLabel(self.iir_widget)
-        self.label_8.setObjectName(u"label_8")
-
-        self.gridLayout_9.addWidget(self.label_8, 1, 0, 1, 1)
-
-        self.label_11 = QLabel(self.iir_widget)
-        self.label_11.setObjectName(u"label_11")
-
-        self.gridLayout_9.addWidget(self.label_11, 3, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.line_4, 0, 1, 7, 1)
 
         self.widget_12 = QWidget(self.iir_widget)
         self.widget_12.setObjectName(u"widget_12")
@@ -546,6 +464,118 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
 
 
         self.gridLayout_9.addWidget(self.widget_12, 5, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+        self.widget_14 = QWidget(self.iir_widget)
+        self.widget_14.setObjectName(u"widget_14")
+        self.widget_14.setMinimumSize(QSize(0, 50))
+        self.gridLayout_17 = QGridLayout(self.widget_14)
+        self.gridLayout_17.setObjectName(u"gridLayout_17")
+        self.rs = QLineEdit(self.widget_14)
+        self.rs.setObjectName(u"rs")
+        self.rs.setEnabled(True)
+        self.rs.setMinimumSize(QSize(160, 0))
+        self.rs.setMaxLength(999999999)
+
+        self.gridLayout_17.addWidget(self.rs, 0, 0, 1, 1)
+
+
+        self.gridLayout_9.addWidget(self.widget_14, 4, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+        self.cutoff1_widget = QWidget(self.iir_widget)
+        self.cutoff1_widget.setObjectName(u"cutoff1_widget")
+        self.cutoff1_widget.setMinimumSize(QSize(0, 50))
+        self.gridLayout_13 = QGridLayout(self.cutoff1_widget)
+        self.gridLayout_13.setObjectName(u"gridLayout_13")
+        self.cutoff_iir = QLineEdit(self.cutoff1_widget)
+        self.cutoff_iir.setObjectName(u"cutoff_iir")
+        self.cutoff_iir.setMinimumSize(QSize(160, 0))
+        self.cutoff_iir.setMaxLength(999999999)
+
+        self.gridLayout_13.addWidget(self.cutoff_iir, 0, 0, 1, 1)
+
+
+        self.gridLayout_9.addWidget(self.cutoff1_widget, 6, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+        self.label_9 = QLabel(self.iir_widget)
+        self.label_9.setObjectName(u"label_9")
+
+        self.gridLayout_9.addWidget(self.label_9, 2, 0, 1, 1)
+
+        self.widget_9 = QWidget(self.iir_widget)
+        self.widget_9.setObjectName(u"widget_9")
+        self.widget_9.setMinimumSize(QSize(0, 50))
+        self.widget_9.setMaximumSize(QSize(16777215, 16777215))
+        self.gridLayout_12 = QGridLayout(self.widget_9)
+        self.gridLayout_12.setObjectName(u"gridLayout_12")
+        self.order_iir = QLineEdit(self.widget_9)
+        self.order_iir.setObjectName(u"order_iir")
+        self.order_iir.setMinimumSize(QSize(160, 0))
+        self.order_iir.setMaxLength(999999999)
+
+        self.gridLayout_12.addWidget(self.order_iir, 0, 0, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+
+        self.gridLayout_9.addWidget(self.widget_9, 0, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+        self.label_11 = QLabel(self.iir_widget)
+        self.label_11.setObjectName(u"label_11")
+
+        self.gridLayout_9.addWidget(self.label_11, 3, 0, 1, 1)
+
+        self.widget_13 = QWidget(self.iir_widget)
+        self.widget_13.setObjectName(u"widget_13")
+        self.widget_13.setMinimumSize(QSize(0, 50))
+        self.gridLayout_16 = QGridLayout(self.widget_13)
+        self.gridLayout_16.setObjectName(u"gridLayout_16")
+        self.rp = QLineEdit(self.widget_13)
+        self.rp.setObjectName(u"rp")
+        self.rp.setMinimumSize(QSize(160, 0))
+        self.rp.setMaxLength(999999999)
+
+        self.gridLayout_16.addWidget(self.rp, 0, 0, 1, 1)
+
+
+        self.gridLayout_9.addWidget(self.widget_13, 3, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
+
+        self.cutoff2_label = QLabel(self.iir_widget)
+        self.cutoff2_label.setObjectName(u"cutoff2_label")
+
+        self.gridLayout_9.addWidget(self.cutoff2_label, 7, 0, 1, 1)
+
+        self.label_10 = QLabel(self.iir_widget)
+        self.label_10.setObjectName(u"label_10")
+
+        self.gridLayout_9.addWidget(self.label_10, 5, 0, 1, 1)
+
+        self.label_6 = QLabel(self.iir_widget)
+        self.label_6.setObjectName(u"label_6")
+
+        self.gridLayout_9.addWidget(self.label_6, 0, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
+
+        self.fc_widget_2 = QWidget(self.iir_widget)
+        self.fc_widget_2.setObjectName(u"fc_widget_2")
+        self.fc_widget_2.setMinimumSize(QSize(0, 50))
+        self.gridLayout_24 = QGridLayout(self.fc_widget_2)
+        self.gridLayout_24.setObjectName(u"gridLayout_24")
+        self.fc1_line_iir = QLineEdit(self.fc_widget_2)
+        self.fc1_line_iir.setObjectName(u"fc1_line_iir")
+        self.fc1_line_iir.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout_24.addWidget(self.fc1_line_iir, 0, 0, 1, 1)
+
+        self.label_16 = QLabel(self.fc_widget_2)
+        self.label_16.setObjectName(u"label_16")
+
+        self.gridLayout_24.addWidget(self.label_16, 0, 1, 1, 1)
+
+        self.fc2_line_iir = QLineEdit(self.fc_widget_2)
+        self.fc2_line_iir.setObjectName(u"fc2_line_iir")
+        self.fc2_line_iir.setMaximumSize(QSize(60, 16777215))
+
+        self.gridLayout_24.addWidget(self.fc2_line_iir, 0, 2, 1, 1)
+
+
+        self.gridLayout_9.addWidget(self.fc_widget_2, 7, 2, 1, 1, Qt.AlignmentFlag.AlignRight)
 
 
         self.gridLayout.addWidget(self.iir_widget, 7, 0, 1, 1)
@@ -756,26 +786,30 @@ class Ui_Digitalfilters_NIDAQ_widget(object):
         self.type_filter.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"IIR", None))
 
         self.save_button.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"SAVE", None))
-        self.label_6.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Order:", None))
+        self.label_12.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Stopband attenuation (dB):", None))
         self.designbox_iir.setItemText(0, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Chebyshev Type I", None))
         self.designbox_iir.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Chebyshev Type II", None))
         self.designbox_iir.setItemText(2, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Butterworth", None))
         self.designbox_iir.setItemText(3, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Elliptic", None))
 
-        self.rp.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"2", None))
-        self.order_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"2", None))
-        self.rs.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"1", None))
-        self.label_10.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Type:", None))
-        self.label_9.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter design:", None))
-        self.cutoff_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"0.1", None))
-        self.label_12.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Stopband attenuation (dB):", None))
-        self.label_8.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Cutoff:", None))
-        self.label_11.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Passband ripple (dB):", None))
+        self.cutoff1_label.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Cutoff:", None))
         self.typebox_iir.setItemText(0, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"lowpass", None))
         self.typebox_iir.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"highpass", None))
         self.typebox_iir.setItemText(2, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"bandpass", None))
         self.typebox_iir.setItemText(3, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"bandstop", None))
 
+        self.rs.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"1", None))
+        self.cutoff_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"0.1", None))
+        self.label_9.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Filter design:", None))
+        self.order_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"2", None))
+        self.label_11.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Passband ripple (dB):", None))
+        self.rp.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"2", None))
+        self.cutoff2_label.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Cutoff:", None))
+        self.label_10.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Type:", None))
+        self.label_6.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"Order:", None))
+        self.fc1_line_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"0.1", None))
+        self.label_16.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"to", None))
+        self.fc2_line_iir.setText(QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"0.2", None))
         self.type_box.setItemText(0, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"lowpass", None))
         self.type_box.setItemText(1, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"highpass", None))
         self.type_box.setItemText(2, QCoreApplication.translate("Digitalfilters_NIDAQ_widget", u"bandpass", None))

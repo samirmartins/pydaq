@@ -59,7 +59,6 @@ class PIDControl(Base):
         return output, error
 
     def pid_control_arduino(self):
-        self.time_elapsed = 0.0
         self.feedback_value = 0
         self.feedback_calibrated = 0
         self.control_voltage = 0
@@ -80,7 +79,6 @@ class PIDControl(Base):
         
         self.ser.reset_input_buffer()
         
-        self.time_elapsed += self.period # Clock
         data = self.ser.read(14).decode("UTF-8") # Get the feedback sensor value
         try:
             self.feedback_value =  int(data.split()[-2]) * self.ard_vpb
@@ -115,14 +113,12 @@ class PIDControl(Base):
             max_val=5.0   # Max value to usb 6009
         )
 
-        self.time_elapsed = 0.0
         self.feedback_value = 0
         self.control = 0
         self.control_unit = 0
         self.feedback_calibrated = 0
 
     def update_plot_nidaq(self):
-        self.time_elapsed += self.period # Clock
         self.feedback_value = self.task_ai.read()
         self.feedback_calibrated = self.calibrationuv(self.feedback_value)
         self.control_voltage = self.calibrationvu(self.control_unit)
@@ -143,7 +139,6 @@ class PIDControl(Base):
         self.feedback_voltages = []
         self.controls_voltages = []
         self.error = 0
-        self.time_elapsed = 0.0
         self.feedback_value = 0
         self.control = 0
         self.control_voltage = 0
@@ -169,7 +164,6 @@ class PIDControl(Base):
 
         _, self.feedback_value = self.get_value_simulate_system(self.system_cont, self.period, self.control, self.feedback_value)  # Get the system response value by euler descritization of system
         self.error = error
-        self.time_elapsed += self.period # Clock        # Att the datas
 
         return self.feedback_calibrated, self.error, self.setpoint, self.control
 
