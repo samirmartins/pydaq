@@ -216,15 +216,6 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         st_worker = time.perf_counter()
         self.t0 = st_worker
         self.k = 0
-
-        # Shadow Acquisition discarded
-        if self.simulate:
-            _ = self.pid.update_simulated_system()
-        elif self.board == 'arduino':
-            _=1
-        elif self.board == 'nidaq':
-            _ = self.pid.update_plot_nidaq()
-            _ = self.pid.update_plot_nidaq()
         
         while not self.paused:
             if not self.control_running:
