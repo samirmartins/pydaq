@@ -27,6 +27,8 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
         self.fir_widget.show()
         self.bd_widget.hide()
         self.fc_widget.hide()
+        self.cutoff2_label.hide()
+        self.fc_widget_2.hide()        
         
         # Signals 
         self.type_filter.currentTextChanged.connect(self.check_filter)
@@ -103,11 +105,23 @@ class Digital_Filters_NIDAQ_Widget(QWidget, Ui_Digitalfilters_NIDAQ_widget):
             QLineEdit:disabled {
                 background-color: #404040;
                 color: #555555;
-            }
-        """)
+                    }
+                """)
             else:
                 self.rs.setDisabled(False)
                 self.rs.setStyleSheet("")
+
+            if text == 'Chebyshev Type II':
+                self.rp.setDisabled(True)
+                self.rp.setStyleSheet("""
+            QLineEdit:disabled {
+                background-color: #404040;
+                color: #555555;
+                    }
+                """)
+            else:
+                self.rp.setDisabled(False)
+                self.rp.setStyleSheet("")
     
 
     
