@@ -79,11 +79,18 @@ class PIDControl(Base):
         
         self.ser.reset_input_buffer()
         
-        data = self.ser.read(14).decode("UTF-8") # Get the feedback sensor value
-        try:
-            self.feedback_value =  int(data.split()[-2]) * self.ard_vpb
-        except (IndexError, ValueError):
-            self.feedback_value = self.feedback_value # Use the last valid value
+        #data = self.ser.read(14).decode("UTF-8") # Get the feedback sensor value
+
+        try: 
+            temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+        except:
+            temp = self.feedback_value # Use the last valid value
+        self.feedback_value = temp
+        
+        #try:
+        #    self.feedback_value =  int(data.split()[-2]) * self.ard_vpb
+        #except (IndexError, ValueError):
+        #    self.feedback_value = self.feedback_value # Use the last valid value
 
         self.feedback_calibrated = self.calibrationuv(self.feedback_value) #Calibration by U(v)
         self.control_unit, error = self.update(self.feedback_calibrated) # Get the control value

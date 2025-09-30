@@ -219,11 +219,9 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
 
         # Shadow Acquisition discarded
         if self.simulate:
-            #_ = self.pid.update_simulated_system()
-            x=1
+            _ = self.pid.update_simulated_system()
         elif self.board == 'arduino':
-            _ = self.pid.update_plot_arduino()
-            _ = self.pid.update_plot_arduino()
+            _=1
         elif self.board == 'nidaq':
             _ = self.pid.update_plot_nidaq()
             _ = self.pid.update_plot_nidaq()
