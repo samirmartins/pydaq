@@ -348,10 +348,10 @@ class PID_Control_Window_Dialog(QDialog, Ui_Dialog_Plot_PID_Window, Base):
         self.figure.subplots_adjust(bottom=0.25)
 
     def update_plot_task(self):
-        if self.ts >= 0.05:
-            plot_update_interval = 0.05
-        else:
+        if self.ts >= 0.25:
             plot_update_interval = 0.25
+        else:
+            plot_update_interval = 0.5
 
         while self.plot_running:
             self.update_plot_signal.emit()
