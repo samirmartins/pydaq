@@ -73,9 +73,10 @@ PYDAQ requires:
 - PySide6 (>=6.7.1), PySide6_Addons, PySide6_Essentials and shiboken6 as a Graphical User Interface framework
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
-- packaging (>=24.1).
+- packaging (>=24.1)
+- scipy (>=1.16.1) for digital filters and PID Control.
 
-**NOTE 1:** In this version of pydaq (0.0.5), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
+**NOTE 1:** In this version of pydaq (0.0.6), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
 the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
 Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
 
@@ -93,6 +94,7 @@ Quick view and Main features
 | Step Response (Arduino/NIDAQ) |                                                                                                                         In this feature one can perform an automatic step response experiment using a(n) Arduino/NIDAQ board. Data genereted by the experiment can also be saved to be used in further applications, such as obtaining linear and nonlinear models from acquired data |
 | Get Model (Arduino/NIDAQ)     | The user can obtain mathematical models experimentally using Arduino/NIDAQ boards, with various customization options available. The input signal is a PRBS, which can be customized to meet specific needs, and both the input and output signals obtained can be saved for future applications. PYDAQ uses [SysIdentPy](www.sysidentpy.org) as a backend for obtaining the models. |
 | PID Control (Arduino/NIDAQ) | This feature allows the user to perform real-time or simulated PID control using Arduino or NIDAQ boards. The control loop can be configured through a graphical user interface, with support for selecting controller type (P, PI, PD, PID). Simulated system control is also supported for testing purposes. |
+| Digital Filters (Arduino/NIDAQ) | This feature enables real-time implementation of IIR and FIR filters using Arduino or NIDAQ boards. Users can define the filter parameters, and the filter will be applied directly to the acquired data. |
  
 ---
 Using GUI (more details in [documentation](https://samirmartins.github.io/pydaq/) and [jupyter notebook examples](examples)):
