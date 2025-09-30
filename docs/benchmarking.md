@@ -7,5 +7,5 @@ The function runs a controlled loop for a specified duration, attempting to exec
 
 At the end of the test, the function automatically estimates and reports the minimum sampling period that the system can reliably support without significant timing violations or data loss. This result helps developers understand the performance limits of the target machine and configure their applications accordingly.
 
-![](img/beench_example.gif)
+![](img/benchmarking_gif.gif)
 
