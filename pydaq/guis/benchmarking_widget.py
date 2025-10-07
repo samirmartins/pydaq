@@ -109,12 +109,13 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             theoretical_samples = duration_s / period_s
             delay_percent = (delays / total_samples) * 100
             status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
+            status2 = "✅ OK" if jitter <= period_s * 0.1 else "⚠️ FAIL"
 
             print(f"Sample Period: {period_s:7.5f} s | Samples: {total_samples:5} | "
                 f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                 f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | Max = {max(intervals)} | Min = {min(intervals)}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | Max = {max(intervals)} | Min = {min(intervals)} | ∆Ts = {max(intervals)-min(intervals)} | Status2: {status2}"
             )
             QApplication.processEvents()
 
