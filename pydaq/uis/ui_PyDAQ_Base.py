@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_BaseWjdEwq.ui'
+## Form generated from reading UI file 'PyDAQ_BaseLVRJEX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -730,7 +730,7 @@ class Ui_PydaqGlobal(object):
         self.arduino_tabs.setTabText(self.arduino_tabs.indexOf(self.step_response_arduino_tab), QCoreApplication.translate("PydaqGlobal", u"Step Response", None))
         self.arduino_tabs.setTabText(self.arduino_tabs.indexOf(self.get_model_arduino_tab), QCoreApplication.translate("PydaqGlobal", u"Get Model", None))
         self.arduino_tabs.setTabText(self.arduino_tabs.indexOf(self.pid_control_arduino_tab), QCoreApplication.translate("PydaqGlobal", u"PID Control", None))
-        self.menuBeenchmarking.setTitle(QCoreApplication.translate("PydaqGlobal", u"Beenchmarking", None))
+        self.menuBeenchmarking.setTitle(QCoreApplication.translate("PydaqGlobal", u"Benchmarking", None))
         self.menuAbout.setTitle(QCoreApplication.translate("PydaqGlobal", u"About", None))
     # retranslateUi
 
