@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetfFzscI.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_NIDAQ_widgetYbMabT.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -20,11 +20,12 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QWidget)
 
+
 class Ui_NIDAQ_StepResponse_W(object):
     def setupUi(self, NIDAQ_StepResponse_W):
         if not NIDAQ_StepResponse_W.objectName():
             NIDAQ_StepResponse_W.setObjectName(u"NIDAQ_StepResponse_W")
-        NIDAQ_StepResponse_W.resize(786, 671)
+        NIDAQ_StepResponse_W.resize(786, 675)
         NIDAQ_StepResponse_W.setMinimumSize(QSize(60, 0))
         NIDAQ_StepResponse_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
@@ -250,7 +251,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.sesh_dur_in.setValue(10.000000000000000)
+        self.sesh_dur_in.setValue(100.000000000000000)
 
         self.gridLayout_7.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
 
@@ -395,7 +396,7 @@ class Ui_NIDAQ_StepResponse_W(object):
         self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
 

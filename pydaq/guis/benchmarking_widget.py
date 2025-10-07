@@ -41,7 +41,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=2.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=10.0):
         print(f"Testing Arduino Serial sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
@@ -104,7 +104,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             if len(intervals) > 1:
                 intervals = intervals[1:]
 
-            jitter = max(intervals) - min(intervals)
+            jitter = max(intervals) - min(intervals) 
             avg_cycle = sum(intervals) / len(intervals)
             theoretical_samples = duration_s / period_s
             delay_percent = (delays / total_samples) * 100
@@ -114,7 +114,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
                 f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                 f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | Max = {max(intervals)} | Min = {min(intervals)}"
             )
             QApplication.processEvents()
 
@@ -187,7 +187,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=2.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=10.0):
         print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
