@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetifQUOK.ui'
+## Form generated from reading UI file 'PyDAQ_step_response_Arduino_widgetOrbsIu.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -20,11 +20,12 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QWidget)
 
+
 class Ui_Arduino_StepResponse_W(object):
     def setupUi(self, Arduino_StepResponse_W):
         if not Arduino_StepResponse_W.objectName():
             Arduino_StepResponse_W.setObjectName(u"Arduino_StepResponse_W")
-        Arduino_StepResponse_W.resize(582, 454)
+        Arduino_StepResponse_W.resize(582, 456)
         Arduino_StepResponse_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -277,7 +278,7 @@ class Ui_Arduino_StepResponse_W(object):
         self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.sesh_dur_in.setValue(10.000000000000000)
+        self.sesh_dur_in.setValue(100.000000000000000)
 
         self.gridLayout_8.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
 
@@ -380,7 +381,7 @@ class Ui_Arduino_StepResponse_W(object):
         self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_9.addWidget(self.Ts_in, 0, 0, 1, 1)
 
@@ -520,7 +521,7 @@ class Ui_Arduino_StepResponse_W(object):
         self.PID_comboBox.setItemText(1, QCoreApplication.translate("Arduino_StepResponse_W", u"PI", None))
         self.PID_comboBox.setItemText(2, QCoreApplication.translate("Arduino_StepResponse_W", u"PID", None))
 
-        self.PID_comboBox.setCurrentText(QCoreApplication.translate("Arduino_StepResponse_W", u"PID", None))
+        self.PID_comboBox.setCurrentText(QCoreApplication.translate("Arduino_StepResponse_W", u"P", None))
         self.label.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"Get  PID parameters?", None))
         self.start_step_response.setText(QCoreApplication.translate("Arduino_StepResponse_W", u"STEP RESPONSE", None))
     # retranslateUi

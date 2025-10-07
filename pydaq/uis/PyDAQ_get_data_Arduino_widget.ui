@@ -263,7 +263,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>0.500000000000000</double>
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -351,7 +351,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>10.000000000000000</double>
+            <double>100.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -637,8 +637,8 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="save_radio_group"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="plot_radio_group"/>
-  <buttongroup name="save_radio_group"/>
  </buttongroups>
 </ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>668</height>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -535,7 +535,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>150.000000000000000</double>
+            <double>100.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -835,7 +835,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>0.500000000000000</double>
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -916,7 +916,7 @@ QPushButton#reload_devices:pressed{
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="plot_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="plot_radio_group"/>
  </buttongroups>
 </ui>

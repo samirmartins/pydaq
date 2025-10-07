@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetAtAHyK.ui'
+## Form generated from reading UI file 'PyDAQ_get_data_NIDAQ_widgetLqORks.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QWidget)
+
 
 class Ui_NIDAQ_GetData_W(object):
     def setupUi(self, NIDAQ_GetData_W):
@@ -323,7 +324,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.sesh_dur_in.setValue(10.000000000000000)
+        self.sesh_dur_in.setValue(100.000000000000000)
 
         self.gridLayout_7.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
 
@@ -469,7 +470,7 @@ class Ui_NIDAQ_GetData_W(object):
         self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
 

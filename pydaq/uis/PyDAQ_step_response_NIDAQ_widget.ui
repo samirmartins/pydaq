@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>786</width>
-    <height>671</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -269,7 +269,7 @@ QComboBox:disabled {
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>10.000000000000000</double>
+            <double>100.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -527,7 +527,7 @@ QComboBox:disabled {
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>0.500000000000000</double>
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>

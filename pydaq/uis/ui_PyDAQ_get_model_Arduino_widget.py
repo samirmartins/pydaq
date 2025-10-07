@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetkeWXjt.ui'
+## Form generated from reading UI file 'PyDAQ_get_model_Arduino_widgetlrnVjY.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -20,11 +20,12 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QVBoxLayout, QWidget)
 
+
 class Ui_Arduino_GetModel_W(object):
     def setupUi(self, Arduino_GetModel_W):
         if not Arduino_GetModel_W.objectName():
             Arduino_GetModel_W.setObjectName(u"Arduino_GetModel_W")
-        Arduino_GetModel_W.resize(739, 524)
+        Arduino_GetModel_W.resize(739, 526)
         Arduino_GetModel_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -305,7 +306,7 @@ class Ui_Arduino_GetModel_W(object):
         self.sesh_dur_in.setMaximum(999999999999.000000000000000)
         self.sesh_dur_in.setSingleStep(0.010000000000000)
         self.sesh_dur_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.sesh_dur_in.setValue(150.000000000000000)
+        self.sesh_dur_in.setValue(100.000000000000000)
 
         self.gridLayout_7.addWidget(self.sesh_dur_in, 0, 0, 1, 1)
 
@@ -347,7 +348,7 @@ class Ui_Arduino_GetModel_W(object):
         self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
 

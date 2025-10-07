@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetkFjHDT.ui'
+## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetBbxQKS.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -20,11 +20,12 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QCo
     QLabel, QLineEdit, QPushButton, QRadioButton,
     QSizePolicy, QWidget)
 
+
 class Ui_NIDAQ_SendData_W(object):
     def setupUi(self, NIDAQ_SendData_W):
         if not NIDAQ_SendData_W.objectName():
             NIDAQ_SendData_W.setObjectName(u"NIDAQ_SendData_W")
-        NIDAQ_SendData_W.resize(554, 384)
+        NIDAQ_SendData_W.resize(836, 384)
         NIDAQ_SendData_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -337,7 +338,7 @@ class Ui_NIDAQ_SendData_W(object):
         self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
         self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
 
