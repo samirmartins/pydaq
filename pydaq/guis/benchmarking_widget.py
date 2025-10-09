@@ -115,13 +115,13 @@ class BenchmarkingWidget(QWidget, Ui_Form):
                 f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                 f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status: {status2}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s || {status:<6} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | {status2}"
             )
             QApplication.processEvents()
 
             results.append((period_s, avg_cycle, jitter, status))
 
-            if delay_percent <= allowed_delay_percent:
+            if delay_percent <= allowed_delay_percent and jitter <= period_s * 0.25:
                 best_stable_period = period_s
                 min_period_recommended = avg_cycle * 1.2
 
@@ -133,7 +133,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
             print("\n✅ Ideal sampling period (with 20% safety margin): "
                 f"{min_period_recommended:.3f} s")
             print(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
-            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
             QApplication.processEvents()
         else:
             print("\n❌ No stable sampling period was found. Try higher values or check serial performance.")
@@ -253,16 +253,16 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
             status2 = "✅ OK" if jitter <= period_s * 0.25 else "⚠️ FAIL"
 
             print(f"Sample Period: {Ts:7.5f} s | Samples: {total_samples:5} | "
-                  f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
-                  f"Jitter: {jitter:7.3f} s | {status}")
+                  f"Theoretical: {theoretical_samples:7.5f} | Avg cycle: {avg_cycle:7.5f} s | "
+                  f"Jitter: {jitter:7.5f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status: {status2}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status:<6} || ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | {status2}"
             )
             QApplication.processEvents()
 
             results.append((Ts, avg_cycle, jitter, status))
 
-            if delay_percent <= allowed_delay_percent:
+            if delay_percent <= allowed_delay_percent and jitter <= period_s * 0.25:
                 best_stable_period = Ts
                 min_period_recommended = avg_cycle * 1.2
 
@@ -272,9 +272,9 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
 
         if min_period_recommended:
             print("\n✅ Ideal sampling period (with 20% safety margin): "
-                  f"{min_period_recommended:.3f} s")
-            print(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
-            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
+                  f"{min_period_recommended:7.5f} s")
+            print(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
             QApplication.processEvents()
         else:
             print("\n❌ No stable sampling period was found. Try higher values or check NI-DAQ performance.")
