@@ -9,6 +9,7 @@ __pycache__/
 # Test files
 temp.py
 teste.py
+test.py
 input_ino.dat
 input_ni.dat
 output_ino.dat
