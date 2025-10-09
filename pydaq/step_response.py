@@ -244,12 +244,12 @@ class StepResponse(Base):
                 now = time.perf_counter()
                 if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
                     self._update_plot(
-                        self.time_var,
-                        self.output,
-                        y2_values=self.input,
+                        self.time_var[0:-1],
+                        self.output[1:],
+                        y2_values=self.input[0:-1],
                         y1_label=self.legend[0],
                         y2_label=self.legend[1]
-                    )
+                    ) # Adjusting data, since no last data is acquired by arduino
                     last_plot_update_time = now
 
             except queue.Empty:
@@ -289,19 +289,19 @@ class StepResponse(Base):
             self.title = f"PYDAQ - Final Step Response (Arduino)"
             self._start_updatable_plot(title_str=self.title)
             self._update_plot(
-                self.time_var,
-                self.output,
-                y2_values=self.input,  # Correct format
+                self.time_var[0:-1],
+                self.output[1:],
+                y2_values=self.input[0:-1],  # Correct format
                 y1_label=self.legend[0],
                 y2_label=self.legend[1]
-            )
+            ) # Adjusting data, since no last data is acquired by arduino
             plt.show(block=True)
 
         if self.save:
             print("\nSaving data ...")
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.input, "input.dat")
-            self._save_data(self.output, "output.dat")
+            self._save_data(self.time_var[0:-1], "time.dat")
+            self._save_data(self.input[0:-1], "input.dat")
+            self._save_data(self.output[1:], "output.dat")
             print("\nData saved ...")
             
         if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
