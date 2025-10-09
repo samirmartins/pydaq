@@ -49,7 +49,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
         try:
             self.com_port = self.device_box.currentData()
             self.ser = serial.Serial(self.com_port, 115200, timeout=0.05)
-            print(f"✅ Serial Port {self.com_port} open with success.")
+            print(f"✅ Serial Port {self.com_port} opened successfully.")
         except serial.SerialException as e:
             warnings.warn(f"⚠️ It was not possible to open the Serial Port {self.com_port}: {e}")
             print("❌ Aborting benchmarking.")
@@ -115,7 +115,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
                 f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                 f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status2: {status2}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status: {status2}"
             )
             QApplication.processEvents()
 
@@ -256,7 +256,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
                   f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
                   f"Jitter: {jitter:7.3f} s | {status}")
             self.value_beench.appendPlainText(
-                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status2: {status2}"
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | Status: {status2}"
             )
             QApplication.processEvents()
 
