@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetLUJucm.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_Arduino_widgetsxREaz.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##

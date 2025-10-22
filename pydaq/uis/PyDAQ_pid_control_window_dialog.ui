@@ -538,7 +538,7 @@ QDoubleSpinBox::down-button:hover{
 </string>
                </property>
                <property name="text">
-                <string>Disturbe:</string>
+                <string>Disturbance:</string>
                </property>
               </widget>
              </item>

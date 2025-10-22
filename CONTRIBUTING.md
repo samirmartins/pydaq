@@ -8,8 +8,6 @@ Bug reporting and New Features
 If you find any bugs or have suggestions for new features,
 please report them on [issue tracker](https://github.com/samirmartins/pydaq/issues) on GitHub.
 
-
-
 Documentation
 -------------
 
@@ -40,24 +38,10 @@ These are some basic steps to help us with coding:
 
 ---
 
-# PyDAQ Structure
+# PYDAQ Structure
 
 The PyDAQ project is divided into various parts that handle different functionalities.  
 All the core source code is contained within the `pydaq/` directory.
-
----
-
-## 🧠 Main Layout
-
-PyDAQ’s main interface is organized into several **functional tabs**, each corresponding to a major feature of the system:
-
-- **Get Data** → For data acquisition.  
-- **Send Data** → For sending data to a device or system.  
-- **Step Response** → For generating and analyzing step responses.  
-- **PID Control** → For running and tuning a PID controller.  
-- **Get Model** → For extracting or loading models from system identification.
-
-These sections are accessible through the main PyDAQ GUI and correspond to specific modules within the project.
 
 ---
 
@@ -67,12 +51,11 @@ Below is a summary of the key files and their roles within the `pydaq/` folder:
 
 | File | Description |
 |------|--------------|
-| `pydaq/get_data.py` | Handles data acquisition from hardware devices (e.g., Arduino, NIDAQ). |
-| `pydaq/send_data.py` | Manages data transmission and communication channels. |
-| `pydaq/step_response.py` | Contains routines for performing step response experiments and visualizations. |
-| `pydaq/pid_control.py` | Implements the PID control logic (both continuous and discrete). |
-| `pydaq/get_model.py` | Responsible for loading, saving, and managing identified system models. |
-| `pydaq/pydaq_global.py` | Contains shared utility functions and constants for hardware interfaces. |
+| `pydaq/get_data.py` | Implements the data acquisition logic and filters. |
+| `pydaq/send_data.py` | Implements the data sending logic. |
+| `pydaq/step_response.py` | Implements the step response logic. |
+| `pydaq/pid_control.py` and `pid_control_window_dialog.py` | Implement the PID control logic. |
+| `pydaq/get_model.py` | Implements the system model identification logic. |
 
 All files include **inline comments** and **function docstrings** to help you understand their purpose and how to safely modify or extend their behavior.
 
@@ -80,11 +63,11 @@ All files include **inline comments** and **function docstrings** to help you un
 
 ## 🧩 Contributing to Interface Design, Fixing Typos, or Adding Widgets
 
-If your contribution involves **interface design**, **layout adjustments**, or **new widgets**,  
+If your contribution involves **interface design**, **layout adjustments**, or **adding new widgets**,  
 you’ll be working in the `pydaq/uis/` folder.
 
-The user interfaces are built using [Qt Design Studio](https://doc.qt.io/qtdesignstudio/) —  
-but you can also use the **Qt Designer** that comes with `PySide6`.
+The user interfaces are built using [Qt Design Studio](https://doc.qt.io/qtdesignstudio/),  
+but you can also use the **Qt Designer** that comes with `PySide6` (recommended).
 
 ### Editing `.ui` Files
 
@@ -92,9 +75,9 @@ but you can also use the **Qt Designer** that comes with `PySide6`.
    ```bash
    pip install pyside6
    ```
-2. Open the desired `.ui` file (for example, `PyDAQ_Base.ui`) in Qt Designer or Qt Design Studio.  
+2. Open the desired `.ui` file (for example, `PYDAQ_Base.ui`) in Qt Designer or Qt Design Studio.  
 3. To export the layout directly to Python, use **"Save As Python File"** inside the Designer.  
-   Alternatively, you can convert manually via:
+   Alternatively, you can convert it manually via:
    ```bash
    pyuic6 NameOfFile.ui -o ui_NameOfFile.py
    ```
@@ -103,14 +86,14 @@ but you can also use the **Qt Designer** that comes with `PySide6`.
 
 | File | Description |
 |------|--------------|
-| `pydaq/uis/PyDAQ_Base.ui` | Layout for the main PyDAQ window. |
-| `pydaq/uis/PyDAQ_get_data_Arduino_Widget.ui` | Layout for Arduino data acquisition widget. |
+| `pydaq/uis/PYDAQ_Base.ui` | Layout for the main PyDAQ window. |
+| `pydaq/uis/PYDAQ_get_data_Arduino_Widget.ui` | Layout for the Arduino data acquisition widget. |
 
 ---
 
 ## 🧱 Integrating New Widgets
 
-- When **adding a new widget** to `PyDAQ_Base.ui`, use the **Promote Widget** feature inside Qt Designer to correctly integrate your custom widget into the PyDAQ application.  
+- When **adding a new widget** to `PYDAQ_Base.ui`, use the **Promote Widget** feature inside Qt Designer to properly integrate your custom widget into the PyDAQ application.  
 - If you’re **modifying an existing promoted widget**, simply re-export the `.ui` file as a `.py` module.  
 - Keep the naming pattern `ui_<OriginalFileName>.py` to ensure the application can import your updated interface automatically.
 
@@ -120,11 +103,11 @@ but you can also use the **Qt Designer** that comes with `PySide6`.
 
 If you are unsure where to start contributing:
 
-- **For logic improvements:** look into the corresponding `.py` file under `pydaq/`.  
+- **For logic improvements:** check the corresponding `.py` file under `pydaq/`.  
 - **For UI changes:** explore the `.ui` files in `pydaq/uis/`.  
-- **For bug fixes:** search within the related functional area (PID, data acquisition, etc.).  
+- **For bug fixes:** look into the related functional area (PID, data acquisition, etc.).  
 
-Each function and class is **documented** to make understanding the flow easier before implementing your changes.
+Each function and class is **documented** to make it easier to understand the flow before implementing your changes.
 
 ---
 
@@ -132,8 +115,8 @@ Each function and class is **documented** to make understanding the flow easier 
 
 | Area | Folder | What You’ll Find |
 |------|---------|------------------|
-| Core logic | `pydaq/` | Main Python modules for control, data, and modeling |
-| Interfaces | `pydaq/uis/` | `.ui` design files for GUI layout |
-| Utilities | `pydaq/pydaq_global.py` | Common constants and helper functions |
-| Docs | `docs/` | Project documentation and usage guides |
-| Tests | `tests/` | Automated test files (if available) |
+| Core logic | `pydaq/` | Main Python modules for control, data handling, and modeling |
+| Interfaces | `pydaq/uis/` | `.ui` design files for GUI layouts |
+| Programming | `pydaq/guis/` | `.py` files generated from `.ui` layouts |
+| Utilities | `pydaq/utils/` | Common utility functions and helper methods |
+| Documentation | `docs/` | Project documentation and usage guides |

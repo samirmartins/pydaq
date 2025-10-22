@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogleTYPt.ui'
+## Form generated from reading UI file 'PyDAQ_pid_control_window_dialogMvepvP.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -587,7 +587,7 @@ class Ui_Dialog_Plot_PID_Window(object):
 #if QT_CONFIG(tooltip)
         self.label_Disturbe.setToolTip(QCoreApplication.translate("Dialog_Plot_PID_Window", u"<html><head/><body><p><span style=\" font-size:14pt;\">The disturbance will be added as an integrator to the output signal of the PID control, as shown in the figure below:</span></p><p><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_Disturbe.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"Disturbe:", None))
+        self.label_Disturbe.setText(QCoreApplication.translate("Dialog_Plot_PID_Window", u"Disturbance:", None))
 #if QT_CONFIG(tooltip)
         self.label_I_Distrube.setToolTip(QCoreApplication.translate("Dialog_Plot_PID_Window", u"<html><head/><body><p><span style=\" font-size:14pt;\">The disturbance will be added as an integrator to the output signal of the PID control, as shown in the figure below:<br/></span><img src=\":/imgs/imgs/PID_Flow.png\"/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
