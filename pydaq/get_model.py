@@ -378,13 +378,14 @@ class GetModel(Base):
 
                 now = time.perf_counter()
                 if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
-                    self._update_plot(
-                        self.time_var, 
-                        self.out_read, 
-                        y2_values=self.inp_read,
-                        y1_label="Output",
-                        y2_label="Input"
-                    )
+                    if len(self.out_read) > 1 and len(self.inp_read) > 1:
+                        self._update_plot(
+                            self.time_var[:-1], 
+                            self.out_read[1:], 
+                            y2_values=self.inp_read[:-1],
+                            y1_label="Output",
+                            y2_label="Input"
+                        )
                     last_plot_update_time = now
             except queue.Empty:
                 if not acquisition_thread.is_alive() and data_queue.empty():
@@ -415,23 +416,22 @@ class GetModel(Base):
         # Plot at the end if requested
         if self.plot_mode == 'end' and self.time_var:
             self._start_updatable_plot(title_str=self.title)
-            self._update_plot(self.time_var, self.out_read, y2_values=self.inp_read, y1_label="Output", y2_label="Input")
+            self._update_plot(self.time_var[:-1], self.out_read[1:], y2_values=self.inp_read[:-1], y1_label="Output", y2_label="Input")
             plt.show(block=True)
 
         if self.save:  # Adjusting data, since no last data is acquired by arduino
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.inp_read, "input.dat")
-            self._save_data(self.out_read, "output.dat")
+            self._save_data(self.time_var[:-1], "time.dat")
+            self._save_data(self.inp_read[:-1], "input.dat")
+            self._save_data(self.out_read[1:], "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        # FIX: Use the data that was actually collected by the thread.
-        data_x = np.array(self.inp_read)
-        data_y = np.array(self.out_read)
+        data_x = np.array(self.inp_read[:-1])   # input (discard last)
+        data_y = np.array(self.out_read[1:])    # output (discard first)
         
         # Ensure arrays are the same length (extra security)
         min_len = min(len(data_x), len(data_y))
@@ -543,28 +543,27 @@ class GetModel(Base):
         # Plot at the end if requested
         if self.plot_mode == 'end' and self.time_var:
             self._start_updatable_plot(title_str=self.title)
-            self._update_plot(self.time_var, self.out_read, y2_values=self.inp_read, y1_label="Output", y2_label="Input")
+            self._update_plot(self.time_var[:-1], self.out_read[1:], y2_values=self.inp_read[:-1], y1_label="Output", y2_label="Input")
             plt.show(block=True)
 
         if self.save:
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.inp_read, "input.dat")
-            self._save_data(self.out_read, "output.dat")
+            self._save_data(self.time_var[:-1], "time.dat")
+            self._save_data(self.inp_read[:-1], "input.dat")
+            self._save_data(self.out_read[1:], "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
         
-        # FIX: Use the data that was actually collected by the thread.
         data_x = np.array(self.inp_read)
         data_y = np.array(self.out_read)
         
         # Ensure arrays are the same length (extra security)
         min_len = min(len(data_x), len(data_y))
-        data_x = data_x[:min_len]
-        data_y = data_y[:min_len]
+        data_x = np.array(self.inp_read[:-1])   # input (discard last)
+        data_y = np.array(self.out_read[1:])    # output (discard first)
 
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
