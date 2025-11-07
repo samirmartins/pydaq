@@ -378,11 +378,21 @@ class GetModel(Base):
 
                 now = time.perf_counter()
                 if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
-                    if len(self.out_read) > 1 and len(self.inp_read) > 1:
+                    # Apply alignment only for Arduino acquisitions
+                    if 'Arduino' in self.title:
+                        if len(self.out_read) > 1 and len(self.inp_read) > 1:
+                            self._update_plot(
+                                self.time_var[:-1],
+                                self.out_read[1:],
+                                y2_values=self.inp_read[:-1],
+                                y1_label="Output",
+                                y2_label="Input"
+                            )
+                    else:
                         self._update_plot(
-                            self.time_var[:-1], 
-                            self.out_read[1:], 
-                            y2_values=self.inp_read[:-1],
+                            self.time_var,
+                            self.out_read,
+                            y2_values=self.inp_read,
                             y1_label="Output",
                             y2_label="Input"
                         )
@@ -543,7 +553,7 @@ class GetModel(Base):
         # Plot at the end if requested
         if self.plot_mode == 'end' and self.time_var:
             self._start_updatable_plot(title_str=self.title)
-            self._update_plot(self.time_var[:-1], self.out_read[1:], y2_values=self.inp_read[:-1], y1_label="Output", y2_label="Input")
+            self._update_plot(self.time_var, self.out_read, y2_values=self.inp_read, y1_label="Output", y2_label="Input")
             plt.show(block=True)
 
         if self.save:
