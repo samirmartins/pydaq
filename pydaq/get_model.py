@@ -559,9 +559,9 @@ class GetModel(Base):
         if self.save:
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var[:-1], "time.dat")
-            self._save_data(self.inp_read[:-1], "input.dat")
-            self._save_data(self.out_read[1:], "output.dat")
+            self._save_data(self.time_var, "time.dat")
+            self._save_data(self.inp_read, "input.dat")
+            self._save_data(self.out_read, "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
@@ -569,11 +569,7 @@ class GetModel(Base):
         
         data_x = np.array(self.inp_read)
         data_y = np.array(self.out_read)
-        
-        # Ensure arrays are the same length (extra security)
-        min_len = min(len(data_x), len(data_y))
-        data_x = np.array(self.inp_read[:-1])   # input (discard last)
-        data_y = np.array(self.out_read[1:])    # output (discard first)
+
 
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
