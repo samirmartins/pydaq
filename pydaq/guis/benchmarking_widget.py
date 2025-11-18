@@ -41,7 +41,7 @@ class BenchmarkingWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=25.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5.0, allowed_delay_percent=25.0):
         print(f"Testing Arduino Serial sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
@@ -188,7 +188,7 @@ class BenchmarkingNIWidget(QWidget, Ui_Form):
     def close_window(self):
         self.close()
 
-    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5, allowed_delay_percent=25.0):
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5.0, allowed_delay_percent=25.0):
         print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
         QApplication.processEvents()
