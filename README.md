@@ -80,7 +80,7 @@ PYDAQ requires:
 the user is only using Arduino Boards. This issue will be addressed in future versions, allowing
 Arduino users to use PYDAQ without having to install NI-DAQmx drivers.
 
-**NOTE 2:** PYDAQ is fully tested up to Python 3.10. It may run on versions above this, but without guarantees. 
+**NOTE 2:** PYDAQ is fully tested up to Python 3.11. It may run on versions above this, but without guarantees. 
 
 
 ---
