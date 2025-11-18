@@ -73,3 +73,7 @@ s.step_response_nidaq()
 If you choose to plot you can see the data sent on screen, i.e:
 
 ![](img/step_response_nidaq.png)
+
+You can see more detailed bellow:
+
+![](img/stepresponse_nidaq.gif)
