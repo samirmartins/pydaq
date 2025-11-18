@@ -34,6 +34,6 @@ After running the command, the GUI will appear. Navigate to the 'Get Data' scree
 
 After configuring the digital filter parameters, they will be applied to the real-time data acquisition, as shown in the image below:
 
-![](img/example_digitalfilters.gif)
+![](img/filters_nidaq.gif)
 
 

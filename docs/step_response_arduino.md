@@ -72,3 +72,7 @@ s.step_response_arduino()
 If you choose to plot you can see the data sent on screen, i.e:
 
 ![](img/step_response_arduino.png)
+
+You can see more detailed bellow:
+
+![](img/stepresponse_arduino.gif)

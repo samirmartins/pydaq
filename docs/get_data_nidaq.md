@@ -80,3 +80,7 @@ If you choose to plot, you can see acquired data on screen, i.e:
 Data will also be saved as depicted as shown below:
 
 ![](img/data.png)
+
+You can see more detailed bellow:
+
+![](img/getdata_nidaq.gif)
