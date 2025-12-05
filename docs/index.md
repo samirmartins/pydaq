@@ -99,5 +99,5 @@ functionalities ([NIDAQ](https://samirmartins.github.io/pydaq/jupyter_notebooks/
 ## Screenshots
 
 <p align="center">
-  <img src="img/pydaq_new.gif" alt= “” class=“center” width="75%" height="75%">
+  <img src="img/new_gif.gif" alt= “” class=“center” width="75%" height="75%">
 </p>
