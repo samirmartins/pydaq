@@ -263,8 +263,8 @@ class StepResponse(Base):
         if self.calculate_pid and self.time_var:
             print("\nCalculating PID parameters using Ziegler-Nichols method...")
             Kp, Ki, Kd, tangent_plot, output_norm, gain_norm = self.get_parameters(
-                self.time_var,
-                self.output,
+                self.time_var[0:-1],
+                self.output[1:],
                 self.step_time,
                 self.sintony_type,
                 self.ard_ao_min, # Min for Arduino
@@ -275,9 +275,9 @@ class StepResponse(Base):
 
             # Plot tuning results
             plt.figure(figsize=(10, 6))
-            plt.plot(self.time_var, self.output, label="System Output", linewidth=2)
-            plt.plot(self.time_var, tangent_plot, '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
-            plt.plot(self.time_var, self.input, label="Step Input (Gain K)", linewidth=2)
+            plt.plot(self.time_var[0:-1], self.output[1:], label="System Output", linewidth=2)
+            plt.plot(self.time_var[0:-1], tangent_plot[0:-1], '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
+            plt.plot(self.time_var[0:-1], self.input[0:-1], label="Step Input (Gain K)", linewidth=2)
             plt.title("Ziegler-Nichols Tuning Analysis", fontsize=16)
             plt.xlabel("Time (s)", fontsize=14)
             plt.ylabel("Amplitude", fontsize=14)
