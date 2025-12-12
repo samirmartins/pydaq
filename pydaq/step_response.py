@@ -106,7 +106,7 @@ class StepResponse(Base):
     # Handler for plot window closure
     def _on_plot_close(self, event):
         """..."""
-        print("Plot window closed by user. Initiating graceful shutdown...")
+        print("Plot window closed by user. Initiating shutdown...")
         self.acquisition_running = False
         self.plot_closed_by_user = True
 
@@ -260,9 +260,8 @@ class StepResponse(Base):
 
         acquisition_thread.join()
 
-        if self.calculate_pid and self.time_var:
-            print("\nCalculating PID parameters using Ziegler-Nichols method...")
-            Kp, Ki, Kd, tangent_plot, output_norm, gain_norm = self.get_parameters(
+        if self.calculate_pid:
+            Kp, Ki, Kd, tangent_plot = self.get_parameters(
                 self.time_var[0:-1],
                 self.output[1:],
                 self.step_time,
@@ -276,8 +275,8 @@ class StepResponse(Base):
             # Plot tuning results
             plt.figure(figsize=(10, 6))
             plt.plot(self.time_var[0:-1], self.output[1:], label="System Output", linewidth=2)
-            plt.plot(self.time_var[0:-1], tangent_plot[0:-1], '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
             plt.plot(self.time_var[0:-1], self.input[0:-1], label="Step Input (Gain K)", linewidth=2)
+            plt.plot(self.time_var[0:-1], tangent_plot, '--', label="Tangent Line (Inflection)", linewidth=2, color='r')
             plt.title("Ziegler-Nichols Tuning Analysis", fontsize=16)
             plt.xlabel("Time (s)", fontsize=14)
             plt.ylabel("Amplitude", fontsize=14)
@@ -445,9 +444,9 @@ class StepResponse(Base):
 
         acquisition_thread.join()
 
-        if self.calculate_pid and self.time_var:
-
-            Kp, Ki, Kd, tangent_plot, output_norm, gain_norm = self.get_parameters(
+        if self.calculate_pid:
+            
+            Kp, Ki, Kd, tangent_plot = self.get_parameters(
                 self.time_var,
                 self.output,
                 self.step_time,
@@ -455,6 +454,7 @@ class StepResponse(Base):
                 self.step_min, # Min for NIDAQ
                 self.step_max  # Max for NIDAQ
             )
+
             self.pid_parameters = [Kp, Ki, Kd]
 
             # Plot tuning results
@@ -493,15 +493,23 @@ class StepResponse(Base):
             plt.show(block=True)
 
         return
-    
-    # PASTE THESE TWO METHODS INSIDE THE StepResponse CLASS
 
     def get_parameters(self, time, system_value, step_time, type_sintony, min_val, max_val):
+
         time = np.array(time)
         system_value = np.array(system_value)
-        
-        # Normalize output to start at zero
-        system_value_normalized = system_value - system_value[0]
+
+        n = len(system_value)
+
+        # Subtract baseline (minimum value) from the system response
+        mask_after_step = time >= step_time
+
+        if np.any(mask_after_step):
+            baseline = np.min(system_value[mask_after_step])
+        else:
+            baseline = np.min(system_value)  # Use the minimum value of the entire signal
+        system_value_normalized = system_value - baseline
+
 
         # Calculate the process gain K
         delta_input = max_val - min_val
@@ -511,7 +519,22 @@ class StepResponse(Base):
         else:
             k = (system_value_normalized[-1] - system_value_normalized[0]) / delta_input
 
-        max_derivative_idx, derivative = self.get_max_derivative_idx(time, system_value_normalized, step_time)
+
+        if n >= 5:
+            # escolher janela ímpar permitida
+            window_size = min(7, n if n % 2 == 1 else n - 1)
+            max_derivative_idx, derivative = self.get_max_derivative_idx(
+                time, system_value_normalized, step_time, window_size
+            )
+        else:
+            # derivada simples
+            derivative = np.gradient(system_value_normalized, time)
+            valid = time >= step_time
+            if not np.any(valid):
+                max_derivative_idx = 0
+            else:
+                max_local = np.argmax(derivative[valid])
+                max_derivative_idx = np.where(valid)[0][0] + max_local
 
         time_inflection = time[max_derivative_idx]
         sys_inflection = system_value_normalized[max_derivative_idx]
@@ -522,8 +545,7 @@ class StepResponse(Base):
         tangent_line = slope * time + intercept
 
         # Convert normalized tangent back to real scale
-        scale = (max_val - min_val) / (system_value_normalized[-1] - system_value_normalized[0] + 1e-9)
-        tangent_line_real = tangent_line * scale + system_value[0]
+        tangent_line_real = tangent_line + baseline
 
         # Find L (delay) and T (time constant)
         # L is the time until the tangent crosses the y=0 axis
@@ -535,7 +557,6 @@ class StepResponse(Base):
         L_adjusted = L - step_time
         
         type_sintony_code = type_sintony
-
         if type_sintony_code == 0:  # P
             Kp = T / L_adjusted
             Ki = 0
@@ -551,16 +572,24 @@ class StepResponse(Base):
             Ki = Kp / Ti
             Td = 0.5 * L_adjusted
             Kd = Kp * Td
+
+        if L_adjusted <= 0 or T <= 0 or Kp <= 0 or Ki < 0 or Kd < 0 or n < 3 or slope <= 0:
+            print("Invalid sample values. Sintony cannot be calculated correctly.")
+            return 0, 0, 0, tangent_line_real  # Retorna PID=0
         
         print(f"Gains: Kp={Kp:.4f}, Ki={Ki:.4f}, Kd={Kd:.4f}")
-
-        gain_normalized = np.where(time < step_time, 0, k)
         
-        return Kp, Ki, Kd, tangent_line_real, system_value, gain_normalized
+        return Kp, Ki, Kd, tangent_line_real
 
     def get_max_derivative_idx(self, time, system_value, step_time, window_size=7, polyorder=2):
-        time = np.array(time)
-        system_value = np.array(system_value)
+        window_size = int(window_size)
+
+        # Make sure window size is odd and at least 3
+        if window_size % 2 == 0:
+            window_size -= 1
+        if window_size < 3:
+            window_size = 3
+
         system_value_smooth = savgol_filter(system_value, window_size, polyorder)
         derivative = np.gradient(system_value_smooth, time)
         
@@ -568,10 +597,9 @@ class StepResponse(Base):
         derivative_valid = derivative[valid_indices]
         
         if len(derivative_valid) == 0:
-            # Return 0 if no data is available after the step
             return 0, derivative
 
         max_derivative_local_idx = np.argmax(derivative_valid)
         max_derivative_idx = np.where(valid_indices)[0][max_derivative_local_idx]
-        
+                
         return max_derivative_idx, derivative
