@@ -2,42 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://www.pydaq.org/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
+    </url>
+    <url>
+         <loc>https://www.pydaq.org/benchmarking/</loc>
+         <lastmod>2025-12-15</lastmod>
+    </url>
+    <url>
+         <loc>https://www.pydaq.org/digital_filters_arduino/</loc>
+         <lastmod>2025-12-15</lastmod>
+    </url>
+    <url>
+         <loc>https://www.pydaq.org/digital_filters_nidaq/</loc>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/get_data_arduino/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/get_data_nidaq/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/get_model_arduino/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/get_model_nidaq/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/jupyter_notebooks/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
+    </url>
+    <url>
+         <loc>https://www.pydaq.org/pid_control_arduino/</loc>
+         <lastmod>2025-12-15</lastmod>
+    </url>
+    <url>
+         <loc>https://www.pydaq.org/pid_control_nidaq/</loc>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/send_data_arduino/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/send_data_nidaq/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/step_response_arduino/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
     <url>
          <loc>https://www.pydaq.org/step_response_nidaq/</loc>
-         <lastmod>2025-02-26</lastmod>
+         <lastmod>2025-12-15</lastmod>
     </url>
 </urlset>
