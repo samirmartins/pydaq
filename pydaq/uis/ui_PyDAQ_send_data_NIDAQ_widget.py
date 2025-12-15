@@ -1,15 +1,31 @@
-from PySide6.QtCore import (QCoreApplication, QMetaObject, QSize, Qt)
-from PySide6.QtWidgets import (QAbstractSpinBox, QButtonGroup, QComboBox,
-                               QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
-                               QLabel, QLineEdit, QPushButton, QRadioButton,
-                               QWidget)
-from . import resources_1_rc
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'PyDAQ_send_data_NIDAQ_widgetBbxQKS.ui'
+##
+## Created by: Qt User Interface Compiler version 6.9.0
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QButtonGroup, QComboBox,
+    QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
+    QLabel, QLineEdit, QPushButton, QRadioButton,
+    QSizePolicy, QWidget)
+
 
 class Ui_NIDAQ_SendData_W(object):
     def setupUi(self, NIDAQ_SendData_W):
         if not NIDAQ_SendData_W.objectName():
             NIDAQ_SendData_W.setObjectName(u"NIDAQ_SendData_W")
-        NIDAQ_SendData_W.resize(527, 379)
+        NIDAQ_SendData_W.resize(836, 384)
         NIDAQ_SendData_W.setStyleSheet(u"QComboBox QAbstractItemView {\n"
 "    background-color: rgb(77, 77, 77);\n"
 "}\n"
@@ -243,23 +259,35 @@ class Ui_NIDAQ_SendData_W(object):
         self.widget_7.setObjectName(u"widget_7")
         self.horizontalLayout = QHBoxLayout(self.widget_7)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.yes_plot_radio = QRadioButton(self.widget_7)
+        self.yes_rt_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group = QButtonGroup(NIDAQ_SendData_W)
         self.plot_radio_group.setObjectName(u"plot_radio_group")
-        self.plot_radio_group.addButton(self.yes_plot_radio)
-        self.yes_plot_radio.setObjectName(u"yes_plot_radio")
-        self.yes_plot_radio.setChecked(True)
+        self.plot_radio_group.addButton(self.yes_rt_plot_radio)
+        self.yes_rt_plot_radio.setObjectName(u"yes_rt_plot_radio")
+        self.yes_rt_plot_radio.setChecked(False)
 
-        self.horizontalLayout.addWidget(self.yes_plot_radio)
+        self.horizontalLayout.addWidget(self.yes_rt_plot_radio)
+
+        self.label_warning = QLabel(self.widget_7)
+        self.label_warning.setObjectName(u"label_warning")
+
+        self.horizontalLayout.addWidget(self.label_warning)
+
+        self.yes_ate_plot_radio = QRadioButton(self.widget_7)
+        self.plot_radio_group.addButton(self.yes_ate_plot_radio)
+        self.yes_ate_plot_radio.setObjectName(u"yes_ate_plot_radio")
+
+        self.horizontalLayout.addWidget(self.yes_ate_plot_radio)
 
         self.no_plot_radio = QRadioButton(self.widget_7)
         self.plot_radio_group.addButton(self.no_plot_radio)
         self.no_plot_radio.setObjectName(u"no_plot_radio")
+        self.no_plot_radio.setChecked(True)
 
         self.horizontalLayout.addWidget(self.no_plot_radio)
 
 
-        self.gridLayout.addWidget(self.widget_7, 3, 2, 1, 1, Qt.AlignLeft)
+        self.gridLayout.addWidget(self.widget_7, 3, 2, 1, 1, Qt.AlignmentFlag.AlignLeft)
 
         self.widget_9 = QWidget(self.widget)
         self.widget_9.setObjectName(u"widget_9")
@@ -272,14 +300,14 @@ class Ui_NIDAQ_SendData_W(object):
         self.path_line_edit.setMinimumSize(QSize(0, 22))
         self.path_line_edit.setMaximumSize(QSize(16777215, 22))
 
-        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_line_edit, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.path_folder_browse = QPushButton(self.widget_9)
         self.path_folder_browse.setObjectName(u"path_folder_browse")
         self.path_folder_browse.setMinimumSize(QSize(0, 30))
         self.path_folder_browse.setMaximumSize(QSize(16777215, 30))
 
-        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignVCenter)
+        self.horizontalLayout_3.addWidget(self.path_folder_browse, 0, Qt.AlignmentFlag.AlignVCenter)
 
 
         self.gridLayout.addWidget(self.widget_9, 5, 2, 1, 1)
@@ -296,7 +324,7 @@ class Ui_NIDAQ_SendData_W(object):
         self.label_8.setMinimumSize(QSize(0, 30))
         self.label_8.setMaximumSize(QSize(16777215, 30))
 
-        self.gridLayout.addWidget(self.label_8, 5, 0, 1, 1, Qt.AlignVCenter)
+        self.gridLayout.addWidget(self.label_8, 5, 0, 1, 1, Qt.AlignmentFlag.AlignVCenter)
 
         self.widget_5 = QWidget(self.widget)
         self.widget_5.setObjectName(u"widget_5")
@@ -306,11 +334,11 @@ class Ui_NIDAQ_SendData_W(object):
         self.Ts_in.setObjectName(u"Ts_in")
         self.Ts_in.setMinimumSize(QSize(0, 22))
         self.Ts_in.setMaximumSize(QSize(16777215, 22))
-        self.Ts_in.setDecimals(4)
-        self.Ts_in.setMaximum(999.990000000000009)
+        self.Ts_in.setDecimals(6)
+        self.Ts_in.setMaximum(999999999999.000000000000000)
         self.Ts_in.setSingleStep(0.010000000000000)
-        self.Ts_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
-        self.Ts_in.setValue(0.500000000000000)
+        self.Ts_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
+        self.Ts_in.setValue(1.000000000000000)
 
         self.gridLayout_6.addWidget(self.Ts_in, 0, 0, 1, 1)
 
@@ -326,8 +354,8 @@ class Ui_NIDAQ_SendData_W(object):
 
         self.line = QFrame(self.widget)
         self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.VLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout.addWidget(self.line, 0, 1, 7, 1)
 
@@ -366,8 +394,11 @@ class Ui_NIDAQ_SendData_W(object):
         self.out_range_min_in.setObjectName(u"out_range_min_in")
         self.out_range_min_in.setMinimumSize(QSize(0, 22))
         self.out_range_min_in.setMaximumSize(QSize(16777215, 22))
-        self.out_range_min_in.setSingleStep(0.500000000000000)
-        self.out_range_min_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.out_range_min_in.setDecimals(6)
+        self.out_range_min_in.setMinimum(0.000000000000000)
+        self.out_range_min_in.setMaximum(999999999999.000000000000000)
+        self.out_range_min_in.setSingleStep(0.010000000000000)
+        self.out_range_min_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
 
         self.gridLayout_5.addWidget(self.out_range_min_in, 0, 1, 1, 1)
 
@@ -389,7 +420,10 @@ class Ui_NIDAQ_SendData_W(object):
         self.out_range_max_in.setObjectName(u"out_range_max_in")
         self.out_range_max_in.setMinimumSize(QSize(0, 22))
         self.out_range_max_in.setMaximumSize(QSize(16777215, 22))
-        self.out_range_max_in.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
+        self.out_range_max_in.setDecimals(6)
+        self.out_range_max_in.setMaximum(999999999999.000000000000000)
+        self.out_range_max_in.setSingleStep(0.010000000000000)
+        self.out_range_max_in.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
         self.out_range_max_in.setValue(5.000000000000000)
 
         self.gridLayout_8.addWidget(self.out_range_max_in, 0, 1, 1, 1)
@@ -399,21 +433,21 @@ class Ui_NIDAQ_SendData_W(object):
 
         self.line_2 = QFrame(self.widget_4)
         self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.VLine)
-        self.line_2.setFrameShadow(QFrame.Sunken)
+        self.line_2.setFrameShape(QFrame.Shape.VLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_7.addWidget(self.line_2, 0, 1, 1, 1)
 
 
-        self.gridLayout.addWidget(self.widget_4, 6, 2, 1, 1, Qt.AlignTop)
+        self.gridLayout.addWidget(self.widget_4, 6, 2, 1, 1, Qt.AlignmentFlag.AlignTop)
 
 
         self.gridLayout_2.addWidget(self.widget, 0, 0, 1, 1)
 
         self.line_3 = QFrame(NIDAQ_SendData_W)
         self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.HLine)
-        self.line_3.setFrameShadow(QFrame.Sunken)
+        self.line_3.setFrameShape(QFrame.Shape.HLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_2.addWidget(self.line_3, 1, 0, 1, 1)
 
@@ -422,7 +456,7 @@ class Ui_NIDAQ_SendData_W(object):
         self.start_send_data.setMinimumSize(QSize(100, 30))
         self.start_send_data.setMaximumSize(QSize(16777215, 30))
 
-        self.gridLayout_2.addWidget(self.start_send_data, 2, 0, 1, 1, Qt.AlignHCenter)
+        self.gridLayout_2.addWidget(self.start_send_data, 2, 0, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
 
         self.retranslateUi(NIDAQ_SendData_W)
@@ -433,17 +467,22 @@ class Ui_NIDAQ_SendData_W(object):
     def retranslateUi(self, NIDAQ_SendData_W):
         NIDAQ_SendData_W.setWindowTitle(QCoreApplication.translate("NIDAQ_SendData_W", u"Form", None))
         self.reload_devices.setText("")
-        self.label_2.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Choose channel:", None))
-        self.yes_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Yes", None))
+        self.label_2.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Channel:", None))
+        self.yes_rt_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Real time", None))
+#if QT_CONFIG(tooltip)
+        self.label_warning.setToolTip(QCoreApplication.translate("NIDAQ_SendData_W", u"<html><head/><body><p><span style=\" font-size:16pt;\">Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_warning.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"<html><head/><body><p><img src=\":/imgs/imgs/Warning_logo.png\"/></p></body></html>", None))
+        self.yes_ate_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"At the end", None))
         self.no_plot_radio.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"No", None))
-        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_SendData_W", u" Browse ", None))
-        self.label.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Choose device:", None))
-        self.label_8.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Data path", None))
-        self.label_4.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Sample period (s)", None))
+        self.path_folder_browse.setText(QCoreApplication.translate("NIDAQ_SendData_W", u" BROWSE ", None))
+        self.label.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Device:", None))
+        self.label_8.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Path:", None))
+        self.label_4.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Sample period (s):", None))
         self.label_6.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Plot data?", None))
-        self.label_3.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Output range (V)", None))
-        self.label_5.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Minimum", None))
-        self.label_7.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Maximum", None))
+        self.label_3.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Output range (V):", None))
+        self.label_5.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Minimum:", None))
+        self.label_7.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"Maximum:", None))
         self.start_send_data.setText(QCoreApplication.translate("NIDAQ_SendData_W", u"SEND DATA", None))
     # retranslateUi
 

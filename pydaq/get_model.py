@@ -11,6 +11,8 @@ import serial.tools.list_ports
 from pydaq.utils.base import Base
 from sysidentpy.metrics import __ALL__ as metrics_list
 import sysidentpy.metrics as metrics
+import threading
+import queue
 
 from pydaq.utils.signals import Signal
 from math import floor
@@ -65,7 +67,6 @@ def display_formated_results(results_array):
 
 import numpy as np
 import matplotlib.pyplot as plt
-
 
 def plot_combined_results_with_metrics(
     y: np.ndarray,
@@ -178,7 +179,7 @@ class GetModel(Base):
         ao_max=5,
         session_duration=10.0,
         save=True,
-        plot=True,
+        plot_mode="no",
         degree=2,
         start_save_time=1,
         out_lag=3,
@@ -202,7 +203,7 @@ class GetModel(Base):
         self.ts = ts
         self.var_tb = var_tb
         self.save = save
-        self.plot = plot
+        self.plot_mode = plot_mode
         self.legend = ["Input", "Output"]
         self.degree = degree
         self.start_save_time = start_save_time
@@ -222,6 +223,11 @@ class GetModel(Base):
         self.out_read = []
         self.time_var = []
         self.inp_read = []
+
+        # Thread controls
+        self.acquisition_running = False
+        self.plot_closed_by_user = False
+        self.plot_ready_event = threading.Event()
 
         # Error flags
         self.error_path = False
@@ -252,84 +258,196 @@ class GetModel(Base):
         # Number of necessary cycles
         self.cycles = None
 
+    def _acquisition_worker_arduino(self, data_queue, signal_to_send, sent_data_bytes):
+        """Worker to send signal and acquire data with Arduino."""
+        self.plot_ready_event.wait()
+
+        try:
+            self._open_serial()
+            time.sleep(2) # Wait for serial to settle
+
+            # Start the clock AFTER serial is open
+            st_worker = time.perf_counter()
+
+            for k in range(self.cycles):
+                if not self.acquisition_running:
+                    break
+
+                self.ser.reset_input_buffer()
+                self.ser.write(sent_data_bytes[k])
+
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+                
+                sent_value = signal_to_send[k]
+                time_now = time.perf_counter() - st_worker
+                data_queue.put((time_now, sent_value, temp))
+
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+        
+        except serial.SerialException as e:
+            warnings.warn(f"Failed to open or use serial port {self.com_port}: {e}")
+        finally:
+            if hasattr(self, 'ser') and self.ser.is_open:
+                self.ser.write(b"0")
+                self.ser.close()
+            data_queue.put(None)
+
+    def _acquisition_worker_nidaq(self, data_queue, signal_to_send):
+        """Worker to send signal and acquire data with NI-DAQ."""
+        self.plot_ready_event.wait()
+
+        task_ao = nidaqmx.Task()
+        task_ai = nidaqmx.Task()
+        
+        try:
+            task_ao.ao_channels.add_ao_voltage_chan(f"{self.device}/{self.ao_channel}", min_val=self.ao_min, max_val=self.ao_max)
+            task_ai.ai_channels.add_ai_voltage_chan(f"{self.device}/{self.ai_channel}", terminal_config=self.terminal)
+            
+            # Zero the output before starting
+            task_ao.write(self.ao_min)
+
+            # Start the clock AFTER hardware setup
+            st_worker = time.perf_counter()
+
+            for k in range(self.cycles):
+                if not self.acquisition_running:
+                    break
+
+                # Send signal and read response
+                sent_value = signal_to_send[k]
+                task_ao.write(sent_value)
+                read_value = task_ai.read()
+                
+                # Calculate timestamp and put data in the queue
+                time_now = time.perf_counter() - st_worker
+                data_queue.put((time_now, sent_value, read_value))
+
+                # Wait to maintain the sampling period
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+        finally:
+            # Ensure tasks are safely closed
+            task_ao.write(self.ao_min)
+            task_ao.close()
+            task_ai.close()
+            data_queue.put(None) # Signal the end of acquisition
+
+    def _orchestrate_acquisition(self, worker_target, worker_args):
+        """General-purpose orchestrator for data acquisition and plotting."""
+        self.time_var, self.inp_read, self.out_read = [], [], []
+        data_queue = queue.Queue()
+        self.acquisition_running = True
+        self.plot_closed_by_user = False
+        self.plot_ready_event.clear()
+
+        acquisition_thread = threading.Thread(
+            target=worker_target,
+            args=(data_queue, *worker_args),
+            daemon=True
+        )
+        acquisition_thread.start()
+
+        if self.plot_mode == 'realtime':
+            self._start_updatable_plot(title_str=self.title)
+            self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            time.sleep(0.5)
+            self.plot_ready_event.set()
+        else:
+            self.plot_ready_event.set()
+        
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
+            
+        last_plot_update_time = time.perf_counter()
+
+        while True:
+            try:
+                item = data_queue.get(timeout=0.01)
+                if item is None:
+                    break # Worker has finished
+                
+                timestamp, input_val, output_val = item
+                self.time_var.append(timestamp)
+                self.inp_read.append(input_val)
+                self.out_read.append(output_val)
+
+                now = time.perf_counter()
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
+                    # Apply alignment only for Arduino acquisitions
+                    if 'Arduino' in self.title:
+                        if len(self.out_read) > 1 and len(self.inp_read) > 1:
+                            self._update_plot(
+                                self.time_var[:-1],
+                                self.out_read[1:],
+                                y2_values=self.inp_read[:-1],
+                                y1_label="Output",
+                                y2_label="Input"
+                            )
+                    else:
+                        self._update_plot(
+                            self.time_var,
+                            self.out_read,
+                            y2_values=self.inp_read,
+                            y1_label="Output",
+                            y2_label="Input"
+                        )
+                    last_plot_update_time = now
+            except queue.Empty:
+                if not acquisition_thread.is_alive() and data_queue.empty():
+                    break
+                continue
+        
+        acquisition_thread.join()
+
+    def _on_plot_close(self, event):
+        """Event handler for Matplotlib figure closure."""
+        print("Plot window closed by user. Initiating graceful shutdown...")
+        self.acquisition_running = False
+        self.plot_closed_by_user = True
+
     def get_model_arduino(self):
-
-        self.data = []
-        self.time_var = []
-        self.input, self.output = [], []
-
         self._check_path()
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
-        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-        self.signal_finale = self.signal.prbs_final(
-            cycles=self.cycles, ao_max=self.ao_max
-        )
-        signal_finale = np.array(self.signal_finale)
+        signal_generator = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
+        signal_finale = signal_generator.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
+        
+        # Arduino expects bytes for digital output
+        sent_data_bytes = [b"1" if i == self.ao_max else b"0" for i in signal_finale]
+        
+        self.title = f"PYDAQ - Data Collection for Model (Arduino)"
+        self._orchestrate_acquisition(self._acquisition_worker_arduino, (signal_finale, sent_data_bytes))
 
-        self._open_serial()
-        time.sleep(2)
-
-        self.sent_data = [b"1" if i == 5 else b"0" for i in signal_finale]
-
-        if self.plot:  # If plot, start updatable plot
-            self.title = f"PYDAQ - Geting Data. Arduino, Port: {self.com_port}"
-            self._start_updatable_plot()
-
-        for k in range(self.cycles):
-            st = time.time()
-
-            self.ser.reset_input_buffer()  # Reseting serial input buffer
-            self.ser.write(self.sent_data[k])
-
-            temp = (
-                int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-            )  # To make sure that last complet value will be read
-
-            self.out_read.append(temp)
-            self.time_var.append(k * self.ts)
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except BaseException:
-                    break
-                # Updating data values
-                self._update_plot(
-                    [self.time_var[0:-1], self.time_var[0:-1]],
-                    [signal_finale[0:k], self.out_read[1:]],
-                    2,
-                )  # Adjusting data, since no last data is acquired by arduino
-            print(f"Iteration: {k} of {self.cycles-1}")
-
-            et = time.time()
-
-            try:
-                time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
-        self.ser.write(b"0")
-        self.ser.close()
+        # Plot at the end if requested
+        if self.plot_mode == 'end' and self.time_var:
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(self.time_var[:-1], self.out_read[1:], y2_values=self.inp_read[:-1], y1_label="Output", y2_label="Input")
+            plt.show(block=True)
 
         if self.save:  # Adjusting data, since no last data is acquired by arduino
             print("\nSaving data ...")
             # Saving time_var and data
-            self._save_data(self.time_var[0:-1], "time.dat")
-            self._save_data(self.signal_finale[0:k], "input.dat")
+            self._save_data(self.time_var[:-1], "time.dat")
+            self._save_data(self.inp_read[:-1], "input.dat")
             self._save_data(self.out_read[1:], "output.dat")
             print("\nData saved ...")
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
 
-        data_x = signal_finale[0:k]  # Desconsidering first data not acquired by Arduino
-        data_y = np.array(
-            self.out_read[1:]
-        )  # Desconsidering first data not acquired by Arduino
+        data_x = np.array(self.inp_read[:-1])   # input (discard last)
+        data_y = np.array(self.out_read[1:])    # output (discard first)
+        
+        # Ensure arrays are the same length (extra security)
+        min_len = min(len(data_x), len(data_y))
+        data_x = data_x[:min_len]
+        data_y = data_y[:min_len]
+
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 
         x_train, x_valid = (
@@ -423,85 +541,20 @@ class GetModel(Base):
         self.show_results(results_data)
 
     def get_model_nidaq(self):
-
-        self.data = []
-        self.time_var = []
-        self.input, self.output = [], []
-
         self._check_path()
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
-        self.signal = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
-        self.signal_finale = self.signal.prbs_final(
-            cycles=self.cycles, ao_max=self.ao_max
-        )
-        signal_finale = np.array(self.signal_finale)
-
-        task_ao = nidaqmx.Task()
-        task_ai = nidaqmx.Task()
-
-        task_ao.ao_channels.add_ao_voltage_chan(
-            self.device + "/" + self.ao_channel,
-            min_val=float(self.ao_min),
-            max_val=float(self.ao_max),
-        )
-
-        task_ai.ai_channels.add_ai_voltage_chan(
-            self.device + "/" + self.channel, terminal_config=self.terminal
-        )
-
-        # task_ao.start()
-        # task_ai.start()
-
-        self.sent_data = signal_finale
-        if self.plot:  # If plot, start updatable plot
-            self.title = f"PYDAQ - Geting Data (NIDAQ). {self.device}, {self.channel}"
-            self._start_updatable_plot()
-
-        task_ao.write(self.ao_min)
-        for k in range(self.cycles):
-            st = time.time()
-
-            task_ao.write(self.sent_data[k])
-            temp = task_ai.read()
-
-            self.out_read.append(temp)
-            self.inp_read.append(self.sent_data[k])
-            self.time_var.append(k * self.ts)
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except BaseException:
-                    break
-
-                # Updating data values
-                self._update_plot(
-                    [self.time_var, self.time_var],
-                    [signal_finale[0 : k + 1], self.out_read],
-                    2,
-                )
-
-            print(f"Iteration: {k} of {self.cycles-1}")
-
-            et = time.time()
-
-            try:
-                time.sleep(self.ts + (st - et))
-
-            except:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
-
-        # Turning off the output at the end
-        task_ao.write(0)
-        # self.out_read.insert(0, self.out_read[0])
-        # self.out_read.pop()
-        task_ao.close()
-        task_ai.close()
+        signal_generator = Signal(self.prbs_bits, self.prbs_seed, self.var_tb)
+        signal_finale = signal_generator.prbs_final(cycles=self.cycles, ao_max=self.ao_max)
+        
+        self.title = f"PYDAQ - Data Collection for Model (NIDAQ)"
+        self._orchestrate_acquisition(self._acquisition_worker_nidaq, (signal_finale,))
+        
+        # Plot at the end if requested
+        if self.plot_mode == 'end' and self.time_var:
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(self.time_var, self.out_read, y2_values=self.inp_read, y1_label="Output", y2_label="Input")
+            plt.show(block=True)
 
         if self.save:
             print("\nSaving data ...")
@@ -513,9 +566,10 @@ class GetModel(Base):
 
         # adapts the time at which data starts to be saved to obtain the model
         time_save = int(self.start_save_time / self.ts)
-
+        
+        data_x = np.array(self.inp_read)
         data_y = np.array(self.out_read)
-        data_x = signal_finale.astype(data_y.dtype)
+
 
         perc_index = floor(data_x.shape[0] - data_x.shape[0] * (self.perc_value / 100))
 

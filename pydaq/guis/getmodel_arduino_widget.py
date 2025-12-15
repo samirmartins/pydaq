@@ -1,7 +1,7 @@
 import os
 import serial
 import serial.tools.list_ports
-from sysidentpy.parameter_estimation import Estimators
+from sysidentpy.parameter_estimation import estimators
 
 from PySide6.QtWidgets import QFileDialog, QWidget
 
@@ -25,6 +25,9 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.reload_devices.released.connect(self.update_com_ports)
         self.path_folder_browse.released.connect(self.locate_path)
         self.start_get_model.released.connect(self.start_func_get_model)
+        self.label_warning.hide()
+        self.plot_radio_group.buttonToggled.connect(self._update_warning_label)
+        
 
         self.inp_signal_combo.addItem("PRBS")
 
@@ -39,7 +42,7 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
         self.ext_lsq = False
         self.perc_value = 30
 
-        estimators_list = [i for i in Estimators.__dict__.keys() if i[:1] != "_"]
+        estimators_list = [i for i in estimators.__dict__.keys() if i[:1] != "_"]
         self.estimators_handle_dict = dict()
 
         for i in estimators_list:
@@ -50,6 +53,12 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
             os.path.join(os.path.join(os.path.expanduser("~")), "Desktop")
         )
 
+    def _update_warning_label(self):
+        if self.yes_rt_plot_radio.isChecked():
+            self.label_warning.show()
+        else:
+            self.label_warning.hide()
+            
     def update_com_ports(self):  # Updating com ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
         selected = self.device_combo.currentText()
@@ -143,7 +152,12 @@ class GetModel_Arduino_Widget(QWidget, Ui_Arduino_GetModel_W):
             g.ts = self.Ts_in.value()
             g.start_save_time = self.save_time_in.value()
             g.session_duration = self.sesh_dur_in.value()
-            g.plot = True if self.plot_radio_group.checkedId() == -2 else False
+            if self.yes_rt_plot_radio.isChecked(): # Assumindo que 'yes_radio' agora significa 'Real time'
+                g.plot_mode = 'realtime'
+            elif self.yes_ate_plot_radio.isChecked(): # Supondo que você criou um radio button com este nome
+                g.plot_mode = 'end'
+            else: # self.No_radio.isChecked()
+                g.plot_mode = 'no'
             g.save = True if self.save_radio_group.checkedId() == -2 else False
             g.path = self.path_line_edit.text()
 

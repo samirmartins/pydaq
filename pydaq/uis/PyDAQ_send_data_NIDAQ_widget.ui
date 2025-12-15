@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>527</width>
-    <height>379</height>
+    <width>836</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -252,7 +252,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Choose channel:</string>
+         <string>Channel:</string>
         </property>
        </widget>
       </item>
@@ -278,16 +278,36 @@ QPushButton#reload_devices:pressed{
         </layout>
        </widget>
       </item>
-      <item row="3" column="2" alignment="Qt::AlignLeft">
+      <item row="3" column="2" alignment="Qt::AlignmentFlag::AlignLeft">
        <widget class="QWidget" name="widget_7" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QRadioButton" name="yes_plot_radio">
+          <widget class="QRadioButton" name="yes_rt_plot_radio">
            <property name="text">
-            <string>Yes</string>
+            <string>Real time</string>
            </property>
            <property name="checked">
-            <bool>true</bool>
+            <bool>false</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">plot_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_warning">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &amp;lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/imgs/imgs/Warning_logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="yes_ate_plot_radio">
+           <property name="text">
+            <string>At the end</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">plot_radio_group</string>
@@ -298,6 +318,9 @@ QPushButton#reload_devices:pressed{
           <widget class="QRadioButton" name="no_plot_radio">
            <property name="text">
             <string>No</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">plot_radio_group</string>
@@ -322,7 +345,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignmentFlag::AlignVCenter">
           <widget class="QLineEdit" name="path_line_edit">
            <property name="minimumSize">
             <size>
@@ -338,7 +361,7 @@ QPushButton#reload_devices:pressed{
            </property>
           </widget>
          </item>
-         <item alignment="Qt::AlignVCenter">
+         <item alignment="Qt::AlignmentFlag::AlignVCenter">
           <widget class="QPushButton" name="path_folder_browse">
            <property name="minimumSize">
             <size>
@@ -353,7 +376,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -375,11 +398,11 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Choose device:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0" alignment="Qt::AlignVCenter">
+      <item row="5" column="0" alignment="Qt::AlignmentFlag::AlignVCenter">
        <widget class="QLabel" name="label_8">
         <property name="minimumSize">
          <size>
@@ -394,7 +417,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Data path</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -416,19 +439,19 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="decimals">
-            <number>4</number>
+            <number>6</number>
            </property>
            <property name="maximum">
-            <double>999.990000000000009</double>
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
            </property>
            <property name="stepType">
-            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+            <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>0.500000000000000</double>
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -450,14 +473,14 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s)</string>
+         <string>Sample period (s):</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" rowspan="7">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
        </widget>
       </item>
@@ -495,11 +518,11 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Output range (V)</string>
+         <string>Output range (V):</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="2" alignment="Qt::AlignTop">
+      <item row="6" column="2" alignment="Qt::AlignmentFlag::AlignTop">
        <widget class="QWidget" name="widget_4" native="true">
         <property name="minimumSize">
          <size>
@@ -532,7 +555,7 @@ QPushButton#reload_devices:pressed{
             <item row="0" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>Minimum</string>
+               <string>Minimum:</string>
               </property>
              </widget>
             </item>
@@ -550,11 +573,20 @@ QPushButton#reload_devices:pressed{
                 <height>22</height>
                </size>
               </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="minimum">
+               <double>0.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>999999999999.000000000000000</double>
+              </property>
               <property name="singleStep">
-               <double>0.500000000000000</double>
+               <double>0.010000000000000</double>
               </property>
               <property name="stepType">
-               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+               <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
               </property>
              </widget>
             </item>
@@ -579,7 +611,7 @@ QPushButton#reload_devices:pressed{
             <item row="0" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>Maximum</string>
+               <string>Maximum:</string>
               </property>
              </widget>
             </item>
@@ -597,8 +629,17 @@ QPushButton#reload_devices:pressed{
                 <height>22</height>
                </size>
               </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="maximum">
+               <double>999999999999.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.010000000000000</double>
+              </property>
               <property name="stepType">
-               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+               <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
               </property>
               <property name="value">
                <double>5.000000000000000</double>
@@ -611,7 +652,7 @@ QPushButton#reload_devices:pressed{
          <item row="0" column="1">
           <widget class="Line" name="line_2">
            <property name="orientation">
-            <enum>Qt::Vertical</enum>
+            <enum>Qt::Orientation::Vertical</enum>
            </property>
           </widget>
          </item>
@@ -624,11 +665,11 @@ QPushButton#reload_devices:pressed{
    <item row="1" column="0">
     <widget class="Line" name="line_3">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" alignment="Qt::AlignHCenter">
+   <item row="2" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
     <widget class="QPushButton" name="start_send_data">
      <property name="minimumSize">
       <size>

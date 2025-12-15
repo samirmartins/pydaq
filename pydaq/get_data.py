@@ -1,6 +1,8 @@
 import os
 import time
 import warnings
+import threading
+import queue
 
 import matplotlib.pyplot as plt
 import nidaqmx
@@ -9,6 +11,7 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
+from scipy.signal import lfilter, butter, firwin, filtfilt
 
 
 class GetData(Base):
@@ -33,15 +36,15 @@ class GetData(Base):
     """
 
     def __init__(
-        self,
-        device="Dev1",
-        channel="ai0",
-        terminal="Diff",
-        com="COM1",
-        ts=0.5,
-        session_duration=10.0,
-        save=True,
-        plot=True,
+            self,
+            device="Dev1",
+            channel="ai0",
+            terminal="Diff",
+            com="COM1",
+            ts=0.5,
+            session_duration=10.0,
+            save=True,
+            plot_mode="no", # Options: "realtime", "end", "no"
     ):
         super().__init__()
         self.device = device
@@ -49,14 +52,16 @@ class GetData(Base):
         self.ts = ts
         self.session_duration = session_duration
         self.save = save
-        self.plot = plot
+        self.plot_mode = plot_mode
 
         # Terminal configuration
         self.terminal = self.term_map[terminal]
 
         # Initializing variables
         self.data = []
+        self.data_filtered = []
         self.time_var = []
+        self.coeffs = []
 
         # Gathering nidaq info
         self._nidaq_info()
@@ -84,168 +89,417 @@ class GetData(Base):
         self.ard_ai_max, self.ard_ai_min = 5, 0
 
         # Value per bit - Arduino
-        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / (
-            (2**self.arduino_ai_bits) - 1
-        )
+        self.ard_vpb = (self.ard_ai_max - self.ard_ai_min) / ((2 ** self.arduino_ai_bits)-1)
 
-    def get_data_nidaq(self):
+        # Flag to control the acquisition thread
+        self.acquisition_running = False
+        # Flag to signal plot window closure
+        self.plot_closed_by_user = False
+        self.plot_ready_event = threading.Event()
+
+    def _acquisition_worker_nidaq(self, data_queue):
         """
-            This function can be used for data acquisition and step response experiments using Python + NIDAQ boards.
-
-        :example:
-            get_data_nidaq()
+        This function runs in a separate thread to acquire data from NIDAQ.
+        It does not touch the GUI, it only collects data and puts it on the queue.
         """
+        # Wait for plot to be ready before starting acquisition to synchronize time_now to ~0
+        self.plot_ready_event.wait() 
 
-        # Cleaning data array
-        self.data = []
-        self.time_var = []
-
-        # Checking if path was defined
-        self._check_path()
-
-        # Number of self.cycles necessary
-        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
-
-        # Initializing device, with channel defined
         task = nidaqmx.Task()
-        task.ai_channels.add_ai_voltage_chan(
-            self.device + "/" + self.channel, terminal_config=self.terminal
-        )
-
-        if self.plot:  # If plot, start updatable plot
-            self.title = f"PYDAQ - Data Acquisition. {self.device}, {self.channel}"
-            self._start_updatable_plot()
-
-        # Main loop, where data will be acquired
-        for k in range(self.cycles):
-
-            # Counting time to append data and update interface
-            st = time.time()
-
-            # Acquire data
-            temp = task.read()
-
-            # Queue data in a list
-            self.data.append(temp)
-            self.time_var.append(k * self.ts)
-
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the
-                # for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except BaseException:
+        
+        try:
+            task.ai_channels.add_ai_voltage_chan(
+                self.device + "/" + self.channel, terminal_config=self.terminal
+            )
+            num_cycles_performed = 0
+            
+            st_worker = time.perf_counter()
+            self.st_worker = st_worker
+            
+            for k in range(self.cycles):
+                if not self.acquisition_running:
                     break
+                temp = task.read()
+                time_now = time.perf_counter() - st_worker
+                data_queue.put((time_now, temp))
+                num_cycles_performed += 1
 
-                # Updating data values
-                self._update_plot(self.time_var, self.data)
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+                else:
+                    warnings.warn(
+                        "Time spent to append data and update interface was greater than ts. You CANNOT trust time.dat"
+                    )
+        finally:
+            task.close()
+            data_queue.put(None) # Signal end of data acquisition
+            total_acquisition_duration = time.perf_counter() - st_worker
+            if num_cycles_performed > 0:
+                avg_acquisition_time_per_cycle = total_acquisition_duration / num_cycles_performed
+                print(f"\nAcquisition Thread finished. Total time: {total_acquisition_duration:.5f}s | Cycles acquired: {num_cycles_performed} | Average time per cycle: {avg_acquisition_time_per_cycle:.5f}s")
+            else:
+                print("\nAcquisition Thread finished. No data cycles acquired.")
 
-            print(f"Iteration: {k} of {self.cycles - 1}")
-
-            # Getting end time
-            et = time.time()
-
-            # Wait for (ts - delta_time) seconds
-            try:
-                time.sleep(self.ts + (st - et))
-            except BaseException:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
-
-        # Closing task
-        task.close()
-
-        # Check if data will or not be saved, and save accordingly
-        if self.save:
-            print("\nSaving data ...")
-            # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
-            self._save_data(self.data, "data.dat")
-            print("\nData saved ...")
-
-        return
-
-    def get_data_arduino(self):
+    # Handler for plot window closure
+    def _on_plot_close(self, event):
         """
-            This function can be used for data acquisition and step response experiments using Python + Arduino
-            through serial communication
-
-        :example:
-            get_data_arduino()
+        Event handler for Matplotlib figure closure.
+        Sets acquisition_running to False and plot_closed_by_user to True.
         """
-
-        # Cleaning data array
+        print("Plot window closed by user. Initiating shutdown...")
+        self.acquisition_running = False # Signal acquisition to stop
+        self.plot_closed_by_user = True # Signal that plot was closed manually
+        
+    def get_data_nidaq(self, filter_coefs=None):
+        """
+        Data acquisition method using NI-DAQ and threading.
+        Now includes a secondary plot thread using a complete redraw approach.
+        """
         self.data = []
+        self.data_filtered = []
         self.time_var = []
+        self.coeffs = []
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            self.coeffs = filter_coefs
+        else:
+            self.coeffs = []
 
-        # Check if path was defined
+        data_queue = queue.Queue()
+        self.acquisition_running = True
+        self.plot_closed_by_user = False
+        self.plot_ready_event.clear()
+
         self._check_path()
-
-        # Number of self.cycles necessary
         self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
 
-        # Oppening ports
-        self._open_serial()
+        acquisition_thread = threading.Thread(
+            target=self._acquisition_worker_nidaq,
+            args=(data_queue,),
+            daemon=True
+        )
+        acquisition_thread.start()
 
-        if self.plot:  # If plot, start updatable plot
-            self.title = f"PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}"
-            self._start_updatable_plot()
+        if self.plot_mode == 'realtime':
+            self.title = f"PYDAQ - Data Acquisition. {self.device}, {self.channel}"
+            self._start_updatable_plot(title_str=self.title) 
+            self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            time.sleep(0.5)
+            self.plot_ready_event.set()
+        else:
+            self.plot_ready_event.set()
 
-        time.sleep(2)  # Wait for Arduino and Serial to start up
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
 
-        # Main loop, where data will be acquired
-        for k in range(self.cycles):
+        last_plot_update_time = time.perf_counter()
 
-            # Counting time to append data and update interface
-            st = time.time()
+        while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty():
+            try:
+                item = data_queue.get(timeout=0.01)
 
-            # Acquire data
-            self.ser.reset_input_buffer()  # Reseting serial input buffer
-
-            # Get the last complete value
-            temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
-
-            # Queue data in a list
-            self.data.append(temp)
-            self.time_var.append(k * self.ts)
-
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the
-                # for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except BaseException:
+                if item is None:
+                    self.acquisition_running = False
+                    # Flushes the queue to ensure all data is processed
+                    while not data_queue.empty():
+                        remaining_item = data_queue.get_nowait()
+                        if remaining_item is not None:
+                            timestamp, value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.data.append(value)
                     break
 
-                # Updating data values
-                self._update_plot(self.time_var, self.data)
+                timestamp, value = item
+                self.time_var.append(timestamp)
+                self.data.append(value)
 
-            print(f"Iteration: {k} of {self.cycles - 1}")
+                now = time.perf_counter()
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
+                    # Applies the filter for real-time plotting
+                    if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+                        if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                            b, a = filter_coefs
+                            self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+                        else:
+                            self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
 
-            # Getting end time
-            et = time.time()
+                    self._update_plot(
+                        self.time_var,
+                        self.data,
+                        y2_values=self.data_filtered if self.data_filtered else None,
+                        y1_label="Original Data",
+                        y2_label="Filtered Data"
+                    )
+                    last_plot_update_time = now
 
-            # Wait for (ts - delta_time) seconds
-            try:
-                time.sleep(self.ts + (st - et))
-            except BaseException:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
+            except queue.Empty:
+                time.sleep(0.01)
+                if not self.acquisition_running and data_queue.empty():
+                    break
 
-        # Closing port
-        self.ser.close()
+        acquisition_thread.join()
 
-        # Check if data will or not be saved, and save accordingly
+        # Applies final filter if coefficients are present (to save and plot at the end)
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                b, a = filter_coefs
+                self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+            else:
+                self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
+
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
+            print("Plot remaining open. Close window manually to exit.")
+            plt.show(block=True)
+
+        # NEW BLOCK: Logic to plot at the end
+        if self.plot_mode == 'end' and self.time_var:
+            print("\nGenerating plot at the end of acquisition...")
+            self.title = f"PYDAQ - Final Acquisition: {self.device}, {self.channel}"
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(
+                self.time_var,
+                self.data,
+                y2_values=self.data_filtered if self.data_filtered else None,
+                y1_label="Original Data",
+                y2_label="Filtered Data"
+            )
+            plt.show(block=True) # Keeps the final plot open
+
         if self.save:
             print("\nSaving data ...")
-            # Saving time_var and data
-            self._save_data(self.time_var, "time.dat")
+            time_formated = [f"{t:.10f}" for t in self.time_var]
+            self._save_data(time_formated, "time.dat")
             self._save_data(self.data, "data.dat")
+            if self.data_filtered:
+                self._save_data(self.data_filtered, "data_filtered.dat")
+            if len(self.coeffs) > 0:
+                self._save_data(self.coeffs, "filter_coeffs.dat")
             print("\nData saved ...")
+
+        if self.plot_mode == 'realtime' and self.plot_closed_by_user:
+            plt.ioff()
+            plt.close(self.fig)
         return
+
+    def _acquisition_worker_arduino(self, data_queue):
+        """
+        This function runs in a separate thread to acquire data from Arduino via serial.
+        It does not touch the GUI, it only collects data and puts it on the queue.
+        """
+        # Wait for plot to be ready before starting acquisition to synchronize time_now to ~0
+        self.plot_ready_event.wait()
+
+        num_cycles_performed = 0
+        
+        try:
+            self._open_serial()
+            
+            
+
+            # --- WARM-UP SECTION ---
+            # Send an initial command (b"0") to "wake up" the Arduino.
+            time.sleep(0.05)
+            self.ser.write(b"0")
+            self.ser.reset_input_buffer()
+
+            # Perform a "warm-up read". This is the call that will be slow.
+            # We will not use this data, so we assign it to '_' (discard).
+            _ = self.ser.readline()
+            # --- END WARM-UP SECTION ---
+
+            st_worker = time.perf_counter()
+            self.st_worker = st_worker
+            
+            for k in range(self.cycles):
+                if not self.acquisition_running:
+                    break
+
+                self.ser.reset_input_buffer()
+
+                temp = int(self.ser.read(14).split()[-2].decode("UTF-8")) * self.ard_vpb
+
+                time_now = time.perf_counter() - st_worker
+                data_queue.put((time_now, temp))
+                num_cycles_performed += 1
+
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+                else:
+                    warnings.warn(
+                        "Time spent to append data and update interface was greater than ts. You CANNOT trust time.dat"
+                    )
+        except serial.SerialException as e:
+            warnings.warn(f"Failed to open serial port {self.com_port}: {e}")
+            print(f"ERROR: Failed to open serial port {self.com_port}: {e}")
+            self.acquisition_running = False
+        finally:
+            if hasattr(self, 'ser') and self.ser.is_open:
+                self.ser.close()
+                print(f"Serial port {self.com_port} closed.")
+            data_queue.put(None)
+            total_acquisition_duration = time.perf_counter() - st_worker
+            if num_cycles_performed > 0:
+                avg_acquisition_time_per_cycle = total_acquisition_duration / num_cycles_performed
+                print(f"\nAcquisition Thread finished. Total time: {total_acquisition_duration:.5f}s | Cycles acquired: {num_cycles_performed} | Average time per cycle: {avg_acquisition_time_per_cycle:.5f}s")
+            else:
+                print("\nAcquisition Thread finished. No data cycles acquired.")
+
+    def get_data_arduino(self, filter_coefs=None):
+        """
+        This function can be used for data acquisition and step response experiments using Python + Arduino
+        through serial communication. Now adapted to threading model for consistent plot handling.
+        """
+        self.data = []
+        self.data_filtered = []
+        self.time_var = []
+        self.coeffs = []
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            self.coeffs = filter_coefs
+        else:
+            self.coeffs = []
+
+        data_queue = queue.Queue()
+        self.acquisition_running = True
+        self.plot_closed_by_user = False
+        self.plot_ready_event.clear()
+
+        self._check_path()
+        self.cycles = int(np.floor(self.session_duration / self.ts)) + 1
+
+        acquisition_thread = threading.Thread(
+            target=self._acquisition_worker_arduino,
+            args=(data_queue,), 
+            daemon=True
+        )
+        acquisition_thread.start()
+
+        if self.plot_mode == 'realtime':
+            self.title = f"PYDAQ - Data Acquisition. Arduino, Port: {self.com_port}"
+            self._start_updatable_plot(title_str=self.title)
+            self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
+            time.sleep(0.5)
+            self.plot_ready_event.set()
+        else:
+            # If it is not in real time, release the acquisition immediately.
+            self.plot_ready_event.set()
+
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
+
+        last_plot_update_time = time.perf_counter()
+
+        while (self.acquisition_running and not self.plot_closed_by_user) or not data_queue.empty():
+            try:
+                item = data_queue.get(timeout=0.01)
+
+                if item is None:
+                    self.acquisition_running = False
+                    # Flushes the queue to ensure all data is processed
+                    while not data_queue.empty():
+                        remaining_item = data_queue.get_nowait()
+                        if remaining_item is not None:
+                            timestamp, value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.data.append(value)
+                    break
+
+                timestamp, value = item
+                self.time_var.append(timestamp)
+                self.data.append(value)
+
+                now = time.perf_counter()
+                if self.plot_mode == 'realtime' and (now - last_plot_update_time >= plot_update_interval or not self.acquisition_running):
+                    # Applies the filter for real-time plotting
+                    if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+                        if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                            b, a = filter_coefs
+                            self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+                        else:
+                            self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
+                    
+                    self._update_plot(
+                        self.time_var,
+                        self.data,
+                        y2_values=self.data_filtered if self.data_filtered else None,
+                        y1_label="Original Data",
+                        y2_label="Filtered Data"
+                    )
+                    last_plot_update_time = now
+
+            except queue.Empty:
+                time.sleep(0.01)
+                if not self.acquisition_running and data_queue.empty():
+                    break
+        
+        acquisition_thread.join()
+
+        # Applies final filter if coefficients are present (to save and plot at the end)
+        if filter_coefs is not None and (isinstance(filter_coefs, tuple) or len(filter_coefs) > 0):
+            if isinstance(filter_coefs, tuple) and len(filter_coefs) == 2:
+                b, a = filter_coefs
+                self.data_filtered = lfilter(b, a, np.array(self.data)).tolist()
+            else:
+                self.data_filtered = lfilter(filter_coefs, 1.0, np.array(self.data)).tolist()
+
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
+            print("Plot remaining open. Close window manually to exit.")
+            plt.show(block=True)
+
+        # NEW BLOCK: Logic to plot at the end
+        if self.plot_mode == 'end' and self.time_var:
+            print("\nGenerating plot at the end of acquisition...")
+            self.title = f"PYDAQ - Final Acquisition: Arduino, Port: {self.com_port}"
+            self._start_updatable_plot(title_str=self.title)
+            self._update_plot(
+                self.time_var,
+                self.data,
+                y2_values=self.data_filtered if self.data_filtered else None,
+                y1_label="Original Data",
+                y2_label="Filtered Data"
+            )
+            plt.show(block=True) # Keeps the final plot open
+
+        if self.save:
+            print("\nSaving data ...")
+            time_formated = [f"{t:.10f}" for t in self.time_var]
+            self._save_data(time_formated, "time.dat")
+            self._save_data(self.data, "data.dat")
+            if self.data_filtered:
+                self._save_data(self.data_filtered, "data_filtered.dat")
+            if len(self.coeffs) > 0:
+                self._save_data(self.coeffs, "filter_coeffs.dat")
+            print("\nData saved ...")
+
+        if self.plot_mode == 'realtime' and self.plot_closed_by_user:
+            plt.ioff()
+            plt.close(self.fig)
+
+        return
+
+
+    def _update_plot_dual(self, time_var, data, data_filtered):
+        warnings.warn("`_update_plot_dual` is deprecated. Use `_update_plot` from Base class instead.")
+        plt.ion() # This would cause issues if called within a loop
+
+        fig = plt.gcf()
+        ax = fig.gca()
+
+        ax.clear()
+
+        ax.plot(time_var, data, label="Original Data", color="blue", marker='o', linestyle='-')
+        ax.plot(time_var, data_filtered, label="Filtered Data", color="red", marker='o', linestyle='-')
+
+        ax.set_title(self.title if hasattr(self, 'title') else "Plot")
+        ax.set_xlabel("Time (s)")
+        ax.set_ylabel("Amplitude")
+        ax.grid()
+        ax.legend()
+
+        plt.draw()
+        plt.pause(self.ts)
+        plt.ioff()

@@ -51,7 +51,7 @@ sample_period_in_seconds = 1
 session_duration_in_seconds = 10.0
 step_time_in_seconds = 3.0
 com_port_arduino = 'COM3'
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and send the data
@@ -62,7 +62,7 @@ s = StepResponse(com=com_port_arduino,
                  ts=sample_period_in_seconds,
                  session_duration=session_duration_in_seconds,
                  step_time=step_time_in_seconds,
-                 plot=will_plot
+                 plot_mode=will_plot
                  )
 
 # Method step_response_arduino
@@ -72,3 +72,7 @@ s.step_response_arduino()
 If you choose to plot you can see the data sent on screen, i.e:
 
 ![](img/step_response_arduino.png)
+
+You can see more detailed bellow:
+
+![](img/stepresponse_arduino.gif)

@@ -1,0 +1,297 @@
+from PySide6.QtWidgets import QFileDialog, QWidget
+from pydaq.uis.ui_PyDAQ_Benchmarking import Ui_Form
+from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QIcon
+import time
+import serial
+import serial.tools.list_ports
+import warnings
+import nidaqmx
+import matplotlib.pyplot as plt
+from nidaqmx.system import System
+
+ard_vpb = 1  
+
+class BenchmarkingWidget(QWidget, Ui_Form):
+    def __init__(self, com=None, *args):
+        super(BenchmarkingWidget, self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Arduino Benchmarking")
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
+        self.close_button.released.connect(self.close_window)
+        self.start_button.released.connect(self.inicialize_benchmarking)
+        self.reload_devices.released.connect(self.update_com_ports)
+        self.update_com_ports()
+
+    def update_com_ports(self):  
+        ports = list(serial.tools.list_ports.comports())
+        #self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
+        selected = self.device_box.currentText()
+        self.device_box.clear()
+
+        for p in ports:
+            text = f"{p.device} - {p.description}"
+            self.device_box.addItem(text, p.device)
+        #self.device_box.addItems([p.device for p in ports])
+        index_current = self.device_box.findText(selected)
+
+        if index_current != -1:
+            self.device_box.setCurrentIndex(index_current)
+
+    def close_window(self):
+        self.close()
+
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5.0, allowed_delay_percent=25.0):
+        print(f"Testing Arduino Serial sampling performance for {duration_s} seconds per period...\n")
+        self.value_beench.appendPlainText(f"Testing SERIAL sampling performance for {duration_s} seconds per period...\n")
+        QApplication.processEvents()
+        
+        try:
+            self.com_port = self.device_box.currentData()
+            self.ser = serial.Serial(self.com_port, 115200, timeout=0.05)
+            print(f"✅ Serial Port {self.com_port} opened successfully.")
+        except serial.SerialException as e:
+            warnings.warn(f"⚠️ It was not possible to open the Serial Port {self.com_port}: {e}")
+            print("❌ Aborting benchmarking.")
+            return  
+
+        min_period_recommended = None
+        best_stable_period = None
+        results = []  
+
+        for Ts in period_s:
+            period_s = Ts
+            sample_times = []
+            delays = 0
+            start = time.perf_counter()
+            next_sample_time = start + Ts  
+            sample_count = 0
+
+            while time.perf_counter() - start < duration_s:
+                now = time.perf_counter()
+                if now >= next_sample_time:
+                    t0 = now
+                    try:
+                        line = self.ser.readline().decode("utf-8").strip()
+                        if line.isdigit():
+                            value = int(line) * ard_vpb
+                        else:
+                            continue
+                    except Exception as e:
+                        print("Serial read error:", e)
+                        continue
+
+                    t1 = time.perf_counter()
+                    sample_times.append(t1)
+                    sample_count += 1
+
+                    next_sample_time = start + (sample_count + 1)*Ts
+
+                    if t1 - t0 > period_s:
+                        delays += 1
+                else:
+                    time.sleep(max(0, next_sample_time - now))
+
+            total_samples = len(sample_times)
+            if total_samples < 2:
+                print(f"Period: {period_s:7.5f} s | No valid readings ❌\n")
+                self.value_beench.appendPlainText(f"Period: {period_s:7.5f} s | No valid readings ❌\n")
+                QApplication.processEvents()
+                continue
+
+            
+            intervals = [t2 - t1 for t1, t2 in zip(sample_times[:-1], sample_times[1:])]
+            if len(intervals) > 1:
+                intervals = intervals[1:]
+
+            jitter = max(intervals) - min(intervals) 
+            avg_cycle = sum(intervals) / len(intervals)
+            theoretical_samples = duration_s / period_s
+            delay_percent = (delays / total_samples) * 100
+            status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
+            status2 = "✅ OK" if jitter <= period_s * 0.25 else "⚠️ FAIL"
+
+            print(f"Sample Period: {period_s:7.5f} s | Samples: {total_samples:5} | "
+                f"Theoretical: {theoretical_samples:6.1f} | Avg cycle: {avg_cycle:7.5f} s | "
+                f"Jitter: {jitter:7.3f} s | {status}")
+            self.value_beench.appendPlainText(
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s || {status:<6} | ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | {status2}"
+            )
+            QApplication.processEvents()
+
+            results.append((period_s, avg_cycle, jitter, status))
+
+            if delay_percent <= allowed_delay_percent and jitter <= period_s * 0.25:
+                best_stable_period = period_s
+                min_period_recommended = avg_cycle * 1.2
+
+        if self.ser and self.ser.is_open:
+            self.ser.close()
+            print(f"🔌 Serial Port {self.com_port} closed.")
+
+        if min_period_recommended:
+            print("\n✅ Ideal sampling period (with 20% safety margin): "
+                f"{min_period_recommended:.3f} s")
+            print(f"➡️  You can safely use Ts = {best_stable_period} s or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
+            QApplication.processEvents()
+        else:
+            print("\n❌ No stable sampling period was found. Try higher values or check serial performance.")
+
+        
+        if results:
+            Ts_values = [r[0] for r in results]
+            avg_values = [r[1] for r in results]
+            jitter_values = [r[2] for r in results]
+
+            plt.errorbar(Ts_values, avg_values, yerr=jitter_values, fmt='o-', capsize=5, label="Avg Ts ± Jitter")
+            plt.plot(Ts_values, Ts_values, 'r--', label="Target Ts")
+            plt.xscale("log")
+            plt.yscale("log")
+            plt.xlabel("Target Ts (s)")
+            plt.ylabel("Measured Avg Ts (s)")
+            plt.title("Benchmarking Ts vs Measured Avg Ts")
+            plt.legend()
+            plt.grid(True, which="both", ls="--", lw=0.5)
+            plt.show()
+
+
+class BenchmarkingNIWidget(QWidget, Ui_Form):
+    def __init__(self, nidaq_channel="Dev2/ai0", *args):
+        super().__init__(*args)
+        self.setupUi(self)
+        self.setWindowTitle("NI-DAQ Benchmarking")
+        self.setWindowIcon(QIcon('docs/img/favicon.ico'))
+        self.close_button.released.connect(self.close_window)
+        self.start_button.released.connect(self.inicialize_benchmarking)
+        self.reload_devices.released.connect(self.update_nidaq_devices)
+
+        self.nidaq_channel = None
+        self.task = None
+        self.update_nidaq_devices()
+
+    def update_nidaq_devices(self):
+        system = System.local()
+        selected = self.device_box.currentText()
+        self.device_box.clear()
+
+        for dev in system.devices:
+            for chan in dev.ai_physical_chans:
+                text = f"{chan.name} - {dev.product_type}"
+                self.device_box.addItem(text, chan.name)
+
+        index_current = self.device_box.findText(selected)
+        if index_current != -1:
+            self.device_box.setCurrentIndex(index_current)
+            
+
+    def close_window(self):
+        self.close()
+
+    def inicialize_benchmarking(self, period_s=[1, 0.5, 0.2, 0.1, 0.01, 0.001, 0.0001, 0.00001], duration_s=5.0, allowed_delay_percent=25.0):
+        print(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
+        self.value_beench.appendPlainText(f"Testing NI-DAQ sampling performance for {duration_s} seconds per period...\n")
+        QApplication.processEvents()
+
+        try:
+            self.nidaq_channel = self.device_box.currentData()
+            self.task = nidaqmx.Task()
+            self.task.ai_channels.add_ai_voltage_chan(self.nidaq_channel)
+            print(f"✅ NI-DAQ channel {self.nidaq_channel} initialized successfully.")
+        except Exception as e:
+            print(f"❌ Could not initialize NI-DAQ task: {e}")
+            return
+
+        min_period_recommended = None
+        best_stable_period = None
+        results = []
+
+        for Ts in period_s:
+            period_s = Ts
+            sample_times = []
+            delays = 0
+            start = time.perf_counter()
+            next_sample_time = start + Ts
+            sample_count = 0
+
+            while time.perf_counter() - start < duration_s:
+                now = time.perf_counter()
+                if now >= next_sample_time:
+                    t0 = now
+                    try:
+                        value = self.task.read()
+                    except Exception as e:
+                        print("NI-DAQ read error:", e)
+                        continue
+
+                    t1 = time.perf_counter()
+                    sample_times.append(t1)
+                    sample_count += 1
+                    next_sample_time = start + (sample_count + 1) * Ts
+
+                    if t1 - t0 > Ts:
+                        delays += 1
+                else:
+                    time.sleep(max(0, next_sample_time - now))
+
+            total_samples = len(sample_times)
+            if total_samples < 2:
+                print(f"Period: {Ts:7.5f} s | No valid readings ❌\n")
+                self.value_beench.appendPlainText(f"Period: {Ts:7.5f} s | No valid readings ❌\n")
+                QApplication.processEvents()
+                continue
+
+            intervals = [t2 - t1 for t1, t2 in zip(sample_times[:-1], sample_times[1:])]
+            if len(intervals) > 1:
+                intervals = intervals[1:]  # descarta o primeiro
+
+            jitter = max(intervals) - min(intervals)
+            avg_cycle = sum(intervals) / len(intervals)
+            theoretical_samples = duration_s / Ts
+            delay_percent = (delays / total_samples) * 100
+            status = "✅ OK" if delay_percent <= allowed_delay_percent else "⚠️ FAIL"
+            status2 = "✅ OK" if jitter <= period_s * 0.25 else "⚠️ FAIL"
+
+            print(f"Sample Period: {Ts:7.5f} s | Samples: {total_samples:5} | "
+                  f"Theoretical: {theoretical_samples:7.5f} | Avg cycle: {avg_cycle:7.5f} s | "
+                  f"Jitter: {jitter:7.5f} s | {status}")
+            self.value_beench.appendPlainText(
+                f"Target Ts: {period_s:7.5f} s  | Avg Ts: {avg_cycle:7.5f} s | {status:<6} || ∆Ts = {(max(intervals)-min(intervals)):7.5f} s | {status2}"
+            )
+            QApplication.processEvents()
+
+            results.append((Ts, avg_cycle, jitter, status))
+
+            if delay_percent <= allowed_delay_percent and jitter <= period_s * 0.25:
+                best_stable_period = Ts
+                min_period_recommended = avg_cycle * 1.2
+
+        if self.task:
+            self.task.close()
+            print(f"🔌 NI-DAQ task closed.")
+
+        if min_period_recommended:
+            print("\n✅ Ideal sampling period (with 20% safety margin): "
+                  f"{min_period_recommended:7.5f} s")
+            print(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
+            self.value_beench.appendPlainText(f"➡️  You can safely use Ts = {best_stable_period:7.5f} s or greater.")
+            QApplication.processEvents()
+        else:
+            print("\n❌ No stable sampling period was found. Try higher values or check NI-DAQ performance.")
+
+        if results:
+            Ts_values = [r[0] for r in results]
+            avg_values = [r[1] for r in results]
+            jitter_values = [r[2] for r in results]
+
+            plt.errorbar(Ts_values, avg_values, yerr=jitter_values, fmt='o-', capsize=5, label="Avg Ts ± Jitter")
+            plt.plot(Ts_values, Ts_values, 'r--', label="Target Ts")
+            plt.xscale("log")
+            plt.yscale("log")
+            plt.xlabel("Target Ts (s)")
+            plt.ylabel("Measured Avg Ts (s)")
+            plt.title("NI-DAQ Benchmarking Ts vs Measured Avg Ts")
+            plt.legend()
+            plt.grid(True, which="both", ls="--", lw=0.5)
+            plt.show()
+

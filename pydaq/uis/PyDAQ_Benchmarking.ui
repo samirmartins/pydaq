@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>618</width>
+    <height>639</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background-color: rgb(64, 64, 64);
+}
+
+QTabWidget::pane { 
+   border: 1px solid rgb(166, 166, 166);
+}
+
+QTabBar::tab {
+  	background-color: rgb(77, 77, 77);
+ }
+
+ QTabBar::tab:selected {
+  	background-color: rgb(140, 140, 140);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+ QTabBar::tab:selected:hover {
+  	background-color: rgb(140, 140, 140);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+ QTabBar::tab:hover {
+  	background-color: rgb(109, 109, 109);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+ QTabBar::tab:middle {
+	border-right: 1px dashed rgb(166, 166, 166);
+	border-left: 1px dashed rgb(166, 166, 166);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+ QTabBar::tab:last {
+	border-top-right-radius: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+ QTabBar::tab:first {
+	border-top-left-radius: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
+ }
+
+
+QComboBox QAbstractItemView {
+    background-color: rgb(77, 77, 77);
+}
+
+QComboBox QAbstractItemView::item:focus{
+    background-color: rgb(140, 140, 140);
+}
+
+QDoubleSpinBox{
+	background-color: rgb(77, 77, 77);
+	
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+QDoubleSpinBox::up-button{
+    image: url(:/imgs/imgs/drop_up_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+}
+
+QDoubleSpinBox::up-button:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QDoubleSpinBox::up-button:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QDoubleSpinBox::down-button{
+    image: url(:/imgs/imgs/drop_down_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+}
+
+QDoubleSpinBox::down-button:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QDoubleSpinBox::down-button:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QWidget#centralwidget{
+	background-color: rgb(64, 64, 64);
+}
+
+QWidget{
+	color: rgb(255, 255, 255);
+}
+
+QComboBox{
+	background-color: rgb(77, 77, 77);
+	
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+
+QComboBox::drop-down{
+	image: url(:/imgs/imgs/drop_down_arrow.png);
+	width: 11px;
+
+	background-color: rgb(0, 79, 0);
+	border-top: 2px solid rgb(127, 167, 127);
+	border-left: 2px solid rgb(127, 167, 127);
+
+	border-bottom: 2px solid rgb(0, 0, 0);
+	border-right: 2px solid rgb(0, 0, 0);
+}
+
+QComboBox::drop-down:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QComboBox::drop-down:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QPushButton{
+	background-color: rgb(0, 79, 0);
+
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+
+	
+	font: 12pt &quot;Helvetica&quot;;
+	text-align:center;
+}
+
+QWidget{
+	font: 12pt &quot;Helvetica&quot;;
+}
+
+QPushButton:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QPushButton:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QLineEdit{
+	background-color: rgb(77, 77, 77);
+	border-top: 1.5px solid rgb(46, 46, 46);
+	border-left: 1.5px solid rgb(46, 46, 46);
+
+	border-bottom: 1.5px solid rgb(166, 166, 166);
+	border-right: 1.5px solid rgb(166, 166, 166);
+}
+
+QRadioButton::indicator{
+	border-radius: 6px;
+	border-top: 1.5px solid rgb(0, 0, 0);
+	border-left: 1.5px solid rgb(0, 0, 0);
+
+	border-bottom: 1.5px solid rgb(160, 160, 160);
+	border-right: 1.5px solid rgb(160, 160, 160);
+}
+
+QRadioButton::indicator::checked{
+	background-color: white;
+}
+
+QRadioButton::indicator::unchecked:hover{
+	background-color: #9F9F9F;
+}
+
+QRadioButton::indicator::pressed{
+	border: 1.5px solid #505050
+}
+
+QPushButton#reload_devices{
+	image: url(:/imgs/imgs/reload.png);
+	width: 11px;
+	background-color: rgb(0, 79, 0);
+
+	border-top: 1.5px solid rgb(127, 167, 127);
+	border-left: 1.5px solid rgb(127, 167, 127);
+
+	border-bottom: 1.5px solid rgb(0, 0, 0);
+	border-right: 1.5px solid rgb(0, 0, 0);
+
+	
+	font: 12pt &quot;Helvetica&quot;;
+	text-align:center;
+}
+
+QPushButton#reload_devices:hover{
+	background-color: rgb(0, 50, 0);
+}
+
+QPushButton#reload_devices:pressed{
+	border: 2px solid rgb(255, 255, 255);
+}
+
+QPushButton#logo{
+	background-color: rgb(64, 64, 64);
+	border: 0px;
+}
+
+QPushButton#logo:hover{
+	background-color: rgb(166, 166, 166);
+	border: 1px solid rgb(190, 190, 190) ;
+}
+
+QPushButton#logo:pressed{
+	background-color: rgb(166, 166, 166);
+	border: 1px solid rgb(255, 255, 255) ;
+}
+
+QScrollBar:vertical {
+     border: 1px solid rgb(140, 140, 140);
+     background: rgb(140, 140, 140);
+     width: 17px;
+     margin: 17px 0 17px 0;
+ }
+QScrollBar::handle:vertical {
+     background: rgb(0, 79, 0);
+     min-height: 20px;
+ }
+QScrollBar::add-line:vertical {
+	image: url(:/imgs/imgs/drop_down_arrow.png);
+     border: 1px solid rgb(140, 140, 140);
+     background: rgb(0, 79, 0);
+     height: 15px;
+     subcontrol-position: bottom;
+     subcontrol-origin: margin;
+ }
+
+QScrollBar::sub-line:vertical {
+	image: url(:/imgs/imgs/drop_up_arrow.png);
+     border: 1px solid rgb(140, 140, 140);
+     background: rgb(0, 79, 0);
+     height: 15px;
+     subcontrol-position: top;
+     subcontrol-origin: margin;
+ }
+
+QScrollBar::add-line:vertical:pressed {
+    border: 1px solid rgb(255, 255, 255);
+	background: rgb(0, 79, 0)
+ }
+
+QScrollBar::sub-line:vertical:pressed {
+	border: 1px solid rgb(255, 255, 255);
+	background: rgb(0, 79, 0)
+ }
+
+QScrollBar::add-line:vertical:hover {
+     background-color: rgb(0, 50, 0);
+ }
+
+QScrollBar::sub-line:vertical:hover {
+    background-color: rgb(0, 50, 0);
+ }
+
+QScrollBar::handle:vertical:pressed {
+    border: 1px solid rgb(255, 255, 255);
+	background: rgb(0, 79, 0)
+ }
+
+QScrollBar::handle:vertical:hover {
+    background-color: rgb(0, 50, 0);
+ }
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+
+QScrollArea{
+	border: none;
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="4" column="0">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="start_button">
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="close_button">
+        <property name="text">
+         <string>Close</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="minimumSize">
+      <size>
+       <width>600</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>600</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Helvetica</family>
+       <pointsize>12</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+       <underline>false</underline>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="text">
+      <string>This screen is used to evaluate your computer’s performance by testing different sampling periods (Ts).
+The sampling period (Ts) is the time interval between two consecutive measurements. Its inverse (1/Ts) is the sampling frequency, which indicates how many samples are acquired per second.
+
+By measuring how your system behaves for different Ts values, you can determine the maximum sampling rate your computer can reliably sustain without delays or data loss. This information is crucial for applications that involve high-speed data acquisition or real-time signal processing, where maintaining a stable and predictable Ts ensures accuracy and prevents aliasing or missed events.</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::PlainText</enum>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignJustify|Qt::AlignmentFlag::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Helvetica</family>
+       <pointsize>-1</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size: 24px;</string>
+     </property>
+     <property name="text">
+      <string>Benchmarking</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPlainTextEdit" name="value_beench">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>400</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QWidget" name="device_widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Device: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="device_box"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="reload_devices">
+        <property name="maximumSize">
+         <size>
+          <width>25</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

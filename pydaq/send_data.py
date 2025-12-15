@@ -1,6 +1,8 @@
 import os
 import time
 import warnings
+import threading
+import queue
 
 import matplotlib.pyplot as plt
 import nidaqmx
@@ -8,7 +10,6 @@ import numpy as np
 import serial
 import serial.tools.list_ports
 from pydaq.utils.base import Base
-
 
 class SendData(Base):
     """
@@ -38,18 +39,18 @@ class SendData(Base):
         ts=0.5,
         ao_min=0,
         ao_max=5,
-        plot=True,
+        plot_mode="no", # Options: "realtime", "end", "no"
     ):
 
         super().__init__()
         self.device = device
         self.channel = channel
         self.ts = ts
-        self.plot = plot
+        self.plot_mode = plot_mode
         self.ao_min = ao_min
         self.ao_max = ao_max
 
-        if type(data) == list:
+        if data is not None and type(data) == list:
             self.data = np.array(data)
         else:
             self.data = data
@@ -57,28 +58,71 @@ class SendData(Base):
         # Gathering nidaq info
         self._nidaq_info()
 
-        # Time variable
+        # Time variable for plotting progress
         self.time_var = []
+        # History of sent data for plotting
+        self.sent_data_history = []
 
         # Defining default path
         self.path = os.path.join(
             os.path.join(os.path.expanduser("~")), "Desktop", "data.dat"
         )
 
-        # Error flags
-        self.error_max, self.error_path = False, False
-
         # COM ports
         self.com_ports = [i.description for i in serial.tools.list_ports.comports()]
-        self.com_port = com  # Default COM port
+        self.com_port = com
 
-        # Number of necessary cycles
-        self.cycles = None
-
-        # Plot title
+        # Plot title and legend
         self.title = None
-
         self.legend = ["Output"]
+
+        # Threading control
+        self.sending_running = False
+        self.plot_closed_by_user = False
+        self.plot_ready_event = threading.Event()
+
+    # Handler for plot window closure
+    def _on_plot_close(self, event):
+        """..."""
+        print("Plot window closed by user. Halting data sending...")
+        self.sending_running = False
+        self.plot_closed_by_user = True
+
+    def _send_data_worker_nidaq(self, progress_queue):
+        self.plot_ready_event.wait() # Wait for plot to be ready
+
+        try:
+            task = nidaqmx.Task()   # cria primeiro
+
+            task.ao_channels.add_ao_voltage_chan(
+                f"{self.device}/{self.channel}",
+                min_val=float(self.ao_min),
+                max_val=float(self.ao_max),
+            )
+
+            cycles = len(self.data)
+            
+            st_worker = time.perf_counter()
+
+            for k in range(cycles):
+                if not self.sending_running:
+                    break
+
+                current_value = self.data[k]
+                task.write(current_value)
+                
+                time_now = time.perf_counter() - st_worker
+                
+                # Put progress on the queue for the main thread to plot
+                progress_queue.put((time_now, current_value))
+
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+        finally:
+            task.write(0) # Ensure output is zeroed at the end
+            task.close()
+            progress_queue.put(None) # Signal end of sending
 
     def send_data_nidaq(self):
         """
@@ -88,69 +132,125 @@ class SendData(Base):
             send_data_nidaq()
         """
 
-        # Checking if there is data to be sent
         if self.data is None:
-            warnings.warn(
-                "You must define data that will be sent to the board. Please, re-run the code providing them"
-            )
+            warnings.warn("You must define data to be sent.")
             return
 
-        # Number of cycles necessary
-        self.cycles = len(self.data)
+        self.time_var, self.sent_data_history = [], []
+        progress_queue = queue.Queue()
+        self.sending_running = True
+        self.plot_closed_by_user = False
+        self.plot_ready_event.clear()
 
-        # Initializing device, with channel defined
-        task = nidaqmx.Task()
-        task.ao_channels.add_ao_voltage_chan(
-            self.device + "/" + self.channel,
-            min_val=float(self.ao_min),
-            max_val=float(self.ao_max),
+        sending_thread = threading.Thread(
+            target=self._send_data_worker_nidaq,
+            args=(progress_queue,),
+            daemon=True
         )
+        sending_thread.start()
 
-        if self.plot:  # If plot, start updatable plot
+        if self.plot_mode == 'realtime':
             self.title = f"PYDAQ - Sending Data. {self.device}, {self.channel}"
-            self._start_updatable_plot()
+            self._start_updatable_plot(title_str=self.title)
+            self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
 
-        # Main loop, where data will be sent
-        for k in range(self.cycles):
+            # Add a short delay to allow the plot window to open fully
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
+            time.sleep(0.5)
 
-            # Counting time to append data and update interface
-            st = time.time()
+            self.plot_ready_event.set()
+        else:
+            self.plot_ready_event.set()
 
-            # Sending data
-            task.write(self.data[k])
+        # Control variables for periodic plot update
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
+            
+        last_plot_time = time.perf_counter()
 
-            # Queue data in a list
-            self.time_var.append(k * self.ts)
+        # Main loop to consume progress and update plot
+        while (self.sending_running and not self.plot_closed_by_user) or not progress_queue.empty():
+            try:
+                item = progress_queue.get(timeout=0.01)
 
-            if self.plot:
-
-                # Checking if there is still an open figure. If not, stop the for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except:
+                if item is None:
+                    self.sending_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not progress_queue.empty():
+                        remaining_item = progress_queue.get_nowait()
+                        if remaining_item:
+                            timestamp, sent_value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.sent_data_history.append(sent_value)
                     break
 
-                # Updating data values
-                self._update_plot(self.time_var, self.data[0 : k + 1])
+                timestamp, sent_value = item
+                self.time_var.append(timestamp)
+                self.sent_data_history.append(sent_value)
 
-            print(f"Iteration: {k} of {self.cycles - 1}")
+                now = time.perf_counter()
+                # Improved plot condition to ensure the final frame is drawn
+                if self.plot_mode == 'realtime' and (now - last_plot_time >= plot_update_interval or not self.sending_running):
+                    self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+                    last_plot_time = now
+            
+            except queue.Empty:
+                time.sleep(0.01)
+                if not self.sending_running and progress_queue.empty():
+                    break
 
-            # Getting end time
-            et = time.time()
+        sending_thread.join()
 
-            # Wait for (ts - delta_time) seconds
-            try:
-                time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
-
-        # Closing task
-        task.close()
+        # Plotting at the end logic remains the same
+        if self.plot_mode == 'end' and self.sent_data_history:
+            self.title = f"PYDAQ - Final Sent Data (NIDAQ)"
+            self._start_updatable_plot(title_str=self.title)
+            # Use the actual sent data history for the final plot
+            self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+            plt.show(block=True)
+            
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
+            print("\nPlot remains open. Close window manually to exit.")
+            plt.show(block=True)
 
         return
+
+    def _send_data_worker_arduino(self, progress_queue):
+        self.plot_ready_event.wait()
+        
+        # This logic is specific to sending digital signals based on a voltage threshold
+        data_to_send = [b"1" if i > 2.5 else b"0" for i in self.data]
+        cycles = len(data_to_send)
+
+        try:
+            self._open_serial()
+            time.sleep(0.5) # Wait for serial to settle
+            
+            st_worker = time.perf_counter()
+
+            for k in range(cycles):
+                if not self.sending_running:
+                    break
+                
+                self.ser.write(data_to_send[k])
+                
+                time_now = time.perf_counter() - st_worker
+                # Send original data value for plotting, not the b'1'/b'0'
+                progress_queue.put((time_now, self.data[k]))
+
+                wait_time = (st_worker + (k + 1) * self.ts) - time.perf_counter()
+                if wait_time > 0:
+                    time.sleep(wait_time)
+        
+        except serial.SerialException as e:
+            warnings.warn(f"Failed to open or use serial port {self.com_port}: {e}")
+        finally:
+            if hasattr(self, 'ser') and self.ser.is_open:
+                self.ser.write(b"0")
+                self.ser.close()
+            progress_queue.put(None)
 
     def send_data_arduino(self):
         """
@@ -161,71 +261,86 @@ class SendData(Base):
         :example:
             send_data_arduino()
         """
-
-        # Checking if there is data to be sent
         if self.data is None:
-            warnings.warn(
-                "You must define data that will be sent to the board. Please, re-run the code providing them"
-            )
+            warnings.warn("You must define data to be sent.")
             return
 
-        # Number of cycles necessary
-        self.cycles = len(self.data)
+        self.time_var, self.sent_data_history = [], []
+        progress_queue = queue.Queue()
+        self.sending_running = True
+        self.plot_closed_by_user = False
+        self.plot_ready_event.clear()
 
-        # Opening ports and serial communication
-        self._open_serial()
+        sending_thread = threading.Thread(
+            target=self._send_data_worker_arduino,
+            args=(progress_queue,),
+            daemon=True
+        )
+        sending_thread.start()
 
-        # Rearranjing data to be send and also loaded data
-        self.data_send = list(self.data).copy()
-        self.data_send = [b"1" if i > 2.5 else b"0" for i in self.data]
-        self.data = np.array(self.data)
-
-        if self.plot:  # If plot, start updatable plot
+        if self.plot_mode == 'realtime':
             self.title = f"PYDAQ - Sending Data. Arduino, Port: {self.com_port}"
-            self._start_updatable_plot()
+            self._start_updatable_plot(title_str=self.title)
+            self.fig.canvas.mpl_connect('close_event', self._on_plot_close)
 
-        time.sleep(2)  # Wait for Arduino and Serial to start up
-        print(self.cycles)
-        # Main loop, where data will be sent
-        for k in range(self.cycles):
+            # Add a short delay to allow the plot window to open fully
+            print("\nReal-time plot started. Waiting 0.5s for the window to render...")
+            time.sleep(0.5)
 
-            # Counting time to append data and update interface
-            st = time.time()
+            self.plot_ready_event.set()
+        else:
+            self.plot_ready_event.set()
 
-            # Sending data
-            self.ser.reset_input_buffer()  # Reseting serial input buffer
-            self.ser.write(self.data_send[k])
+        # Control variables for periodic plot update
+        if self.ts >= 0.05:
+            plot_update_interval = 0.05
+        else:
+            plot_update_interval = 0.25
 
-            # Queue data in a list
-            self.time_var.append(k * self.ts)
+        last_plot_time = time.perf_counter()
 
-            if self.plot:
+        # Main loop to consume progress and update plot
+        while (self.sending_running and not self.plot_closed_by_user) or not progress_queue.empty():
+            try:
+                item = progress_queue.get(timeout=0.01)
 
-                # Checking if there is still an open figure. If not, stop the for loop.
-                try:
-                    plt.get_figlabels().index("iter_plot")
-                except:
+                if item is None:
+                    self.sending_running = False
+                    # Drain the queue to ensure all data is processed
+                    while not progress_queue.empty():
+                        remaining_item = progress_queue.get_nowait()
+                        if remaining_item:
+                            timestamp, sent_value = remaining_item
+                            self.time_var.append(timestamp)
+                            self.sent_data_history.append(sent_value)
+                    break
+                
+                timestamp, sent_value = item
+                self.time_var.append(timestamp)
+                self.sent_data_history.append(sent_value)
+
+                now = time.perf_counter()
+                # Improved plot condition to ensure the final frame is drawn
+                if self.plot_mode == 'realtime' and (now - last_plot_time >= plot_update_interval or not self.sending_running):
+                    self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+                    last_plot_time = now
+            
+            except queue.Empty:
+                time.sleep(0.01)
+                if not self.sending_running and progress_queue.empty():
                     break
 
-                # Updating data values
-                self._update_plot(self.time_var, self.data[0 : k + 1])
+        sending_thread.join()
 
-            print(f"Iteration: {k} of {self.cycles - 1}")
-
-            # Getting end time
-            et = time.time()
-
-            # Wait for (ts - delta_time) seconds
-            try:
-                time.sleep(self.ts + (st - et))
-            except:
-                warnings.warn(
-                    "Time spent to append data and update interface was greater than ts. "
-                    "You CANNOT trust time.dat"
-                )
-
-        # Turning off the output
-        self.ser.write(b"0")
-        # Closing port
-        self.ser.close()
+        if self.plot_mode == 'end' and self.sent_data_history:
+            self.title = f"PYDAQ - Final Sent Data (Arduino)"
+            self._start_updatable_plot(title_str=self.title)
+            # Use the actual sent data history for the final plot
+            self._update_plot(self.time_var, self.sent_data_history, y1_label="Sent Data")
+            plt.show(block=True)
+        
+        if self.plot_mode == 'realtime' and not self.plot_closed_by_user:
+            print("\nPlot remains open. Close window manually to exit.")
+            plt.show(block=True)
+            
         return
