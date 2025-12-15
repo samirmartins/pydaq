@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pydaq"
-version = "0.0.5.1"
+version = "0.0.6"
 license = { file = "LICENSE" }
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["Python", "Data Acquisition", "Arduino", "NIDAQ"]
 authors = [
   { name="Samir Angelo Milani Martins", email="milani.martins@gmail.com" },
