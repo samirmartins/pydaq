@@ -16,7 +16,7 @@ self.ard_ai_max = 5
 self.ard_ai_min = 0
 ```
 
-## Data Acquitition using Graphical User Interface (GUI)
+## Data Acquisition using Graphical User Interface (GUI)
 
 Using GUI to acquire data is really straighforward and require only
 two LOC (lines of code):
@@ -38,7 +38,7 @@ The user is now able to select desired device, sample period and session duratio
 the user will define if the data will or not be plotted and saved, as well as the path to
 save data.
 
-## Data Acquitition using command line
+## Data Acquisition using command line
 
 It will be presented how to use GetData (and get_data_arduino) to acquire signal using an Arduino board.
 
@@ -53,7 +53,7 @@ sample_period_in_seconds = 1
 session_duration_in_seconds = 10.0
 com_port_arduino = 'COM3'
 save_data = True
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and get the data
@@ -64,7 +64,7 @@ g = GetData(com=com_port_arduino,
             ts=sample_period_in_seconds,
             session_duration=session_duration_in_seconds,
             save=save_data,
-            plot=will_plot)
+            plot_mode=will_plot)
 
 # Method get_data_arduino
 g.get_data_arduino()
@@ -88,3 +88,7 @@ If you choose to plot you can see acquired data on screen, i.e:
 Data will also be saved as depicted below:
 
 ![](img/data.png)
+
+You can see more detailed bellow: 
+
+![](img/getdata_arduino.gif)

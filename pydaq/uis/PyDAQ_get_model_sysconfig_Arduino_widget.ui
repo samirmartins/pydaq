@@ -266,7 +266,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Input Lag</string>
+         <string>Input lag:</string>
         </property>
        </widget>
       </item>
@@ -285,7 +285,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Number of information values</string>
+         <string>Number of information values:</string>
         </property>
        </widget>
       </item>
@@ -295,7 +295,10 @@ QPushButton#reload_devices:pressed{
          <item>
           <widget class="QSpinBox" name="perc_data_val_in">
            <property name="minimum">
-            <number>10</number>
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>999999999</number>
            </property>
           </widget>
          </item>
@@ -325,6 +328,9 @@ QPushButton#reload_devices:pressed{
              <height>12</height>
             </size>
            </property>
+           <property name="maximum">
+            <number>999999999</number>
+           </property>
            <property name="value">
             <number>3</number>
            </property>
@@ -350,6 +356,9 @@ QPushButton#reload_devices:pressed{
              <height>22</height>
             </size>
            </property>
+           <property name="maximum">
+            <number>999999999</number>
+           </property>
            <property name="value">
             <number>3</number>
            </property>
@@ -373,17 +382,17 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Degree</string>
+         <string>Degree:</string>
         </property>
        </widget>
       </item>
       <item row="6" column="2">
        <widget class="QWidget" name="widget_9" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item alignment="Qt::AlignLeft">
+         <item alignment="Qt::AlignmentFlag::AlignLeft">
           <widget class="QWidget" name="widget_18" native="true">
            <layout class="QGridLayout" name="gridLayout_15">
-            <item row="1" column="0" alignment="Qt::AlignLeft">
+            <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignLeft">
              <widget class="QRadioButton" name="true_ext_lsq">
               <property name="text">
                <string>True</string>
@@ -429,6 +438,9 @@ QPushButton#reload_devices:pressed{
              <height>22</height>
             </size>
            </property>
+           <property name="maximum">
+            <number>999999999</number>
+           </property>
            <property name="singleStep">
             <number>1</number>
            </property>
@@ -455,7 +467,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Percentage of data for validation </string>
+         <string>Percentage of data for validation :</string>
         </property>
        </widget>
       </item>
@@ -480,7 +492,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Extended least squares algorithm</string>
+         <string>Extended least squares algorithm:</string>
         </property>
        </widget>
       </item>
@@ -499,7 +511,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Estimator</string>
+         <string>Estimator:</string>
         </property>
        </widget>
       </item>
@@ -518,7 +530,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Output Lag</string>
+         <string>Output lag:</string>
         </property>
        </widget>
       </item>
@@ -558,6 +570,9 @@ QPushButton#reload_devices:pressed{
              <height>22</height>
             </size>
            </property>
+           <property name="maximum">
+            <number>999999999</number>
+           </property>
           </widget>
          </item>
         </layout>
@@ -588,7 +603,7 @@ QPushButton#reload_devices:pressed{
       <item row="1" column="1" rowspan="7">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
        </widget>
       </item>
@@ -598,12 +613,10 @@ QPushButton#reload_devices:pressed{
   </layout>
  </widget>
  <resources>
-  <include location="C:/Users/rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
+  <include location="../../../../../../../rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
  </resources>
  <connections/>
  <buttongroups>
   <buttongroup name="extended_lsq_radio_group"/>
-  <buttongroup name="save_radio_group"/>
-  <buttongroup name="plot_radio_group"/>
  </buttongroups>
 </ui>

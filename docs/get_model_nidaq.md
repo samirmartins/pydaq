@@ -52,13 +52,18 @@ By pressing the **Get Model** button, the program will start and the model will 
 # Importing PYDAQ
 from pydaq.get_model import GetModel
 
-device_name = ("Dev1",)
-ao_channel = ("ao0",)
-ai_channel = ("ai0",)
-channel = ("ai0",)
-terminal = ("Diff",)
-ao_min = (0,)
-ao_max = (5,)
+# Defining parameters
+device_name = "Dev1"
+ao_channel = "ao0"
+ai_channel = "ai0"
+channel = "ai0"
+terminal = "Diff"
+ao_min = 0
+ao_max = 5
+session_duration_in_s = 10
+sample_period_in_s = 0.5
+save_data = True
+plot_data = "realtime"
 
 # system identification parameters
 degree = 2
@@ -83,6 +88,11 @@ g = GetModel(
     ao_min=ao_min,
     ao_max=ao_max,
     channel=channel,
+    terminal=terminal,
+    session_duration= session_duration_in_s,
+    ts= sample_period_in_s,
+    save= save_data,
+    plot_mode= plot_data,
     degree=degree,
     start_save_time=start_save_time_in_s,
     out_lag=out_lag,

@@ -67,7 +67,7 @@ com_port_arduino = 'COM3'
 session_duration_in_s = 100
 sample_period_in_s = 0.5
 save_data = True
-plot_data = True
+plot_data = "no"
 
 # system identification parameters
 degree = 2
@@ -90,7 +90,7 @@ g = GetModel(
     session_duration= session_duration_in_s,
     ts= sample_period_in_s,
     save= save_data,
-    plot= plot_data,
+    plot_mode= plot_data,
     degree= 2,
     start_save_time= start_save_time_in_s,
     out_lag= out_lag,

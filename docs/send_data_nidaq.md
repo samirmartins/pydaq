@@ -43,7 +43,7 @@ sample_period_in_seconds = 1
 data = [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4]  # It can be either a list or a numpy array
 ao_min = 0  # Minimum allowed analog output value
 ao_max = 5  # Maximum allowed analog output value
-will_plot = True
+will_plot = "no" # Can be realtime, end or no
 ```
 
 Then, instantiate a class with defined parametes and send the data
@@ -56,7 +56,7 @@ s = SendData(data=data,
              ts=sample_period_in_seconds,
              ao_min=ao_min,
              ao_max=ao_max,
-             plot=will_plot)
+             plot_mode=will_plot)
 
 # Method send_data_nidaq
 s.send_data_nidaq()

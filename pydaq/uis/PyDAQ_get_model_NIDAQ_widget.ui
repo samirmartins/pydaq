@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>662</height>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,7 +285,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string> Browse </string>
+            <string> BROWSE </string>
            </property>
           </widget>
          </item>
@@ -309,8 +309,14 @@ QPushButton#reload_devices:pressed{
              <height>22</height>
             </size>
            </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
            <property name="maximum">
-            <double>86000.000000000000000</double>
+            <double>999999999999.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
            </property>
           </widget>
          </item>
@@ -332,7 +338,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Input Signal</string>
+         <string>Input signal:</string>
         </property>
        </widget>
       </item>
@@ -347,9 +353,22 @@ QPushButton#reload_devices:pressed{
        <widget class="QWidget" name="widget_4" native="true">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QRadioButton" name="yes_plot_radio">
+          <widget class="QRadioButton" name="yes_rt_plot_radio">
            <property name="text">
-            <string>Yes</string>
+            <string>Real time</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">plot_radio_group</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QRadioButton" name="no_plot_radio">
+           <property name="text">
+            <string>No</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -359,14 +378,24 @@ QPushButton#reload_devices:pressed{
            </attribute>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QRadioButton" name="no_plot_radio">
+         <item row="0" column="2">
+          <widget class="QRadioButton" name="yes_ate_plot_radio">
            <property name="text">
-            <string>No</string>
+            <string>At the end</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">plot_radio_group</string>
            </attribute>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_warning">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Selecting Real Time may reduce your acquisition performance if you need to collect data at high frequencies ( sample period &amp;lt; 0.05 s ). We suggest plotting at the end of the acquisition if you don't want to be affected.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/imgs/imgs/Warning_logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
           </widget>
          </item>
         </layout>
@@ -393,7 +422,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Path</string>
+         <string>Path:</string>
         </property>
        </widget>
       </item>
@@ -412,7 +441,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Choose device:</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -437,7 +466,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>System Identification</string>
+         <string>System identification:</string>
         </property>
        </widget>
       </item>
@@ -494,10 +523,10 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="decimals">
-            <number>2</number>
+            <number>6</number>
            </property>
            <property name="maximum">
-            <double>86400.000000000000000</double>
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
@@ -506,7 +535,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>150.000000000000000</double>
+            <double>100.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -528,7 +557,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Start saving data (s)</string>
+         <string>Start saving data (s):</string>
         </property>
        </widget>
       </item>
@@ -614,7 +643,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Session duration (s)</string>
+         <string>Session duration (s):</string>
         </property>
        </widget>
       </item>
@@ -643,7 +672,7 @@ QPushButton#reload_devices:pressed{
       <item row="1" column="0">
        <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Choose channel ai:</string>
+         <string>Channel ai:</string>
         </property>
        </widget>
       </item>
@@ -653,7 +682,7 @@ QPushButton#reload_devices:pressed{
          <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignHCenter">
           <widget class="QPushButton" name="system_settings_button">
            <property name="text">
-            <string>Advanced Settings</string>
+            <string> ADVANCED SETTINGS </string>
            </property>
           </widget>
          </item>
@@ -713,7 +742,7 @@ QPushButton#reload_devices:pressed{
          </size>
         </property>
         <property name="text">
-         <string>Sample period (s)</string>
+         <string>Sample period (s):</string>
         </property>
        </widget>
       </item>
@@ -766,7 +795,7 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="text">
-            <string>Config Signal</string>
+            <string> CONFIG SIGNAL </string>
            </property>
           </widget>
          </item>
@@ -791,10 +820,13 @@ QPushButton#reload_devices:pressed{
             </size>
            </property>
            <property name="decimals">
-            <number>2</number>
+            <number>6</number>
            </property>
            <property name="minimum">
-            <double>0.010000000000000</double>
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>999999999999.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.010000000000000</double>
@@ -803,7 +835,7 @@ QPushButton#reload_devices:pressed{
             <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
            </property>
            <property name="value">
-            <double>0.500000000000000</double>
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -813,7 +845,7 @@ QPushButton#reload_devices:pressed{
       <item row="2" column="0">
        <widget class="QLabel" name="label_12">
         <property name="text">
-         <string>Choose channel ao:</string>
+         <string>Channel ao:</string>
         </property>
        </widget>
       </item>
@@ -880,11 +912,11 @@ QPushButton#reload_devices:pressed{
   </layout>
  </widget>
  <resources>
-  <include location="C:/Users/rafar/OneDrive/Documentos/IC - PySide/pydaq/uis/resources_1.qrc"/>
+  <include location="resources_1.qrc"/>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="plot_radio_group"/>
   <buttongroup name="save_radio_group"/>
+  <buttongroup name="plot_radio_group"/>
  </buttongroups>
 </ui>
