@@ -14,8 +14,6 @@
 [![stars](https://img.shields.io/github/stars/samirmartins/pydaq?color=a26969&style=social)](https://github.com/samirmartins/pydaq/stargazers)
 
 
-
-
 # PYDAQ - Data Acquisition and Experimental Analysis with Python
 
 ## www.pydaq.org

@@ -63,7 +63,7 @@ plugins:
       min_length: 50
       max_length: 160
       trim: false
-      
+
 markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
