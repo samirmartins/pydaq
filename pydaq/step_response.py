@@ -285,7 +285,7 @@ class StepResponse(Base):
             plt.show(block=False) # Show the plot without blocking the code
 
         if self.plot_mode == 'end' and self.time_var:
-            self.title = f"PYDAQ - Final Step Response (Arduino)"
+            self.title = f"PYDAQ - Step Response (Arduino)"
             self._start_updatable_plot(title_str=self.title)
             self._update_plot(
                 self.time_var[0:-1],
@@ -470,7 +470,7 @@ class StepResponse(Base):
             plt.show(block=False) # Show the plot without blocking the code
 
         if self.plot_mode == 'end' and self.time_var:
-            self.title = f"PYDAQ - Final Step Response (NIDAQ)"
+            self.title = f"PYDAQ - Step Response (NIDAQ)"
             self._start_updatable_plot(title_str=self.title)
             self._update_plot(
                 self.time_var,
