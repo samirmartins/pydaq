@@ -81,7 +81,7 @@ PYDAQ requires:
 - pyserial (>=3.5) to manage data to/from Arduino
 - sysidentpy (==0.3.4) and bitarray (>=3.0.0) for model acquisition/signal generation
 - packaging (>=24.1)
-- scipy (>=1.16.1, Python-version dependent) for digital filters and PID Control.
+- scipy (>=1.16.1) for digital filters and PID Control.
 
 **NOTE 1:** In this version of pydaq (0.0.6), [(NI-DAQmx drivers)](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676) must be installed, even if 
 the user is only using Arduino Boards. This issue will be addressed in future versions, allowing

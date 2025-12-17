@@ -35,7 +35,7 @@ PYDAQ requires:
 * `pyserial (>=3.5)` for communication with Arduino boards
 * `sysidentpy (==0.3.4)` and `bitarray (>=3.0.0)` for system identification and signal generation
 * `packaging (>=24.1)`
-* `scipy (>=1.16.1, Python-version dependent)` for digital filters and PID control
+* `scipy (>=1.16.1)` for digital filters and PID control
 
 **Note:** In version **v0.0.6**, NI-DAQmx drivers must be installed even if only Arduino boards are used. This limitation will be addressed in future releases.
 
