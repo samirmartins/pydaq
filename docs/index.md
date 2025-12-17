@@ -116,3 +116,29 @@ This section provides Jupyter Notebook examples demonstrating PYDAQ functionalit
 <p align="center">
   <img src="img/new_gif.gif" alt="PYDAQ GUI preview" class="center" width="75%" height="75%">
 </p>
+
+---
+CITATION
+---
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.05662/status.svg)](https://doi.org/10.21105/joss.05662)
+
+This is the **seminal publication** of the PYDAQ project and **must be cited** in any work that uses PYDAQ.
+
+- Martins, S. A. M. (2023). *PYDAQ: Data Acquisition and Experimental Analysis with Python*. Journal of Open Source Software, 8(92), 5662. https://doi.org/10.21105/joss.05662
+
+```bibtex
+@article{Martins_PYDAQ_Data_Acquisition_2023,
+  author  = {Martins, Samir Angelo Milani},
+  doi     = {10.21105/joss.05662},
+  journal = {Journal of Open Source Software},
+  month   = dec,
+  number  = {92},
+  pages   = {5662},
+  title   = {{PYDAQ: Data Acquisition and Experimental Analysis with Python}},
+  url     = {https://joss.theoj.org/papers/10.21105/joss.05662},
+  volume  = {8},
+  year    = {2023}
+}
+```
+Additional related publications that contributed to the development of PYDAQ are available in the [`papers`](https://github.com/samirmartins/pydaq/tree/main/papers) directory.
+
