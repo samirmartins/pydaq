@@ -1,0 +1,34 @@
+include README.md
+include LICENSE
+include CITATION.cff
+include CHANGELOG
+include CONTRIBUTING.md
+include pyproject.toml
+
+recursive-include pydaq/arduino_code *.ino
+recursive-include pydaq/tools *.exe
+
+prune docs
+prune examples
+prune papers
+prune site
+prune build
+prune dist
+prune .github
+prune .venv
+prune .venv-build
+
+global-exclude **pycache**
+global-exclude *.py[cod]
+global-exclude *.pyo
+global-exclude .DS_Store
+global-exclude *.pdf
+global-exclude *.gif
+global-exclude *.mp4
+global-exclude *.avi
+global-exclude *.mov
+global-exclude *.zip
+global-exclude *.dat
+global-exclude *.csv
+global-exclude *.ipynb
+global-exclude *.ipynb_checkpoints
