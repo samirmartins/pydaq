@@ -16,17 +16,14 @@ device">
         <link rel="canonical" href="https://www.pydaq.org/get_data_nidaq/">
       
       
-        <link rel="prev" href="../benchmarking/">
+        <link rel="prev" href="..">
       
       
         <link rel="next" href="../digital_filters_nidaq/">
       
       
-        
-      
-      
       <link rel="icon" href="../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -34,10 +31,10 @@ device">
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -62,6 +59,7 @@ device">
 
     
     
+    
   </head>
   
   
@@ -81,7 +79,7 @@ device">
     <div data-md-component="skip">
       
         
-        <a href="#data-acquisition-with-nidaq-boards" class="md-skip">
+        <a href="#data-acquisition-with-ni-daq-boards" class="md-skip">
           Skip to content
         </a>
       
@@ -199,7 +197,7 @@ device">
         <a href="https://github.com/samirmartins/pydaq" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     samirmartins/pydaq
@@ -244,7 +242,7 @@ device">
       <a href="https://github.com/samirmartins/pydaq" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     samirmartins/pydaq
@@ -266,41 +264,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
     
   </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../benchmarking/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Bechmarking
-  
-
-    
-  </span>
-  
   
 
       </a>
@@ -325,35 +291,26 @@ device">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    
-  
     Data Acquisition
-  
-
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Data Acquisition
-  
-
+            Data Acquisition
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -374,35 +331,26 @@ device">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    NIDAQ
-  
-
+            NIDAQ
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -427,14 +375,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Get Data
-  
-
     
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -445,14 +388,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Get Data
-  
-
     
   </span>
-  
   
 
       </a>
@@ -475,9 +413,7 @@ device">
         <li class="md-nav__item">
   <a href="#data-acquisition-using-graphical-user-interface-gui" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition using Graphical User Interface (GUI)
-      
+      Data Acquisition using Graphical User Interface (GUI)
     </span>
   </a>
   
@@ -486,9 +422,7 @@ device">
         <li class="md-nav__item">
   <a href="#data-acquisition-using-command-line" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition using command line
-      
+      Data Acquisition using command line
     </span>
   </a>
   
@@ -497,9 +431,7 @@ device">
         <li class="md-nav__item">
   <a href="#presenting-the-acquired-data" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Presenting the acquired data
-      
+      Presenting the acquired data
     </span>
   </a>
   
@@ -526,14 +458,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Digital Filters
-  
-
     
   </span>
-  
   
 
       </a>
@@ -565,35 +492,26 @@ device">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
         
           
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Arduino
-  
-
+            Arduino
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -609,14 +527,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Get Data
-  
-
     
   </span>
-  
   
 
       </a>
@@ -637,14 +550,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
     Digital Filters
-  
-
     
   </span>
-  
   
 
       </a>
@@ -656,6 +564,97 @@ device">
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Signal Generation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Signal Generation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../send_data_nidaq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NIDAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../send_data_arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arduino
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -691,14 +690,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
-    Sending Data
-  
-
+    Step Response
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -707,11 +701,7 @@ device">
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Sending Data
-  
-
+            Step Response
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -722,19 +712,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../send_data_nidaq/" class="md-nav__link">
+      <a href="../step_response_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -750,19 +735,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../send_data_arduino/" class="md-nav__link">
+      <a href="../step_response_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -801,14 +781,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
-    Step Response
-  
-
+    System Identification
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -817,11 +792,7 @@ device">
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Step Response
-  
-
+            System Identification
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -832,19 +803,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../step_response_nidaq/" class="md-nav__link">
+      <a href="../get_model_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -860,19 +826,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../step_response_arduino/" class="md-nav__link">
+      <a href="../get_model_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -911,14 +872,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
-    Get Model
-  
-
+    PID Control
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -927,11 +883,7 @@ device">
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Get Model
-  
-
+            PID Control
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -942,19 +894,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../get_model_nidaq/" class="md-nav__link">
+      <a href="../pid_control_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -970,19 +917,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../get_model_arduino/" class="md-nav__link">
+      <a href="../pid_control_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1021,14 +963,9 @@ device">
   
   
   <span class="md-ellipsis">
-    
-  
-    PID Control
-  
-
+    LQR Control
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1037,11 +974,7 @@ device">
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    PID Control
-  
-
+            LQR Control
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1052,19 +985,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../pid_control_nidaq/" class="md-nav__link">
+      <a href="../lqr_control_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1080,19 +1008,14 @@ device">
   
   
     <li class="md-nav__item">
-      <a href="../pid_control_arduino/" class="md-nav__link">
+      <a href="../lqr_control_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1115,22 +1038,175 @@ device">
   
   
     <li class="md-nav__item">
+      <a href="../arduino_firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arduino Firmware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benchmarking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../jupyter_notebooks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Jupyter Notebooks
-  
-
     
   </span>
   
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error Dictionary
+    
+  </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1164,9 +1240,7 @@ device">
         <li class="md-nav__item">
   <a href="#data-acquisition-using-graphical-user-interface-gui" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition using Graphical User Interface (GUI)
-      
+      Data Acquisition using Graphical User Interface (GUI)
     </span>
   </a>
   
@@ -1175,9 +1249,7 @@ device">
         <li class="md-nav__item">
   <a href="#data-acquisition-using-command-line" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition using command line
-      
+      Data Acquisition using command line
     </span>
   </a>
   
@@ -1186,9 +1258,7 @@ device">
         <li class="md-nav__item">
   <a href="#presenting-the-acquired-data" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Presenting the acquired data
-      
+      Presenting the acquired data
     </span>
   </a>
   
@@ -1204,7 +1274,6 @@ device">
           
           
             <div class="md-content" data-md-component="content">
-              
               <article class="md-content__inner md-typeset">
                 
                   
@@ -1214,7 +1283,7 @@ device">
   
 
 
-<h1 id="data-acquisition-with-nidaq-boards">Data Acquisition with NIDAQ Boards</h1>
+<h1 id="data-acquisition-with-ni-daq-boards">Data Acquisition with NI-DAQ Boards</h1>
 <p><strong>NOTE</strong>: before working with PYDAQ, device driver should be installed and working correctly as a DAQ (Data Acquisition)
 device</p>
 <h2 id="data-acquisition-using-graphical-user-interface-gui">Data Acquisition using Graphical User Interface (GUI)</h2>
@@ -1226,7 +1295,7 @@ two LOC (lines of code):</p>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">PydaqGui</span><span class="p">()</span>
 </span></code></pre></div>
 <p>After this command, the graphical user interface screen will show up, where the
-user should select the NIDAQ option and go to the Get Data tab,
+user should select the NI-DAQ option and go to the Get Data tab,
 to define parameters and start acquiring data.</p>
 <p><img alt="" src="../img/get_data_nidaq.png" /></p>
 <p>The user is now able to select the desired device, channel, terminal configuration
@@ -1234,14 +1303,14 @@ to define parameters and start acquiring data.</p>
 the user will define if the data will be plotted and saved or not, as well as the path to
 save data.</p>
 <h2 id="data-acquisition-using-command-line">Data Acquisition using command line</h2>
-<p>It will be presented how to use GetData (and get_data_nidaq) to acquire signal using a National Instruments board.</p>
+<p>It will be presented how to use GetData (and get_data_nidaq) to acquire signal using an NI-DAQ board.</p>
 <p>Firstly, import the library and define the parameters:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Importing PYDAQ</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydaq.get_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">GetData</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Defining parameters</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;Dev1&quot;</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">channel_used</span> <span class="o">=</span> <span class="s2">&quot;ai0&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">channels_used</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ai0&#39;</span><span class="p">,</span><span class="s1">&#39;ai2&#39;</span><span class="p">]</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">terminal_configuration</span> <span class="o">=</span> <span class="s1">&#39;Diff&#39;</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">sample_period_in_seconds</span> <span class="o">=</span> <span class="mi">1</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">session_duration_in_seconds</span> <span class="o">=</span> <span class="mf">10.0</span>
@@ -1251,7 +1320,7 @@ save data.</p>
 <p>Then, instantiate a class with the defined parameters and get the data</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Class GetData</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">g</span> <span class="o">=</span> <span class="n">GetData</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device_name</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>            <span class="n">channel</span><span class="o">=</span><span class="n">channel_used</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>            <span class="n">channels</span><span class="o">=</span><span class="n">channels_used</span><span class="p">,</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>            <span class="n">terminal</span><span class="o">=</span><span class="n">terminal_configuration</span><span class="p">,</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>            <span class="n">ts</span><span class="o">=</span><span class="n">sample_period_in_seconds</span><span class="p">,</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>            <span class="n">session_duration</span><span class="o">=</span><span class="n">session_duration_in_seconds</span><span class="p">,</span>
@@ -1264,14 +1333,14 @@ save data.</p>
 <p><strong>NOTE</strong>: data will be saved on the desktop, by default. To change the path, the user can define "g.path = Desired path"</p>
 <h2 id="presenting-the-acquired-data">Presenting the acquired data</h2>
 <p>To show acquired data, type:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;First 10 values of time: </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">time_var</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">First 10 values of data: </span><span class="se">\n</span><span class="s1"> </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First 10 values of time (Channel Ai0): </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">time_var</span><span class="p">[</span><span class="s1">&#39;ai0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First 10 values of data (Channel Ai0): </span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ai0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>If you choose to plot, you can see acquired data on screen, i.e:</p>
 <p><img alt="" src="../img/acquired_data_nidaq.png" /></p>
 <p>Data will also be saved as depicted as shown below:</p>
 <p><img alt="" src="../img/data.png" /></p>
-<p>You can see more detailed bellow:</p>
+<p>You can see more detailed below:</p>
 <p><img alt="" src="../img/getdata_nidaq.gif" /></p>
 
 
@@ -1328,11 +1397,10 @@ save data.</p>
     
     
       
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>

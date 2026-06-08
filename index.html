@@ -16,14 +16,11 @@
       
       
       
-        <link rel="next" href="benchmarking/">
-      
-      
-        
+        <link rel="next" href="get_data_nidaq/">
       
       
       <link rel="icon" href="img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -31,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -59,6 +56,7 @@
 
     
     
+    
   </head>
   
   
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-pydaq-documentation" class="md-skip">
+        <a href="#capabilities" class="md-skip">
           Skip to content
         </a>
       
@@ -196,7 +194,7 @@
         <a href="https://github.com/samirmartins/pydaq" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     samirmartins/pydaq
@@ -241,7 +239,7 @@
       <a href="https://github.com/samirmartins/pydaq" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     samirmartins/pydaq
@@ -264,22 +262,15 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
     
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -290,14 +281,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
     
   </span>
-  
   
 
       </a>
@@ -308,8 +294,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -318,22 +302,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#capabilities" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Introduction
-      
+      Capabilities
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-and-requirements" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
       
-        Installation and Requirements
-      
+        <li class="md-nav__item">
+  <a href="#graphical-user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical user interface
     </span>
   </a>
   
@@ -342,54 +331,44 @@
         <li class="md-nav__item">
   <a href="#documentation-map" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Documentation Map
-      
+      Documentation map
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Documentation Map">
+    <nav class="md-nav" aria-label="Documentation map">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#data-acquisition" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition
-      
+      Data acquisition
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sending-data" class="md-nav__link">
+  <a href="#signal-generation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Sending Data
-      
+      Signal generation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-response" class="md-nav__link">
+  <a href="#step-response-experiments" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Step Response
-      
+      Step-response experiments
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-model-system-identification" class="md-nav__link">
+  <a href="#system-identification" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Get Model (System Identification)
-      
+      System identification
     </span>
   </a>
   
@@ -398,20 +377,25 @@
           <li class="md-nav__item">
   <a href="#pid-control" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        PID Control
-      
+      PID control
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#digital-filters" class="md-nav__link">
+  <a href="#lqr-control" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Digital Filters
-      
+      LQR control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital filtering
     </span>
   </a>
   
@@ -420,9 +404,34 @@
           <li class="md-nav__item">
   <a href="#benchmarking" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Benchmarking
-      
+      Benchmarking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arduino-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arduino firmware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error dictionary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-notebook-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jupyter notebook examples
     </span>
   </a>
   
@@ -434,22 +443,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#screenshots" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Screenshots
-      
+      Screenshots
     </span>
   </a>
   
@@ -458,9 +454,7 @@
         <li class="md-nav__item">
   <a href="#citation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        CITATION
-      
+      Citation
     </span>
   </a>
   
@@ -480,23 +474,225 @@
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data Acquisition
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Data Acquisition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    NIDAQ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            NIDAQ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="benchmarking/" class="md-nav__link">
+      <a href="get_data_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
-    Bechmarking
-  
-
+    Get Data
     
   </span>
   
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digital_filters_nidaq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Digital Filters
+    
+  </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="get_data_arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get Data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="digital_filters_arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Digital Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -524,14 +720,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
-    Data Acquisition
-  
-
+    Signal Generation
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -540,11 +731,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Data Acquisition
-  
-
+            Signal Generation
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -554,67 +741,15 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="send_data_nidaq/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
-            
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    NIDAQ
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="get_data_nidaq/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Get Data
-  
-
-    
-  </span>
-  
   
 
       </a>
@@ -630,141 +765,17 @@
   
   
     <li class="md-nav__item">
-      <a href="digital_filters_nidaq/" class="md-nav__link">
+      <a href="send_data_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
-    Digital Filters
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Arduino
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="get_data_arduino/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Get Data
-  
-
-    
-  </span>
-  
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="digital_filters_arduino/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Digital Filters
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -800,14 +811,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
-    Sending Data
-  
-
+    Step Response
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -816,11 +822,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Sending Data
-  
-
+            Step Response
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -831,19 +833,14 @@
   
   
     <li class="md-nav__item">
-      <a href="send_data_nidaq/" class="md-nav__link">
+      <a href="step_response_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -859,19 +856,14 @@
   
   
     <li class="md-nav__item">
-      <a href="send_data_arduino/" class="md-nav__link">
+      <a href="step_response_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -910,14 +902,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
-    Step Response
-  
-
+    System Identification
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -926,11 +913,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Step Response
-  
-
+            System Identification
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -941,19 +924,14 @@
   
   
     <li class="md-nav__item">
-      <a href="step_response_nidaq/" class="md-nav__link">
+      <a href="get_model_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -969,19 +947,14 @@
   
   
     <li class="md-nav__item">
-      <a href="step_response_arduino/" class="md-nav__link">
+      <a href="get_model_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1020,14 +993,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
-    Get Model
-  
-
+    PID Control
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1036,11 +1004,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Get Model
-  
-
+            PID Control
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1051,19 +1015,14 @@
   
   
     <li class="md-nav__item">
-      <a href="get_model_nidaq/" class="md-nav__link">
+      <a href="pid_control_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1079,19 +1038,14 @@
   
   
     <li class="md-nav__item">
-      <a href="get_model_arduino/" class="md-nav__link">
+      <a href="pid_control_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1130,14 +1084,9 @@
   
   
   <span class="md-ellipsis">
-    
-  
-    PID Control
-  
-
+    LQR Control
     
   </span>
-  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1146,11 +1095,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    PID Control
-  
-
+            LQR Control
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1161,19 +1106,14 @@
   
   
     <li class="md-nav__item">
-      <a href="pid_control_nidaq/" class="md-nav__link">
+      <a href="lqr_control_nidaq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     NIDAQ
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1189,19 +1129,14 @@
   
   
     <li class="md-nav__item">
-      <a href="pid_control_arduino/" class="md-nav__link">
+      <a href="lqr_control_arduino/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Arduino
-  
-
     
   </span>
-  
   
 
       </a>
@@ -1224,22 +1159,175 @@
   
   
     <li class="md-nav__item">
+      <a href="arduino_firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arduino Firmware
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="benchmarking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benchmarking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="jupyter_notebooks/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    
-  
     Jupyter Notebooks
-  
-
     
   </span>
   
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="error_dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error Dictionary
+    
+  </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1261,8 +1349,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1271,22 +1357,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#capabilities" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Introduction
-      
+      Capabilities
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-and-requirements" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
       
-        Installation and Requirements
-      
+        <li class="md-nav__item">
+  <a href="#graphical-user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical user interface
     </span>
   </a>
   
@@ -1295,54 +1386,44 @@
         <li class="md-nav__item">
   <a href="#documentation-map" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Documentation Map
-      
+      Documentation map
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Documentation Map">
+    <nav class="md-nav" aria-label="Documentation map">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#data-acquisition" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Data Acquisition
-      
+      Data acquisition
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#sending-data" class="md-nav__link">
+  <a href="#signal-generation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Sending Data
-      
+      Signal generation
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-response" class="md-nav__link">
+  <a href="#step-response-experiments" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Step Response
-      
+      Step-response experiments
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-model-system-identification" class="md-nav__link">
+  <a href="#system-identification" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Get Model (System Identification)
-      
+      System identification
     </span>
   </a>
   
@@ -1351,20 +1432,25 @@
           <li class="md-nav__item">
   <a href="#pid-control" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        PID Control
-      
+      PID control
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#digital-filters" class="md-nav__link">
+  <a href="#lqr-control" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Digital Filters
-      
+      LQR control
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#digital-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digital filtering
     </span>
   </a>
   
@@ -1373,9 +1459,34 @@
           <li class="md-nav__item">
   <a href="#benchmarking" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Benchmarking
-      
+      Benchmarking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arduino-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arduino firmware
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-dictionary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error dictionary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-notebook-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jupyter notebook examples
     </span>
   </a>
   
@@ -1387,22 +1498,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#screenshots" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Screenshots
-      
+      Screenshots
     </span>
   </a>
   
@@ -1411,9 +1509,7 @@
         <li class="md-nav__item">
   <a href="#citation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        CITATION
-      
+      Citation
     </span>
   </a>
   
@@ -1429,7 +1525,6 @@
           
           
             <div class="md-content" data-md-component="content">
-              
               <article class="md-content__inner md-typeset">
                 
                   
@@ -1439,89 +1534,149 @@
   
 
 
+  <h1>Home</h1>
+
 <p align="center">
   <img src="img/logo.png" alt="PYDAQ" class="center" width="50%" height="50%">
 </p>
 
-<h1 id="welcome-to-pydaq-documentation">Welcome to PYDAQ documentation</h1>
-<h2 id="introduction">Introduction</h2>
-<p><strong>PYDAQ (Python Data Acquisition and Experimental Analysis)</strong> is a framework designed to support <strong>experimental data acquisition, real-time analysis, system identification, and control</strong> using Python. It provides an integrated environment for working with <strong>Arduino</strong> and <strong>National Instruments NIDAQ</strong> boards, supporting both <strong>graphical</strong> and <strong>command-line</strong> workflows.</p>
-<p>Initially focused on basic data acquisition and signal generation for experiments such as step-response tests, PYDAQ has evolved into a broader experimental platform. Its development milestones are:</p>
-<ul>
-<li><strong>Version v0.0.5</strong> introduced <strong>real-time system identification</strong>, enabling the estimation of linear and nonlinear black-box models directly from experimental data.</li>
-<li><strong>Version v0.0.6</strong> expanded PYDAQ with <strong>real-time digital filtering (FIR and IIR)</strong> and <strong>classical control techniques</strong>, including <strong>PID control with Ziegler–Nichols tuning</strong>, supporting both simulation and live experiments.</li>
-</ul>
-<p>PYDAQ can be used through a <strong>Graphical User Interface (GUI)</strong> for rapid experimentation or via a <strong>command-line interface</strong> for scripting, automation, and advanced workflows. These features make the framework suitable for research, teaching laboratories, and rapid prototyping involving empirical data.</p>
+<p>PYDAQ is a Python package for data acquisition, signal generation, system identification, digital filtering, and real-time control using Arduino and NI-DAQ devices.</p>
+<p>It provides a unified graphical interface, command-line tools, and Jupyter notebook examples for laboratory experiments, rapid prototyping, teaching, and research workflows.</p>
 <hr />
-<h2 id="installation-and-requirements">Installation and Requirements</h2>
-<p>The fastest way to install PYDAQ is using <code>pip</code>:</p>
+<h2 id="capabilities">Capabilities</h2>
+<p>PYDAQ supports the following experimental workflows:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Capability</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Data acquisition</td>
+<td style="text-align: left;">Acquire, plot, and save experimental data from Arduino or NI-DAQ boards</td>
+</tr>
+<tr>
+<td style="text-align: left;">Signal generation</td>
+<td style="text-align: left;">Send user-defined input signals, including nonlinear excitation signals</td>
+</tr>
+<tr>
+<td style="text-align: left;">Step-response experiments</td>
+<td style="text-align: left;">Run automatic step-response tests and save the resulting data</td>
+</tr>
+<tr>
+<td style="text-align: left;">PRBS-based experiments</td>
+<td style="text-align: left;">Generate excitation signals for system identification workflows</td>
+</tr>
+<tr>
+<td style="text-align: left;">System identification</td>
+<td style="text-align: left;">Estimate linear and nonlinear black-box models from experimental data using <a href="https://www.sysidentpy.org">SysIdentPy</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Digital filtering</td>
+<td style="text-align: left;">Apply FIR and IIR filters directly to acquired data in real time</td>
+</tr>
+<tr>
+<td style="text-align: left;">PID control</td>
+<td style="text-align: left;">Run real-time or simulated P, PI, PD, and PID control with Ziegler-Nichols tuning</td>
+</tr>
+<tr>
+<td style="text-align: left;">LQR control</td>
+<td style="text-align: left;">Simulate or implement Linear Quadratic Regulator control for state-space systems</td>
+</tr>
+<tr>
+<td style="text-align: left;">Multi-channel workflows</td>
+<td style="text-align: left;">Work with multiple Arduino or NI-DAQ channels</td>
+</tr>
+<tr>
+<td style="text-align: left;">Benchmarking</td>
+<td style="text-align: left;">Estimate the maximum reliable sampling frequency supported by the local system</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="installation">Installation</h2>
+<p>Install PYDAQ with <code>pip</code>:</p>
 <div class="language-console highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">pip install pydaq</span>
 </span></code></pre></div>
-<p>PYDAQ requires:</p>
+<p><strong>Hardware notes:</strong></p>
 <ul>
-<li>Driver of the board used (Arduino or National Instruments NIDAQ)</li>
-<li><code>nidaqmx (&gt;=0.6.5)</code> for data acquisition from National Instruments boards</li>
-<li><code>matplotlib (&gt;=3.5.3)</code> for data visualization</li>
-<li><code>numpy (&gt;=1.22.3)</code> for numerical processing</li>
-<li><code>PySide6 (&gt;=6.7.1)</code>, <code>PySide6_Addons</code>, <code>PySide6_Essentials</code>, and <code>shiboken6</code> for the graphical user interface</li>
-<li><code>pyserial (&gt;=3.5)</code> for communication with Arduino boards</li>
-<li><code>sysidentpy (&gt;=0.4.1)</code> and <code>bitarray (&gt;=3.0.0)</code> for system identification and signal generation</li>
-<li><code>packaging (&gt;=24.1)</code></li>
-<li><code>scipy (&gt;=1.16.1)</code> for digital filters and PID control</li>
+<li>Arduino workflows do not require NI-DAQmx drivers.</li>
+<li>NI-DAQ workflows require the <a href="https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html#494676">NI-DAQmx drivers</a>.</li>
 </ul>
-<p><strong>Note:</strong> In version <strong>v0.0.6.1</strong>, NI-DAQmx drivers must be installed even if only Arduino boards are used. This limitation will be addressed in future releases.</p>
+<p>PYDAQ is tested up to Python 3.14. It may run on newer versions, but without guarantees.</p>
 <hr />
-<h2 id="documentation-map">Documentation Map</h2>
-<h3 id="data-acquisition">Data Acquisition</h3>
-<p>Examples showing how to acquire data using either the GUI or the command line with:</p>
+<h2 id="graphical-user-interface">Graphical user interface</h2>
+<p>All main workflows are available from a single graphical interface.</p>
+<p>Launch the GUI with:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydaq.pydaq_global</span><span class="w"> </span><span class="kn">import</span> <span class="n">PydaqGui</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">PydaqGui</span><span class="p">()</span>
+</span></code></pre></div>
+<hr />
+<h2 id="documentation-map">Documentation map</h2>
+<h3 id="data-acquisition">Data acquisition</h3>
+<p>Acquire, plot, and save experimental data using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/get_data_nidaq/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/get_data_arduino/">Arduino</a></li>
+<li><a href="get_data_nidaq/">NI-DAQ</a></li>
+<li><a href="get_data_arduino/">Arduino</a></li>
 </ul>
-<h3 id="sending-data">Sending Data</h3>
-<p>How to generate and send excitation or custom signals using:</p>
+<h3 id="signal-generation">Signal generation</h3>
+<p>Generate and send user-defined excitation signals using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/send_data_nidaq/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/send_data_arduino/">Arduino</a></li>
+<li><a href="send_data_nidaq/">NI-DAQ</a></li>
+<li><a href="send_data_arduino/">Arduino</a></li>
 </ul>
-<p>Both GUI-based and command-line approaches are covered.</p>
-<h3 id="step-response">Step Response</h3>
-<p>Configuration and execution of step-response experiments with:</p>
+<h3 id="step-response-experiments">Step-response experiments</h3>
+<p>Run automatic step-response experiments using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/step_response_nidaq/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/step_response_arduino/">Arduino</a></li>
+<li><a href="step_response_nidaq/">NI-DAQ</a></li>
+<li><a href="step_response_arduino/">Arduino</a></li>
 </ul>
-<h3 id="get-model-system-identification">Get Model (System Identification)</h3>
-<p>Documentation on estimating mathematical models from experimental data using:</p>
+<h3 id="system-identification">System identification</h3>
+<p>Estimate mathematical models from experimental data using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/get_model_nidaq/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/get_model_arduino/">Arduino</a></li>
+<li><a href="get_model_nidaq/">NI-DAQ</a></li>
+<li><a href="get_model_arduino/">Arduino</a></li>
 </ul>
-<p>This includes real-time identification workflows introduced in <strong>v0.0.5</strong>.</p>
-<h3 id="pid-control">PID Control</h3>
-<p>Guidelines for performing <strong>real-time or simulated PID control</strong>, including <strong>Ziegler–Nichols tuning</strong>, using:</p>
+<h3 id="pid-control">PID control</h3>
+<p>Run real-time or simulated PID control experiments using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/pid_control_nidaq/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/pid_control_arduino/">Arduino</a></li>
+<li><a href="pid_control_nidaq/">NI-DAQ</a></li>
+<li><a href="pid_control_arduino/">Arduino</a></li>
 </ul>
-<p>Controller configuration and closed-loop experiments are supported through the GUI.</p>
-<h3 id="digital-filters">Digital Filters</h3>
-<p>Design and real-time application of <strong>FIR and IIR digital filters</strong> using:</p>
+<h3 id="lqr-control">LQR control</h3>
+<p>Simulate or implement Linear Quadratic Regulator control for state-space systems using:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/pid_control_arduino/">Arduino</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/pid_control_nidaq/">NIDAQ</a></li>
+<li><a href="lqr_control_nidaq/">NI-DAQ</a></li>
+<li><a href="lqr_control_arduino/">Arduino</a></li>
 </ul>
-<p>Filter parameters such as cutoff frequency and order can be configured via the graphical interface, with support for simulation and live data processing. These features were introduced in <strong>v0.0.6</strong>.</p>
+<h3 id="digital-filtering">Digital filtering</h3>
+<p>Design and apply FIR and IIR digital filters in real time using:</p>
+<ul>
+<li><a href="digital_filters_nidaq/">NI-DAQ</a></li>
+<li><a href="digital_filters_arduino/">Arduino</a></li>
+</ul>
 <h3 id="benchmarking">Benchmarking</h3>
-<p>This section provides a benchmarking tool to estimate the <strong>maximum reliable sampling frequency</strong> supported by the user’s system. It helps identify practical limits for real-time or high-speed data acquisition without data loss.</p>
-<p>Instructions on <strong>how to run and interpret the benchmark</strong> are available at:
-<a href="https://pydaq.org/benchmarking/">Benchmarking tool documentation</a></p>
-<hr />
-<h2 id="examples">Examples</h2>
-<p>This section provides Jupyter Notebook examples demonstrating PYDAQ functionalities for both:</p>
+<p>Estimate the maximum reliable sampling frequency supported by the local system:</p>
 <ul>
-<li><a href="https://samirmartins.github.io/pydaq/jupyter_notebooks/">NIDAQ</a></li>
-<li><a href="https://samirmartins.github.io/pydaq/jupyter_notebooks/">Arduino</a></li>
+<li><a href="benchmarking/">Benchmarking tool</a></li>
+</ul>
+<h3 id="arduino-firmware">Arduino firmware</h3>
+<p>PYDAQ uses a unified Arduino firmware based on a standardized CSV serial protocol for multi-channel acquisition, signal generation, system identification, filtering, and control workflows.</p>
+<ul>
+<li><a href="arduino_firmware/">Arduino firmware</a></li>
+</ul>
+<h3 id="error-dictionary">Error dictionary</h3>
+<p>The error dictionary helps diagnose common GUI messages, terminal outputs, communication issues, and configuration problems.</p>
+<ul>
+<li><a href="error_dictionary/">Error dictionary</a></li>
+</ul>
+<h3 id="jupyter-notebook-examples">Jupyter notebook examples</h3>
+<p>Notebook examples are available for both Arduino and NI-DAQ workflows:</p>
+<ul>
+<li><a href="jupyter_notebooks/">Jupyter notebook examples</a></li>
 </ul>
 <hr />
 <h2 id="screenshots">Screenshots</h2>
@@ -1530,26 +1685,26 @@
 </p>
 
 <hr />
-<h2 id="citation">CITATION</h2>
+<h2 id="citation">Citation</h2>
 <p><a href="https://doi.org/10.21105/joss.05662"><img alt="DOI" src="https://joss.theoj.org/papers/10.21105/joss.05662/status.svg" /></a></p>
-<p>This is the <strong>seminal publication</strong> of the PYDAQ project and <strong>must be cited</strong> in any work that uses PYDAQ.</p>
+<p>This is the <strong>seminal publication</strong> of the PYDAQ project and should be cited in any work that uses PYDAQ.</p>
 <ul>
 <li>Martins, S. A. M. (2023). <em>PYDAQ: Data Acquisition and Experimental Analysis with Python</em>. Journal of Open Source Software, 8(92), 5662. https://doi.org/10.21105/joss.05662</li>
 </ul>
-<p><div class="language-bibtex highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nc">@article</span><span class="p">{</span><span class="nl">Martins_PYDAQ_Data_Acquisition_2023</span><span class="p">,</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="na">author</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{Martins, Samir Angelo Milani}</span><span class="p">,</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="na">doi</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{10.21105/joss.05662}</span><span class="p">,</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Journal of Open Source Software}</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="na">month</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="nv">dec</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="na">number</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{92}</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="na">pages</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{5662}</span><span class="p">,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="na">title</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{{PYDAQ: Data Acquisition and Experimental Analysis with Python}}</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="na">url</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{https://joss.theoj.org/papers/10.21105/joss.05662}</span><span class="p">,</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="na">volume</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{8}</span><span class="p">,</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="na">year</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{2023}</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">@article</span><span class="p">{</span><span class="nl">Martins_PYDAQ_Data_Acquisition_2023</span><span class="p">,</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="na">author</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{Martins, Samir Angelo Milani}</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="na">doi</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{10.21105/joss.05662}</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Journal of Open Source Software}</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="na">month</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="nv">dec</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="na">number</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{92}</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="na">pages</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{5662}</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="na">title</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{{PYDAQ: Data Acquisition and Experimental Analysis with Python}}</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="na">url</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{https://joss.theoj.org/papers/10.21105/joss.05662}</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="na">volume</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{8}</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="na">year</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{2023}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
 </span></code></pre></div>
-Additional related publications that contributed to the development of PYDAQ are available in the <a href="https://github.com/samirmartins/pydaq/tree/main/papers"><code>papers</code></a> directory.</p>
+<p>Additional related publications are available in the <a href="https://github.com/samirmartins/pydaq/tree/main/papers"><code>papers</code></a> directory.</p>
 
 
 
@@ -1602,11 +1757,10 @@ Additional related publications that contributed to the development of PYDAQ are
     
     
       
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
       
     
   </body>
